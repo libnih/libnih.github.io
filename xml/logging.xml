@@ -1,0 +1,340 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Logging">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Logging.top_of_page">Logging</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Logging</refname>
+<refpurpose>Logging interface</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Logging.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>enum                <link linkend="NihLogLevel">NihLogLevel</link>;
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihLogger">*NihLogger</link>)                        (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *message</parameter>);
+#define             <link linkend="nih-debug">nih_debug</link>                           (format,
+                                                         ...)
+#define             <link linkend="nih-info">nih_info</link>                            (format,
+                                                         ...)
+#define             <link linkend="nih-message">nih_message</link>                         (format,
+                                                         ...)
+#define             <link linkend="nih-warn">nih_warn</link>                            (format,
+                                                         ...)
+#define             <link linkend="nih-error">nih_error</link>                           (format,
+                                                         ...)
+#define             <link linkend="nih-fatal">nih_fatal</link>                           (format,
+                                                         ...)
+#define             <link linkend="nih-assert">nih_assert</link>                          (expr)
+#define             <link linkend="nih-assert-not-reached">nih_assert_not_reached</link>
+extern NihLogLevel  <link linkend="nih-log-priority">nih_log_priority</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-log-init">nih_log_init</link>                        (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-log-set-logger">nih_log_set_logger</link>                  (<parameter><link linkend="NihLogger"><type>NihLogger</type></link> new_logger</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-log-set-priority">nih_log_set_priority</link>                (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> new_priority</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-log-message">nih_log_message</link>                     (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-logger-printf">nih_logger_printf</link>                   (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *message</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-logger-syslog">nih_logger_syslog</link>                   (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *message</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Logging.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+These functions provide a logging interface for outputting messages
+at different priorities, and filtering based on them.
+</para>
+<para>
+The output for the logger can be selected using <link linkend="nih-log-set-logger"><function>nih_log_set_logger()</function></link>,
+where <link linkend="nih-logger-printf"><function>nih_logger_printf()</function></link> is the default and <link linkend="nih-logger-syslog"><function>nih_logger_syslog()</function></link> another
+popular alternative.
+</para>
+<para>
+Log messages are output with different macros.
+</para>
+</refsect1>
+<refsect1 id="nih-Logging.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihLogLevel" role="enum">
+<title>enum NihLogLevel</title>
+<indexterm zone="NihLogLevel"><primary>NihLogLevel</primary></indexterm>
+<programlisting>typedef enum {
+	NIH_LOG_UNKNOWN,
+	NIH_LOG_DEBUG,
+	NIH_LOG_INFO,
+	NIH_LOG_MESSAGE,
+	NIH_LOG_WARN,
+	NIH_LOG_ERROR,
+	NIH_LOG_FATAL
+} NihLogLevel;
+</programlisting>
+<para>
+Severity of log messages, used both to influence formatting of the
+message and to filter messages below a particular severity.
+</para><variablelist role="enum">
+<varlistentry id="NIH-LOG-UNKNOWN:CAPS" role="constant">
+<term><literal>NIH_LOG_UNKNOWN</literal></term>
+<listitem><simpara>not set,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-LOG-DEBUG:CAPS" role="constant">
+<term><literal>NIH_LOG_DEBUG</literal></term>
+<listitem><simpara>debug,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-LOG-INFO:CAPS" role="constant">
+<term><literal>NIH_LOG_INFO</literal></term>
+<listitem><simpara>informative,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-LOG-MESSAGE:CAPS" role="constant">
+<term><literal>NIH_LOG_MESSAGE</literal></term>
+<listitem><simpara>message,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-LOG-WARN:CAPS" role="constant">
+<term><literal>NIH_LOG_WARN</literal></term>
+<listitem><simpara>warning,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-LOG-ERROR:CAPS" role="constant">
+<term><literal>NIH_LOG_ERROR</literal></term>
+<listitem><simpara>error,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-LOG-FATAL:CAPS" role="constant">
+<term><literal>NIH_LOG_FATAL</literal></term>
+<listitem><simpara>fatal.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihLogger" role="function">
+<title>NihLogger ()</title>
+<indexterm zone="NihLogger"><primary>NihLogger</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihLogger)                        (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *message</parameter>);</programlisting>
+<para>
+A logger is a function that receives a formatted message to be logged
+in whatever manner is appropriate.  The priority of the message is given
+so that the logger may direct it appropriately, however the function
+should not discard any messages and instead <link linkend="nih-log-set-priority"><function>nih_log_set_priority()</function></link> used
+to decide the treshold of logged messages.
+</para><variablelist role="params">
+<varlistentry><term><parameter>priority</parameter>&#160;:</term>
+<listitem><simpara>priority of message,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>message to log.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value if the logger was not able
+to output the message.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-debug" role="macro">
+<title>nih_debug()</title>
+<indexterm zone="nih-debug"><primary>nih_debug</primary></indexterm>
+<programlisting>#define             nih_debug(format, ...)</programlisting>
+<para>
+Outputs a debugging message, including the name of the function that
+generated it.  Almost never shown, except when debugging information is
+required.
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf-style format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-info" role="macro">
+<title>nih_info()</title>
+<indexterm zone="nih-info"><primary>nih_info</primary></indexterm>
+<programlisting>#define             nih_info(format, ...)</programlisting>
+<para>
+Outputs a message that is purely informational, usually not shown unless
+the user wants verbose operation.
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf-style format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-message" role="macro">
+<title>nih_message()</title>
+<indexterm zone="nih-message"><primary>nih_message</primary></indexterm>
+<programlisting>#define             nih_message(format, ...)</programlisting>
+<para>
+Outputs a message from a non-daemon process that is normally shown unless
+the user wants quiet operation.  The difference between this and <link linkend="nih-warn"><function>nih_warn()</function></link>
+is that this is usually send to standard output, instead of standard
+error, and it is not prefixed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf-style format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-warn" role="macro">
+<title>nih_warn()</title>
+<indexterm zone="nih-warn"><primary>nih_warn</primary></indexterm>
+<programlisting>#define             nih_warn(format, ...)</programlisting>
+<para>
+Outputs a warning message, one that indicates a potential problem that
+has been ignored; these are shown by default unless the user wants quiet
+operation.
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf-style format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-error" role="macro">
+<title>nih_error()</title>
+<indexterm zone="nih-error"><primary>nih_error</primary></indexterm>
+<programlisting>#define             nih_error(format, ...)</programlisting>
+<para>
+Outputs an error message, one that the software may be able to recover
+from but that has caused an operation to fail.  These are shown in all
+but the most quiet of operation modes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf-style format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-fatal" role="macro">
+<title>nih_fatal()</title>
+<indexterm zone="nih-fatal"><primary>nih_fatal</primary></indexterm>
+<programlisting>#define             nih_fatal(format, ...)</programlisting>
+<para>
+Outputs a fatal error message that caused the software to cease
+functioning.  Always shown.
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf-style format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-assert" role="macro">
+<title>nih_assert()</title>
+<indexterm zone="nih-assert"><primary>nih_assert</primary></indexterm>
+<programlisting>#define             nih_assert(expr)</programlisting>
+<para>
+Outputs a fatal error message and terminates the process if <parameter>expr</parameter> is
+false.
+</para><variablelist role="params">
+<varlistentry><term><parameter>expr</parameter>&#160;:</term>
+<listitem><simpara>expression to check.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-assert-not-reached" role="macro">
+<title>nih_assert_not_reached</title>
+<indexterm zone="nih-assert-not-reached"><primary>nih_assert_not_reached</primary></indexterm>
+<programlisting>#define             nih_assert_not_reached()</programlisting>
+<para>
+Outputs a fatal error message and terminates the process if this
+line of code is reached.
+</para></refsect2>
+<refsect2 id="nih-log-priority" role="variable">
+<title>nih_log_priority</title>
+<indexterm zone="nih-log-priority"><primary>nih_log_priority</primary></indexterm>
+<programlisting>extern NihLogLevel nih_log_priority;
+</programlisting>
+<para>
+Lowest priority of log messages that will be given to the logger by
+default.
+</para></refsect2>
+<refsect2 id="nih-log-init" role="function">
+<title>nih_log_init ()</title>
+<indexterm zone="nih-log-init"><primary>nih_log_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_log_init                        (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialise the default logger and priority.
+</para></refsect2>
+<refsect2 id="nih-log-set-logger" role="function">
+<title>nih_log_set_logger ()</title>
+<indexterm zone="nih-log-set-logger"><primary>nih_log_set_logger</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_log_set_logger                  (<parameter><link linkend="NihLogger"><type>NihLogger</type></link> new_logger</parameter>);</programlisting>
+<para>
+Sets the function that will be used to output log messages above the
+priority set with <link linkend="nih-log-set-priority"><function>nih_log_set_priority()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>new_logger</parameter>&#160;:</term>
+<listitem><simpara>new logger function.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-log-set-priority" role="function">
+<title>nih_log_set_priority ()</title>
+<indexterm zone="nih-log-set-priority"><primary>nih_log_set_priority</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_log_set_priority                (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> new_priority</parameter>);</programlisting>
+<para>
+Sets the minimum priority of log messages to be given to the logger
+function, any messages below this will be discarded.
+</para><variablelist role="params">
+<varlistentry><term><parameter>new_priority</parameter>&#160;:</term>
+<listitem><simpara>new minimum priority.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-log-message" role="function">
+<title>nih_log_message ()</title>
+<indexterm zone="nih-log-message"><primary>nih_log_message</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_log_message                     (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);</programlisting>
+<para>
+Outputs a message constructed from <parameter>format</parameter> and the rest of the arguments
+by passing it to the logger function if <parameter>priority</parameter> is not lower than
+the minimum priority.
+</para>
+<para>
+The message should not be newline-terminated.
+</para><variablelist role="params">
+<varlistentry><term><parameter>priority</parameter>&#160;:</term>
+<listitem><simpara>priority of message,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf-style format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero if successful, positive value if message was discarded due
+to being below the minimum priority and negative value if the logger failed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-logger-printf" role="function">
+<title>nih_logger_printf ()</title>
+<indexterm zone="nih-logger-printf"><primary>nih_logger_printf</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_logger_printf                   (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *message</parameter>);</programlisting>
+<para>
+Outputs the <parameter>message</parameter> to standard output, or standard error depending
+on <parameter>priority</parameter>, prefixed with the program name and terminated with a new
+line.
+</para><variablelist role="params">
+<varlistentry><term><parameter>priority</parameter>&#160;:</term>
+<listitem><simpara>priority of message being logged,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>message to log.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on completion, negative value on error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-logger-syslog" role="function">
+<title>nih_logger_syslog ()</title>
+<indexterm zone="nih-logger-syslog"><primary>nih_logger_syslog</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_logger_syslog                   (<parameter><link linkend="NihLogLevel"><type>NihLogLevel</type></link> priority</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *message</parameter>);</programlisting>
+<para>
+Outputs the <parameter>message</parameter> to the system logging daemon, it is up to the
+program to call openlog and set up the parameters for the connection.
+</para><variablelist role="params">
+<varlistentry><term><parameter>priority</parameter>&#160;:</term>
+<listitem><simpara>priority of message being logged,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>message to log.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on completion, negative value on error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

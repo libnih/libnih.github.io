@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-test-files">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-test-files.top_of_page">test_files</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>test_files</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-test-files.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="TEST-FILENAME:CAPS">TEST_FILENAME</link>                       (_var)
+#define             <link linkend="TEST-FILE-EQ:CAPS">TEST_FILE_EQ</link>                        (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-MATCH:CAPS">TEST_FILE_MATCH</link>                     (_file,
+                                                         _pattern)
+#define             <link linkend="TEST-FILE-EQ-N:CAPS">TEST_FILE_EQ_N</link>                      (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-NE:CAPS">TEST_FILE_NE</link>                        (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-NE-N:CAPS">TEST_FILE_NE_N</link>                      (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-END:CAPS">TEST_FILE_END</link>                       (_file)
+#define             <link linkend="TEST-FILE-RESET:CAPS">TEST_FILE_RESET</link>                     (_file)
+#define             <link linkend="TEST-EXPECTED-STR:CAPS">TEST_EXPECTED_STR</link>                   (_str,
+                                                         _filename)
+#define             <link linkend="TEST-EXPECTED-FILE:CAPS">TEST_EXPECTED_FILE</link>                  (_file,
+                                                         _filename)
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-test-files.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-test-files.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="TEST-FILENAME:CAPS" role="macro">
+<title>TEST_FILENAME()</title>
+<indexterm zone="TEST-FILENAME:CAPS"><primary>TEST_FILENAME</primary></indexterm>
+<programlisting>#define             TEST_FILENAME(_var)</programlisting>
+<para>
+Generate a filename that may be used for testing, it's unlinked if it
+exists and it's up to you to unlink it when done.  <parameter>_var</parameter> should be at
+least PATH_MAX long.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_var</parameter>&#160;:</term>
+<listitem><simpara>variable to store filename in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-EQ:CAPS" role="macro">
+<title>TEST_FILE_EQ()</title>
+<indexterm zone="TEST-FILE-EQ:CAPS"><primary>TEST_FILE_EQ</primary></indexterm>
+<programlisting>#define             TEST_FILE_EQ(_file, _line)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> is <parameter>_line</parameter>, which should
+include the terminating newline if one is expected.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-MATCH:CAPS" role="macro">
+<title>TEST_FILE_MATCH()</title>
+<indexterm zone="TEST-FILE-MATCH:CAPS"><primary>TEST_FILE_MATCH</primary></indexterm>
+<programlisting>#define             TEST_FILE_MATCH(_file, _pattern)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> matches the glob pattern
+<parameter>_pattern</parameter>, which should include the terminating newline if one is expected.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_pattern</parameter>&#160;:</term>
+<listitem><simpara>pattern to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-EQ-N:CAPS" role="macro">
+<title>TEST_FILE_EQ_N()</title>
+<indexterm zone="TEST-FILE-EQ-N:CAPS"><primary>TEST_FILE_EQ_N</primary></indexterm>
+<programlisting>#define             TEST_FILE_EQ_N(_file, _line)</programlisting>
+<para>
+Check that the start of the next line in the file <parameter>_file</parameter> is <parameter>_line</parameter>, up to
+the length of that argument.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-NE:CAPS" role="macro">
+<title>TEST_FILE_NE()</title>
+<indexterm zone="TEST-FILE-NE:CAPS"><primary>TEST_FILE_NE</primary></indexterm>
+<programlisting>#define             TEST_FILE_NE(_file, _line)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> is not <parameter>_line</parameter>, but also not
+end of file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-NE-N:CAPS" role="macro">
+<title>TEST_FILE_NE_N()</title>
+<indexterm zone="TEST-FILE-NE-N:CAPS"><primary>TEST_FILE_NE_N</primary></indexterm>
+<programlisting>#define             TEST_FILE_NE_N(_file, _line)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> does not start with <parameter>_line</parameter>,
+up to the length of that argument; but also not end of file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-END:CAPS" role="macro">
+<title>TEST_FILE_END()</title>
+<indexterm zone="TEST-FILE-END:CAPS"><primary>TEST_FILE_END</primary></indexterm>
+<programlisting>#define             TEST_FILE_END(_file)</programlisting>
+<para>
+Check that the end of the file <parameter>_file</parameter> has been reached, and that there
+are no more lines to read.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to check.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-RESET:CAPS" role="macro">
+<title>TEST_FILE_RESET()</title>
+<indexterm zone="TEST-FILE-RESET:CAPS"><primary>TEST_FILE_RESET</primary></indexterm>
+<programlisting>#define             TEST_FILE_RESET(_file)</programlisting>
+<para>
+This macro may be used to reset a temporary file such that it can be
+treated as a new one.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to reset.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EXPECTED-STR:CAPS" role="macro">
+<title>TEST_EXPECTED_STR()</title>
+<indexterm zone="TEST-EXPECTED-STR:CAPS"><primary>TEST_EXPECTED_STR</primary></indexterm>
+<programlisting>#define             TEST_EXPECTED_STR(_str, _filename)</programlisting>
+<para>
+Check that the string <parameter>_str</parameter> exactly matches the contents of the
+file <parameter>_filename</parameter>, which is local to the expected directory.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_str</parameter>&#160;:</term>
+<listitem><simpara>string to check,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_filename</parameter>&#160;:</term>
+<listitem><simpara>filename to compare against.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EXPECTED-FILE:CAPS" role="macro">
+<title>TEST_EXPECTED_FILE()</title>
+<indexterm zone="TEST-EXPECTED-FILE:CAPS"><primary>TEST_EXPECTED_FILE</primary></indexterm>
+<programlisting>#define             TEST_EXPECTED_FILE(_file, _filename)</programlisting>
+<para>
+Check that the contents of file <parameter>_file</parameter> exactly matches the contents of
+the file <parameter>_filename</parameter>, which is local to the expected directory.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>open file to check,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_filename</parameter>&#160;:</term>
+<listitem><simpara>filename to compare against.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

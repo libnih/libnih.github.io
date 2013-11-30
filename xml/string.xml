@@ -1,0 +1,684 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-String">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-String.top_of_page">String</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>String</refname>
+<refpurpose>Strings and string arrays</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-String.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-sprintf">nih_sprintf</link>                         (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-vsprintf">nih_vsprintf</link>                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter><link linkend="va-list"><type>va_list</type></link> args</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-strdup">nih_strdup</link>                          (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-strndup">nih_strndup</link>                         (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-strcat">nih_strcat</link>                          (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *src</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-strncat">nih_strncat</link>                         (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *src</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-strcat-sprintf">nih_strcat_sprintf</link>                  (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-strcat-vsprintf">nih_strcat_vsprintf</link>                 (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter><link linkend="va-list"><type>va_list</type></link> args</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-str-split">nih_str_split</link>                       (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> repeat</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-str-array-new">nih_str_array_new</link>                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-str-array-add">nih_str_array_add</link>                   (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-str-array-addn">nih_str_array_addn</link>                  (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> strlen</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-str-array-addp">nih_str_array_addp</link>                  (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-str-array-copy">nih_str_array_copy</link>                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> * const *array</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-str-array-append">nih_str_array_append</link>                (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> * const *args</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-str-wrap">nih_str_wrap</link>                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> first_indent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> indent</parameter>);
+<link linkend="size-t"><returnvalue>size_t</returnvalue></link>              <link linkend="nih-str-screen-width">nih_str_screen_width</link>                (<parameter><type>void</type></parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-str-screen-wrap">nih_str_screen_wrap</link>                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> first_indent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> indent</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-String.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+These functions provide string utilities that use the <link linkend="nih-alloc"><function>nih_alloc()</function></link>
+functions for memory management.  This allows you to create and modify
+strings, and arrays of strings, which may be referenced by other objects
+and cleaned up automatically.
+</para>
+</refsect1>
+<refsect1 id="nih-String.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="nih-sprintf" role="function">
+<title>nih_sprintf ()</title>
+<indexterm zone="nih-sprintf"><primary>nih_sprintf</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_sprintf                         (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);</programlisting>
+<para>
+Writes a new string according to <parameter>format</parameter> as <link linkend="sprintf"><function>sprintf()</function></link>, except that the
+string is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated string or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-vsprintf" role="function">
+<title>nih_vsprintf ()</title>
+<indexterm zone="nih-vsprintf"><primary>nih_vsprintf</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_vsprintf                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter><link linkend="va-list"><type>va_list</type></link> args</parameter>);</programlisting>
+<para>
+Writes a new string according to <parameter>format</parameter> as <link linkend="vsprintf"><function>vsprintf()</function></link>, except that the
+string is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&#160;:</term>
+<listitem><simpara>arguments to format string.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated string or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-strdup" role="function">
+<title>nih_strdup ()</title>
+<indexterm zone="nih-strdup"><primary>nih_strdup</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_strdup                          (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>);</programlisting>
+<para>
+Allocates enough memory to store a duplicate of <parameter>str</parameter> and writes a
+copy of the string to it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to duplicate.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>duplicated string or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-strndup" role="function">
+<title>nih_strndup ()</title>
+<indexterm zone="nih-strndup"><primary>nih_strndup</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_strndup                         (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);</programlisting>
+<para>
+Allocates enough memory to store up to <parameter>len</parameter> bytes of <parameter>str</parameter>, or if <parameter>str</parameter>
+is shorter, <parameter>len</parameter> bytes.  A copy of the string is written to this
+block with a NUL byte appended.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to duplicate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of string to duplicate.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>duplicated string or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-strcat" role="function">
+<title>nih_strcat ()</title>
+<indexterm zone="nih-strcat"><primary>nih_strcat</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_strcat                          (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *src</parameter>);</programlisting>
+<para>
+Modifies <parameter>str</parameter>, concatenating the contents of <parameter>src</parameter> to it.  The new string
+is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>, and <parameter>str</parameter> will be updated to point to the
+new pointer; use the return value simply to check for success.
+</para>
+<para>
+If the string pointed to by <parameter>str</parameter> is NULL, this is equivalent to
+<link linkend="nih-strdup"><function>nih_strdup()</function></link> and if <parameter>parent</parameter> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</para>
+<para>
+When the string pointed to by <parameter>str</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>str</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>pointer to string to modify,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&#160;:</term>
+<listitem><simpara>string to append to <parameter>str</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new string pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-strncat" role="function">
+<title>nih_strncat ()</title>
+<indexterm zone="nih-strncat"><primary>nih_strncat</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_strncat                         (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *src</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);</programlisting>
+<para>
+Modifies <parameter>str</parameter>, concatenating up to <parameter>len</parameter> characters of the contents of <parameter>src</parameter>
+to it.  The new string is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>, and <parameter>str</parameter> will be
+updated to point to the new pointer; use the return value simply to check
+for success.
+</para>
+<para>
+If the string pointed to by <parameter>str</parameter> is NULL, this is equivalent to
+<link linkend="nih-strdup"><function>nih_strdup()</function></link> and if <parameter>parent</parameter> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</para>
+<para>
+When the string pointed to by <parameter>str</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>str</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>pointer to string to modify,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&#160;:</term>
+<listitem><simpara>string to append to <parameter>str</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>src</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new string pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-strcat-sprintf" role="function">
+<title>nih_strcat_sprintf ()</title>
+<indexterm zone="nih-strcat-sprintf"><primary>nih_strcat_sprintf</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_strcat_sprintf                  (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);</programlisting>
+<para>
+Modifies <parameter>str</parameter>, concatenating according to <parameter>format</parameter> as <link linkend="sprintf"><function>sprintf()</function></link>.  The new
+string is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>, and <parameter>str</parameter> will be updated to point
+to the new pointer; use the return value simply to check for success.
+</para>
+<para>
+If the string pointed to by <parameter>str</parameter> is NULL, this is equivalent to
+<link linkend="nih-sprintf"><function>nih_sprintf()</function></link> and if <parameter>parent</parameter> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</para>
+<para>
+When the string pointed to by <parameter>str</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>str</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>pointer to string to modify,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>format string to append to <parameter>str</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new string pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-strcat-vsprintf" role="function">
+<title>nih_strcat_vsprintf ()</title>
+<indexterm zone="nih-strcat-vsprintf"><primary>nih_strcat_vsprintf</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_strcat_vsprintf                 (<parameter><link linkend="char"><type>char</type></link> **str</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter><link linkend="va-list"><type>va_list</type></link> args</parameter>);</programlisting>
+<para>
+Modifies <parameter>str</parameter>, concatenating according to <parameter>format</parameter> as <link linkend="vsprintf"><function>vsprintf()</function></link>.  The new
+string is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>, and <parameter>str</parameter> will be updated to point
+to the new pointer; use the return value simply to check for success.
+</para>
+<para>
+If the string pointed to by <parameter>str</parameter> is NULL, this is equivalent to
+<link linkend="nih-vsprintf"><function>nih_vsprintf()</function></link> and if <parameter>parent</parameter> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</para>
+<para>
+When the string pointed to by <parameter>str</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>str</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>pointer to string to modify,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>format string to append to <parameter>str</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&#160;:</term>
+<listitem><simpara>arguments to format string.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new string pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-split" role="function">
+<title>nih_str_split ()</title>
+<indexterm zone="nih-str-split"><primary>nih_str_split</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_str_split                       (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> repeat</parameter>);</programlisting>
+<para>
+Splits <parameter>str</parameter> into an array of strings by separating on any character in
+<parameter>delim</parameter>; if <parameter>repeat</parameter> is true then sequences of <parameter>delim</parameter> are ignored, otherwise
+they result in empty strings in the returned array.
+</para>
+<para>
+The last element in the array is always NULL.
+</para>
+<para>
+The individual strings are allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> so you may just use
+<link linkend="nih-free"><function>nih_free()</function></link> on the returned array.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned string are freed, the returned array will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to split,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>delim</parameter>&#160;:</term>
+<listitem><simpara>characters to split on,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>repeat</parameter>&#160;:</term>
+<listitem><simpara>allow repeated characters.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>allocated array or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-array-new" role="function">
+<title>nih_str_array_new ()</title>
+<indexterm zone="nih-str-array-new"><primary>nih_str_array_new</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_str_array_new                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Allocates a new NULL-terminated array of strings with zero elements;
+use <link linkend="nih-str-array-add"><function>nih_str_array_add()</function></link> to append new strings to the array.  Because
+each array element will be allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> as a child of
+the array itself, the entire array can be freed with <link linkend="nih-free"><function>nih_free()</function></link>.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned object are freed, the returned array will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new array.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated array or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-array-add" role="function">
+<title>nih_str_array_add ()</title>
+<indexterm zone="nih-str-array-add"><primary>nih_str_array_add</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_str_array_add                   (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>);</programlisting>
+<para>
+Extend the NULL-terminated string <parameter>array</parameter> (which has <parameter>len</parameter> elements,
+excluding the final NULL element), appending a copy of <parameter>str</parameter> to it.
+Both the array and the new string are allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>,
+</para>
+<para>
+<parameter>len</parameter> will be updated to contain the new array length and <parameter>array</parameter> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</para>
+<para>
+If you don't know or care about the length, <parameter>len</parameter> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+invocation.
+</para>
+<para>
+If the array pointed to by <parameter>array</parameter> is NULL, the array will be allocated
+and <parameter>ptr</parameter> the first element, and if <parameter>parent</parameter> is not NULL, it should be a
+pointer to another object which will be used as a parent for the returned
+array.  When all parents of the returned array are freed, the returned
+array will also be freed.
+</para>
+<para>
+When the array pointed to by <parameter>array</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>array</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>array</parameter>&#160;:</term>
+<listitem><simpara>array of strings,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>array</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to add.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new array pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-array-addn" role="function">
+<title>nih_str_array_addn ()</title>
+<indexterm zone="nih-str-array-addn"><primary>nih_str_array_addn</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_str_array_addn                  (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> strlen</parameter>);</programlisting>
+<para>
+Extend the NULL-terminated string <parameter>array</parameter> (which has <parameter>len</parameter> elements,
+excluding the final NULL element), appending a copy of the first
+<parameter>strlen</parameter> bytes of <parameter>str</parameter> to it.
+</para>
+<para>
+Both the array and the new string are allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>,
+</para>
+<para>
+<parameter>len</parameter> will be updated to contain the new array length and <parameter>array</parameter> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</para>
+<para>
+If you don't know or care about the length, <parameter>len</parameter> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+invocation.
+</para>
+<para>
+If the array pointed to by <parameter>array</parameter> is NULL, the array will be allocated
+and <parameter>ptr</parameter> the first element, and if <parameter>parent</parameter> is not NULL, it should be a
+pointer to another object which will be used as a parent for the returned
+array.  When all parents of the returned array are freed, the returned
+array will also be freed.
+</para>
+<para>
+When the array pointed to by <parameter>array</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>array</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>array</parameter>&#160;:</term>
+<listitem><simpara>array of strings,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>array</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to add,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>strlen</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>str</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new array pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-array-addp" role="function">
+<title>nih_str_array_addp ()</title>
+<indexterm zone="nih-str-array-addp"><primary>nih_str_array_addp</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_str_array_addp                  (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);</programlisting>
+<para>
+Extend the NULL-terminated string <parameter>array</parameter> (which has <parameter>len</parameter> elements,
+excluding the final NULL element), appending the <link linkend="nih-alloc"><function>nih_alloc()</function></link> allocated
+object <parameter>ptr</parameter> to it.
+</para>
+<para>
+The array is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>, and <parameter>ptr</parameter> will be referenced
+by the new array.  After calling this function, you should never use
+<link linkend="nih-free"><function>nih_free()</function></link> to free <parameter>ptr</parameter> and instead use <link linkend="nih-unref"><function>nih_unref()</function></link> or <link linkend="nih-discard"><function>nih_discard()</function></link>
+if you no longer need to use it.
+</para>
+<para>
+<parameter>len</parameter> will be updated to contain the new array length and <parameter>array</parameter> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</para>
+<para>
+If you don't know or care about the length, <parameter>len</parameter> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+invocation.
+</para>
+<para>
+If the array pointed to by <parameter>array</parameter> is NULL, the array will be allocated
+and <parameter>ptr</parameter> the first element, and if <parameter>parent</parameter> is not NULL, it should be a
+pointer to another object which will be used as a parent for the returned
+array.  When all parents of the returned array are freed, the returned
+array will also be freed.
+</para>
+<para>
+When the array pointed to by <parameter>array</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>array</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>array</parameter>&#160;:</term>
+<listitem><simpara>array of strings,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>array</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>pointer to add.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new array pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-array-copy" role="function">
+<title>nih_str_array_copy ()</title>
+<indexterm zone="nih-str-array-copy"><primary>nih_str_array_copy</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_str_array_copy                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> * const *array</parameter>);</programlisting>
+<para>
+Allocates a new NULL-terminated array of strings with elements copied
+from the existing <parameter>array</parameter> given.
+</para>
+<para>
+Because each array element will be allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> as a child
+of the array itself, the entire array can be freed with <link linkend="nih-free"><function>nih_free()</function></link>.
+This will not affect the array copied.
+</para>
+<para>
+<parameter>len</parameter> will be updated to contain the new array length.  If you don't care
+about the length, <parameter>len</parameter> may be set to NULL; this is less efficient as it
+necessates counting the length on each future add operation.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new array.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>array</parameter>&#160;:</term>
+<listitem><simpara>array of strings to copy.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated array or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-array-append" role="function">
+<title>nih_str_array_append ()</title>
+<indexterm zone="nih-str-array-append"><primary>nih_str_array_append</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_str_array_append                (<parameter><link linkend="char"><type>char</type></link> ***array</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> * const *args</parameter>);</programlisting>
+<para>
+Extend the NULL-terminated string <parameter>array</parameter> (which has <parameter>len</parameter> elements,
+excluding the final NULL element), appending a copy of each element in
+the additional NULL-terminated string array <parameter>args</parameter> to it.
+Both the array and the new strings are allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link>,
+</para>
+<para>
+<parameter>len</parameter> will be updated to contain the new array length and <parameter>array</parameter> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</para>
+<para>
+If you don't know or care about the length, <parameter>len</parameter> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+operation.
+</para>
+<para>
+If the array pointed to by <parameter>array</parameter> is NULL, this is equivalent to
+<link linkend="nih-str-array-copy"><function>nih_str_array_copy()</function></link> and if <parameter>parent</parameter> is not NULL, it should be a pointer to
+another object which will be used as a parent for the returned array.
+When all parents of the returned array are freed, the returned array will
+also be freed.
+</para>
+<para>
+When the array pointed to by <parameter>array</parameter> is not NULL, <parameter>parent</parameter> is ignored;
+though it usual to pass a parent of <parameter>array</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>array</parameter>&#160;:</term>
+<listitem><simpara>array of strings,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>array</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&#160;:</term>
+<listitem><simpara>array of strings to add.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new array pointer or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-wrap" role="function">
+<title>nih_str_wrap ()</title>
+<indexterm zone="nih-str-wrap"><primary>nih_str_wrap</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_str_wrap                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> first_indent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> indent</parameter>);</programlisting>
+<para>
+Returns a newly allocated copy of <parameter>str</parameter> with newlines inserted so no
+line is longer than <parameter>len</parameter> characters (not including the newline).  Where
+possible, newlines replace existing whitespace characters so that words
+are not broken.
+</para>
+<para>
+The first line may be indented by an extra <parameter>first_indent</parameter> characters, and
+subsequent lines may be intended by an extra <parameter>indent</parameter> characters.  These
+are added to the string as whitespace characters.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to be wrapped,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of line to fit into,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_indent</parameter>&#160;:</term>
+<listitem><simpara>indent for first line,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>indent</parameter>&#160;:</term>
+<listitem><simpara>indent for subsequent lines.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated string or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-screen-width" role="function">
+<title>nih_str_screen_width ()</title>
+<indexterm zone="nih-str-screen-width"><primary>nih_str_screen_width</primary></indexterm>
+<programlisting><link linkend="size-t"><returnvalue>size_t</returnvalue></link>              nih_str_screen_width                (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Checks the COLUMNS environment variable, standard output if it is a
+terminal or defaults to 80 characters.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the width of the screen.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-str-screen-wrap" role="function">
+<title>nih_str_screen_wrap ()</title>
+<indexterm zone="nih-str-screen-wrap"><primary>nih_str_screen_wrap</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_str_screen_wrap                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> first_indent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> indent</parameter>);</programlisting>
+<para>
+Returns a newly allocated copy of <parameter>str</parameter> with newlines inserted so no
+line is wider than the screen (not including the newline).  Where
+possible, newlines replace existing whitespace characters so that words
+are not broken.
+</para>
+<para>
+If standard output is not a terminal, then 80 characters is assumed.
+The width can be overriden with the COLUMNS environment variable.
+</para>
+<para>
+The first line may be indented by an extra <parameter>first_indent</parameter> characters, and
+subsequent lines may be intended by an extra <parameter>indent</parameter> characters.  These
+are added to the string as whitespace characters.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to be wrapped,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_indent</parameter>&#160;:</term>
+<listitem><simpara>indent for first line,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>indent</parameter>&#160;:</term>
+<listitem><simpara>indent for subsequent lines.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated string or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

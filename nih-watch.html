@@ -1,0 +1,422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>watch</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-Tree.html" title="Tree">
+<link rel="next" href="api-index-full.html" title="API Index">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-Tree.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-watch.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-watch.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-watch"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-watch.top_of_page"></a>watch</span></h2>
+<p>watch</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-watch.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="nih-watch.html#NihWatch" title="NihWatch">NihWatch</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="nih-watch.html#NihCreateHandler" title="NihCreateHandler ()">*NihCreateHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="nih-watch.html#NihModifyHandler" title="NihModifyHandler ()">*NihModifyHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="nih-watch.html#NihDeleteHandler" title="NihDeleteHandler ()">*NihDeleteHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+                    <a class="link" href="nih-watch.html#NihWatchHandle" title="NihWatchHandle">NihWatchHandle</a>;
+<a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="returnvalue">NihWatch</span></a> *          <a class="link" href="nih-watch.html#nih-watch-new" title="nih_watch_new ()">nih_watch_new</a>                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> subdirs</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> create</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihCreateHandler" title="NihCreateHandler ()"><span class="type">NihCreateHandler</span></a> create_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihModifyHandler" title="NihModifyHandler ()"><span class="type">NihModifyHandler</span></a> modify_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihDeleteHandler" title="NihDeleteHandler ()"><span class="type">NihDeleteHandler</span></a> delete_handler</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-watch.html#nih-watch-add" title="nih_watch_add ()">nih_watch_add</a>                       (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> subdirs</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-watch.html#nih-watch-destroy" title="nih_watch_destroy ()">nih_watch_destroy</a>                   (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-watch.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-watch.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihWatch"></a><h3>NihWatch</h3>
+<pre class="programlisting">typedef struct nih_watch NihWatch;
+</pre>
+<p>
+This structure represents an inotify instance that is watching <em class="parameter"><code>path</code></em>,
+and optionally sub-directories underneath it.  It can also be used to
+just watch multiple different files calling the same functions for each.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihCreateHandler"></a><h3>NihCreateHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihCreateHandler)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);</pre>
+<p>
+A create handler is a function that is called whenever a file or other
+object is created under or moved into a directory tree being watched.
+<em class="parameter"><code>path</code></em> contains the path to the file, including the directory prefix
+which can be found in <em class="parameter"><code>watch</code></em>.
+</p>
+<p>
+It is safe to remove the watch with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> from this function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given when registered,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>watch</code></em> :</span></p></td>
+<td>NihWatch for directory tree,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>full path to file,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>statbuf</code></em> :</span></p></td>
+<td>stat of <em class="parameter"><code>path</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihModifyHandler"></a><h3>NihModifyHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihModifyHandler)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);</pre>
+<p>
+A modify handler is a function that is called whenever a file or other
+object is changed within a directory tree being watched.  <em class="parameter"><code>path</code></em> contains
+the path to the file, including the directory prefix which can be
+found in <em class="parameter"><code>watch</code></em>.
+</p>
+<p>
+It is safe to remove the watch with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> from this function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given when registered,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>watch</code></em> :</span></p></td>
+<td>NihWatch for directory tree,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>full path to file,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>statbuf</code></em> :</span></p></td>
+<td>stat of <em class="parameter"><code>path</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihDeleteHandler"></a><h3>NihDeleteHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihDeleteHandler)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+A delete handler is a function that is called whenever a file or other
+object is deleted from or moved out of a directory tree being watched.
+<em class="parameter"><code>path</code></em> contains the path to the file, including the directory prefix
+which can be found in <em class="parameter"><code>watch</code></em>.
+</p>
+<p>
+If the directory being watched itself is deleted, or an error occurs
+with the inotify socket (including closure), this function is called
+with the top-level path as an argument (check watch-&gt;path).  It is
+normal and safe to free the watch at this point.
+</p>
+<p>
+It is safe to remove the watch with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> from this function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given when registered,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>watch</code></em> :</span></p></td>
+<td>NihWatch for directory tree,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>full path to file.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihWatchHandle"></a><h3>NihWatchHandle</h3>
+<pre class="programlisting">typedef struct {
+	NihList  entry;
+
+	int      wd;
+	char    *path;
+} NihWatchHandle;
+</pre>
+<p>
+This structure represents an inotify watch on an individual <em class="parameter"><code>path</code></em> with
+a unique watch descriptor <em class="parameter"><code>wd</code></em>.  They are stored in the watches list of
+an NihWatch structure.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> <em class="structfield"><code><a name="NihWatchHandle.entry"></a>entry</code></em>;</span></p></td>
+<td>entry in list,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="NihWatchHandle.wd"></a>wd</code></em>;</span></p></td>
+<td>inotify watch handle,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="NihWatchHandle.path"></a>path</code></em>;</span></p></td>
+<td>path being watched.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-watch-new"></a><h3>nih_watch_new ()</h3>
+<pre class="programlisting"><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="returnvalue">NihWatch</span></a> *          nih_watch_new                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> subdirs</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> create</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihCreateHandler" title="NihCreateHandler ()"><span class="type">NihCreateHandler</span></a> create_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihModifyHandler" title="NihModifyHandler ()"><span class="type">NihModifyHandler</span></a> modify_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihDeleteHandler" title="NihDeleteHandler ()"><span class="type">NihDeleteHandler</span></a> delete_handler</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+Watches <em class="parameter"><code>path</code></em> for changes, which may be either a single file or a
+directory.  If <em class="parameter"><code>path</code></em> is a directory, then sub-directories can be included
+by setting <em class="parameter"><code>subdirs</code></em> to TRUE; both existing and newly created
+sub-directories will be automatically watched.
+</p>
+<p>
+Additionally, the set of files and directories within <em class="parameter"><code>path</code></em> can be
+limited by passing a <em class="parameter"><code>filter</code></em> function which will receive the paths and
+may return TRUE to indicate that the path received should not be watched.
+</p>
+<p>
+When a file is created within <em class="parameter"><code>path</code></em>, or moved from outside this location
+into it, <em class="parameter"><code>create_handler</code></em> will be called.  If <em class="parameter"><code>path</code></em> is removed, or a file
+is removed within <em class="parameter"><code>path</code></em>, or moved to a location outside it,
+<em class="parameter"><code>delete_handler</code></em> will be called.  Finally if <em class="parameter"><code>path</code></em> is modified, or a file
+within it is modified, <em class="parameter"><code>modify_handler</code></em> will be called.
+</p>
+<p>
+If <em class="parameter"><code>create</code></em> is TRUE, <em class="parameter"><code>create_handler</code></em> will also be called for all of the
+files that exist under <em class="parameter"><code>path</code></em> when the watch is first added.  This only
+occurs if the watch can be added.
+</p>
+<p>
+This is a very high level wrapper around the inotify API; lower levels
+can be obtained using the inotify API itself and some of the helper
+functions used by this one.
+</p>
+<p>
+The returned watch structure is allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and contains
+open inotify descriptors and child structures including NihIo, which are
+children of the returned structure; there is no non-allocated version
+because of this.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned watch.  When all parents
+of the returned watch are freed, the returned watch will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new watch,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>full path to be watched,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>subdirs</code></em> :</span></p></td>
+<td>include sub-directories of <em class="parameter"><code>path</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>create</code></em> :</span></p></td>
+<td>call <em class="parameter"><code>create_handler</code></em> for existing files,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>function to filter paths watched,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>create_handler</code></em> :</span></p></td>
+<td>function called when a path is created,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>modify_handler</code></em> :</span></p></td>
+<td>function called when a path is modified,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>delete_handler</code></em> :</span></p></td>
+<td>function called when a path is deleted,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to pass to functions.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new NihWatch structure, or NULL on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-watch-add"></a><h3>nih_watch_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_watch_add                       (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> subdirs</code></em>);</pre>
+<p>
+Adds a new <em class="parameter"><code>path</code></em> to be watched to the existing <em class="parameter"><code>watch</code></em> structure, the
+same handlers will be called.  <em class="parameter"><code>path</code></em> need not be related to the path
+originally given to <em class="parameter"><code>watch</code></em>.
+</p>
+<p>
+If <em class="parameter"><code>subdirs</code></em> is TRUE, and <em class="parameter"><code>path</code></em> is a directory, then sub-directories of
+the path are also watched.
+</p>
+<p>
+An NihWatchHandle structure is allocated and stored in the watches
+member of <em class="parameter"><code>watch</code></em>, it is also a child of that structure; there is no
+non-allocated version of this because of this.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>watch</code></em> :</span></p></td>
+<td>NihWatch to change,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to be watched,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>subdirs</code></em> :</span></p></td>
+<td>also watch sub-directories?</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-watch-destroy"></a><h3>nih_watch_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_watch_destroy                   (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>);</pre>
+<p>
+Closes the inotify descriptor and frees the NihIo instance handling it.
+</p>
+<p>
+Normally used or called from an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> destructor.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>watch</code></em> :</span></p></td>
+<td>NihWatch to be destroyed.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

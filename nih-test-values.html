@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>test_values</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-test-process.html" title="test_process">
+<link rel="next" href="nih-timer.html" title="timer">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-test-process.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-timer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-test-values.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-test-values.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-test-values"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-test-values.top_of_page"></a>test_values</span></h2>
+<p>test_values</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-test-values.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="nih-test-values.html#assert0" title="assert0()">assert0</a>                             (_expr)
+#define             <a class="link" href="nih-test-values.html#TEST-TRUE:CAPS" title="TEST_TRUE()">TEST_TRUE</a>                           (_expr)
+#define             <a class="link" href="nih-test-values.html#TEST-FALSE:CAPS" title="TEST_FALSE()">TEST_FALSE</a>                          (_expr)
+#define             <a class="link" href="nih-test-values.html#TEST-EQ:CAPS" title="TEST_EQ()">TEST_EQ</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-EQ-U:CAPS" title="TEST_EQ_U()">TEST_EQ_U</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-EQ-P:CAPS" title="TEST_EQ_P()">TEST_EQ_P</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-EQ-STR:CAPS" title="TEST_EQ_STR()">TEST_EQ_STR</a>                         (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-EQ-STRN:CAPS" title="TEST_EQ_STRN()">TEST_EQ_STRN</a>                        (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-EQ-MEM:CAPS" title="TEST_EQ_MEM()">TEST_EQ_MEM</a>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <a class="link" href="nih-test-values.html#TEST-NE:CAPS" title="TEST_NE()">TEST_NE</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-NE-U:CAPS" title="TEST_NE_U()">TEST_NE_U</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-NE-P:CAPS" title="TEST_NE_P()">TEST_NE_P</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-NE-STR:CAPS" title="TEST_NE_STR()">TEST_NE_STR</a>                         (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-NE-STRN:CAPS" title="TEST_NE_STRN()">TEST_NE_STRN</a>                        (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-NE-MEM:CAPS" title="TEST_NE_MEM()">TEST_NE_MEM</a>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <a class="link" href="nih-test-values.html#TEST-LT:CAPS" title="TEST_LT()">TEST_LT</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-LE:CAPS" title="TEST_LE()">TEST_LE</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-GT:CAPS" title="TEST_GT()">TEST_GT</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-test-values.html#TEST-GE:CAPS" title="TEST_GE()">TEST_GE</a>                             (_a,
+                                                         _b)
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-test-values.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-test-values.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="assert0"></a><h3>assert0()</h3>
+<pre class="programlisting">#define             assert0(_expr)</pre>
+<p>
+Wrapper around the usual <code class="function">assert()</code> function that handles the common case
+of asserting that <em class="parameter"><code>_expr</code></em> returns zero, rather than a TRUE value.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_expr</code></em> :</span></p></td>
+<td>expression to check.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-TRUE:CAPS"></a><h3>TEST_TRUE()</h3>
+<pre class="programlisting">#define             TEST_TRUE(_expr)</pre>
+<p>
+Check that the expression <em class="parameter"><code>_expr</code></em> evaluates to TRUE.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_expr</code></em> :</span></p></td>
+<td>value or expression to test.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FALSE:CAPS"></a><h3>TEST_FALSE()</h3>
+<pre class="programlisting">#define             TEST_FALSE(_expr)</pre>
+<p>
+Check that the expression <em class="parameter"><code>_expr</code></em> evaluates to FALSE.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_expr</code></em> :</span></p></td>
+<td>value or expression to test.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ:CAPS"></a><h3>TEST_EQ()</h3>
+<pre class="programlisting">#define             TEST_EQ(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal, they are cast
+to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-U:CAPS"></a><h3>TEST_EQ_U()</h3>
+<pre class="programlisting">#define             TEST_EQ_U(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal, they are cast
+to size_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first unsigned integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second unsigned integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-P:CAPS"></a><h3>TEST_EQ_P()</h3>
+<pre class="programlisting">#define             TEST_EQ_P(_a, _b)</pre>
+<p>
+Check that the two pointers <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second pointer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-STR:CAPS"></a><h3>TEST_EQ_STR()</h3>
+<pre class="programlisting">#define             TEST_EQ_STR(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-STRN:CAPS"></a><h3>TEST_EQ_STRN()</h3>
+<pre class="programlisting">#define             TEST_EQ_STRN(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal, up to the length of
+the second string.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-MEM:CAPS"></a><h3>TEST_EQ_MEM()</h3>
+<pre class="programlisting">#define             TEST_EQ_MEM(_a, _b, _l)</pre>
+<p>
+Check that the two <em class="parameter"><code>_l</code></em> byte long areas of memory at <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are
+identical.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_l</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE:CAPS"></a><h3>TEST_NE()</h3>
+<pre class="programlisting">#define             TEST_NE(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal, they are
+cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-U:CAPS"></a><h3>TEST_NE_U()</h3>
+<pre class="programlisting">#define             TEST_NE_U(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal, they are
+cast to size_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first unsigned integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second unsigned integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-P:CAPS"></a><h3>TEST_NE_P()</h3>
+<pre class="programlisting">#define             TEST_NE_P(_a, _b)</pre>
+<p>
+Check that the two pointers <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second pointer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-STR:CAPS"></a><h3>TEST_NE_STR()</h3>
+<pre class="programlisting">#define             TEST_NE_STR(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-STRN:CAPS"></a><h3>TEST_NE_STRN()</h3>
+<pre class="programlisting">#define             TEST_NE_STRN(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal, up to the length
+of the second string.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-MEM:CAPS"></a><h3>TEST_NE_MEM()</h3>
+<pre class="programlisting">#define             TEST_NE_MEM(_a, _b, _l)</pre>
+<p>
+Check that the two <em class="parameter"><code>_l</code></em> byte long areas of memory at <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are
+different.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_l</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-LT:CAPS"></a><h3>TEST_LT()</h3>
+<pre class="programlisting">#define             TEST_LT(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is less than the numeric value <em class="parameter"><code>_b</code></em>,
+they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-LE:CAPS"></a><h3>TEST_LE()</h3>
+<pre class="programlisting">#define             TEST_LE(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is less than or equal to the numeric
+value <em class="parameter"><code>_b</code></em>, they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-GT:CAPS"></a><h3>TEST_GT()</h3>
+<pre class="programlisting">#define             TEST_GT(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is greater than the numeric value <em class="parameter"><code>_b</code></em>,
+they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-GE:CAPS"></a><h3>TEST_GE()</h3>
+<pre class="programlisting">#define             TEST_GE(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is greater than or equal to the numeric
+value <em class="parameter"><code>_b</code></em>, they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

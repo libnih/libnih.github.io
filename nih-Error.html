@@ -1,0 +1,482 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Error</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-Config.html" title="Config">
+<link rel="next" href="nih-Errors.html" title="Errors">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-Config.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-Errors.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-Error.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-Error.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-Error"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-Error.top_of_page"></a>Error</span></h2>
+<p>Error — System and application error handling</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-Error.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="nih-Error.html#NihError" title="NihError">NihError</a>;
+#define             <a class="link" href="nih-Error.html#nih-error-raise" title="nih_error_raise()">nih_error_raise</a>                     (number,
+                                                         message)
+#define             <a class="link" href="nih-Error.html#nih-error-raise-printf" title="nih_error_raise_printf()">nih_error_raise_printf</a>              (number,
+                                                         format,
+                                                         ...)
+#define             <a class="link" href="nih-Error.html#nih-error-raise-system" title="nih_error_raise_system">nih_error_raise_system</a>
+#define             <a class="link" href="nih-Error.html#nih-error-raise-no-memory" title="nih_error_raise_no_memory">nih_error_raise_no_memory</a>
+#define             <a class="link" href="nih-Error.html#nih-error-raise-error" title="nih_error_raise_error()">nih_error_raise_error</a>               (error)
+#define             <a class="link" href="nih-Error.html#nih-return-error" title="nih_return_error()">nih_return_error</a>                    (retval,
+                                                         number,
+                                                         message)
+#define             <a class="link" href="nih-Error.html#nih-return-system-error" title="nih_return_system_error()">nih_return_system_error</a>             (retval)
+#define             <a class="link" href="nih-Error.html#nih-return-no-memory-error" title="nih_return_no_memory_error()">nih_return_no_memory_error</a>          (retval)
+#define             <a class="link" href="nih-Error.html#NIH-SHOULD:CAPS" title="NIH_SHOULD()">NIH_SHOULD</a>                          (_e)
+<span class="returnvalue">void</span>                <a class="link" href="nih-Error.html#nih-error-init" title="nih_error_init ()">nih_error_init</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="nih-Error.html#NihError" title="NihError"><span class="returnvalue">NihError</span></a> *          <a class="link" href="nih-Error.html#nih-error-get" title="nih_error_get ()">nih_error_get</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="nih-Error.html#NihError" title="NihError"><span class="returnvalue">NihError</span></a> *          <a class="link" href="nih-Error.html#nih-error-steal" title="nih_error_steal ()">nih_error_steal</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Error.html#nih-error-push-context" title="nih_error_push_context ()">nih_error_push_context</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Error.html#nih-error-pop-context" title="nih_error_pop_context ()">nih_error_pop_context</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-Error.description"></a><h2>Description</h2>
+<p>
+Many functions in libnih use these functions to report information about
+errors, those that don't use the ordinary errno mechnism which can
+also be reported within this framework.
+</p>
+<p>
+Errors are raised as NihError structures, kept globally.  Only one error
+may be active at any one time, raising an error when another is already
+raised will result in an assertion.
+</p>
+<p>
+Errors are raised with the <a class="link" href="nih-Error.html#nih-error-raise" title="nih_error_raise()"><code class="function">nih_error_raise()</code></a> or <a class="link" href="nih-Error.html#nih-error-raise-printf" title="nih_error_raise_printf()"><code class="function">nih_error_raise_printf()</code></a>
+functions, passing the error number and a human-readable messages.
+</p>
+<p>
+System errors can be raised with <a class="link" href="nih-Error.html#nih-error-raise-system" title="nih_error_raise_system"><code class="function">nih_error_raise_system()</code></a>, and both
+caught errors and self-allocated errors can be raised with
+<a class="link" href="nih-Error.html#nih-error-raise-error" title="nih_error_raise_error()"><code class="function">nih_error_raise_error()</code></a>.
+</p>
+<p>
+You then report the error condition through your return value, or some
+other stack-based method.
+</p>
+<p>
+A higher function that wishes to handle the error calls <a class="link" href="nih-Error.html#nih-error-get" title="nih_error_get ()"><code class="function">nih_error_get()</code></a>
+to retrieve it, it's an error to do so if you do not know that an error
+is pending.  This returns the currently raised error structure.
+</p>
+<p>
+To clear the error, it should be freed with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a>.  To return the
+error from your own function, simply don't free it.
+</p>
+<p>
+Errors may be partitioned using contexts, a new context is pushed with
+<a class="link" href="nih-Error.html#nih-error-push-context" title="nih_error_push_context ()"><code class="function">nih_error_push_context()</code></a>; any errors raised are now stored in this
+context and any previous raised errors are hidden from view.  The context
+can be popped again with <a class="link" href="nih-Error.html#nih-error-pop-context" title="nih_error_pop_context ()"><code class="function">nih_error_pop_context()</code></a> provided that any raised
+error has been dealt with.  The previously hidden raised errors are now
+visible again.
+</p>
+<p>
+To raise an error from one context, into another, you can't simply call
+<a class="link" href="nih-Error.html#nih-error-get" title="nih_error_get ()"><code class="function">nih_error_get()</code></a> before <a class="link" href="nih-Error.html#nih-error-pop-context" title="nih_error_pop_context ()"><code class="function">nih_error_pop_context()</code></a> since the latter will
+assert because of the unfreed error.  Instead <a class="link" href="nih-Error.html#nih-error-steal" title="nih_error_steal ()"><code class="function">nih_error_steal()</code></a> may be
+used which returns the error as <a class="link" href="nih-Error.html#nih-error-get" title="nih_error_get ()"><code class="function">nih_error_get()</code></a> does but also removes
+it from the context.
+</p>
+<p>
+<a class="link" href="nih-Error.html#nih-error-steal" title="nih_error_steal ()"><code class="function">nih_error_steal()</code></a> may also be used to stash errors before trying an
+alternate code path.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-Error.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihError"></a><h3>NihError</h3>
+<pre class="programlisting">typedef struct {
+	const char *filename;
+	int         line;			
+	const char *function;			
+						
+	int         number;			
+	const char *message;
+} NihError;
+</pre>
+<p>
+This structure represents an error, defining the error <em class="parameter"><code>number</code></em> for
+programmers to capture and handle them and a human-readable <em class="parameter"><code>message</code></em>
+that should be pre-translated.
+</p>
+<p>
+The structure is allocated when an error occurs, and only one structure
+may exist in one context at a time; when another error is raised, the
+existing error, if any, is freed.
+</p>
+<p>
+You may also use this structure as the header for more complicated error
+objects, in which case do not worry about setting <em class="parameter"><code>filename</code></em>, <em class="parameter"><code>line</code></em> or
+<em class="parameter"><code>function</code></em> since these are set when you call <a class="link" href="nih-Error.html#nih-error-raise-error" title="nih_error_raise_error()"><code class="function">nih_error_raise_error()</code></a>; the
+correct way to do this is to place the macro NIH_ERROR_MEMBERS at the
+front of your structure, rather than an NihError named member - this
+makes code that uses your custom error a little easier.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term">const <span class="type">char</span> *<em class="structfield"><code><a name="NihError.filename"></a>filename</code></em>;</span></p></td>
+<td>filename where the error was raised,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="NihError.line"></a>line</code></em>;</span></p></td>
+<td>line number of <em class="parameter"><code>filename</code></em> where the error was raised,</td>
+</tr>
+<tr>
+<td><p><span class="term">const <span class="type">char</span> *<em class="structfield"><code><a name="NihError.function"></a>function</code></em>;</span></p></td>
+<td>function name the error was raised within,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="NihError.number"></a>number</code></em>;</span></p></td>
+<td>numeric identifier,</td>
+</tr>
+<tr>
+<td><p><span class="term">const <span class="type">char</span> *<em class="structfield"><code><a name="NihError.message"></a>message</code></em>;</span></p></td>
+<td>human-readable message.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-raise"></a><h3>nih_error_raise()</h3>
+<pre class="programlisting">#define             nih_error_raise(number, message)</pre>
+<p>
+Raises an error with the given details in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</p>
+<p>
+<em class="parameter"><code>message</code></em> should be a static string, as it will not be freed when the
+error object is.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>number</code></em> :</span></p></td>
+<td>numeric identifier,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>human-readable message.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-raise-printf"></a><h3>nih_error_raise_printf()</h3>
+<pre class="programlisting">#define             nih_error_raise_printf(number, format, ...)</pre>
+<p>
+Raises an error with the given details in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</p>
+<p>
+The human-readable message for the error is parsed according to <em class="parameter"><code>format</code></em>,
+and allocated as a child of the error object so that it is freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>number</code></em> :</span></p></td>
+<td>numeric identifier,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>format string for human-readable message,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-raise-system"></a><h3>nih_error_raise_system</h3>
+<pre class="programlisting">#define             nih_error_raise_system()</pre>
+<p>
+Raises an error with details taken from the current value of errno,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-raise-no-memory"></a><h3>nih_error_raise_no_memory</h3>
+<pre class="programlisting">#define             nih_error_raise_no_memory()</pre>
+<p>
+Raises an ENOMEM system error, if an unhandled error already exists then
+an error message is emitted through the logging system; you should try
+to avoid this.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-raise-error"></a><h3>nih_error_raise_error()</h3>
+<pre class="programlisting">#define             nih_error_raise_error(error)</pre>
+<p>
+Raises the existing error object in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</p>
+<p>
+This is normally used to raise a taken error that has not been handled,
+or to raise a custom error object.
+</p>
+<p>
+The destructor of <em class="parameter"><code>error</code></em> will be overwritten so that the context can
+be cleared when the error is freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>existing object to raise.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-return-error"></a><h3>nih_return_error()</h3>
+<pre class="programlisting">#define             nih_return_error(retval, number,  message)</pre>
+<p>
+Raises an error with the given details in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</p>
+<p>
+Will return from the current function with <em class="parameter"><code>retval</code></em>, which may be left
+empty to return from a void function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>retval</code></em> :</span></p></td>
+<td>return value for function,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>number</code></em> :</span></p></td>
+<td>numeric identifier,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>human-readable message.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-return-system-error"></a><h3>nih_return_system_error()</h3>
+<pre class="programlisting">#define             nih_return_system_error(retval)</pre>
+<p>
+Raises an error with details taken from the current value of errno,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</p>
+<p>
+Will return from the current function with <em class="parameter"><code>retval</code></em>, which may be left
+empty to return from a void function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>retval</code></em> :</span></p></td>
+<td>return value for function.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-return-no-memory-error"></a><h3>nih_return_no_memory_error()</h3>
+<pre class="programlisting">#define             nih_return_no_memory_error(retval)</pre>
+<p>
+Raises an ENOMEM system error, if an unhandled error already exists then
+an error message is emitted through the logging system; you should try
+to avoid this.
+</p>
+<p>
+Will return from the current function with <em class="parameter"><code>retval</code></em>, which may be left
+empty to return from a void function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>retval</code></em> :</span></p></td>
+<td>return value for function.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-SHOULD:CAPS"></a><h3>NIH_SHOULD()</h3>
+<pre class="programlisting">#define             NIH_SHOULD(_e)</pre>
+<p>
+Repeats the expression <em class="parameter"><code>_e</code></em> until it either yields a true value, or
+raises an error other than ENOMEM.
+</p>
+<p>
+This can only be used when the expression always raises an error if
+it does not yield a true value.
+</p>
+<p>
+The raised error remains raised and should be dealt with following
+this function, thus you should store the value of the expression so you
+know whether or not an error occurred.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_e</code></em> :</span></p></td>
+<td>C expression.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>value of expression <em class="parameter"><code>_e</code></em> which will be evaluated as many times
+as necessary to become true.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-init"></a><h3>nih_error_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_error_init                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Initialise the context stack.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-get"></a><h3>nih_error_get ()</h3>
+<pre class="programlisting"><a class="link" href="nih-Error.html#NihError" title="NihError"><span class="returnvalue">NihError</span></a> *          nih_error_get                       (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Returns the last unhandled error from the current context.
+</p>
+<p>
+The object must be freed with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> once you are finished with it,
+otherwise the error will still considered to be raised.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>error object from current context.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-steal"></a><h3>nih_error_steal ()</h3>
+<pre class="programlisting"><a class="link" href="nih-Error.html#NihError" title="NihError"><span class="returnvalue">NihError</span></a> *          nih_error_steal                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Returns the last unhandled error from the current context, and removes
+it from the error context.  To re-raise, it must be given to
+<a class="link" href="nih-Error.html#nih-error-raise-error" title="nih_error_raise_error()"><code class="function">nih_error_raise_error()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>error object from current context.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-push-context"></a><h3>nih_error_push_context ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_error_push_context              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new context in which errors can occur without disturbing any
+previous unhandled error, useful for touring a particular piece of
+processing that handles its own errors and may be triggered as a result
+of another error.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error-pop-context"></a><h3>nih_error_pop_context ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_error_pop_context               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Ends the last context created with <a class="link" href="nih-Error.html#nih-error-push-context" title="nih_error_push_context ()"><code class="function">nih_error_push_context()</code></a>, deliberate
+care should be taken so that these are always properly nested (through
+the correct use of scope, for example) and contexts are not left unpopped.
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

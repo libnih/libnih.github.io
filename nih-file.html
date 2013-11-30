@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>file</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-Errors.html" title="Errors">
+<link rel="next" href="nih-Hash.html" title="Hash">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-Errors.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-Hash.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-file.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-file.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-file"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-file.top_of_page"></a>file</span></h2>
+<p>file</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-file.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">int</span>                 (<a class="link" href="nih-file.html#NihFileFilter" title="NihFileFilter ()">*NihFileFilter</a>)                    (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> is_dir</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="nih-file.html#NihFileVisitor" title="NihFileVisitor ()">*NihFileVisitor</a>)                   (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *dirname</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="nih-file.html#NihFileErrorHandler" title="NihFileErrorHandler ()">*NihFileErrorHandler</a>)              (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *dirname</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-file.html#nih-file-read" title="nih_file_read ()">nih_file_read</a>                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *length</code></em>);
+<span class="returnvalue">void</span> *              <a class="link" href="nih-file.html#nih-file-map" title="nih_file_map ()">nih_file_map</a>                        (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *length</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-file-unmap" title="nih_file_unmap ()">nih_file_unmap</a>                      (<em class="parameter"><code><span class="type">void</span> *map</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> length</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-file-is-hidden" title="nih_file_is_hidden ()">nih_file_is_hidden</a>                  (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-file-is-backup" title="nih_file_is_backup ()">nih_file_is_backup</a>                  (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-file-is-swap" title="nih_file_is_swap ()">nih_file_is_swap</a>                    (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-file-is-rcs" title="nih_file_is_rcs ()">nih_file_is_rcs</a>                     (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-file-is-packaging" title="nih_file_is_packaging ()">nih_file_is_packaging</a>               (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-file-ignore" title="nih_file_ignore ()">nih_file_ignore</a>                     (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-file.html#nih-dir-walk" title="nih_dir_walk ()">nih_dir_walk</a>                        (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileVisitor" title="NihFileVisitor ()"><span class="type">NihFileVisitor</span></a> visitor</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileErrorHandler" title="NihFileErrorHandler ()"><span class="type">NihFileErrorHandler</span></a> error</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-file.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-file.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihFileFilter"></a><h3>NihFileFilter ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*NihFileFilter)                    (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> is_dir</code></em>);</pre>
+<p>
+A file filter is a function that can be called to determine whether
+a particular path should be ignored because of its filename.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to file,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>is_dir</code></em> :</span></p></td>
+<td>TRUE if <em class="parameter"><code>path</code></em> is a directory.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if the path should be ignored, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihFileVisitor"></a><h3>NihFileVisitor ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*NihFileVisitor)                   (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *dirname</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);</pre>
+<p>
+A file visitor is a function that can be called for a filesystem object
+visited by <a class="link" href="nih-file.html#nih-dir-walk" title="nih_dir_walk ()"><code class="function">nih_dir_walk()</code></a> that does not match the filter given to that
+function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given to <a class="link" href="nih-file.html#nih-dir-walk" title="nih_dir_walk ()"><code class="function">nih_dir_walk()</code></a>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dirname</code></em> :</span></p></td>
+<td>top-level path being walked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to file,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>statbuf</code></em> :</span></p></td>
+<td>stat of <em class="parameter"><code>path</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihFileErrorHandler"></a><h3>NihFileErrorHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*NihFileErrorHandler)              (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *dirname</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);</pre>
+<p>
+A file error handler is a function called whenever the visitor function
+returns a raised error, or the attempt to walk <em class="parameter"><code>path</code></em> fails.  Note that
+<em class="parameter"><code>statbuf</code></em> might be invalid if it was <code class="function">stat()</code> that failed.
+</p>
+<p>
+This function should handle the error and return zero; alternatively
+it may raise the error again (or a different error) and return a negative
+value to abort the tree walk.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given to <a class="link" href="nih-file.html#nih-dir-walk" title="nih_dir_walk ()"><code class="function">nih_dir_walk()</code></a>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>dirname</code></em> :</span></p></td>
+<td>top-level path being walked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to file,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>statbuf</code></em> :</span></p></td>
+<td>stat of <em class="parameter"><code>path</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-read"></a><h3>nih_file_read ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_file_read                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *length</code></em>);</pre>
+<p>
+Opens the file at <em class="parameter"><code>path</code></em> and reads the contents into memory, returning
+a newly allocated string.  If the file is particularly large, it may
+not be possible to read into memory at all, and you'll need to use
+<a class="link" href="nih-file.html#nih-file-map" title="nih_file_map ()"><code class="function">nih_file_map()</code></a> instead.
+</p>
+<p>
+The returned data will NOT be NULL terminated.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to read,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>pointer to store file length in.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated string or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-map"></a><h3>nih_file_map ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span> *              nih_file_map                        (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *length</code></em>);</pre>
+<p>
+Opens the file at <em class="parameter"><code>path</code></em> and maps it into memory, returning the mapped
+pointer and the length of the file (required to unmap it later).  The
+file is opened with the <em class="parameter"><code>flags</code></em> given.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to open,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>open mode,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>pointer to store file length.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>memory mapped file or NULL on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-unmap"></a><h3>nih_file_unmap ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_file_unmap                      (<em class="parameter"><code><span class="type">void</span> *map</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> length</code></em>);</pre>
+<p>
+Unmap a file previously mapped with <a class="link" href="nih-file.html#nih-file-map" title="nih_file_map ()"><code class="function">nih_file_map()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>map</code></em> :</span></p></td>
+<td>memory mapped file,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>length</code></em> :</span></p></td>
+<td>length of file.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, NULL on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-is-hidden"></a><h3>nih_file_is_hidden ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_file_is_hidden                  (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+Determines whether <em class="parameter"><code>path</code></em> represents a hidden file, matching it against
+common patterns for that type of file.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if it matches, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-is-backup"></a><h3>nih_file_is_backup ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_file_is_backup                  (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+Determines whether <em class="parameter"><code>path</code></em> represents a backup file, matching it against
+common patterns for that type of file.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if it matches, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-is-swap"></a><h3>nih_file_is_swap ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_file_is_swap                    (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+Determines whether <em class="parameter"><code>path</code></em> represents an editor swap file, matching it
+against common patterns for that type of file.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if it matches, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-is-rcs"></a><h3>nih_file_is_rcs ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_file_is_rcs                     (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+Determines whether <em class="parameter"><code>path</code></em> represents a file or directory used by a
+common revision control system, matching it against common patterns
+for known RCSs.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if it matches, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-is-packaging"></a><h3>nih_file_is_packaging ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_file_is_packaging               (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+Determines whether <em class="parameter"><code>path</code></em> represents a file or directory used by a
+common package manager, matching it against common patterns.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if it matches, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-file-ignore"></a><h3>nih_file_ignore ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_file_ignore                     (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
+<p>
+Determines whether <em class="parameter"><code>path</code></em> should normally be ignored when walking a
+directory tree.  Files ignored are those that are hidden, represent
+backup files, editor swap files and both files and directories used
+by revision control systems.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if it should be ignored, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-dir-walk"></a><h3>nih_dir_walk ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_dir_walk                        (<em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileVisitor" title="NihFileVisitor ()"><span class="type">NihFileVisitor</span></a> visitor</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileErrorHandler" title="NihFileErrorHandler ()"><span class="type">NihFileErrorHandler</span></a> error</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+Iterates the directory tree starting at <em class="parameter"><code>path</code></em>, calling <em class="parameter"><code>visitor</code></em> for
+each file, directory or other object found.  Sub-directories are
+descended into, and the same <em class="parameter"><code>visitor</code></em> called for those.
+</p>
+<p>
+<em class="parameter"><code>visitor</code></em> is not called for <em class="parameter"><code>path</code></em> itself.
+</p>
+<p>
+<em class="parameter"><code>filter</code></em> can be used to restrict both the sub-directories iterated and
+the objects that <em class="parameter"><code>visitor</code></em> is called for.  It is passed the full path
+of the object, and if it returns TRUE, the object is ignored.
+</p>
+<p>
+If <em class="parameter"><code>visitor</code></em> returns a negative value, or there's an error obtaining
+the listing for a particular sub-directory, then the <em class="parameter"><code>error</code></em> function
+will be called.  This function should handle the error and return zero,
+or raise an error again and return a negative value which causes the
+entire walk to be aborted.  If <em class="parameter"><code>error</code></em> is NULL, then a warning is emitted
+instead.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>path to walk,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filter</code></em> :</span></p></td>
+<td>path filter,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>visitor</code></em> :</span></p></td>
+<td>function to call for each path,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>function to call on error,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data to pass to <em class="parameter"><code>visitor</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

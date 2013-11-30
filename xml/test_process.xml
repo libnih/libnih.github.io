@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-test-process">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-test-process.top_of_page">test_process</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>test_process</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-test-process.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="TEST-CHILD:CAPS">TEST_CHILD</link>                          (_pid)
+#define             <link linkend="TEST-CHILD-WAIT:CAPS">TEST_CHILD_WAIT</link>                     (_pid,
+                                                         _fd)
+#define             <link linkend="TEST-CHILD-RELEASE:CAPS">TEST_CHILD_RELEASE</link>                  (_fd)
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-test-process.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-test-process.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="TEST-CHILD:CAPS" role="macro">
+<title>TEST_CHILD()</title>
+<indexterm zone="TEST-CHILD:CAPS"><primary>TEST_CHILD</primary></indexterm>
+<programlisting>#define             TEST_CHILD(_pid)</programlisting>
+<para>
+Spawn a child in which a test can be performed without affecting the
+main flow of the process.  The pid of the child is stored in <parameter>_pid</parameter>.
+</para>
+<para>
+This macro ensures that the child has begun execution before the
+parent is allowed to continue through the usual use of a pipe.
+</para>
+<para>
+A block of code should follow this macro, which is the code that will
+be run in the child process; if the block ends, the child will abort.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_pid</parameter>&#160;:</term>
+<listitem><simpara>variable to store pid in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-CHILD-WAIT:CAPS" role="macro">
+<title>TEST_CHILD_WAIT()</title>
+<indexterm zone="TEST-CHILD-WAIT:CAPS"><primary>TEST_CHILD_WAIT</primary></indexterm>
+<programlisting>#define             TEST_CHILD_WAIT(_pid, _fd)</programlisting>
+<para>
+Spawn a child in which a test can be performed while the parent waits
+in this macro for the child to reach the TEST_CHILD_RELEASE macro
+or die.
+</para>
+<para>
+The pid of the child is stored in <parameter>_pid</parameter>, a file descriptor is stored
+in the <parameter>_fd</parameter> variable which is used by the TEST_CHILD_RELEASE macro.
+</para>
+<para>
+A block of code should follow this macro, which is the code that will
+be run in the child process; if the block ends, the child will abort.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_pid</parameter>&#160;:</term>
+<listitem><simpara>variable to store pid in,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>variable to store lock fd in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-CHILD-RELEASE:CAPS" role="macro">
+<title>TEST_CHILD_RELEASE()</title>
+<indexterm zone="TEST-CHILD-RELEASE:CAPS"><primary>TEST_CHILD_RELEASE</primary></indexterm>
+<programlisting>#define             TEST_CHILD_RELEASE(_fd)</programlisting>
+<para>
+Release the parent of a child spawned by TEST_CHILD_WAIT now that the
+child has reached the critical point.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>variable lock fd stored in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

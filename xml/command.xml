@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Command">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Command.top_of_page">Command</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Command</refname>
+<refpurpose>Sub-commands options and arguments</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Command.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="NihCommand">NihCommand</link>;
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihCommandAction">*NihCommandAction</link>)                 (<parameter><link linkend="NihCommand"><type>NihCommand</type></link> *command</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> * const *args</parameter>);
+                    <link linkend="NihCommandGroup">NihCommandGroup</link>;
+#define             <link linkend="NIH-COMMAND-LAST:CAPS">NIH_COMMAND_LAST</link>
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-command-parser">nih_command_parser</link>                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> argc</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> *argv[]</parameter>,
+                                                         <parameter><link linkend="NihOption"><type>NihOption</type></link> *options</parameter>,
+                                                         <parameter><link linkend="NihCommand"><type>NihCommand</type></link> *commands</parameter>);
+<link linkend="NihCommand"><returnvalue>NihCommand</returnvalue></link> *        <link linkend="nih-command-join">nih_command_join</link>                    (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="NihCommand"><type>NihCommand</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="NihCommand"><type>NihCommand</type></link> *b</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Command.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Builds on the command-line option and arguments parser to provide an
+application interface where the first non-option argument is the name
+of a command.  Both global and command-specific options are permitted,
+and global options may appear both before and after the command.
+</para>
+<para>
+Description your commands using an array of NihCommand members,
+with each describing its options using an array of NihOption members.
+Pass this all to <link linkend="nih-command-parser"><function>nih_command_parser()</function></link>.
+</para>
+<para>
+Commands are implemented with a handler function that is called,
+when nih_command_parser returns it has completed its work.
+</para>
+</refsect1>
+<refsect1 id="nih-Command.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihCommand" role="typedef">
+<title>NihCommand</title>
+<indexterm zone="NihCommand"><primary>NihCommand</primary></indexterm>
+<programlisting>typedef struct nih_command NihCommand;
+</programlisting>
+<para>
+This structure defines a command that may be found in the command-line
+arguments after any application-specific options, and before any
+command-specific options.  <parameter>command</parameter> must be specified which is the
+string looked for.
+</para>
+<para>
+After <parameter>command</parameter> is found in the arguments, following options are
+considered specific to the command.  These are specified in <parameter>options</parameter>,
+which should be an array of NihOption structures terminated by
+NIH_OPTION_LAST.  This may be NULL, in which case it is treated the same
+as an empty list.
+</para>
+<para>
+Any remaining command-line arguments are placed in an array and given
+as an argument to the <parameter>action</parameter> function.
+</para>
+<para>
+Help for the command is built from <parameter>usage</parameter>, <parameter>synopsis</parameter> and <parameter>help</parameter> as if
+they were passed to <link linkend="nih-option-set-usage"><function>nih_option_set_usage()</function></link>, etc. for this command.
+</para></refsect2>
+<refsect2 id="NihCommandAction" role="function">
+<title>NihCommandAction ()</title>
+<indexterm zone="NihCommandAction"><primary>NihCommandAction</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihCommandAction)                 (<parameter><link linkend="NihCommand"><type>NihCommand</type></link> *command</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> * const *args</parameter>);</programlisting>
+<para>
+A command action is a function called when a command is found in the
+command-line arguments.  It is passed the list of arguments that
+follow as an array allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>.
+</para>
+<para>
+The return value of the function is returned from <link linkend="nih-command-parser"><function>nih_command_parser()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>command</parameter>&#160;:</term>
+<listitem><simpara>NihCommand invoked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&#160;:</term>
+<listitem><simpara>command-line arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihCommandGroup" role="struct">
+<title>NihCommandGroup</title>
+<indexterm zone="NihCommandGroup"><primary>NihCommandGroup</primary></indexterm>
+<programlisting>typedef struct {
+	char *title;
+} NihCommandGroup;
+</programlisting>
+<para>
+This structure is used to define a group of commands that are collated
+together when help is given.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="char"><type>char</type></link>&#160;*<structfield id="NihCommandGroup.title">title</structfield>;</term>
+<listitem><simpara>descriptive help message.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-COMMAND-LAST:CAPS" role="macro">
+<title>NIH_COMMAND_LAST</title>
+<indexterm zone="NIH-COMMAND-LAST:CAPS"><primary>NIH_COMMAND_LAST</primary></indexterm>
+<programlisting>#define NIH_COMMAND_LAST { NULL, NULL, NULL, NULL, NULL, NULL, NULL }
+</programlisting>
+<para>
+This macro may be used as the last command in the list to avoid typing
+all those NULLs yourself.
+</para></refsect2>
+<refsect2 id="nih-command-parser" role="function">
+<title>nih_command_parser ()</title>
+<indexterm zone="nih-command-parser"><primary>nih_command_parser</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_command_parser                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> argc</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> *argv[]</parameter>,
+                                                         <parameter><link linkend="NihOption"><type>NihOption</type></link> *options</parameter>,
+                                                         <parameter><link linkend="NihCommand"><type>NihCommand</type></link> *commands</parameter>);</programlisting>
+<para>
+Parses the command-line arguments given in <parameter>argv</parameter> until the first
+non-option argument is found.  Options preceeding that are handled
+according to <parameter>options</parameter> by <link linkend="nih-option-parser"><function>nih_option_parser()</function></link>.
+</para>
+<para>
+The argument is looked up in <parameter>commands</parameter>, and if found, that is used to
+process the remaining options and arguments.
+</para>
+<para>
+Alternatively if the program name can be found in <parameter>commands</parameter>, then the
+entire <parameter>argv</parameter> list is treated as the command instead of locating the
+first non-option.
+</para>
+<para>
+Reminaing arguments are passed to the action function of the <parameter>commands</parameter>
+member found.
+</para>
+<para>
+The usage stem and string are constructed automatically, calling
+<link linkend="nih-option-set-usage"><function>nih_option_set_usage()</function></link> or <link linkend="nih-option-set-usage-stem"><function>nih_option_set_usage_stem()</function></link> before this
+function will have no effect.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for arguments arrays.  When all parents
+of the array are freed, the array will also be freed.
+</para>
+<para>
+Errors are handled by printing a message to standard error.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent for arguments arrays,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argc</parameter>&#160;:</term>
+<listitem><simpara>number of arguments,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&#160;:</term>
+<listitem><simpara>command-line arguments,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>options</parameter>&#160;:</term>
+<listitem><simpara>global options,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>commands</parameter>&#160;:</term>
+<listitem><simpara>commands to look for.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>return value from action function or negative value on error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-command-join" role="function">
+<title>nih_command_join ()</title>
+<indexterm zone="nih-command-join"><primary>nih_command_join</primary></indexterm>
+<programlisting><link linkend="NihCommand"><returnvalue>NihCommand</returnvalue></link> *        nih_command_join                    (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="NihCommand"><type>NihCommand</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="NihCommand"><type>NihCommand</type></link> *b</parameter>);</programlisting>
+<para>
+Joins the two command arrays together to produce a combined array
+containing the commands from <parameter>a</parameter> followed by the commands from <parameter>b</parameter>.
+</para>
+<para>
+The new list is allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>, but the members are just
+copied in from <parameter>a</parameter> and <parameter>b</parameter> including any pointers therein.  Freeing the
+new array with <link linkend="nih-free"><function>nih_free()</function></link> is entirely safe.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>first command array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>second command array.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>combined command array.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

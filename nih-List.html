@@ -1,0 +1,569 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>List</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-io.html" title="io">
+<link rel="next" href="nih-Logging.html" title="Logging">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-io.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-Logging.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-List.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-List.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-List"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-List.top_of_page"></a>List</span></h2>
+<p>List — Circular doubly-linked lists</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-List.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="nih-List.html#NihList" title="NihList">NihList</a>;
+                    <a class="link" href="nih-List.html#NihListEntry" title="NihListEntry">NihListEntry</a>;
+#define             <a class="link" href="nih-List.html#NIH-LIST-EMPTY:CAPS" title="NIH_LIST_EMPTY()">NIH_LIST_EMPTY</a>                      (list)
+#define             <a class="link" href="nih-List.html#NIH-LIST-FOREACH:CAPS" title="NIH_LIST_FOREACH()">NIH_LIST_FOREACH</a>                    (list,
+                                                         iter)
+#define             <a class="link" href="nih-List.html#NIH-LIST-FOREACH-SAFE:CAPS" title="NIH_LIST_FOREACH_SAFE()">NIH_LIST_FOREACH_SAFE</a>               (list,
+                                                         iter)
+#define             <a class="link" href="nih-List.html#NIH-LIST-ITER:CAPS" title="NIH_LIST_ITER()">NIH_LIST_ITER</a>                       (iter,
+                                                         type,
+                                                         head)
+<span class="returnvalue">void</span>                <a class="link" href="nih-List.html#nih-list-init" title="nih_list_init ()">nih_list_init</a>                       (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-List.html#nih-list-new" title="nih_list_new ()">nih_list_new</a>                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);
+<a class="link" href="nih-List.html#NihListEntry" title="NihListEntry"><span class="returnvalue">NihListEntry</span></a> *      <a class="link" href="nih-List.html#nih-list-entry-new" title="nih_list_entry_new ()">nih_list_entry_new</a>                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-List.html#nih-list-add" title="nih_list_add ()">nih_list_add</a>                        (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-List.html#nih-list-add-after" title="nih_list_add_after ()">nih_list_add_after</a>                  (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()">nih_list_remove</a>                     (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-List.html#nih-list-destroy" title="nih_list_destroy ()">nih_list_destroy</a>                    (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-List.description"></a><h2>Description</h2>
+<p>
+Provides a generic circular doubly-linked list implementation.  Like
+all doubly-linked lists, each entry carries both a pointer to the
+previous entry in the list and a pointer to the next entry in the list.
+However this is also circular, so instead of the first entry's previous
+pointer and last entry's next pointers containing NULL, they instead
+point to the last entry and first entry respectively.
+</p>
+<p>
+A single NihList structure is generally used as the list head, so
+for an empty list, that structure's previous and next pointers point
+to itself.
+</p>
+<p>
+This has the advantage over other implementations of a constant time
+operation to append or prepend an entry to the list, insert before or
+after a known entry, and remove an entry from the list.
+</p>
+<p>
+List entries may be created in one of two ways.  The most common is to
+embed the NihList structure as the first member of your own structure,
+and initialise it with <a class="link" href="nih-List.html#nih-list-init" title="nih_list_init ()"><code class="function">nih_list_init()</code></a> after allocating the structure.
+Alternatively you may create NihListEntry structures with
+<a class="link" href="nih-List.html#nih-list-entry-new" title="nih_list_entry_new ()"><code class="function">nih_list_entry_new()</code></a> and point at your own data from them.
+</p>
+<p>
+The list head itself may be created with <a class="link" href="nih-List.html#nih-list-new" title="nih_list_new ()"><code class="function">nih_list_new()</code></a>.
+</p>
+<p>
+Entries are added to the list with <a class="link" href="nih-List.html#nih-list-add" title="nih_list_add ()"><code class="function">nih_list_add()</code></a>, passing an existing
+entry which is most commonly the list head.  This adds the entry "before"
+the given entry, in the list head case this appends the entry to the list.
+To add "after" the given entry (prepending in the list head case) use
+<a class="link" href="nih-List.html#nih-list-add-after" title="nih_list_add_after ()"><code class="function">nih_list_add_after()</code></a>.
+</p>
+<p>
+To remove an entry from the list use <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a>.  The entry
+effectively becomes the list head of an empty list.
+</p>
+<p>
+Entries may be moved between lists, or rearranged within a list, by
+simply calling <a class="link" href="nih-List.html#nih-list-add" title="nih_list_add ()"><code class="function">nih_list_add()</code></a> - there's no need to call <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a>
+first.
+</p>
+<p>
+List iteration may be performed by following the prev or next pointers
+in a for loop.  Since this is an extremely common operation, the
+<a class="link" href="nih-List.html#NIH-LIST-FOREACH:CAPS" title="NIH_LIST_FOREACH()"><code class="function">NIH_LIST_FOREACH()</code></a> macro is provided that expands to this for loop.
+</p>
+<p>
+Since this macro only holds a pointer to the entry being iterated, most
+operations that change a list are not safe.  To change a list safely
+while iterating, including being able to free the visited node, use
+the <a class="link" href="nih-List.html#NIH-LIST-FOREACH-SAFE:CAPS" title="NIH_LIST_FOREACH_SAFE()"><code class="function">NIH_LIST_FOREACH_SAFE()</code></a> macro.  However note that since this macro
+changes the list as it iterates it itself, it is not safe to traverse
+or iterate the list and make assumptions about the type of node being
+seen.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-List.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihList"></a><h3>NihList</h3>
+<pre class="programlisting">typedef struct {
+	struct nih_list *prev, *next;
+} NihList;
+</pre>
+<p>
+This structure can be used both to refer to a linked list and can be
+placed in your own structures to use them as list entries.
+</p>
+<p>
+The list is circular so the <em class="parameter"><code>next</code></em> pointer of the last entry points to
+the first, and the <em class="parameter"><code>prev</code></em> pointer of the first entry points to the last.
+An empty list simply has the <em class="parameter"><code>prev</code></em> and <em class="parameter"><code>next</code></em> pointers pointing to itself.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term">struct <span class="type">nih_list</span> *<em class="structfield"><code><a name="NihList.prev"></a>prev</code></em>;</span></p></td>
+<td>previous entry in the list,</td>
+</tr>
+<tr>
+<td><p><span class="term">struct <span class="type">nih_list</span> *<em class="structfield"><code><a name="NihList.next"></a>next</code></em>;</span></p></td>
+<td>next entry in the list.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihListEntry"></a><h3>NihListEntry</h3>
+<pre class="programlisting">typedef struct {
+	NihList entry;
+	union {
+		void *data;
+		char *str;
+		int   int_data;
+	};
+} NihListEntry;
+</pre>
+<p>
+This structure can be used as a generic NihList node that contains
+a pointer to generic data, a string or contains an integer value.
+</p>
+<p>
+You should take care of setting the data yourself.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> <em class="structfield"><code><a name="NihListEntry.entry"></a>entry</code></em>;</span></p></td>
+<td>list header,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">void</span> *<em class="structfield"><code><a name="NihListEntry.data"></a>data</code></em>;</span></p></td>
+<td>data pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="NihListEntry.str"></a>str</code></em>;</span></p></td>
+<td>string pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="NihListEntry.int-data"></a>int_data</code></em>;</span></p></td>
+<td>integer value.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-LIST-EMPTY:CAPS"></a><h3>NIH_LIST_EMPTY()</h3>
+<pre class="programlisting">#define             NIH_LIST_EMPTY(list)</pre>
+<p>
+Checks whether the given list is empty by comparing the next and
+previous pointers for equality.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>entry in the list to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>TRUE if empty, FALSE otherwise.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-LIST-FOREACH:CAPS"></a><h3>NIH_LIST_FOREACH()</h3>
+<pre class="programlisting">#define             NIH_LIST_FOREACH(list, iter)</pre>
+<p>
+Expands to a for statement that iterates over each entry in <em class="parameter"><code>list</code></em>
+except <em class="parameter"><code>list</code></em> itself, setting <em class="parameter"><code>iter</code></em> to each entry for the block within
+the loop.
+</p>
+<p>
+This is the cheapest form of iteration, however it is not safe to perform
+various modifications to the list; most importantly, you must not change
+the member being iterated in any way, including removing it from the list
+or freeing it.  If you need to do that, use <a class="link" href="nih-List.html#NIH-LIST-FOREACH-SAFE:CAPS" title="NIH_LIST_FOREACH_SAFE()"><code class="function">NIH_LIST_FOREACH_SAFE()</code></a> instead.
+</p>
+<p>
+However since it doesn't modify the list being iterated in any way, it
+is safe to traverse or iterate the list again while iterating.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>entry in the list to iterate,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>name of iterator variable.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-LIST-FOREACH-SAFE:CAPS"></a><h3>NIH_LIST_FOREACH_SAFE()</h3>
+<pre class="programlisting">#define             NIH_LIST_FOREACH_SAFE(list, iter)</pre>
+<p>
+Expands to a for statement that iterates over each entry in <em class="parameter"><code>list</code></em>
+except <em class="parameter"><code>list</code></em> itself, setting <em class="parameter"><code>iter</code></em> to each entry for the block within
+the loop.
+</p>
+<p>
+The iteration is performed safely by placing a cursor node after <em class="parameter"><code>iter</code></em>;
+this means that any node including <em class="parameter"><code>iter</code></em> can be removed from the list,
+added to a different list, or entries added before or after it.
+</p>
+<p>
+Note that if you add an entry directly after <em class="parameter"><code>iter</code></em> and wish it to be
+visited, you would need to use <a class="link" href="nih-List.html#NIH-LIST-FOREACH:CAPS" title="NIH_LIST_FOREACH()"><code class="function">NIH_LIST_FOREACH()</code></a> instead, as this
+would be placed before the cursor and thus skipped.
+</p>
+<p>
+Also since the list has an extra node during iteration of a different
+type, it is expressly not safe to traverse or iterate the list while
+iterating.  If you need to perform multiple iterations, or reference
+the next or previous pointers of a node, you must use <a class="link" href="nih-List.html#NIH-LIST-FOREACH:CAPS" title="NIH_LIST_FOREACH()"><code class="function">NIH_LIST_FOREACH()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>entry in the list to iterate,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>name of iterator variable.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-LIST-ITER:CAPS"></a><h3>NIH_LIST_ITER()</h3>
+<pre class="programlisting">#define             NIH_LIST_ITER(iter, type, head)</pre>
+<p>
+Normally the list head is the first member of the structure, so you can
+simply cast an NihList * iterator to the structure you're expecting to
+find.
+</p>
+<p>
+However when that is not true, you can use this macro to perform the
+cast based on the offset of <em class="parameter"><code>head</code></em> within <em class="parameter"><code>type</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>iterator variable,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>type of list member,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>head</code></em> :</span></p></td>
+<td>name of list head structure member.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>pointer to top of structure being iterated.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-list-init"></a><h3>nih_list_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_list_init                       (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Initialise an already allocated list entry, once done it can be used
+as the start of a new list or added to an existing list.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be initialised.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-list-new"></a><h3>nih_list_new ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_list_new                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);</pre>
+<p>
+Allocates a new list structure, usually used as the start of a new
+list.  You may prefer to allocate the NihList structure statically and
+use <a class="link" href="nih-List.html#nih-list-init" title="nih_list_init ()"><code class="function">nih_list_init()</code></a> to initialise it instead.
+</p>
+<p>
+The structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> so can be used as a context
+to other allocations.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned list.  When all parents
+of the returned list are freed, the returned list will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new list.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new list or NULL if the allocation failed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-list-entry-new"></a><h3>nih_list_entry_new ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihListEntry" title="NihListEntry"><span class="returnvalue">NihListEntry</span></a> *      nih_list_entry_new                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);</pre>
+<p>
+Allocates a new list entry structure, leaving the caller to set the
+data of the entry.
+</p>
+<p>
+The structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> so can be used as a context
+to other allocations.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned list entry.  When all parents
+of the returned list entry are freed, the returned list entry will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new list entry.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new list entry or NULL if the allocation failed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-list-add"></a><h3>nih_list_add ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_list_add                        (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>entry</code></em> to a new list immediately before the <em class="parameter"><code>list</code></em> entry.  If <em class="parameter"><code>list</code></em>
+is the pointer you are using to refer to the list itself, this results
+in <em class="parameter"><code>entry</code></em> being appended to the list.
+</p>
+<p>
+If <em class="parameter"><code>entry</code></em> is already in another list it is removed so there is no need
+to call <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> before this function.  There is also no
+requirement that the lists be different, so this can be used to reorder
+a list.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>entry in the destination list,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be added to the list.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>entry</code></em> which is now a member of the same list as <em class="parameter"><code>list</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-list-add-after"></a><h3>nih_list_add_after ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_list_add_after                  (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>entry</code></em> to a new list immediately after the <em class="parameter"><code>list</code></em> entry.  If <em class="parameter"><code>list</code></em>
+is the pointer you are using to refer to the list itself and that entry
+has no data, this results in <em class="parameter"><code>entry</code></em> being pushed onto a stack under it.
+</p>
+<p>
+If <em class="parameter"><code>entry</code></em> is already in another list it is removed so there is no need
+to call <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> before this function.  There is also no
+requirement that the lists be different, so this can be used to reorder
+a list.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>entry in the destination list,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be added to the list.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>entry</code></em> which is now a member of the same list as <em class="parameter"><code>list</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-list-remove"></a><h3>nih_list_remove ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_list_remove                     (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Removes <em class="parameter"><code>entry</code></em> from its containing list.  The entry is not freed, but
+is instead returned so that it can be added to another list (though
+there's no need to call <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> first if you wanted to do
+that) or used as the start of a new list.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be removed.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>entry</code></em> as a lone entry.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-list-destroy"></a><h3>nih_list_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_list_destroy                    (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Removes <em class="parameter"><code>entry</code></em> from its containing list.
+</p>
+<p>
+Normally used or called from an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> destructor so that the list
+item is automatically removed from its containing list when freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be removed.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

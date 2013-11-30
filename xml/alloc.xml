@@ -1,0 +1,620 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Alloc">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Alloc.top_of_page">Alloc</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Alloc</refname>
+<refpurpose>Object memory allocation</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Alloc.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihDestructor">*NihDestructor</link>)                    (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);
+#define             <link linkend="nih-new">nih_new</link>                             (parent,
+                                                         type)
+#define             <link linkend="nih-alloc-set-destructor">nih_alloc_set_destructor</link>            (ptr,
+                                                         destructor)
+#define             <link linkend="nih-local">nih_local</link>
+<link linkend="void"><returnvalue>void</returnvalue></link> *              <link linkend="nih-alloc">nih_alloc</link>                           (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> size</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link> *              <link linkend="nih-realloc">nih_realloc</link>                         (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> size</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-free">nih_free</link>                            (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-discard">nih_discard</link>                         (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-alloc-real-set-destructor">nih_alloc_real_set_destructor</link>       (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter><link linkend="NihDestructor"><type>NihDestructor</type></link> destructor</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-ref">nih_ref</link>                             (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-unref">nih_unref</link>                           (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-alloc-parent">nih_alloc_parent</link>                    (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="size-t"><returnvalue>size_t</returnvalue></link>              <link linkend="nih-alloc-size">nih_alloc_size</link>                      (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Alloc.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+All functions in libnih use these functions to allocate and destroy
+objects in memory, they wrap the usual <link linkend="malloc"><function>malloc()</function></link>, <link linkend="realloc"><function>realloc()</function></link> and <link linkend="free"><function>free()</function></link>
+calls to provide a multi-reference hierarchial allocator.
+</para>
+<para>
+When you allocate an object using <link linkend="nih-alloc"><function>nih_alloc()</function></link> or <link linkend="nih-new"><function>nih_new()</function></link>, you pass
+an optional parent.  This may be any other object allocated with these
+functions.  A reference from the parent to the newly allocated object
+is created.  If no parent is passed the object is referenced from the
+special NULL parent.
+</para>
+<para>
+You may add additional references to the object using <link linkend="nih-ref"><function>nih_ref()</function></link>, again
+passing any other object allocated with these functions as the parent
+or the special NULL parent.
+</para>
+<para>
+Thus any object may have one or more parents.  Indeed, an object
+(including the NULL parent) may hold multiple references to another
+object.
+</para>
+<para>
+When an object is freed, the references to its children are discarded
+and if it held the last reference to one of those children, the child
+is freed as well.
+</para>
+<para>
+This takes away a lof the effort of object management; allocating the
+members of a structure with the structure as a parent means that if you
+free the structure, all of its members will be freed as well.
+</para>
+<para>
+You may still need to do additional clean-up, for example closing file
+descriptors or other non-allocated resources.  You can set a destructor
+function for the object with <link linkend="nih-alloc-set-destructor"><function>nih_alloc_set_destructor()</function></link>, this is called
+during the free process.
+</para>
+<para>
+To remove a reference to a child, potentially freeing it but without
+freeing the parent object, use <link linkend="nih-unref"><function>nih_unref()</function></link>.
+</para>
+<para>
+To free a top-level object, use <link linkend="nih-free"><function>nih_free()</function></link>.  <link linkend="nih-free"><function>nih_free()</function></link> always frees the
+object, even if it has parent references which it will discard.  This
+obviously does not clean up any pointers in the parent object which
+point at the freed child.
+</para>
+<para>
+In many situations, you will allocate an object using <link linkend="nih-alloc"><function>nih_alloc()</function></link> with
+no parent and pass that to functions which may take a reference to it.
+When finished, you need to discard the object safely; if no references
+were taken, it should be freed - otherwise it's safe to leave.  Use
+<link linkend="nih-discard"><function>nih_discard()</function></link> instead of <link linkend="nih-free"><function>nih_free()</function></link> to do this.
+</para>
+<para>
+Such constructs are often better handled using nih_local variables.
+</para>
+<para>
+= Common patterns =
+</para>
+<para>
+At first, it seems like there's a bewildering array of different ways
+you can shoot yourself in the foot with this library, however if you
+stick to the usual patterns it's a very safe and versatile library.
+</para>
+<para>
+== Structures ==
+</para>
+<para>
+When allocating structures, you tend to write your function so that
+the prospective parent is passed in as the first argument and always
+allocate with that.
+</para>
+<para>
+  obj = nih_new (parent, Object);
+</para>
+<para>
+That way, the caller decides how they want your object linked to
+other things.  If there's an error while populating the structure,
+the standard style is just to call <link linkend="nih-free"><function>nih_free()</function></link> rather than
+unreferencing
+</para>
+<para>
+  error:
+    nih_free (obj);
+    return NULL;
+</para>
+<para>
+Since you're putting it together, this use of <link linkend="nih-free"><function>nih_free()</function></link> is perfectly
+acceptable.
+</para>
+<para>
+== Structure members ==
+</para>
+<para>
+Structure members are just about always allocated with the structure
+as their parent context.
+</para>
+<para>
+  obj->child = nih_new (obj, Child);
+</para>
+<para>
+This pretty much saves you from ever worrying about them, as they
+will be automatically freed whenever you free the parent object;
+including error handling cases.
+</para>
+<para>
+Should you ever replace the child, you shouldn't call <link linkend="nih-free"><function>nih_free()</function></link> but
+<link linkend="nih-unref"><function>nih_unref()</function></link>, to be safe against other code having taken a reference.
+</para>
+<para>
+  nih_unref (obj->child, obj);
+  obj->child = nih_new (obj, Child);
+</para>
+<para>
+This will clean up the child, unless someone else is using it.
+</para>
+<para>
+== Floating objects ==
+</para>
+<para>
+Often in a function you'll want to allocate an object but won't yet
+have anything to attach it to.  This also often applies to global
+variables as well.
+</para>
+<para>
+You simply pass NULL in as the parent; the returned object has only
+this special reference.
+</para>
+<para>
+  obj = nih_new (NULL, Object);
+</para>
+<para>
+To discard the floating object you should use <link linkend="nih-discard"><function>nih_discard()</function></link> instead
+of <link linkend="nih-free"><function>nih_free()</function></link>, which will not free the object if another function
+you've called in the meantime took a reference to it.
+</para>
+<para>
+Better yet, use nih_local to have the object automatically discarded
+when it goes out of scope:
+</para>
+<para>
+  {
+    nih_local Object *obj = NULL;
+    obj = nih_new (NULL, Object);
+</para>
+<para>
+    // work with obj, including passing it to functions that may
+    // reference it
+  }
+</para>
+<para>
+== Taking a reference ==
+</para>
+<para>
+Provided the above patterns are followed, taking a reference to an
+object you are passed is perfectly safe.  Simply call <link linkend="nih-ref"><function>nih_ref()</function></link>,
+for example to store it in your own structure:
+</para>
+<para>
+  adopt->obj = obj;
+  nih_ref (adopt->obj, adopt);
+</para>
+<para>
+When you want to drop your reference, you should only ever use
+<link linkend="nih-unref"><function>nih_unref()</function></link>.
+</para>
+<para>
+  nih_unref (adopt->obj, adopt);
+  adopt->obj = NULL;
+</para>
+<para>
+== Returning a member ==
+</para>
+<para>
+This is a relatively rare case, but examples exist.
+</para>
+<para>
+Sometimes you want to provide a function that returns one of your
+structure members, disowning it in the process.  Your function will
+most likely take a parent object to which you want to reparent the
+member.
+</para>
+<para>
+This is as easy as referencing the new parent and dropping your own
+reference.
+</para>
+<para>
+  nih_ref (child, parent);
+</para>
+<para>
+  child = obj->child;
+  obj->child = NULL;
+</para>
+<para>
+  nih_unref (obj->child, obj);
+</para>
+<para>
+  // child may now be returned
+</para>
+<para>
+== Worker objects ==
+</para>
+<para>
+Finally another pattern exits in the <link linkend="nih-alloc"><function>nih_alloc()</function></link> world that doesn't
+quite obey the above rules, and instead takes advantage of the design
+to provide something that wouldn't be possible otherwise.
+</para>
+<para>
+A worker is an object that performs some function out-of-band on
+behalf of another object.  They may be stored elsewhere, such as a
+linked list, and will be set up such that if they are freed, the
+work they are doing is cancelled.
+</para>
+<para>
+A good example would be a timer object; you'd have a list of timers
+which you iterate in the main loop.  The destructor of the timer
+object removes it from this list.  When the timer expires, some
+work occurs, and the timer object frees itself.
+</para>
+<para>
+Thus to attach a timer to our object, all we need do is create the
+timer with our object as a parent.  There is absolutely no need
+to store the timer as a structure member, unless we would need to
+cancel it for other reasons.
+</para>
+<para>
+If our object is freed, the timer is freed to so there's no danger
+of the callback firing and acting on a freed object.  If the timer
+fires, the callback can do its work, and the timer will be freed
+afterwards.
+</para>
+<para>
+Much of the main loop related objects in libnih behave in this way.
+</para>
+</refsect1>
+<refsect1 id="nih-Alloc.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihDestructor" role="function">
+<title>NihDestructor ()</title>
+<indexterm zone="NihDestructor"><primary>NihDestructor</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihDestructor)                    (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);</programlisting>
+<para>
+A destructor is a function that can be associated with an allocated
+object in memory and is called before the object is freed.  The pointer
+<parameter>ptr</parameter> passed to the destructor is that of the object being freed.
+</para>
+<para>
+A typical use of a destructor would be to close a file descriptor held
+by an object.
+</para>
+<para>
+When the destructor is called, the parent references to the object will
+have already been discarded but all children references will be intact
+and none of the children will have been freed.  There is no need to use
+a destructor to unreference or free children, that is automatic.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>pointer to be destroyed.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>value returned by <link linkend="nih-free"><function>nih_free()</function></link> or <link linkend="nih-discard"><function>nih_discard()</function></link> if used directly
+on the object.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-new" role="macro">
+<title>nih_new()</title>
+<indexterm zone="nih-new"><primary>nih_new</primary></indexterm>
+<programlisting>#define nih_new(parent, type) (type *)nih_alloc(parent, sizeof (type))
+</programlisting>
+<para>
+Allocates an object in memory large enough to store a <parameter>type</parameter> object
+and returns a pointer to it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned object otherwise the special
+NULL parent will be used instead.  When all parents of the returned
+object are freed, the returned object will also be freed.
+</para>
+<para>
+If you have clean-up that you would like to run, you can assign a
+destructor using the <link linkend="nih-alloc-set-destructor"><function>nih_alloc_set_destructor()</function></link> function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new object,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>type of data to store.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated object or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-alloc-set-destructor" role="macro">
+<title>nih_alloc_set_destructor()</title>
+<indexterm zone="nih-alloc-set-destructor"><primary>nih_alloc_set_destructor</primary></indexterm>
+<programlisting>#define             nih_alloc_set_destructor(ptr, destructor)</programlisting>
+<para>
+Sets the destructor of the allocated object <parameter>ptr</parameter> to <parameter>destructor</parameter>, which
+may be NULL to unset an existing destructor.  This is a macro that casts
+<parameter>destructor</parameter> to the NihDestructor type, since almost all destructors
+will be defined with their argument to be the type of the object
+rather than void *.
+</para>
+<para>
+The destructor will be called before the object is freed, either
+explicitly by <link linkend="nih-free"><function>nih_free()</function></link> or <link linkend="nih-discard"><function>nih_discard()</function></link>, or because the last parent
+has unreferenced the object.
+</para>
+<para>
+When the destructor is called, the parent references to the object will
+have already been discarded but all children references will be intact
+and none of the children will have been freed.  There is no need to use
+a destructor to unreference or free children, that is automatic.
+</para>
+<para>
+The pointer <parameter>ptr</parameter> passed to the destructor is that of the object being
+freed, and the destructor may return a value which will be the return
+value of <link linkend="nih-free"><function>nih_free()</function></link> or <link linkend="nih-discard"><function>nih_discard()</function></link> if used directly on the object.
+</para>
+<para>
+Since objects may also be freed by unreferencing, and the value is not
+returned in this case, it should only be used for informational or
+debugging purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>pointer to object,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destructor</parameter>&#160;:</term>
+<listitem><simpara>destructor function to set.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-local" role="macro">
+<title>nih_local</title>
+<indexterm zone="nih-local"><primary>nih_local</primary></indexterm>
+<programlisting>#define nih_local __attribute__ ((cleanup(_nih_discard_local)))
+</programlisting>
+<para>
+This macro may be used in a variable definition when the variable
+should be automatically cleaned up when it goes out of scope.  You
+should ensure that the pointer is either allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>
+or set to NULL;
+</para>
+<para>
+  {
+    nih_local char *foo = NULL;
+</para>
+<para>
+    foo = nih_strdup (NULL, "some data");
+  } // foo is automatically discarded
+</para>
+<para>
+It is permissible to take references to foo within its scope, or by
+functions called, in which case it will not be freed.  Also it is
+generally nonsensical to allocate with a parent, since this too will
+prevent it from being freed.
+</para></refsect2>
+<refsect2 id="nih-alloc" role="function">
+<title>nih_alloc ()</title>
+<indexterm zone="nih-alloc"><primary>nih_alloc</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link> *              nih_alloc                           (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> size</parameter>);</programlisting>
+<para>
+Allocates an object in memory of at least <parameter>size</parameter> bytes and returns a
+pointer to it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned object otherwise the special
+NULL parent will be used instead.  When all parents of the returned
+object are freed, the returned object will also be freed.
+</para>
+<para>
+If you have clean-up that you would like to run, you can assign a
+destructor using the <link linkend="nih-alloc-set-destructor"><function>nih_alloc_set_destructor()</function></link> function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new object,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&#160;:</term>
+<listitem><simpara>size of requested object.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated object or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-realloc" role="function">
+<title>nih_realloc ()</title>
+<indexterm zone="nih-realloc"><primary>nih_realloc</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link> *              nih_realloc                         (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> size</parameter>);</programlisting>
+<para>
+Adjusts the size of the object <parameter>ptr</parameter> to be at least <parameter>size</parameter> bytes, which
+may be larger or smaller than the existing object, and returns the
+new pointer.
+</para>
+<para>
+If <parameter>ptr</parameter> is NULL, this simply calls <link linkend="nih-alloc"><function>nih_alloc()</function></link> and passes both <parameter>parent</parameter>
+and <parameter>size</parameter> to it, returning the returned object.
+</para>
+<para>
+If <parameter>ptr</parameter> is not NULL, <parameter>parent</parameter> is ignored; though it is usual to pass a
+parent of <parameter>ptr</parameter> for style reasons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>object to reallocate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object of new object,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&#160;:</term>
+<listitem><simpara>size of new object.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>reallocated object or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-free" role="function">
+<title>nih_free ()</title>
+<indexterm zone="nih-free"><primary>nih_free</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_free                            (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);</programlisting>
+<para>
+Returns the object <parameter>ptr</parameter> to the allocator so the memory consumed may be
+re-used by something else.
+</para>
+<para>
+All parent references are discarded and the destructor for <parameter>ptr</parameter> is called.
+Then all children are recursively unreferenced.  Those that have no
+remaining parent references will also have their destructors called and
+their children unreferenced, etc.  Once all destructors have been called,
+the objects themselves are freed.
+</para>
+<para>
+If you call <link linkend="nih-free"><function>nih_free()</function></link> on an object with parent references, you should
+make sure that any pointers to the object are reset.
+</para>
+<para>
+If you are unsure whether or not there are references you should call
+<link linkend="nih-discard"><function>nih_discard()</function></link> which will discard the special NULL reference only if it
+exists, only freeing the object if no other references remain.
+</para>
+<para>
+Otherwise to remove a particular parent reference you should call
+<link linkend="nih-unref"><function>nih_unref()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>object to free.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>return value from <parameter>ptr</parameter>'s destructor, or 0.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-discard" role="function">
+<title>nih_discard ()</title>
+<indexterm zone="nih-discard"><primary>nih_discard</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_discard                         (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>);</programlisting>
+<para>
+Discards the special NULL parent reference from <parameter>ptr</parameter> if present; if
+no other references have been taken <parameter>ptr</parameter> will be freed and the value
+from the destructor returned otherwise this function takes no
+further action.
+</para>
+<para>
+You would use <link linkend="nih-discard"><function>nih_discard()</function></link> when you allocated <parameter>ptr</parameter> without any parent
+but have passed it to functions that may have taken a reference to it
+in the meantime.  Compare with <link linkend="nih-free"><function>nih_free()</function></link> which acts even if there are
+parent references, and <link linkend="nih-unref"><function>nih_unref()</function></link> which only removes a single parent
+reference that is known to exist.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>object to discard.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>return value from <parameter>ptr</parameter>'s destructor, or 0.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-alloc-real-set-destructor" role="function">
+<title>nih_alloc_real_set_destructor ()</title>
+<indexterm zone="nih-alloc-real-set-destructor"><primary>nih_alloc_real_set_destructor</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_alloc_real_set_destructor       (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter><link linkend="NihDestructor"><type>NihDestructor</type></link> destructor</parameter>);</programlisting>
+<para>
+Sets the destructor of the allocated object <parameter>ptr</parameter> to <parameter>destructor</parameter>, which
+may be NULL to unset an existing destructor.  Normally you would use
+the <link linkend="nih-alloc-set-destructor"><function>nih_alloc_set_destructor()</function></link> macro which expands to this function
+but casts <parameter>destructor</parameter> to the correct type, since almost all destructors
+will be defined with their argument to be the type of the object
+rather than void *.
+</para>
+<para>
+The destructor will be called before the object is freed, either
+explicitly by <link linkend="nih-free"><function>nih_free()</function></link> or <link linkend="nih-discard"><function>nih_discard()</function></link>, or because the last parent
+has unreferenced the object.
+</para>
+<para>
+When the destructor is called, the parent references to the object will
+have already been discarded but all children references will be intact
+and none of the children will have been freed.  There is no need to use
+a destructor to unreference or free children, that is automatic.
+</para>
+<para>
+The pointer <parameter>ptr</parameter> passed to the destructor is that of the object being
+freed, and the destructor may return a value which will be the return
+value of <link linkend="nih-free"><function>nih_free()</function></link> or <link linkend="nih-discard"><function>nih_discard()</function></link> if used directly on the object.
+</para>
+<para>
+Since objects may also be freed by unreferencing, and the value is not
+returned in this case, it should only be used for informational or
+debugging purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>pointer to object,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destructor</parameter>&#160;:</term>
+<listitem><simpara>destructor function to set.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-ref" role="function">
+<title>nih_ref ()</title>
+<indexterm zone="nih-ref"><primary>nih_ref</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_ref                             (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Adds a reference to the object <parameter>ptr</parameter> from <parameter>parent</parameter>, adding to any other
+objects referencing <parameter>ptr</parameter>.  <parameter>parent</parameter> may be the special NULL parent.
+</para>
+<para>
+The reference can be broken using <link linkend="nih-unref"><function>nih_unref()</function></link>.
+</para>
+<para>
+<parameter>ptr</parameter> will only be automatically freed when the last parent unreferences
+it.  It may still be manually freed with <link linkend="nih-free"><function>nih_free()</function></link>, though this doesn't
+sort out any pointers.
+</para>
+<para>
+This function is generally used when accepting an object that you wish
+to hold a reference to, which is cheaper than making a copy.  The caller
+must be careful to only use <link linkend="nih-discard"><function>nih_discard()</function></link> or <link linkend="nih-unref"><function>nih_unref()</function></link> to drop its own
+reference.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>object to reference,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>new parent object.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-unref" role="function">
+<title>nih_unref ()</title>
+<indexterm zone="nih-unref"><primary>nih_unref</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_unref                           (<parameter><link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Removes the reference to the object <parameter>ptr</parameter> from <parameter>parent</parameter>, if this is the
+last reference to <parameter>ptr</parameter> then <parameter>ptr</parameter> will be automatically freed.  <parameter>parent</parameter>
+may be the special NULL parent.
+</para>
+<para>
+You never need to call this in your own destructors since children
+are unreferenced automatically, however this function is useful if you
+only hold a reference to an object for a short period and wish to
+discard it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>object to unreference,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object to remove.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-alloc-parent" role="function">
+<title>nih_alloc_parent ()</title>
+<indexterm zone="nih-alloc-parent"><primary>nih_alloc_parent</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_alloc_parent                    (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+<parameter>parent</parameter> may be the special NULL parent.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>object to query,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object to look for.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if <parameter>parent</parameter> has a reference to <parameter>ptr</parameter>, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-alloc-size" role="function">
+<title>nih_alloc_size ()</title>
+<indexterm zone="nih-alloc-size"><primary>nih_alloc_size</primary></indexterm>
+<programlisting><link linkend="size-t"><returnvalue>size_t</returnvalue></link>              nih_alloc_size                      (<parameter>const <link linkend="void"><type>void</type></link> *ptr</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&#160;:</term>
+<listitem><simpara>pointer to object.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the size of the allocated object, which may be larger than
+originally requested.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

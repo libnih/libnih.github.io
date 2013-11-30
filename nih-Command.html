@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Command</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-Child.html" title="Child">
+<link rel="next" href="nih-Config.html" title="Config">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-Child.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-Config.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-Command.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-Command.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-Command"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-Command.top_of_page"></a>Command</span></h2>
+<p>Command — Sub-commands options and arguments</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-Command.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="nih-Command.html#NihCommand" title="NihCommand">NihCommand</a>;
+<span class="returnvalue">int</span>                 (<a class="link" href="nih-Command.html#NihCommandAction" title="NihCommandAction ()">*NihCommandAction</a>)                 (<em class="parameter"><code><a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *command</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> * const *args</code></em>);
+                    <a class="link" href="nih-Command.html#NihCommandGroup" title="NihCommandGroup">NihCommandGroup</a>;
+#define             <a class="link" href="nih-Command.html#NIH-COMMAND-LAST:CAPS" title="NIH_COMMAND_LAST">NIH_COMMAND_LAST</a>
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Command.html#nih-command-parser" title="nih_command_parser ()">nih_command_parser</a>                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *argv[]</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *options</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *commands</code></em>);
+<a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="returnvalue">NihCommand</span></a> *        <a class="link" href="nih-Command.html#nih-command-join" title="nih_command_join ()">nih_command_join</a>                    (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *a</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *b</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-Command.description"></a><h2>Description</h2>
+<p>
+Builds on the command-line option and arguments parser to provide an
+application interface where the first non-option argument is the name
+of a command.  Both global and command-specific options are permitted,
+and global options may appear both before and after the command.
+</p>
+<p>
+Description your commands using an array of NihCommand members,
+with each describing its options using an array of NihOption members.
+Pass this all to <a class="link" href="nih-Command.html#nih-command-parser" title="nih_command_parser ()"><code class="function">nih_command_parser()</code></a>.
+</p>
+<p>
+Commands are implemented with a handler function that is called,
+when nih_command_parser returns it has completed its work.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-Command.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihCommand"></a><h3>NihCommand</h3>
+<pre class="programlisting">typedef struct nih_command NihCommand;
+</pre>
+<p>
+This structure defines a command that may be found in the command-line
+arguments after any application-specific options, and before any
+command-specific options.  <em class="parameter"><code>command</code></em> must be specified which is the
+string looked for.
+</p>
+<p>
+After <em class="parameter"><code>command</code></em> is found in the arguments, following options are
+considered specific to the command.  These are specified in <em class="parameter"><code>options</code></em>,
+which should be an array of NihOption structures terminated by
+NIH_OPTION_LAST.  This may be NULL, in which case it is treated the same
+as an empty list.
+</p>
+<p>
+Any remaining command-line arguments are placed in an array and given
+as an argument to the <em class="parameter"><code>action</code></em> function.
+</p>
+<p>
+Help for the command is built from <em class="parameter"><code>usage</code></em>, <em class="parameter"><code>synopsis</code></em> and <em class="parameter"><code>help</code></em> as if
+they were passed to <a class="link" href="nih-Option.html#nih-option-set-usage" title="nih_option_set_usage ()"><code class="function">nih_option_set_usage()</code></a>, etc. for this command.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihCommandAction"></a><h3>NihCommandAction ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*NihCommandAction)                 (<em class="parameter"><code><a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *command</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> * const *args</code></em>);</pre>
+<p>
+A command action is a function called when a command is found in the
+command-line arguments.  It is passed the list of arguments that
+follow as an array allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>.
+</p>
+<p>
+The return value of the function is returned from <a class="link" href="nih-Command.html#nih-command-parser" title="nih_command_parser ()"><code class="function">nih_command_parser()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>command</code></em> :</span></p></td>
+<td>NihCommand invoked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args</code></em> :</span></p></td>
+<td>command-line arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihCommandGroup"></a><h3>NihCommandGroup</h3>
+<pre class="programlisting">typedef struct {
+	char *title;
+} NihCommandGroup;
+</pre>
+<p>
+This structure is used to define a group of commands that are collated
+together when help is given.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="NihCommandGroup.title"></a>title</code></em>;</span></p></td>
+<td>descriptive help message.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-COMMAND-LAST:CAPS"></a><h3>NIH_COMMAND_LAST</h3>
+<pre class="programlisting">#define NIH_COMMAND_LAST { NULL, NULL, NULL, NULL, NULL, NULL, NULL }
+</pre>
+<p>
+This macro may be used as the last command in the list to avoid typing
+all those NULLs yourself.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-command-parser"></a><h3>nih_command_parser ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_command_parser                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *argv[]</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *options</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *commands</code></em>);</pre>
+<p>
+Parses the command-line arguments given in <em class="parameter"><code>argv</code></em> until the first
+non-option argument is found.  Options preceeding that are handled
+according to <em class="parameter"><code>options</code></em> by <a class="link" href="nih-Option.html#nih-option-parser" title="nih_option_parser ()"><code class="function">nih_option_parser()</code></a>.
+</p>
+<p>
+The argument is looked up in <em class="parameter"><code>commands</code></em>, and if found, that is used to
+process the remaining options and arguments.
+</p>
+<p>
+Alternatively if the program name can be found in <em class="parameter"><code>commands</code></em>, then the
+entire <em class="parameter"><code>argv</code></em> list is treated as the command instead of locating the
+first non-option.
+</p>
+<p>
+Reminaing arguments are passed to the action function of the <em class="parameter"><code>commands</code></em>
+member found.
+</p>
+<p>
+The usage stem and string are constructed automatically, calling
+<a class="link" href="nih-Option.html#nih-option-set-usage" title="nih_option_set_usage ()"><code class="function">nih_option_set_usage()</code></a> or <a class="link" href="nih-Option.html#nih-option-set-usage-stem" title="nih_option_set_usage_stem ()"><code class="function">nih_option_set_usage_stem()</code></a> before this
+function will have no effect.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for arguments arrays.  When all parents
+of the array are freed, the array will also be freed.
+</p>
+<p>
+Errors are handled by printing a message to standard error.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent for arguments arrays,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argc</code></em> :</span></p></td>
+<td>number of arguments,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv</code></em> :</span></p></td>
+<td>command-line arguments,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>options</code></em> :</span></p></td>
+<td>global options,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>commands</code></em> :</span></p></td>
+<td>commands to look for.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>return value from action function or negative value on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-command-join"></a><h3>nih_command_join ()</h3>
+<pre class="programlisting"><a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="returnvalue">NihCommand</span></a> *        nih_command_join                    (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *a</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Command.html#NihCommand" title="NihCommand"><span class="type">NihCommand</span></a> *b</code></em>);</pre>
+<p>
+Joins the two command arrays together to produce a combined array
+containing the commands from <em class="parameter"><code>a</code></em> followed by the commands from <em class="parameter"><code>b</code></em>.
+</p>
+<p>
+The new list is allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, but the members are just
+copied in from <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> including any pointers therein.  Freeing the
+new array with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> is entirely safe.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>first command array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>second command array.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>combined command array.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

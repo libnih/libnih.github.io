@@ -1,0 +1,1018 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>String</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-signal.html" title="signal">
+<link rel="next" href="nih-test.html" title="test">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-signal.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-test.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-String.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-String.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-String"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-String.top_of_page"></a>String</span></h2>
+<p>String — Strings and string arrays</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-String.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-sprintf" title="nih_sprintf ()">nih_sprintf</a>                         (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-vsprintf" title="nih_vsprintf ()">nih_vsprintf</a>                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> args</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-strdup" title="nih_strdup ()">nih_strdup</a>                          (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-strndup" title="nih_strndup ()">nih_strndup</a>                         (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-strcat" title="nih_strcat ()">nih_strcat</a>                          (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *src</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-strncat" title="nih_strncat ()">nih_strncat</a>                         (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *src</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-strcat-sprintf" title="nih_strcat_sprintf ()">nih_strcat_sprintf</a>                  (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-strcat-vsprintf" title="nih_strcat_vsprintf ()">nih_strcat_vsprintf</a>                 (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> args</code></em>);
+<span class="returnvalue">char</span> **             <a class="link" href="nih-String.html#nih-str-split" title="nih_str_split ()">nih_str_split</a>                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *delim</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> repeat</code></em>);
+<span class="returnvalue">char</span> **             <a class="link" href="nih-String.html#nih-str-array-new" title="nih_str_array_new ()">nih_str_array_new</a>                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);
+<span class="returnvalue">char</span> **             <a class="link" href="nih-String.html#nih-str-array-add" title="nih_str_array_add ()">nih_str_array_add</a>                   (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);
+<span class="returnvalue">char</span> **             <a class="link" href="nih-String.html#nih-str-array-addn" title="nih_str_array_addn ()">nih_str_array_addn</a>                  (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> strlen</code></em>);
+<span class="returnvalue">char</span> **             <a class="link" href="nih-String.html#nih-str-array-addp" title="nih_str_array_addp ()">nih_str_array_addp</a>                  (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *ptr</code></em>);
+<span class="returnvalue">char</span> **             <a class="link" href="nih-String.html#nih-str-array-copy" title="nih_str_array_copy ()">nih_str_array_copy</a>                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> * const *array</code></em>);
+<span class="returnvalue">char</span> **             <a class="link" href="nih-String.html#nih-str-array-append" title="nih_str_array_append ()">nih_str_array_append</a>                (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> * const *args</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-str-wrap" title="nih_str_wrap ()">nih_str_wrap</a>                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> first_indent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> indent</code></em>);
+<span class="returnvalue">size_t</span>              <a class="link" href="nih-String.html#nih-str-screen-width" title="nih_str_screen_width ()">nih_str_screen_width</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-String.html#nih-str-screen-wrap" title="nih_str_screen_wrap ()">nih_str_screen_wrap</a>                 (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> first_indent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> indent</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-String.description"></a><h2>Description</h2>
+<p>
+These functions provide string utilities that use the <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>
+functions for memory management.  This allows you to create and modify
+strings, and arrays of strings, which may be referenced by other objects
+and cleaned up automatically.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-String.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="nih-sprintf"></a><h3>nih_sprintf ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_sprintf                         (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Writes a new string according to <em class="parameter"><code>format</code></em> as <code class="function">sprintf()</code>, except that the
+string is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated string or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-vsprintf"></a><h3>nih_vsprintf ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_vsprintf                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> args</code></em>);</pre>
+<p>
+Writes a new string according to <em class="parameter"><code>format</code></em> as <code class="function">vsprintf()</code>, except that the
+string is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args</code></em> :</span></p></td>
+<td>arguments to format string.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated string or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-strdup"></a><h3>nih_strdup ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_strdup                          (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);</pre>
+<p>
+Allocates enough memory to store a duplicate of <em class="parameter"><code>str</code></em> and writes a
+copy of the string to it.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string to duplicate.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>duplicated string or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-strndup"></a><h3>nih_strndup ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_strndup                         (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);</pre>
+<p>
+Allocates enough memory to store up to <em class="parameter"><code>len</code></em> bytes of <em class="parameter"><code>str</code></em>, or if <em class="parameter"><code>str</code></em>
+is shorter, <em class="parameter"><code>len</code></em> bytes.  A copy of the string is written to this
+block with a NUL byte appended.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string to duplicate,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of string to duplicate.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>duplicated string or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-strcat"></a><h3>nih_strcat ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_strcat                          (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *src</code></em>);</pre>
+<p>
+Modifies <em class="parameter"><code>str</code></em>, concatenating the contents of <em class="parameter"><code>src</code></em> to it.  The new string
+is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and <em class="parameter"><code>str</code></em> will be updated to point to the
+new pointer; use the return value simply to check for success.
+</p>
+<p>
+If the string pointed to by <em class="parameter"><code>str</code></em> is NULL, this is equivalent to
+<a class="link" href="nih-String.html#nih-strdup" title="nih_strdup ()"><code class="function">nih_strdup()</code></a> and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</p>
+<p>
+When the string pointed to by <em class="parameter"><code>str</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>str</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>pointer to string to modify,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src</code></em> :</span></p></td>
+<td>string to append to <em class="parameter"><code>str</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new string pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-strncat"></a><h3>nih_strncat ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_strncat                         (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *src</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);</pre>
+<p>
+Modifies <em class="parameter"><code>str</code></em>, concatenating up to <em class="parameter"><code>len</code></em> characters of the contents of <em class="parameter"><code>src</code></em>
+to it.  The new string is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and <em class="parameter"><code>str</code></em> will be
+updated to point to the new pointer; use the return value simply to check
+for success.
+</p>
+<p>
+If the string pointed to by <em class="parameter"><code>str</code></em> is NULL, this is equivalent to
+<a class="link" href="nih-String.html#nih-strdup" title="nih_strdup ()"><code class="function">nih_strdup()</code></a> and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</p>
+<p>
+When the string pointed to by <em class="parameter"><code>str</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>str</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>pointer to string to modify,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>src</code></em> :</span></p></td>
+<td>string to append to <em class="parameter"><code>str</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>src</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new string pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-strcat-sprintf"></a><h3>nih_strcat_sprintf ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_strcat_sprintf                  (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Modifies <em class="parameter"><code>str</code></em>, concatenating according to <em class="parameter"><code>format</code></em> as <code class="function">sprintf()</code>.  The new
+string is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and <em class="parameter"><code>str</code></em> will be updated to point
+to the new pointer; use the return value simply to check for success.
+</p>
+<p>
+If the string pointed to by <em class="parameter"><code>str</code></em> is NULL, this is equivalent to
+<a class="link" href="nih-String.html#nih-sprintf" title="nih_sprintf ()"><code class="function">nih_sprintf()</code></a> and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</p>
+<p>
+When the string pointed to by <em class="parameter"><code>str</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>str</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>pointer to string to modify,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>format string to append to <em class="parameter"><code>str</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new string pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-strcat-vsprintf"></a><h3>nih_strcat_vsprintf ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_strcat_vsprintf                 (<em class="parameter"><code><span class="type">char</span> **str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> args</code></em>);</pre>
+<p>
+Modifies <em class="parameter"><code>str</code></em>, concatenating according to <em class="parameter"><code>format</code></em> as <code class="function">vsprintf()</code>.  The new
+string is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and <em class="parameter"><code>str</code></em> will be updated to point
+to the new pointer; use the return value simply to check for success.
+</p>
+<p>
+If the string pointed to by <em class="parameter"><code>str</code></em> is NULL, this is equivalent to
+<a class="link" href="nih-String.html#nih-vsprintf" title="nih_vsprintf ()"><code class="function">nih_vsprintf()</code></a> and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another
+object which will be used as a parent for the returned string.  When all
+parents of the returned string are freed, the returned string will also be
+freed.
+</p>
+<p>
+When the string pointed to by <em class="parameter"><code>str</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>str</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>pointer to string to modify,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>format string to append to <em class="parameter"><code>str</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args</code></em> :</span></p></td>
+<td>arguments to format string.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new string pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-split"></a><h3>nih_str_split ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_str_split                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *delim</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> repeat</code></em>);</pre>
+<p>
+Splits <em class="parameter"><code>str</code></em> into an array of strings by separating on any character in
+<em class="parameter"><code>delim</code></em>; if <em class="parameter"><code>repeat</code></em> is true then sequences of <em class="parameter"><code>delim</code></em> are ignored, otherwise
+they result in empty strings in the returned array.
+</p>
+<p>
+The last element in the array is always NULL.
+</p>
+<p>
+The individual strings are allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> so you may just use
+<a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> on the returned array.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned string are freed, the returned array will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string to split,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>delim</code></em> :</span></p></td>
+<td>characters to split on,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>repeat</code></em> :</span></p></td>
+<td>allow repeated characters.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>allocated array or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-array-new"></a><h3>nih_str_array_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_str_array_new                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);</pre>
+<p>
+Allocates a new NULL-terminated array of strings with zero elements;
+use <a class="link" href="nih-String.html#nih-str-array-add" title="nih_str_array_add ()"><code class="function">nih_str_array_add()</code></a> to append new strings to the array.  Because
+each array element will be allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> as a child of
+the array itself, the entire array can be freed with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned object are freed, the returned array will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new array.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated array or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-array-add"></a><h3>nih_str_array_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_str_array_add                   (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>);</pre>
+<p>
+Extend the NULL-terminated string <em class="parameter"><code>array</code></em> (which has <em class="parameter"><code>len</code></em> elements,
+excluding the final NULL element), appending a copy of <em class="parameter"><code>str</code></em> to it.
+Both the array and the new string are allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>,
+</p>
+<p>
+<em class="parameter"><code>len</code></em> will be updated to contain the new array length and <em class="parameter"><code>array</code></em> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</p>
+<p>
+If you don't know or care about the length, <em class="parameter"><code>len</code></em> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+invocation.
+</p>
+<p>
+If the array pointed to by <em class="parameter"><code>array</code></em> is NULL, the array will be allocated
+and <em class="parameter"><code>ptr</code></em> the first element, and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a
+pointer to another object which will be used as a parent for the returned
+array.  When all parents of the returned array are freed, the returned
+array will also be freed.
+</p>
+<p>
+When the array pointed to by <em class="parameter"><code>array</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>array</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>array of strings,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>array</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string to add.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new array pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-array-addn"></a><h3>nih_str_array_addn ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_str_array_addn                  (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> strlen</code></em>);</pre>
+<p>
+Extend the NULL-terminated string <em class="parameter"><code>array</code></em> (which has <em class="parameter"><code>len</code></em> elements,
+excluding the final NULL element), appending a copy of the first
+<em class="parameter"><code>strlen</code></em> bytes of <em class="parameter"><code>str</code></em> to it.
+</p>
+<p>
+Both the array and the new string are allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>,
+</p>
+<p>
+<em class="parameter"><code>len</code></em> will be updated to contain the new array length and <em class="parameter"><code>array</code></em> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</p>
+<p>
+If you don't know or care about the length, <em class="parameter"><code>len</code></em> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+invocation.
+</p>
+<p>
+If the array pointed to by <em class="parameter"><code>array</code></em> is NULL, the array will be allocated
+and <em class="parameter"><code>ptr</code></em> the first element, and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a
+pointer to another object which will be used as a parent for the returned
+array.  When all parents of the returned array are freed, the returned
+array will also be freed.
+</p>
+<p>
+When the array pointed to by <em class="parameter"><code>array</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>array</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>array of strings,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>array</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string to add,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>strlen</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>str</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new array pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-array-addp"></a><h3>nih_str_array_addp ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_str_array_addp                  (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *ptr</code></em>);</pre>
+<p>
+Extend the NULL-terminated string <em class="parameter"><code>array</code></em> (which has <em class="parameter"><code>len</code></em> elements,
+excluding the final NULL element), appending the <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated
+object <em class="parameter"><code>ptr</code></em> to it.
+</p>
+<p>
+The array is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and <em class="parameter"><code>ptr</code></em> will be referenced
+by the new array.  After calling this function, you should never use
+<a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> to free <em class="parameter"><code>ptr</code></em> and instead use <a class="link" href="nih-Alloc.html#nih-unref" title="nih_unref ()"><code class="function">nih_unref()</code></a> or <a class="link" href="nih-Alloc.html#nih-discard" title="nih_discard ()"><code class="function">nih_discard()</code></a>
+if you no longer need to use it.
+</p>
+<p>
+<em class="parameter"><code>len</code></em> will be updated to contain the new array length and <em class="parameter"><code>array</code></em> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</p>
+<p>
+If you don't know or care about the length, <em class="parameter"><code>len</code></em> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+invocation.
+</p>
+<p>
+If the array pointed to by <em class="parameter"><code>array</code></em> is NULL, the array will be allocated
+and <em class="parameter"><code>ptr</code></em> the first element, and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a
+pointer to another object which will be used as a parent for the returned
+array.  When all parents of the returned array are freed, the returned
+array will also be freed.
+</p>
+<p>
+When the array pointed to by <em class="parameter"><code>array</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>array</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>array of strings,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>array</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ptr</code></em> :</span></p></td>
+<td>pointer to add.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new array pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-array-copy"></a><h3>nih_str_array_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_str_array_copy                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> * const *array</code></em>);</pre>
+<p>
+Allocates a new NULL-terminated array of strings with elements copied
+from the existing <em class="parameter"><code>array</code></em> given.
+</p>
+<p>
+Because each array element will be allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> as a child
+of the array itself, the entire array can be freed with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a>.
+This will not affect the array copied.
+</p>
+<p>
+<em class="parameter"><code>len</code></em> will be updated to contain the new array length.  If you don't care
+about the length, <em class="parameter"><code>len</code></em> may be set to NULL; this is less efficient as it
+necessates counting the length on each future add operation.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new array.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>array of strings to copy.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated array or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-array-append"></a><h3>nih_str_array_append ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_str_array_append                (<em class="parameter"><code><span class="type">char</span> ***array</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> * const *args</code></em>);</pre>
+<p>
+Extend the NULL-terminated string <em class="parameter"><code>array</code></em> (which has <em class="parameter"><code>len</code></em> elements,
+excluding the final NULL element), appending a copy of each element in
+the additional NULL-terminated string array <em class="parameter"><code>args</code></em> to it.
+Both the array and the new strings are allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>,
+</p>
+<p>
+<em class="parameter"><code>len</code></em> will be updated to contain the new array length and <em class="parameter"><code>array</code></em> will
+be updated to point to the new array pointer; use the return value
+simply to check for success.
+</p>
+<p>
+If you don't know or care about the length, <em class="parameter"><code>len</code></em> may be set to NULL;
+this is less efficient as it necessates counting the length on each
+operation.
+</p>
+<p>
+If the array pointed to by <em class="parameter"><code>array</code></em> is NULL, this is equivalent to
+<a class="link" href="nih-String.html#nih-str-array-copy" title="nih_str_array_copy ()"><code class="function">nih_str_array_copy()</code></a> and if <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to
+another object which will be used as a parent for the returned array.
+When all parents of the returned array are freed, the returned array will
+also be freed.
+</p>
+<p>
+When the array pointed to by <em class="parameter"><code>array</code></em> is not NULL, <em class="parameter"><code>parent</code></em> is ignored;
+though it usual to pass a parent of <em class="parameter"><code>array</code></em> for style reasons.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>array</code></em> :</span></p></td>
+<td>array of strings,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>array</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>args</code></em> :</span></p></td>
+<td>array of strings to add.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new array pointer or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-wrap"></a><h3>nih_str_wrap ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_str_wrap                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> first_indent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> indent</code></em>);</pre>
+<p>
+Returns a newly allocated copy of <em class="parameter"><code>str</code></em> with newlines inserted so no
+line is longer than <em class="parameter"><code>len</code></em> characters (not including the newline).  Where
+possible, newlines replace existing whitespace characters so that words
+are not broken.
+</p>
+<p>
+The first line may be indented by an extra <em class="parameter"><code>first_indent</code></em> characters, and
+subsequent lines may be intended by an extra <em class="parameter"><code>indent</code></em> characters.  These
+are added to the string as whitespace characters.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string to be wrapped,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of line to fit into,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_indent</code></em> :</span></p></td>
+<td>indent for first line,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indent</code></em> :</span></p></td>
+<td>indent for subsequent lines.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated string or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-screen-width"></a><h3>nih_str_screen_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">size_t</span>              nih_str_screen_width                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Checks the COLUMNS environment variable, standard output if it is a
+terminal or defaults to 80 characters.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the width of the screen.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-str-screen-wrap"></a><h3>nih_str_screen_wrap ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_str_screen_wrap                 (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> first_indent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> indent</code></em>);</pre>
+<p>
+Returns a newly allocated copy of <em class="parameter"><code>str</code></em> with newlines inserted so no
+line is wider than the screen (not including the newline).  Where
+possible, newlines replace existing whitespace characters so that words
+are not broken.
+</p>
+<p>
+If standard output is not a terminal, then 80 characters is assumed.
+The width can be overriden with the COLUMNS environment variable.
+</p>
+<p>
+The first line may be indented by an extra <em class="parameter"><code>first_indent</code></em> characters, and
+subsequent lines may be intended by an extra <em class="parameter"><code>indent</code></em> characters.  These
+are added to the string as whitespace characters.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object of new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string to be wrapped,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>first_indent</code></em> :</span></p></td>
+<td>indent for first line,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indent</code></em> :</span></p></td>
+<td>indent for subsequent lines.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated string or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

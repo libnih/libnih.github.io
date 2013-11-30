@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Logging</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-List.html" title="List">
+<link rel="next" href="nih-Macros.html" title="Macros">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-List.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-Macros.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-Logging.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-Logging.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-Logging"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-Logging.top_of_page"></a>Logging</span></h2>
+<p>Logging — Logging interface</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-Logging.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">enum                <a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel">NihLogLevel</a>;
+<span class="returnvalue">int</span>                 (<a class="link" href="nih-Logging.html#NihLogger" title="NihLogger ()">*NihLogger</a>)                        (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *message</code></em>);
+#define             <a class="link" href="nih-Logging.html#nih-debug" title="nih_debug()">nih_debug</a>                           (format,
+                                                         ...)
+#define             <a class="link" href="nih-Logging.html#nih-info" title="nih_info()">nih_info</a>                            (format,
+                                                         ...)
+#define             <a class="link" href="nih-Logging.html#nih-message" title="nih_message()">nih_message</a>                         (format,
+                                                         ...)
+#define             <a class="link" href="nih-Logging.html#nih-warn" title="nih_warn()">nih_warn</a>                            (format,
+                                                         ...)
+#define             <a class="link" href="nih-Logging.html#nih-error" title="nih_error()">nih_error</a>                           (format,
+                                                         ...)
+#define             <a class="link" href="nih-Logging.html#nih-fatal" title="nih_fatal()">nih_fatal</a>                           (format,
+                                                         ...)
+#define             <a class="link" href="nih-Logging.html#nih-assert" title="nih_assert()">nih_assert</a>                          (expr)
+#define             <a class="link" href="nih-Logging.html#nih-assert-not-reached" title="nih_assert_not_reached">nih_assert_not_reached</a>
+extern NihLogLevel  <a class="link" href="nih-Logging.html#nih-log-priority" title="nih_log_priority">nih_log_priority</a>;
+<span class="returnvalue">void</span>                <a class="link" href="nih-Logging.html#nih-log-init" title="nih_log_init ()">nih_log_init</a>                        (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Logging.html#nih-log-set-logger" title="nih_log_set_logger ()">nih_log_set_logger</a>                  (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogger" title="NihLogger ()"><span class="type">NihLogger</span></a> new_logger</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Logging.html#nih-log-set-priority" title="nih_log_set_priority ()">nih_log_set_priority</a>                (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> new_priority</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Logging.html#nih-log-message" title="nih_log_message ()">nih_log_message</a>                     (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Logging.html#nih-logger-printf" title="nih_logger_printf ()">nih_logger_printf</a>                   (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *message</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Logging.html#nih-logger-syslog" title="nih_logger_syslog ()">nih_logger_syslog</a>                   (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *message</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-Logging.description"></a><h2>Description</h2>
+<p>
+These functions provide a logging interface for outputting messages
+at different priorities, and filtering based on them.
+</p>
+<p>
+The output for the logger can be selected using <a class="link" href="nih-Logging.html#nih-log-set-logger" title="nih_log_set_logger ()"><code class="function">nih_log_set_logger()</code></a>,
+where <a class="link" href="nih-Logging.html#nih-logger-printf" title="nih_logger_printf ()"><code class="function">nih_logger_printf()</code></a> is the default and <a class="link" href="nih-Logging.html#nih-logger-syslog" title="nih_logger_syslog ()"><code class="function">nih_logger_syslog()</code></a> another
+popular alternative.
+</p>
+<p>
+Log messages are output with different macros.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-Logging.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihLogLevel"></a><h3>enum NihLogLevel</h3>
+<pre class="programlisting">typedef enum {
+	NIH_LOG_UNKNOWN,
+	NIH_LOG_DEBUG,
+	NIH_LOG_INFO,
+	NIH_LOG_MESSAGE,
+	NIH_LOG_WARN,
+	NIH_LOG_ERROR,
+	NIH_LOG_FATAL
+} NihLogLevel;
+</pre>
+<p>
+Severity of log messages, used both to influence formatting of the
+message and to filter messages below a particular severity.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="NIH-LOG-UNKNOWN:CAPS"></a><span class="term"><code class="literal">NIH_LOG_UNKNOWN</code></span></p></td>
+<td>not set,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-LOG-DEBUG:CAPS"></a><span class="term"><code class="literal">NIH_LOG_DEBUG</code></span></p></td>
+<td>debug,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-LOG-INFO:CAPS"></a><span class="term"><code class="literal">NIH_LOG_INFO</code></span></p></td>
+<td>informative,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-LOG-MESSAGE:CAPS"></a><span class="term"><code class="literal">NIH_LOG_MESSAGE</code></span></p></td>
+<td>message,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-LOG-WARN:CAPS"></a><span class="term"><code class="literal">NIH_LOG_WARN</code></span></p></td>
+<td>warning,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-LOG-ERROR:CAPS"></a><span class="term"><code class="literal">NIH_LOG_ERROR</code></span></p></td>
+<td>error,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-LOG-FATAL:CAPS"></a><span class="term"><code class="literal">NIH_LOG_FATAL</code></span></p></td>
+<td>fatal.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihLogger"></a><h3>NihLogger ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*NihLogger)                        (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *message</code></em>);</pre>
+<p>
+A logger is a function that receives a formatted message to be logged
+in whatever manner is appropriate.  The priority of the message is given
+so that the logger may direct it appropriately, however the function
+should not discard any messages and instead <a class="link" href="nih-Logging.html#nih-log-set-priority" title="nih_log_set_priority ()"><code class="function">nih_log_set_priority()</code></a> used
+to decide the treshold of logged messages.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>priority</code></em> :</span></p></td>
+<td>priority of message,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>message to log.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value if the logger was not able
+to output the message.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-debug"></a><h3>nih_debug()</h3>
+<pre class="programlisting">#define             nih_debug(format, ...)</pre>
+<p>
+Outputs a debugging message, including the name of the function that
+generated it.  Almost never shown, except when debugging information is
+required.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf-style format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-info"></a><h3>nih_info()</h3>
+<pre class="programlisting">#define             nih_info(format, ...)</pre>
+<p>
+Outputs a message that is purely informational, usually not shown unless
+the user wants verbose operation.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf-style format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-message"></a><h3>nih_message()</h3>
+<pre class="programlisting">#define             nih_message(format, ...)</pre>
+<p>
+Outputs a message from a non-daemon process that is normally shown unless
+the user wants quiet operation.  The difference between this and <a class="link" href="nih-Logging.html#nih-warn" title="nih_warn()"><code class="function">nih_warn()</code></a>
+is that this is usually send to standard output, instead of standard
+error, and it is not prefixed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf-style format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-warn"></a><h3>nih_warn()</h3>
+<pre class="programlisting">#define             nih_warn(format, ...)</pre>
+<p>
+Outputs a warning message, one that indicates a potential problem that
+has been ignored; these are shown by default unless the user wants quiet
+operation.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf-style format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-error"></a><h3>nih_error()</h3>
+<pre class="programlisting">#define             nih_error(format, ...)</pre>
+<p>
+Outputs an error message, one that the software may be able to recover
+from but that has caused an operation to fail.  These are shown in all
+but the most quiet of operation modes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf-style format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-fatal"></a><h3>nih_fatal()</h3>
+<pre class="programlisting">#define             nih_fatal(format, ...)</pre>
+<p>
+Outputs a fatal error message that caused the software to cease
+functioning.  Always shown.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf-style format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-assert"></a><h3>nih_assert()</h3>
+<pre class="programlisting">#define             nih_assert(expr)</pre>
+<p>
+Outputs a fatal error message and terminates the process if <em class="parameter"><code>expr</code></em> is
+false.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>expr</code></em> :</span></p></td>
+<td>expression to check.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-assert-not-reached"></a><h3>nih_assert_not_reached</h3>
+<pre class="programlisting">#define             nih_assert_not_reached()</pre>
+<p>
+Outputs a fatal error message and terminates the process if this
+line of code is reached.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-log-priority"></a><h3>nih_log_priority</h3>
+<pre class="programlisting">extern NihLogLevel nih_log_priority;
+</pre>
+<p>
+Lowest priority of log messages that will be given to the logger by
+default.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-log-init"></a><h3>nih_log_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_log_init                        (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Initialise the default logger and priority.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-log-set-logger"></a><h3>nih_log_set_logger ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_log_set_logger                  (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogger" title="NihLogger ()"><span class="type">NihLogger</span></a> new_logger</code></em>);</pre>
+<p>
+Sets the function that will be used to output log messages above the
+priority set with <a class="link" href="nih-Logging.html#nih-log-set-priority" title="nih_log_set_priority ()"><code class="function">nih_log_set_priority()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>new_logger</code></em> :</span></p></td>
+<td>new logger function.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-log-set-priority"></a><h3>nih_log_set_priority ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_log_set_priority                (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> new_priority</code></em>);</pre>
+<p>
+Sets the minimum priority of log messages to be given to the logger
+function, any messages below this will be discarded.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>new_priority</code></em> :</span></p></td>
+<td>new minimum priority.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-log-message"></a><h3>nih_log_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_log_message                     (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Outputs a message constructed from <em class="parameter"><code>format</code></em> and the rest of the arguments
+by passing it to the logger function if <em class="parameter"><code>priority</code></em> is not lower than
+the minimum priority.
+</p>
+<p>
+The message should not be newline-terminated.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>priority</code></em> :</span></p></td>
+<td>priority of message,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf-style format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero if successful, positive value if message was discarded due
+to being below the minimum priority and negative value if the logger failed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-logger-printf"></a><h3>nih_logger_printf ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_logger_printf                   (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *message</code></em>);</pre>
+<p>
+Outputs the <em class="parameter"><code>message</code></em> to standard output, or standard error depending
+on <em class="parameter"><code>priority</code></em>, prefixed with the program name and terminated with a new
+line.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>priority</code></em> :</span></p></td>
+<td>priority of message being logged,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>message to log.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on completion, negative value on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-logger-syslog"></a><h3>nih_logger_syslog ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_logger_syslog                   (<em class="parameter"><code><a class="link" href="nih-Logging.html#NihLogLevel" title="enum NihLogLevel"><span class="type">NihLogLevel</span></a> priority</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *message</code></em>);</pre>
+<p>
+Outputs the <em class="parameter"><code>message</code></em> to the system logging daemon, it is up to the
+program to call openlog and set up the parameters for the connection.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>priority</code></em> :</span></p></td>
+<td>priority of message being logged,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>message to log.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on completion, negative value on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

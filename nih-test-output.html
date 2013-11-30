@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>test_output</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-test-list.html" title="test_list">
+<link rel="next" href="nih-test-process.html" title="test_process">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-test-list.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-test-process.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-test-output.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-test-output.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-test-output"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-test-output.top_of_page"></a>test_output</span></h2>
+<p>test_output</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-test-output.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="nih-test-output.html#TEST-GROUP:CAPS" title="TEST_GROUP()">TEST_GROUP</a>                          (_name)
+#define             <a class="link" href="nih-test-output.html#TEST-FUNCTION:CAPS" title="TEST_FUNCTION()">TEST_FUNCTION</a>                       (_func)
+#define             <a class="link" href="nih-test-output.html#TEST-FUNCTION-FEATURE:CAPS" title="TEST_FUNCTION_FEATURE()">TEST_FUNCTION_FEATURE</a>               (_func,
+                                                         _feat)
+#define             <a class="link" href="nih-test-output.html#TEST-FEATURE:CAPS" title="TEST_FEATURE()">TEST_FEATURE</a>                        (_feat)
+#define             <a class="link" href="nih-test-output.html#TEST-FAILED:CAPS" title="TEST_FAILED()">TEST_FAILED</a>                         (_fmt,
+                                                         ...)
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-test-output.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-test-output.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TEST-GROUP:CAPS"></a><h3>TEST_GROUP()</h3>
+<pre class="programlisting">#define             TEST_GROUP(_name)</pre>
+<p>
+Output a message indicating that a group of tests testing <em class="parameter"><code>_name</code></em> are
+being performed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_name</code></em> :</span></p></td>
+<td>name of group being tested.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FUNCTION:CAPS"></a><h3>TEST_FUNCTION()</h3>
+<pre class="programlisting">#define             TEST_FUNCTION(_func)</pre>
+<p>
+Output a message indicating that tests of the function named <em class="parameter"><code>_func</code></em> are
+being performed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_func</code></em> :</span></p></td>
+<td>name of function being tested.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FUNCTION-FEATURE:CAPS"></a><h3>TEST_FUNCTION_FEATURE()</h3>
+<pre class="programlisting">#define             TEST_FUNCTION_FEATURE(_func, _feat)</pre>
+<p>
+Output a message indicating that tests of the function named <em class="parameter"><code>_func</code></em> are
+being performed, specifically of the <em class="parameter"><code>_feat</code></em> feature.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_func</code></em> :</span></p></td>
+<td>name of function being tested,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_feat</code></em> :</span></p></td>
+<td>feature being tested.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FEATURE:CAPS"></a><h3>TEST_FEATURE()</h3>
+<pre class="programlisting">#define             TEST_FEATURE(_feat)</pre>
+<p>
+Output a message indicating that a sub-test of a function or
+group is being performed, specifically the feature named _feat.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_feat</code></em> :</span></p></td>
+<td>name of function or group feature being tested.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FAILED:CAPS"></a><h3>TEST_FAILED()</h3>
+<pre class="programlisting">#define             TEST_FAILED(_fmt, ...)</pre>
+<p>
+Output a formatted message indicating that a test has failed, including
+the file, line number and function where the failure happened.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_fmt</code></em> :</span></p></td>
+<td>format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-List">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-List.top_of_page">List</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>List</refname>
+<refpurpose>Circular doubly-linked lists</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-List.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="NihList">NihList</link>;
+                    <link linkend="NihListEntry">NihListEntry</link>;
+#define             <link linkend="NIH-LIST-EMPTY:CAPS">NIH_LIST_EMPTY</link>                      (list)
+#define             <link linkend="NIH-LIST-FOREACH:CAPS">NIH_LIST_FOREACH</link>                    (list,
+                                                         iter)
+#define             <link linkend="NIH-LIST-FOREACH-SAFE:CAPS">NIH_LIST_FOREACH_SAFE</link>               (list,
+                                                         iter)
+#define             <link linkend="NIH-LIST-ITER:CAPS">NIH_LIST_ITER</link>                       (iter,
+                                                         type,
+                                                         head)
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-list-init">nih_list_init</link>                       (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-list-new">nih_list_new</link>                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="NihListEntry"><returnvalue>NihListEntry</returnvalue></link> *      <link linkend="nih-list-entry-new">nih_list_entry_new</link>                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-list-add">nih_list_add</link>                        (<parameter><link linkend="NihList"><type>NihList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-list-add-after">nih_list_add_after</link>                  (<parameter><link linkend="NihList"><type>NihList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-list-remove">nih_list_remove</link>                     (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-list-destroy">nih_list_destroy</link>                    (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-List.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Provides a generic circular doubly-linked list implementation.  Like
+all doubly-linked lists, each entry carries both a pointer to the
+previous entry in the list and a pointer to the next entry in the list.
+However this is also circular, so instead of the first entry's previous
+pointer and last entry's next pointers containing NULL, they instead
+point to the last entry and first entry respectively.
+</para>
+<para>
+A single NihList structure is generally used as the list head, so
+for an empty list, that structure's previous and next pointers point
+to itself.
+</para>
+<para>
+This has the advantage over other implementations of a constant time
+operation to append or prepend an entry to the list, insert before or
+after a known entry, and remove an entry from the list.
+</para>
+<para>
+List entries may be created in one of two ways.  The most common is to
+embed the NihList structure as the first member of your own structure,
+and initialise it with <link linkend="nih-list-init"><function>nih_list_init()</function></link> after allocating the structure.
+Alternatively you may create NihListEntry structures with
+<link linkend="nih-list-entry-new"><function>nih_list_entry_new()</function></link> and point at your own data from them.
+</para>
+<para>
+The list head itself may be created with <link linkend="nih-list-new"><function>nih_list_new()</function></link>.
+</para>
+<para>
+Entries are added to the list with <link linkend="nih-list-add"><function>nih_list_add()</function></link>, passing an existing
+entry which is most commonly the list head.  This adds the entry "before"
+the given entry, in the list head case this appends the entry to the list.
+To add "after" the given entry (prepending in the list head case) use
+<link linkend="nih-list-add-after"><function>nih_list_add_after()</function></link>.
+</para>
+<para>
+To remove an entry from the list use <link linkend="nih-list-remove"><function>nih_list_remove()</function></link>.  The entry
+effectively becomes the list head of an empty list.
+</para>
+<para>
+Entries may be moved between lists, or rearranged within a list, by
+simply calling <link linkend="nih-list-add"><function>nih_list_add()</function></link> - there's no need to call <link linkend="nih-list-remove"><function>nih_list_remove()</function></link>
+first.
+</para>
+<para>
+List iteration may be performed by following the prev or next pointers
+in a for loop.  Since this is an extremely common operation, the
+<link linkend="NIH-LIST-FOREACH:CAPS"><function>NIH_LIST_FOREACH()</function></link> macro is provided that expands to this for loop.
+</para>
+<para>
+Since this macro only holds a pointer to the entry being iterated, most
+operations that change a list are not safe.  To change a list safely
+while iterating, including being able to free the visited node, use
+the <link linkend="NIH-LIST-FOREACH-SAFE:CAPS"><function>NIH_LIST_FOREACH_SAFE()</function></link> macro.  However note that since this macro
+changes the list as it iterates it itself, it is not safe to traverse
+or iterate the list and make assumptions about the type of node being
+seen.
+</para>
+</refsect1>
+<refsect1 id="nih-List.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihList" role="struct">
+<title>NihList</title>
+<indexterm zone="NihList"><primary>NihList</primary></indexterm>
+<programlisting>typedef struct {
+	struct nih_list *prev, *next;
+} NihList;
+</programlisting>
+<para>
+This structure can be used both to refer to a linked list and can be
+placed in your own structures to use them as list entries.
+</para>
+<para>
+The list is circular so the <parameter>next</parameter> pointer of the last entry points to
+the first, and the <parameter>prev</parameter> pointer of the first entry points to the last.
+An empty list simply has the <parameter>prev</parameter> and <parameter>next</parameter> pointers pointing to itself.
+</para><variablelist role="struct">
+<varlistentry><term>struct&#160;<link linkend="nih-list"><type>nih_list</type></link>&#160;*<structfield id="NihList.prev">prev</structfield>;</term>
+<listitem><simpara>previous entry in the list,</simpara></listitem>
+</varlistentry>
+<varlistentry><term>struct&#160;<link linkend="nih-list"><type>nih_list</type></link>&#160;*<structfield id="NihList.next">next</structfield>;</term>
+<listitem><simpara>next entry in the list.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihListEntry" role="struct">
+<title>NihListEntry</title>
+<indexterm zone="NihListEntry"><primary>NihListEntry</primary></indexterm>
+<programlisting>typedef struct {
+	NihList entry;
+	union {
+		void *data;
+		char *str;
+		int   int_data;
+	};
+} NihListEntry;
+</programlisting>
+<para>
+This structure can be used as a generic NihList node that contains
+a pointer to generic data, a string or contains an integer value.
+</para>
+<para>
+You should take care of setting the data yourself.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="NihList"><type>NihList</type></link>&#160;<structfield id="NihListEntry.entry">entry</structfield>;</term>
+<listitem><simpara>list header,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="void"><type>void</type></link>&#160;*<structfield id="NihListEntry.data">data</structfield>;</term>
+<listitem><simpara>data pointer,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="char"><type>char</type></link>&#160;*<structfield id="NihListEntry.str">str</structfield>;</term>
+<listitem><simpara>string pointer,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="NihListEntry.int-data">int_data</structfield>;</term>
+<listitem><simpara>integer value.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-LIST-EMPTY:CAPS" role="macro">
+<title>NIH_LIST_EMPTY()</title>
+<indexterm zone="NIH-LIST-EMPTY:CAPS"><primary>NIH_LIST_EMPTY</primary></indexterm>
+<programlisting>#define             NIH_LIST_EMPTY(list)</programlisting>
+<para>
+Checks whether the given list is empty by comparing the next and
+previous pointers for equality.
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>entry in the list to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if empty, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-LIST-FOREACH:CAPS" role="macro">
+<title>NIH_LIST_FOREACH()</title>
+<indexterm zone="NIH-LIST-FOREACH:CAPS"><primary>NIH_LIST_FOREACH</primary></indexterm>
+<programlisting>#define             NIH_LIST_FOREACH(list, iter)</programlisting>
+<para>
+Expands to a for statement that iterates over each entry in <parameter>list</parameter>
+except <parameter>list</parameter> itself, setting <parameter>iter</parameter> to each entry for the block within
+the loop.
+</para>
+<para>
+This is the cheapest form of iteration, however it is not safe to perform
+various modifications to the list; most importantly, you must not change
+the member being iterated in any way, including removing it from the list
+or freeing it.  If you need to do that, use <link linkend="NIH-LIST-FOREACH-SAFE:CAPS"><function>NIH_LIST_FOREACH_SAFE()</function></link> instead.
+</para>
+<para>
+However since it doesn't modify the list being iterated in any way, it
+is safe to traverse or iterate the list again while iterating.
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>entry in the list to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-LIST-FOREACH-SAFE:CAPS" role="macro">
+<title>NIH_LIST_FOREACH_SAFE()</title>
+<indexterm zone="NIH-LIST-FOREACH-SAFE:CAPS"><primary>NIH_LIST_FOREACH_SAFE</primary></indexterm>
+<programlisting>#define             NIH_LIST_FOREACH_SAFE(list, iter)</programlisting>
+<para>
+Expands to a for statement that iterates over each entry in <parameter>list</parameter>
+except <parameter>list</parameter> itself, setting <parameter>iter</parameter> to each entry for the block within
+the loop.
+</para>
+<para>
+The iteration is performed safely by placing a cursor node after <parameter>iter</parameter>;
+this means that any node including <parameter>iter</parameter> can be removed from the list,
+added to a different list, or entries added before or after it.
+</para>
+<para>
+Note that if you add an entry directly after <parameter>iter</parameter> and wish it to be
+visited, you would need to use <link linkend="NIH-LIST-FOREACH:CAPS"><function>NIH_LIST_FOREACH()</function></link> instead, as this
+would be placed before the cursor and thus skipped.
+</para>
+<para>
+Also since the list has an extra node during iteration of a different
+type, it is expressly not safe to traverse or iterate the list while
+iterating.  If you need to perform multiple iterations, or reference
+the next or previous pointers of a node, you must use <link linkend="NIH-LIST-FOREACH:CAPS"><function>NIH_LIST_FOREACH()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>entry in the list to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-LIST-ITER:CAPS" role="macro">
+<title>NIH_LIST_ITER()</title>
+<indexterm zone="NIH-LIST-ITER:CAPS"><primary>NIH_LIST_ITER</primary></indexterm>
+<programlisting>#define             NIH_LIST_ITER(iter, type, head)</programlisting>
+<para>
+Normally the list head is the first member of the structure, so you can
+simply cast an NihList * iterator to the structure you're expecting to
+find.
+</para>
+<para>
+However when that is not true, you can use this macro to perform the
+cast based on the offset of <parameter>head</parameter> within <parameter>type</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>iterator variable,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>type of list member,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>head</parameter>&#160;:</term>
+<listitem><simpara>name of list head structure member.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>pointer to top of structure being iterated.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-list-init" role="function">
+<title>nih_list_init ()</title>
+<indexterm zone="nih-list-init"><primary>nih_list_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_list_init                       (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Initialise an already allocated list entry, once done it can be used
+as the start of a new list or added to an existing list.
+</para><variablelist role="params">
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be initialised.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-list-new" role="function">
+<title>nih_list_new ()</title>
+<indexterm zone="nih-list-new"><primary>nih_list_new</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_list_new                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Allocates a new list structure, usually used as the start of a new
+list.  You may prefer to allocate the NihList structure statically and
+use <link linkend="nih-list-init"><function>nih_list_init()</function></link> to initialise it instead.
+</para>
+<para>
+The structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> so can be used as a context
+to other allocations.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned list.  When all parents
+of the returned list are freed, the returned list will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new list.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new list or NULL if the allocation failed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-list-entry-new" role="function">
+<title>nih_list_entry_new ()</title>
+<indexterm zone="nih-list-entry-new"><primary>nih_list_entry_new</primary></indexterm>
+<programlisting><link linkend="NihListEntry"><returnvalue>NihListEntry</returnvalue></link> *      nih_list_entry_new                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Allocates a new list entry structure, leaving the caller to set the
+data of the entry.
+</para>
+<para>
+The structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> so can be used as a context
+to other allocations.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned list entry.  When all parents
+of the returned list entry are freed, the returned list entry will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new list entry.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new list entry or NULL if the allocation failed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-list-add" role="function">
+<title>nih_list_add ()</title>
+<indexterm zone="nih-list-add"><primary>nih_list_add</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_list_add                        (<parameter><link linkend="NihList"><type>NihList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Adds <parameter>entry</parameter> to a new list immediately before the <parameter>list</parameter> entry.  If <parameter>list</parameter>
+is the pointer you are using to refer to the list itself, this results
+in <parameter>entry</parameter> being appended to the list.
+</para>
+<para>
+If <parameter>entry</parameter> is already in another list it is removed so there is no need
+to call <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> before this function.  There is also no
+requirement that the lists be different, so this can be used to reorder
+a list.
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>entry in the destination list,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be added to the list.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>entry</parameter> which is now a member of the same list as <parameter>list</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-list-add-after" role="function">
+<title>nih_list_add_after ()</title>
+<indexterm zone="nih-list-add-after"><primary>nih_list_add_after</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_list_add_after                  (<parameter><link linkend="NihList"><type>NihList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Adds <parameter>entry</parameter> to a new list immediately after the <parameter>list</parameter> entry.  If <parameter>list</parameter>
+is the pointer you are using to refer to the list itself and that entry
+has no data, this results in <parameter>entry</parameter> being pushed onto a stack under it.
+</para>
+<para>
+If <parameter>entry</parameter> is already in another list it is removed so there is no need
+to call <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> before this function.  There is also no
+requirement that the lists be different, so this can be used to reorder
+a list.
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>entry in the destination list,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be added to the list.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>entry</parameter> which is now a member of the same list as <parameter>list</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-list-remove" role="function">
+<title>nih_list_remove ()</title>
+<indexterm zone="nih-list-remove"><primary>nih_list_remove</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_list_remove                     (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Removes <parameter>entry</parameter> from its containing list.  The entry is not freed, but
+is instead returned so that it can be added to another list (though
+there's no need to call <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> first if you wanted to do
+that) or used as the start of a new list.
+</para><variablelist role="params">
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be removed.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>entry</parameter> as a lone entry.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-list-destroy" role="function">
+<title>nih_list_destroy ()</title>
+<indexterm zone="nih-list-destroy"><primary>nih_list_destroy</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_list_destroy                    (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Removes <parameter>entry</parameter> from its containing list.
+</para>
+<para>
+Normally used or called from an <link linkend="nih-alloc"><function>nih_alloc()</function></link> destructor so that the list
+item is automatically removed from its containing list when freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be removed.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

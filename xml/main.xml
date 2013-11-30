@@ -1,0 +1,395 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-main">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-main.top_of_page">main</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>main</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-main.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="NihMainLoopFunc">NihMainLoopFunc</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihMainLoopCb">*NihMainLoopCb</link>)                    (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihMainLoopFunc"><type>NihMainLoopFunc</type></link> *loop</parameter>);
+#define             <link linkend="LOCALEDIR:CAPS">LOCALEDIR</link>
+#define             <link linkend="nih-main-init-gettext">nih_main_init_gettext</link>
+#define             <link linkend="PACKAGE-COPYRIGHT:CAPS">PACKAGE_COPYRIGHT</link>
+#define             <link linkend="nih-main-init">nih_main_init</link>                       (argv0)
+extern const char * <link linkend="program-name">program_name</link>;
+extern const char * <link linkend="package-name">package_name</link>;
+extern const char * <link linkend="package-version">package_version</link>;
+extern const char * <link linkend="package-copyright">package_copyright</link>;
+extern const char * <link linkend="package-bugreport">package_bugreport</link>;
+extern const char * <link linkend="package-string">package_string</link>;
+extern NihList *    <link linkend="nih-main-loop-functions">nih_main_loop_functions</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-init-full">nih_main_init_full</link>                  (<parameter>const <link linkend="char"><type>char</type></link> *argv0</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *package</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *version</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *bugreport</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *copyright</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-suggest-help">nih_main_suggest_help</link>               (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-version">nih_main_version</link>                    (<parameter><type>void</type></parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-main-daemonise">nih_main_daemonise</link>                  (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-set-pidfile">nih_main_set_pidfile</link>                (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);
+const <link linkend="char"><returnvalue>char</returnvalue></link> *        <link linkend="nih-main-get-pidfile">nih_main_get_pidfile</link>                (<parameter><type>void</type></parameter>);
+<link linkend="pid-t"><returnvalue>pid_t</returnvalue></link>               <link linkend="nih-main-read-pidfile">nih_main_read_pidfile</link>               (<parameter><type>void</type></parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-main-write-pidfile">nih_main_write_pidfile</link>              (<parameter><link linkend="pid-t"><type>pid_t</type></link> pid</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-unlink-pidfile">nih_main_unlink_pidfile</link>             (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-loop-init">nih_main_loop_init</link>                  (<parameter><type>void</type></parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-main-loop">nih_main_loop</link>                       (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-loop-interrupt">nih_main_loop_interrupt</link>             (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-loop-exit">nih_main_loop_exit</link>                  (<parameter><link linkend="int"><type>int</type></link> status</parameter>);
+<link linkend="NihMainLoopFunc"><returnvalue>NihMainLoopFunc</returnvalue></link> *   <link linkend="nih-main-loop-add-func">nih_main_loop_add_func</link>              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihMainLoopCb"><type>NihMainLoopCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-main-term-signal">nih_main_term_signal</link>                (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihSignal"><type>NihSignal</type></link> *signal</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-main.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-main.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihMainLoopFunc" role="typedef">
+<title>NihMainLoopFunc</title>
+<indexterm zone="NihMainLoopFunc"><primary>NihMainLoopFunc</primary></indexterm>
+<programlisting>typedef struct nih_main_loop_func NihMainLoopFunc;
+</programlisting>
+<para>
+This structure contains information about a function that should be
+called once in each main loop iteration.
+</para>
+<para>
+The callback can be removed by using <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> as they are
+held in a list internally.
+</para></refsect2>
+<refsect2 id="NihMainLoopCb" role="function">
+<title>NihMainLoopCb ()</title>
+<indexterm zone="NihMainLoopCb"><primary>NihMainLoopCb</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihMainLoopCb)                    (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihMainLoopFunc"><type>NihMainLoopFunc</type></link> *loop</parameter>);</programlisting>
+<para>
+Main loop callbacks are called each time through the main loop to
+perform any additional processing before the process is put back
+to sleep.  For anything time critical, timers should be used instead.
+</para>
+<para>
+The <parameter>loop</parameter> pointer can be used to remove the callback.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer given with callback,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>loop</parameter>&#160;:</term>
+<listitem><simpara>loop callback structure.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="LOCALEDIR:CAPS" role="macro">
+<title>LOCALEDIR</title>
+<indexterm zone="LOCALEDIR:CAPS"><primary>LOCALEDIR</primary></indexterm>
+<programlisting>#  define LOCALEDIR NULL
+</programlisting>
+</refsect2>
+<refsect2 id="nih-main-init-gettext" role="macro">
+<title>nih_main_init_gettext</title>
+<indexterm zone="nih-main-init-gettext"><primary>nih_main_init_gettext</primary></indexterm>
+<programlisting>#define             nih_main_init_gettext()</programlisting>
+<para>
+Initialises gettext using the PACKAGE_NAME and LOCALEDIR macros that should
+be set by Autoconf/Automake.
+</para></refsect2>
+<refsect2 id="PACKAGE-COPYRIGHT:CAPS" role="macro">
+<title>PACKAGE_COPYRIGHT</title>
+<indexterm zone="PACKAGE-COPYRIGHT:CAPS"><primary>PACKAGE_COPYRIGHT</primary></indexterm>
+<programlisting># define PACKAGE_COPYRIGHT NULL
+</programlisting>
+</refsect2>
+<refsect2 id="nih-main-init" role="macro">
+<title>nih_main_init()</title>
+<indexterm zone="nih-main-init"><primary>nih_main_init</primary></indexterm>
+<programlisting>#define             nih_main_init(argv0)</programlisting>
+<para>
+Should be called at the beginning of <link linkend="main"><function>main()</function></link> to initialise the various
+global variables exported from this module.  Expands both
+<link linkend="nih-main-init-gettext"><function>nih_main_init_gettext()</function></link> and <link linkend="nih-main-init-full"><function>nih_main_init_full()</function></link>
+passing values set by Autoconf AC_INIT and AC_COPYRIGHT macros.
+</para><variablelist role="params">
+<varlistentry><term><parameter>argv0</parameter>&#160;:</term>
+<listitem><simpara>program name from arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="program-name" role="variable">
+<title>program_name</title>
+<indexterm zone="program-name"><primary>program_name</primary></indexterm>
+<programlisting>extern const char *program_name;
+</programlisting>
+<para>
+The name of the program, taken from the argument array with the directory
+name portion stripped.
+</para></refsect2>
+<refsect2 id="package-name" role="variable">
+<title>package_name</title>
+<indexterm zone="package-name"><primary>package_name</primary></indexterm>
+<programlisting>extern const char *package_name;
+</programlisting>
+<para>
+The name of the overall package, usually set to the autoconf PACKAGE_NAME
+macro.  This should be used in preference.
+</para></refsect2>
+<refsect2 id="package-version" role="variable">
+<title>package_version</title>
+<indexterm zone="package-version"><primary>package_version</primary></indexterm>
+<programlisting>extern const char *package_version;
+</programlisting>
+<para>
+The version of the overall package, thus also the version of the program.
+Usually set to the autoconf PACKAGE_VERSION macro.  This should be used
+in preference.
+</para></refsect2>
+<refsect2 id="package-copyright" role="variable">
+<title>package_copyright</title>
+<indexterm zone="package-copyright"><primary>package_copyright</primary></indexterm>
+<programlisting>extern const char *package_copyright;
+</programlisting>
+<para>
+The copyright message for the package, taken from the autoconf
+AC_COPYRIGHT macro.
+</para></refsect2>
+<refsect2 id="package-bugreport" role="variable">
+<title>package_bugreport</title>
+<indexterm zone="package-bugreport"><primary>package_bugreport</primary></indexterm>
+<programlisting>extern const char *package_bugreport;
+</programlisting>
+<para>
+The e-mail address to report bugs on the package to, taken from the
+autoconf PACKAGE_BUGREPORT macro.
+</para></refsect2>
+<refsect2 id="package-string" role="variable">
+<title>package_string</title>
+<indexterm zone="package-string"><primary>package_string</primary></indexterm>
+<programlisting>extern const char *package_string;
+</programlisting>
+<para>
+The human string for the program, either "program (version)" or if the
+program and package names differ, "program (package version)".
+Generated by <link linkend="nih-main-init-full"><function>nih_main_init_full()</function></link>.
+</para></refsect2>
+<refsect2 id="nih-main-loop-functions" role="variable">
+<title>nih_main_loop_functions</title>
+<indexterm zone="nih-main-loop-functions"><primary>nih_main_loop_functions</primary></indexterm>
+<programlisting>extern NihList *nih_main_loop_functions;
+</programlisting>
+<para>
+List of functions to be called in each main loop iteration.  Each item
+is an NihMainLoopFunc structure.
+</para></refsect2>
+<refsect2 id="nih-main-init-full" role="function">
+<title>nih_main_init_full ()</title>
+<indexterm zone="nih-main-init-full"><primary>nih_main_init_full</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_init_full                  (<parameter>const <link linkend="char"><type>char</type></link> *argv0</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *package</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *version</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *bugreport</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *copyright</parameter>);</programlisting>
+<para>
+Should be called at the beginning of <link linkend="main"><function>main()</function></link> to initialise the various
+global variables exported from this module.  For autoconf-using packages
+call the <link linkend="nih-main-init"><function>nih_main_init()</function></link> macro instead.
+</para><variablelist role="params">
+<varlistentry><term><parameter>argv0</parameter>&#160;:</term>
+<listitem><simpara>program name from arguments,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>package</parameter>&#160;:</term>
+<listitem><simpara>package name from configure,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>version</parameter>&#160;:</term>
+<listitem><simpara>package version from configure,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bugreport</parameter>&#160;:</term>
+<listitem><simpara>bug report address from configure,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>copyright</parameter>&#160;:</term>
+<listitem><simpara>package copyright message from configure.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-suggest-help" role="function">
+<title>nih_main_suggest_help ()</title>
+<indexterm zone="nih-main-suggest-help"><primary>nih_main_suggest_help</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_suggest_help               (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Print a message suggesting --help to stderr.
+</para></refsect2>
+<refsect2 id="nih-main-version" role="function">
+<title>nih_main_version ()</title>
+<indexterm zone="nih-main-version"><primary>nih_main_version</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_version                    (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Print the program version to stdout.
+</para></refsect2>
+<refsect2 id="nih-main-daemonise" role="function">
+<title>nih_main_daemonise ()</title>
+<indexterm zone="nih-main-daemonise"><primary>nih_main_daemonise</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_main_daemonise                  (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Perform the necessary steps to become a daemon process, this will only
+return in the child process if successful.  A file will be written to
+/var/run/<parameter>program_name.pid</parameter> containing the pid of the child process.
+</para>
+<para>
+This is preferable to the libc <link linkend="daemon"><function>daemon()</function></link> function because it ensures
+that the new process is not a session leader, so can open ttys without
+worrying about them becoming its controlling terminal.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-set-pidfile" role="function">
+<title>nih_main_set_pidfile ()</title>
+<indexterm zone="nih-main-set-pidfile"><primary>nih_main_set_pidfile</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_set_pidfile                (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>);</programlisting>
+<para>
+Set the location of the process's pid file or NULL to return it to the
+default location under /var/run.  <parameter>filename</parameter> must be an absolute path.
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara>filename to be set.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-get-pidfile" role="function">
+<title>nih_main_get_pidfile ()</title>
+<indexterm zone="nih-main-get-pidfile"><primary>nih_main_get_pidfile</primary></indexterm>
+<programlisting>const <link linkend="char"><returnvalue>char</returnvalue></link> *        nih_main_get_pidfile                (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Returns the location of the process's pid file, which may be overridden
+by <link linkend="nih-main-set-pidfile"><function>nih_main_set_pidfile()</function></link>.  This is guaranteed to be an absolute path.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>internal copy of the string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-read-pidfile" role="function">
+<title>nih_main_read_pidfile ()</title>
+<indexterm zone="nih-main-read-pidfile"><primary>nih_main_read_pidfile</primary></indexterm>
+<programlisting><link linkend="pid-t"><returnvalue>pid_t</returnvalue></link>               nih_main_read_pidfile               (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Reads the pid from the process'd pid file location, which can be set
+with <link linkend="nih-main-get-pidfile"><function>nih_main_get_pidfile()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>pid read or negative value on no available pid.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-write-pidfile" role="function">
+<title>nih_main_write_pidfile ()</title>
+<indexterm zone="nih-main-write-pidfile"><primary>nih_main_write_pidfile</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_main_write_pidfile              (<parameter><link linkend="pid-t"><type>pid_t</type></link> pid</parameter>);</programlisting>
+<para>
+Writes the given <parameter>pid</parameter> to the process's pid file location, which can be
+set with <link linkend="nih-main-set-pidfile"><function>nih_main_set_pidfile()</function></link>.
+</para>
+<para>
+The write is performed in such a way that at the point the file exists,
+the pid can be read from it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pid</parameter>&#160;:</term>
+<listitem><simpara>pid to be written.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-unlink-pidfile" role="function">
+<title>nih_main_unlink_pidfile ()</title>
+<indexterm zone="nih-main-unlink-pidfile"><primary>nih_main_unlink_pidfile</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_unlink_pidfile             (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Removes the process's pid file, which can be set with
+<link linkend="nih-main-set-pidfile"><function>nih_main_set_pidfile()</function></link>.
+</para>
+<para>
+Errors are ignored, since there's not much you can do about it.
+</para></refsect2>
+<refsect2 id="nih-main-loop-init" role="function">
+<title>nih_main_loop_init ()</title>
+<indexterm zone="nih-main-loop-init"><primary>nih_main_loop_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_loop_init                  (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialise the loop functions list.
+</para></refsect2>
+<refsect2 id="nih-main-loop" role="function">
+<title>nih_main_loop ()</title>
+<indexterm zone="nih-main-loop"><primary>nih_main_loop</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_main_loop                       (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Implements a fully functional main loop for a typical process, handling
+I/O events, signals, termination of child processes, timers, etc.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>value given to <link linkend="nih-main-loop-exit"><function>nih_main_loop_exit()</function></link>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-loop-interrupt" role="function">
+<title>nih_main_loop_interrupt ()</title>
+<indexterm zone="nih-main-loop-interrupt"><primary>nih_main_loop_interrupt</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_loop_interrupt             (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Interrupts the current (or next) main loop iteration because of an
+event that potentially needs immediate processing, or because some
+condition of the main loop has been changed.
+</para></refsect2>
+<refsect2 id="nih-main-loop-exit" role="function">
+<title>nih_main_loop_exit ()</title>
+<indexterm zone="nih-main-loop-exit"><primary>nih_main_loop_exit</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_loop_exit                  (<parameter><link linkend="int"><type>int</type></link> status</parameter>);</programlisting>
+<para>
+Instructs the current (or next) main loop to exit with the given exit
+status; if the loop is in the middle of processing, it will exit once
+all that processing is complete.
+</para>
+<para>
+This may be safely called by functions called by the main loop.
+</para><variablelist role="params">
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>exit status.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-loop-add-func" role="function">
+<title>nih_main_loop_add_func ()</title>
+<indexterm zone="nih-main-loop-add-func"><primary>nih_main_loop_add_func</primary></indexterm>
+<programlisting><link linkend="NihMainLoopFunc"><returnvalue>NihMainLoopFunc</returnvalue></link> *   nih_main_loop_add_func              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihMainLoopCb"><type>NihMainLoopCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Adds <parameter>callback</parameter> to the list of functions that should be called once
+in each main loop iteration.
+</para>
+<para>
+The callback structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and stored in a
+linked list. Removal of the callback can be performed by freeing it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned callback.  When all parents
+of the returned callback are freed, the returned callback will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new callback,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&#160;:</term>
+<listitem><simpara>function to call,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to <parameter>callback</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the function information, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-main-term-signal" role="function">
+<title>nih_main_term_signal ()</title>
+<indexterm zone="nih-main-term-signal"><primary>nih_main_term_signal</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_main_term_signal                (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihSignal"><type>NihSignal</type></link> *signal</parameter>);</programlisting>
+<para>
+Signal callback that instructs the main loop to exit with a normal
+exit status, usually registered for SIGTERM and SIGINT for non-daemons.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>ignored,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>signal</parameter>&#160;:</term>
+<listitem><simpara>ignored.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

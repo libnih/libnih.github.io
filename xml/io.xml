@@ -1,0 +1,1007 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-io">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-io.top_of_page">io</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>io</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-io.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>enum                <link linkend="NihIoType">NihIoType</link>;
+enum                <link linkend="NihIoEvents">NihIoEvents</link>;
+typedef             <link linkend="NihIoWatch">NihIoWatch</link>;
+typedef             <link linkend="NihIo">NihIo</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihIoWatcher">*NihIoWatcher</link>)                     (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIoWatch"><type>NihIoWatch</type></link> *watch</parameter>,
+                                                         <parameter><link linkend="NihIoEvents"><type>NihIoEvents</type></link> events</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihIoReader">*NihIoReader</link>)                      (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *buf</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihIoCloseHandler">*NihIoCloseHandler</link>)                (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihIoErrorHandler">*NihIoErrorHandler</link>)                (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);
+                    <link linkend="NihIoBuffer">NihIoBuffer</link>;
+                    <link linkend="NihIoMessage">NihIoMessage</link>;
+extern NihList *    <link linkend="nih-io-watches">nih_io_watches</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-io-init">nih_io_init</link>                         (<parameter><type>void</type></parameter>);
+<link linkend="NihIoWatch"><returnvalue>NihIoWatch</returnvalue></link> *        <link linkend="nih-io-add-watch">nih_io_add_watch</link>                    (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>,
+                                                         <parameter><link linkend="NihIoEvents"><type>NihIoEvents</type></link> events</parameter>,
+                                                         <parameter><link linkend="NihIoWatcher"><type>NihIoWatcher</type></link> watcher</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-io-select-fds">nih_io_select_fds</link>                   (<parameter><link linkend="int"><type>int</type></link> *nfds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *readfds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *writefds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *exceptfds</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-io-handle-fds">nih_io_handle_fds</link>                   (<parameter><link linkend="fd-set"><type>fd_set</type></link> *readfds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *writefds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *exceptfds</parameter>);
+<link linkend="NihIoBuffer"><returnvalue>NihIoBuffer</returnvalue></link> *       <link linkend="nih-io-buffer-new">nih_io_buffer_new</link>                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-buffer-resize">nih_io_buffer_resize</link>                (<parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> grow</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-io-buffer-pop">nih_io_buffer_pop</link>                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-io-buffer-shrink">nih_io_buffer_shrink</link>                (<parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-buffer-push">nih_io_buffer_push</link>                  (<parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);
+<link linkend="NihIoMessage"><returnvalue>NihIoMessage</returnvalue></link> *      <link linkend="nih-io-message-new">nih_io_message_new</link>                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-message-add-control">nih_io_message_add_control</link>          (<parameter><link linkend="NihIoMessage"><type>NihIoMessage</type></link> *message</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> level</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> type</parameter>,
+                                                         <parameter><link linkend="socklen-t"><type>socklen_t</type></link> len</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihIoMessage"><returnvalue>NihIoMessage</returnvalue></link> *      <link linkend="nih-io-message-recv">nih_io_message_recv</link>                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>);
+<link linkend="ssize-t"><returnvalue>ssize_t</returnvalue></link>             <link linkend="nih-io-message-send">nih_io_message_send</link>                 (<parameter><link linkend="NihIoMessage"><type>NihIoMessage</type></link> *message</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>);
+<link linkend="NihIo"><returnvalue>NihIo</returnvalue></link> *             <link linkend="nih-io-reopen">nih_io_reopen</link>                       (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>,
+                                                         <parameter><link linkend="NihIoType"><type>NihIoType</type></link> type</parameter>,
+                                                         <parameter><link linkend="NihIoReader"><type>NihIoReader</type></link> reader</parameter>,
+                                                         <parameter><link linkend="NihIoCloseHandler"><type>NihIoCloseHandler</type></link> close_handler</parameter>,
+                                                         <parameter><link linkend="NihIoErrorHandler"><type>NihIoErrorHandler</type></link> error_handler</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-io-shutdown">nih_io_shutdown</link>                     (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-destroy">nih_io_destroy</link>                      (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);
+<link linkend="NihIoMessage"><returnvalue>NihIoMessage</returnvalue></link> *      <link linkend="nih-io-read-message">nih_io_read_message</link>                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-io-send-message">nih_io_send_message</link>                 (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter><link linkend="NihIoMessage"><type>NihIoMessage</type></link> *message</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-io-read">nih_io_read</link>                         (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-write">nih_io_write</link>                        (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-io-get">nih_io_get</link>                          (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-printf">nih_io_printf</link>                       (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-set-nonblock">nih_io_set_nonblock</link>                 (<parameter><link linkend="int"><type>int</type></link> fd</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-io-set-cloexec">nih_io_set_cloexec</link>                  (<parameter><link linkend="int"><type>int</type></link> fd</parameter>);
+<link linkend="ssize-t"><returnvalue>ssize_t</returnvalue></link>             <link linkend="nih-io-get-family">nih_io_get_family</link>                   (<parameter><link linkend="int"><type>int</type></link> fd</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-io.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-io.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihIoType" role="enum">
+<title>enum NihIoType</title>
+<indexterm zone="NihIoType"><primary>NihIoType</primary></indexterm>
+<programlisting>typedef enum {
+	NIH_IO_STREAM,
+	NIH_IO_MESSAGE
+} NihIoType;
+</programlisting>
+<para>
+Whether an NihIo structure is used for a buffered stream of data, or
+a queue of discreet messages.
+</para><variablelist role="enum">
+<varlistentry id="NIH-IO-STREAM:CAPS" role="constant">
+<term><literal>NIH_IO_STREAM</literal></term>
+<listitem><simpara>stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-IO-MESSAGE:CAPS" role="constant">
+<term><literal>NIH_IO_MESSAGE</literal></term>
+<listitem><simpara>message
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihIoEvents" role="enum">
+<title>enum NihIoEvents</title>
+<indexterm zone="NihIoEvents"><primary>NihIoEvents</primary></indexterm>
+<programlisting>typedef enum {
+	NIH_IO_NONE   = 00,
+	NIH_IO_READ   = 01,
+	NIH_IO_WRITE  = 02,
+	NIH_IO_EXCEPT = 04,
+} NihIoEvents;
+</programlisting>
+<para>
+Events that we can watch for, generally used as a bit mask of the events
+that have occurred.
+</para><variablelist role="enum">
+<varlistentry id="NIH-IO-NONE:CAPS" role="constant">
+<term><literal>NIH_IO_NONE</literal></term>
+<listitem><simpara>no events,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-IO-READ:CAPS" role="constant">
+<term><literal>NIH_IO_READ</literal></term>
+<listitem><simpara>read,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-IO-WRITE:CAPS" role="constant">
+<term><literal>NIH_IO_WRITE</literal></term>
+<listitem><simpara>write,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-IO-EXCEPT:CAPS" role="constant">
+<term><literal>NIH_IO_EXCEPT</literal></term>
+<listitem><simpara>exception.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihIoWatch" role="typedef">
+<title>NihIoWatch</title>
+<indexterm zone="NihIoWatch"><primary>NihIoWatch</primary></indexterm>
+<programlisting>typedef struct nih_io_watch NihIoWatch;
+</programlisting>
+<para>
+This structure represents the most basic kind of I/O handling, a watch
+on a file descriptor or socket that causes a function to be called
+when listed events occur.
+</para>
+<para>
+The watch can be cancelled by calling <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> on the structure
+as they are held in a list internally.
+</para></refsect2>
+<refsect2 id="NihIo" role="typedef">
+<title>NihIo</title>
+<indexterm zone="NihIo"><primary>NihIo</primary></indexterm>
+<programlisting>typedef struct nih_io       NihIo;
+</programlisting>
+<para>
+This structure implements more featureful I/O handling than provided by
+an NihIoWatch alone.
+</para>
+<para>
+When used in the stream mode (<parameter>type</parameter> is NIH_IO_STREAM), it combines an
+NihIoWatch and two NihIoBuffer structures to implement a high-throughput
+alternative to the traditional stdio functions.
+</para>
+<para>
+Those functions are optimised to reduce the number of <link linkend="read"><function>read()</function></link> or <link linkend="write"><function>write()</function></link>
+calls made on a file descriptor, and cannot be used to pool large
+amounts of data for processing.
+</para>
+<para>
+The NihIo functions are instead optimised for being able to queue and
+receive much data as possible, and have the data sent in the background
+or processed at your leisure.
+</para>
+<para>
+When used in the message mode (<parameter>type</parameter> is NIH_IO_MESSAGE), it combines the
+NihIoWatch with an NihList of NihIoMessage structures to implement
+asynchronous handling of datagram sockets.
+</para></refsect2>
+<refsect2 id="NihIoWatcher" role="function">
+<title>NihIoWatcher ()</title>
+<indexterm zone="NihIoWatcher"><primary>NihIoWatcher</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihIoWatcher)                     (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIoWatch"><type>NihIoWatch</type></link> *watch</parameter>,
+                                                         <parameter><link linkend="NihIoEvents"><type>NihIoEvents</type></link> events</parameter>);</programlisting>
+<para>
+An I/O watcher is a function that is called whenever an event occurs
+on a file descriptor or socket being watched.  It is safe for the
+watcher to remove the watch during the call.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer given when registered,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>watch</parameter>&#160;:</term>
+<listitem><simpara><link linkend="NihIoWatch"><type>NihIoWatch</type></link> for which an event occurred,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>events</parameter>&#160;:</term>
+<listitem><simpara>events that occurred.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihIoReader" role="function">
+<title>NihIoReader ()</title>
+<indexterm zone="NihIoReader"><primary>NihIoReader</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihIoReader)                      (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *buf</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);</programlisting>
+<para>
+An I/O reader is a function that is called whenever new data or a new
+message has been received on a file descriptor or socket and placed
+into the receive buffer or queue.
+</para>
+<para>
+In stream mode, <parameter>buf</parameter> and <parameter>len</parameter> will point to the entire receive buffer
+and this function need not clear the buffer, it is entirely permitted
+for the data to be left there.  When further data arrives, the buffer
+will be extended and the reader called again.
+</para>
+<para>
+In message mode, <parameter>buf</parameter> and <parameter>len</parameter> will point to the contents of the oldest
+message in the receive queue.  You'll almost certainly want to remove
+this message from the queue, otherwise when a new message arrives, the
+function will still be called with the same oldest message.
+</para>
+<para>
+It is safe to call <link linkend="nih-io-shutdown"><function>nih_io_shutdown()</function></link> from within the reader function, this
+results in the structure being flagged to be closed when the watcher
+that invokes it has finished.  You must not <link linkend="nih-free"><function>nih_free()</function></link> <parameter>io</parameter> or cause it
+to be freed from within this function, except by <link linkend="nih-io-closed"><function>nih_io_closed()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer given when registered,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>NihIo with data to be read,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf</parameter>&#160;:</term>
+<listitem><simpara>buffer data is available in,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>bytes in <parameter>buf</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihIoCloseHandler" role="function">
+<title>NihIoCloseHandler ()</title>
+<indexterm zone="NihIoCloseHandler"><primary>NihIoCloseHandler</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihIoCloseHandler)                (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);</programlisting>
+<para>
+An I/O close handler is a function that is called when the remote end
+of a file descriptor or socket is closed and data can no longer be
+read from it.
+</para>
+<para>
+It should take appropriate action, which may include closing the
+file descriptor with <link linkend="nih-io-closed"><function>nih_io_closed()</function></link>.  You must not <link linkend="nih-free"><function>nih_free()</function></link> <parameter>io</parameter> or
+cause it to be freed from within this function, except by <link linkend="nih-io-closed"><function>nih_io_closed()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer given when registered.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>NihIo that closed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihIoErrorHandler" role="function">
+<title>NihIoErrorHandler ()</title>
+<indexterm zone="NihIoErrorHandler"><primary>NihIoErrorHandler</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihIoErrorHandler)                (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);</programlisting>
+<para>
+An I/O error handler is a function that is called to handle an error
+raise while reading from the file descriptor or socket.  The error
+itself can be obtained using <link linkend="nih-error-get"><function>nih_error_get()</function></link>.
+</para>
+<para>
+It should take appropriate action, which may include closing the
+file descriptor with <link linkend="nih-io-closed"><function>nih_io_closed()</function></link>.  You must not <link linkend="nih-free"><function>nih_free()</function></link> <parameter>io</parameter> or
+cause it to be freed from within this function, except by <link linkend="nih-io-closed"><function>nih_io_closed()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer given when registered,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>NihIo that caused the error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihIoBuffer" role="struct">
+<title>NihIoBuffer</title>
+<indexterm zone="NihIoBuffer"><primary>NihIoBuffer</primary></indexterm>
+<programlisting>typedef struct {
+	char   *buf;
+	size_t  size;
+	size_t  len;
+} NihIoBuffer;
+</programlisting>
+<para>
+This structure is used to represent a buffer holding data that is
+waiting to be sent or processed.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="char"><type>char</type></link>&#160;*<structfield id="NihIoBuffer.buf">buf</structfield>;</term>
+<listitem><simpara>memory allocated for buffer,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="size-t"><type>size_t</type></link>&#160;<structfield id="NihIoBuffer.size">size</structfield>;</term>
+<listitem><simpara>allocated size of <parameter>buf</parameter>,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="size-t"><type>size_t</type></link>&#160;<structfield id="NihIoBuffer.len">len</structfield>;</term>
+<listitem><simpara>number of bytes of <parameter>buf</parameter> used.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihIoMessage" role="struct">
+<title>NihIoMessage</title>
+<indexterm zone="NihIoMessage"><primary>NihIoMessage</primary></indexterm>
+<programlisting>typedef struct {
+	NihList           entry;
+
+	struct sockaddr  *addr;
+	socklen_t         addrlen;
+
+	NihIoBuffer      *data;
+	struct cmsghdr  **control;
+
+	union {
+		int      int_data;
+		void    *ptr_data;
+	};
+} NihIoMessage;
+</programlisting>
+<para>
+This structure is used to represent an individual message waiting in
+a queue to be sent or processed.
+</para>
+<para>
+When a message is in the queue, it is sometimes useful to be able to
+associate it with the source or destination of the message, for example
+when handling errors.  You may use the <parameter>int_data</parameter> or <parameter>ptr_member</parameter> to store
+an integer or pointer value that is useful to you.  These are not usually
+initialised.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="NihList"><type>NihList</type></link>&#160;<structfield id="NihIoMessage.entry">entry</structfield>;</term>
+<listitem><simpara>list header,</simpara></listitem>
+</varlistentry>
+<varlistentry><term>struct&#160;<link linkend="sockaddr"><type>sockaddr</type></link>&#160;*<structfield id="NihIoMessage.addr">addr</structfield>;</term>
+<listitem><simpara>address received from or to be sent to,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="socklen-t"><type>socklen_t</type></link>&#160;<structfield id="NihIoMessage.addrlen">addrlen</structfield>;</term>
+<listitem><simpara>length of <parameter>addr</parameter>,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link>&#160;*<structfield id="NihIoMessage.data">data</structfield>;</term>
+<listitem><simpara>buffer for message data,</simpara></listitem>
+</varlistentry>
+<varlistentry><term>struct&#160;<link linkend="cmsghdr"><type>cmsghdr</type></link>&#160;**<structfield id="NihIoMessage.control">control</structfield>;</term>
+<listitem><simpara>NULL-terminated array of control messages,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="NihIoMessage.int-data">int_data</structfield>;</term>
+<listitem><simpara>user-supplied integer data,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="void"><type>void</type></link>&#160;*<structfield id="NihIoMessage.ptr-data">ptr_data</structfield>;</term>
+<listitem><simpara>user-supplied pointer data.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-watches" role="variable">
+<title>nih_io_watches</title>
+<indexterm zone="nih-io-watches"><primary>nih_io_watches</primary></indexterm>
+<programlisting>extern NihList *nih_io_watches;
+</programlisting>
+<para>
+This is the list of current watches on file descriptors and sockets,
+not sorted into any particular order.  Each item is an NihIoWatch
+structure.
+</para></refsect2>
+<refsect2 id="nih-io-init" role="function">
+<title>nih_io_init ()</title>
+<indexterm zone="nih-io-init"><primary>nih_io_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_io_init                         (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialise the list of I/O watches.
+</para></refsect2>
+<refsect2 id="nih-io-add-watch" role="function">
+<title>nih_io_add_watch ()</title>
+<indexterm zone="nih-io-add-watch"><primary>nih_io_add_watch</primary></indexterm>
+<programlisting><link linkend="NihIoWatch"><returnvalue>NihIoWatch</returnvalue></link> *        nih_io_add_watch                    (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>,
+                                                         <parameter><link linkend="NihIoEvents"><type>NihIoEvents</type></link> events</parameter>,
+                                                         <parameter><link linkend="NihIoWatcher"><type>NihIoWatcher</type></link> watcher</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Adds <parameter>fd</parameter> to the list of file descriptors and sockets to watch, when any
+of <parameter>events</parameter> occur <parameter>watcher</parameter> will be called.  <parameter>events</parameter> is a bit mask
+of the different events we care about.
+</para>
+<para>
+This is the simplest form of watch and satisfies most basic purposes.
+</para>
+<para>
+The watch structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and stored in a linked
+list; there is no non-allocated version because of this.
+</para>
+<para>
+Removal of the watch can be performed by freeing it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned watch.  When all parents
+of the returned watch are freed, the returned watch will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new watch,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fd</parameter>&#160;:</term>
+<listitem><simpara>file descriptor or socket to watch,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>events</parameter>&#160;:</term>
+<listitem><simpara>events to watch for,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>watcher</parameter>&#160;:</term>
+<listitem><simpara>function to call when <parameter>events</parameter> occur on <parameter>fd</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to <parameter>watcher</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the watch structure, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-select-fds" role="function">
+<title>nih_io_select_fds ()</title>
+<indexterm zone="nih-io-select-fds"><primary>nih_io_select_fds</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_io_select_fds                   (<parameter><link linkend="int"><type>int</type></link> *nfds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *readfds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *writefds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *exceptfds</parameter>);</programlisting>
+<para>
+Fills the given fd_set arrays based on the list of I/O watches.
+</para><variablelist role="params">
+<varlistentry><term><parameter>nfds</parameter>&#160;:</term>
+<listitem><simpara>pointer to store highest number in,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>readfds</parameter>&#160;:</term>
+<listitem><simpara>pointer to set of descriptors to check for read,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>writefds</parameter>&#160;:</term>
+<listitem><simpara>pointer to set of descriptors to check for write,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>exceptfds</parameter>&#160;:</term>
+<listitem><simpara>pointer to set of descriptors to check for exceptions.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-handle-fds" role="function">
+<title>nih_io_handle_fds ()</title>
+<indexterm zone="nih-io-handle-fds"><primary>nih_io_handle_fds</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_io_handle_fds                   (<parameter><link linkend="fd-set"><type>fd_set</type></link> *readfds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *writefds</parameter>,
+                                                         <parameter><link linkend="fd-set"><type>fd_set</type></link> *exceptfds</parameter>);</programlisting>
+<para>
+Receives arrays of fd_set structures which have been cleared of any
+descriptors which haven't changed and iterates the watch list calling
+the appropriate functions.
+</para>
+<para>
+It is safe for watches to remove the watch during their call.
+</para><variablelist role="params">
+<varlistentry><term><parameter>readfds</parameter>&#160;:</term>
+<listitem><simpara>pointer to set of descriptors ready for read,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>writefds</parameter>&#160;:</term>
+<listitem><simpara>pointer to set of descriptors ready for write,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>exceptfds</parameter>&#160;:</term>
+<listitem><simpara>pointer to set of descriptors with exceptions.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-buffer-new" role="function">
+<title>nih_io_buffer_new ()</title>
+<indexterm zone="nih-io-buffer-new"><primary>nih_io_buffer_new</primary></indexterm>
+<programlisting><link linkend="NihIoBuffer"><returnvalue>NihIoBuffer</returnvalue></link> *       nih_io_buffer_new                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Allocates a new NihIoBuffer structure containing an empty buffer.
+</para>
+<para>
+The buffer is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and all functions that use the
+buffer ensure that the internal data is an <link linkend="nih-alloc"><function>nih_alloc()</function></link> child of the buffer
+itself, so this can be freed using <link linkend="nih-free"><function>nih_free()</function></link>; there is no non-allocated
+version because of this,
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned buffer.  When all parents
+of the returned buffer are freed, the returned buffer will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new buffer.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new buffer, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-buffer-resize" role="function">
+<title>nih_io_buffer_resize ()</title>
+<indexterm zone="nih-io-buffer-resize"><primary>nih_io_buffer_resize</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_buffer_resize                (<parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> grow</parameter>);</programlisting>
+<para>
+This function resizes the given <parameter>buffer</parameter> so there is enough space for
+both the current data and <parameter>grow</parameter> additional bytes (which may be zero).
+If there is more room than there needs to be, the buffer may actually
+be decreased in size.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&#160;:</term>
+<listitem><simpara>buffer to be resized,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>grow</parameter>&#160;:</term>
+<listitem><simpara>number of bytes to grow by.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-buffer-pop" role="function">
+<title>nih_io_buffer_pop ()</title>
+<indexterm zone="nih-io-buffer-pop"><primary>nih_io_buffer_pop</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_io_buffer_pop                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>);</programlisting>
+<para>
+Takes <parameter>len</parameter> bytes from the start of <parameter>buffer</parameter>, reducing the size if
+necessary, and returns them in a new string allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>.
+<parameter>len</parameter> is updated to contain the actual number of bytes returned.
+</para>
+<para>
+The returned string is always NULL terminated, even if there was
+not a NULL in the buffer.
+</para>
+<para>
+If there are not <parameter>len</parameter> bytes in the buffer, the maximum amount there is
+will be returned, if there is nothing you'll get a zero-length string.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned object.  When all parents
+of the returned watch are freed, the returned object will also be
+object.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new object,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buffer</parameter>&#160;:</term>
+<listitem><simpara>buffer to shrink,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>bytes to take.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated data pointer, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-buffer-shrink" role="function">
+<title>nih_io_buffer_shrink ()</title>
+<indexterm zone="nih-io-buffer-shrink"><primary>nih_io_buffer_shrink</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_io_buffer_shrink                (<parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);</programlisting>
+<para>
+Removes <parameter>len</parameter> bytes from the beginning of <parameter>buffer</parameter> and moves the rest
+of the data up to begin there.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&#160;:</term>
+<listitem><simpara>buffer to shrink,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>bytes to remove from the front.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-buffer-push" role="function">
+<title>nih_io_buffer_push ()</title>
+<indexterm zone="nih-io-buffer-push"><primary>nih_io_buffer_push</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_buffer_push                  (<parameter><link linkend="NihIoBuffer"><type>NihIoBuffer</type></link> *buffer</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);</programlisting>
+<para>
+Pushes <parameter>len</parameter> bytes from <parameter>str</parameter> onto the end of <parameter>buffer</parameter>, increasing the size
+if necessary.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&#160;:</term>
+<listitem><simpara>buffer to extend,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>data to push,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>str</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-message-new" role="function">
+<title>nih_io_message_new ()</title>
+<indexterm zone="nih-io-message-new"><primary>nih_io_message_new</primary></indexterm>
+<programlisting><link linkend="NihIoMessage"><returnvalue>NihIoMessage</returnvalue></link> *      nih_io_message_new                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Allocates a new NihIoMessage structure with empty buffers.
+</para>
+<para>
+All functions that use the message structure ensure that the internal
+data is an <link linkend="nih-alloc"><function>nih_alloc()</function></link> child of the message or its buffers, so the entire
+message freed using <link linkend="nih-free"><function>nih_free()</function></link>; there is no non-allocated version because
+of this.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned message.  When all parents
+of the returned message are freed, the returned message will also be
+freed.
+</para>
+<para>
+<parameter>parent</parameter> should not be the NihIo object this is to be sent with, that
+will take a reference when you send the message.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new message.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new message, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-message-add-control" role="function">
+<title>nih_io_message_add_control ()</title>
+<indexterm zone="nih-io-message-add-control"><primary>nih_io_message_add_control</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_message_add_control          (<parameter><link linkend="NihIoMessage"><type>NihIoMessage</type></link> *message</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> level</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> type</parameter>,
+                                                         <parameter><link linkend="socklen-t"><type>socklen_t</type></link> len</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Adds a new control message with the <parameter>level</parameter> and <parameter>type</parameter> given to <parameter>message</parameter>.
+The control data is copied from <parameter>data</parameter> into the message and should be <parameter>len</parameter>
+bytes long.
+</para><variablelist role="params">
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>message to add control message to,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&#160;:</term>
+<listitem><simpara>level of control message,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>protocol-specific type,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of control data,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>control data.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-message-recv" role="function">
+<title>nih_io_message_recv ()</title>
+<indexterm zone="nih-io-message-recv"><primary>nih_io_message_recv</primary></indexterm>
+<programlisting><link linkend="NihIoMessage"><returnvalue>NihIoMessage</returnvalue></link> *      nih_io_message_recv                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>);</programlisting>
+<para>
+Allocates a new NihIoMessage structure and fills it with a message
+received on <parameter>fd</parameter> with <link linkend="recvmsg"><function>recvmsg()</function></link>.  The buffer is increased in size until
+all of the message can fit within it.  <parameter>len</parameter> is set to contain the actual
+number of bytes read.
+</para>
+<para>
+The message structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and normally
+stored in a linked list.  Removal of the message can be performed by
+freeing it.
+</para>
+<para>
+All functions that use the message structure ensure that the internal
+data is an <link linkend="nih-alloc"><function>nih_alloc()</function></link> child of the message or its buffers, so the entire
+message freed using <link linkend="nih-free"><function>nih_free()</function></link>.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned message.  When all parents
+of the returned message are freed, the returned message will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new message,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fd</parameter>&#160;:</term>
+<listitem><simpara>file descriptor to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>number of bytes read.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>new message, or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-message-send" role="function">
+<title>nih_io_message_send ()</title>
+<indexterm zone="nih-io-message-send"><primary>nih_io_message_send</primary></indexterm>
+<programlisting><link linkend="ssize-t"><returnvalue>ssize_t</returnvalue></link>             nih_io_message_send                 (<parameter><link linkend="NihIoMessage"><type>NihIoMessage</type></link> *message</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>);</programlisting>
+<para>
+Send <parameter>message</parameter>, an already allocated and filled NihIoMessage structure
+to the file descriptor or socket <parameter>fd</parameter> using <link linkend="sendmsg"><function>sendmsg()</function></link>.
+</para>
+<para>
+If <parameter>fd</parameter> is not connected, the destination for the message can be specified
+in the addr and addrlen members of the structure.  The message data itself
+should be pushed into the data member, and any control data added to the
+control member (usually using <link linkend="nih-io-message-add-control"><function>nih_io_message_add_control()</function></link>).
+</para><variablelist role="params">
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>message to be sent,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fd</parameter>&#160;:</term>
+<listitem><simpara>file descriptor to send to.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>length of message sent, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-reopen" role="function">
+<title>nih_io_reopen ()</title>
+<indexterm zone="nih-io-reopen"><primary>nih_io_reopen</primary></indexterm>
+<programlisting><link linkend="NihIo"><returnvalue>NihIo</returnvalue></link> *             nih_io_reopen                       (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> fd</parameter>,
+                                                         <parameter><link linkend="NihIoType"><type>NihIoType</type></link> type</parameter>,
+                                                         <parameter><link linkend="NihIoReader"><type>NihIoReader</type></link> reader</parameter>,
+                                                         <parameter><link linkend="NihIoCloseHandler"><type>NihIoCloseHandler</type></link> close_handler</parameter>,
+                                                         <parameter><link linkend="NihIoErrorHandler"><type>NihIoErrorHandler</type></link> error_handler</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+This allocates a new NihIo structure using <link linkend="nih-alloc"><function>nih_alloc()</function></link>, used to manage an
+already opened file descriptor.  The descriptor is set to be non-blocking
+if it hasn't already been and the SIGPIPE signal is set to be ignored.
+The file descriptor will be closed when the structure is freed.
+</para>
+<para>
+If <parameter>type</parameter> is NIH_IO_STREAM, the descriptor is managed in stream mode; data
+to be sent and data received are held in a single buffer that is expanded
+and shrunk as required.  If <parameter>type</parameter> is NIH_IO_MESSAGE, the descriptor is
+managed in message mode; individual messages are queued to be sent and
+are received into a queue as discreet messages.
+</para>
+<para>
+Data is automatically read from the file descriptor whenever it is
+available, and stored in the receive buffer or queue.  If <parameter>reader</parameter> is
+given, this function is called whenever new data has been received.
+In stream mode, this function is under no obligation to remove any data,
+it's perfectly valid to leave it in the buffer until more data is added.
+In message mode, the message must be processed as even if more messages
+are read, the reader will only be called with the first one in the queue.
+</para>
+<para>
+If <parameter>close_handler</parameter> is given then it is called whenever the remote end of the
+file descriptor is closed, otherwise the local end is closed and the
+entire structure freed (which may be surprising to you).
+</para>
+<para>
+If <parameter>error_handler</parameter> is given then it is called whenever any errors are
+raised, otherwise the <parameter>close_handler</parameter> is called or the same action taken
+if that is not given either.
+</para>
+<para>
+The returned structure is allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link> and children buffers
+and watches are allocated as children so will be automatically freed;
+there is no non-allocated version because of this.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned structure.  When all parents
+of the returned structure are freed, the returned structure will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new structure,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fd</parameter>&#160;:</term>
+<listitem><simpara>file descriptor to manage,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>handling mode,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>reader</parameter>&#160;:</term>
+<listitem><simpara>function to call when new data available,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>close_handler</parameter>&#160;:</term>
+<listitem><simpara>function to call on close,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error_handler</parameter>&#160;:</term>
+<listitem><simpara>function to call on error,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data to pass to functions.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated structure, or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-shutdown" role="function">
+<title>nih_io_shutdown ()</title>
+<indexterm zone="nih-io-shutdown"><primary>nih_io_shutdown</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_io_shutdown                     (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);</programlisting>
+<para>
+Marks the NihIo structure to be closed once the buffers or queue have
+been emptied, rather than immediately.  Closure is performed by calling
+the close handler if given or <link linkend="nih-io-closed"><function>nih_io_closed()</function></link>.
+</para>
+<para>
+This is most useful to send a burst of data and discard the structure
+once the data has been sent, without worrying about keeping track of
+the structure in the mean time.
+</para><variablelist role="params">
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to be closed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-destroy" role="function">
+<title>nih_io_destroy ()</title>
+<indexterm zone="nih-io-destroy"><primary>nih_io_destroy</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_destroy                      (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);</programlisting>
+<para>
+Closes the file descriptor associated with an NihIo structure so that
+the structure can be freed.  If an error is caught by closing the
+descriptor, the error handler is called instead of the error being raised;
+this allows you to group your error handling in one place rather than
+special-case close.
+</para>
+<para>
+Normally used or called from an <link linkend="nih-alloc"><function>nih_alloc()</function></link> destructor.
+</para><variablelist role="params">
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to be destroyed.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-read-message" role="function">
+<title>nih_io_read_message ()</title>
+<indexterm zone="nih-io-read-message"><primary>nih_io_read_message</primary></indexterm>
+<programlisting><link linkend="NihIoMessage"><returnvalue>NihIoMessage</returnvalue></link> *      nih_io_read_message                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>);</programlisting>
+<para>
+Obtains the oldest message in the receive queue of <parameter>io</parameter>, removes it
+from the queue and returns it reparented.
+</para>
+<para>
+This may only be used when <parameter>io</parameter> is in message mode.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned message.  When all parents
+of the returned message are freed, the returned message will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new message,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to read from.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>message from queue, or NULL if the queue is empty.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-send-message" role="function">
+<title>nih_io_send_message ()</title>
+<indexterm zone="nih-io-send-message"><primary>nih_io_send_message</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_io_send_message                 (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter><link linkend="NihIoMessage"><type>NihIoMessage</type></link> *message</parameter>);</programlisting>
+<para>
+Appends message to the send queue of <parameter>io</parameter> so that it will be sent in
+turn when possible.
+</para>
+<para>
+<parameter>message</parameter> itself is added to the queue, and freed once written.
+</para>
+<para>
+When called on a message already in the send queue, this moves it to
+the end of the queue.  It's entirely permitted to call this on messages
+taken from the receive queue (usually of another NihIo).
+</para>
+<para>
+This may only be used when <parameter>io</parameter> is in message mode.
+</para><variablelist role="params">
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to write to,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>message to write.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-read" role="function">
+<title>nih_io_read ()</title>
+<indexterm zone="nih-io-read"><primary>nih_io_read</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_io_read                         (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *len</parameter>);</programlisting>
+<para>
+Reads <parameter>len</parameter> bytes from the receive buffer of <parameter>io</parameter> or the oldest message
+in the receive queue and returns the data in a new string allocated with
+<link linkend="nih-alloc"><function>nih_alloc()</function></link> that is always NULL terminated even if there was not a NULL
+in the buffer.
+</para>
+<para>
+<parameter>len</parameter> is updated to contain the actual number of bytes returned.
+</para>
+<para>
+If there are not <parameter>len</parameter> bytes in the buffer or message, the maximum amount
+there is will be returned, if there is nothing you'll get a zero-length
+string.
+</para>
+<para>
+If the message has no more data in the buffer, it is removed from the
+receive queue, and the next call to this function will operate on the
+next oldest message in the queue.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>number of bytes to read.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated string, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-write" role="function">
+<title>nih_io_write ()</title>
+<indexterm zone="nih-io-write"><primary>nih_io_write</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_write                        (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *str</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>);</programlisting>
+<para>
+Writes <parameter>len</parameter> bytes from <parameter>str</parameter> into the send buffer of <parameter>io</parameter>, or into a new
+message placed in the send queue.  The data will not be sent immediately
+but whenever possible.
+</para>
+<para>
+Care should be taken to ensure <parameter>len</parameter> does not include the NULL
+terminator unless you really want that sent.
+</para><variablelist role="params">
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to write to,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>data to write,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>str</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-get" role="function">
+<title>nih_io_get ()</title>
+<indexterm zone="nih-io-get"><primary>nih_io_get</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_io_get                          (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>);</programlisting>
+<para>
+Reads from the receive buffer of <parameter>io</parameter> or the oldest message in the
+receive queue until a character in <parameter>delim</parameter> or the NULL terminator is
+found, and returns a new string allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link> that contains
+a copy of the string up to, but not including, the delimiter.
+</para>
+<para>
+<parameter>delim</parameter> may be the empty string if only the NULL terminator is considered
+a delimiter.
+</para>
+<para>
+The string and the delimiter are removed from the buffer or message.
+</para>
+<para>
+If the message has no more data in the buffer, it is removed from the
+receive queue, and the next call to this function will operate on the
+next oldest message in the queue.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>delim</parameter>&#160;:</term>
+<listitem><simpara>character to read until.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated string or NULL if delimiter not found or
+insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-printf" role="function">
+<title>nih_io_printf ()</title>
+<indexterm zone="nih-io-printf"><primary>nih_io_printf</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_printf                       (<parameter><link linkend="NihIo"><type>NihIo</type></link> *io</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *format</parameter>,
+                                                         <parameter>...</parameter>);</programlisting>
+<para>
+Writes data formatted according to the printf-style <parameter>format</parameter> string to
+the send buffer of <parameter>io</parameter>, or into a new message placed in the send queue.
+The data will not be sent immediately but whenever possible.
+</para><variablelist role="params">
+<varlistentry><term><parameter>io</parameter>&#160;:</term>
+<listitem><simpara>structure to write to,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>printf format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-set-nonblock" role="function">
+<title>nih_io_set_nonblock ()</title>
+<indexterm zone="nih-io-set-nonblock"><primary>nih_io_set_nonblock</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_set_nonblock                 (<parameter><link linkend="int"><type>int</type></link> fd</parameter>);</programlisting>
+<para>
+Change the flags of <parameter>fd</parameter> so that all operations become non-blocking.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fd</parameter>&#160;:</term>
+<listitem><simpara>file descriptor to change.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on invalid file descriptor.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-set-cloexec" role="function">
+<title>nih_io_set_cloexec ()</title>
+<indexterm zone="nih-io-set-cloexec"><primary>nih_io_set_cloexec</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_io_set_cloexec                  (<parameter><link linkend="int"><type>int</type></link> fd</parameter>);</programlisting>
+<para>
+Change the flags of <parameter>fd</parameter> so that the file descriptor is closed on <link linkend="exec"><function>exec()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fd</parameter>&#160;:</term>
+<listitem><simpara>file descriptor to change.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on invalid file descriptor.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-io-get-family" role="function">
+<title>nih_io_get_family ()</title>
+<indexterm zone="nih-io-get-family"><primary>nih_io_get_family</primary></indexterm>
+<programlisting><link linkend="ssize-t"><returnvalue>ssize_t</returnvalue></link>             nih_io_get_family                   (<parameter><link linkend="int"><type>int</type></link> fd</parameter>);</programlisting>
+<para>
+Queries the socket so that the family it belongs to (PF_UNIX, PF_INET,
+PF_INET6) can be found.
+</para><variablelist role="params">
+<varlistentry><term><parameter>fd</parameter>&#160;:</term>
+<listitem><simpara>file descriptor to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the family of the socket, or -1 on error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

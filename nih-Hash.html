@@ -1,0 +1,725 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Hash</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-file.html" title="file">
+<link rel="next" href="nih-io.html" title="io">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-file.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-io.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-Hash.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-Hash.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-Hash"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-Hash.top_of_page"></a>Hash</span></h2>
+<p>Hash — Generic hash tables</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-Hash.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">const <span class="returnvalue">void</span> *        (<a class="link" href="nih-Hash.html#NihKeyFunction" title="NihKeyFunction ()">*NihKeyFunction</a>)                   (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<span class="returnvalue">uint32_t</span>            (<a class="link" href="nih-Hash.html#NihHashFunction" title="NihHashFunction ()">*NihHashFunction</a>)                  (<em class="parameter"><code>const <span class="type">void</span> *key</code></em>);
+<span class="returnvalue">int</span>                 (<a class="link" href="nih-Hash.html#NihCmpFunction" title="NihCmpFunction ()">*NihCmpFunction</a>)                   (<em class="parameter"><code>const <span class="type">void</span> *key1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *key2</code></em>);
+                    <a class="link" href="nih-Hash.html#NihHash" title="NihHash">NihHash</a>;
+#define             <a class="link" href="nih-Hash.html#NIH-HASH-FOREACH:CAPS" title="NIH_HASH_FOREACH()">NIH_HASH_FOREACH</a>                    (hash,
+                                                         iter)
+#define             <a class="link" href="nih-Hash.html#NIH-HASH-FOREACH-SAFE:CAPS" title="NIH_HASH_FOREACH_SAFE()">NIH_HASH_FOREACH_SAFE</a>               (hash,
+                                                         iter)
+#define             <a class="link" href="nih-Hash.html#nih-hash-string-new" title="nih_hash_string_new()">nih_hash_string_new</a>                 (parent,
+                                                         entries)
+<a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="returnvalue">NihHash</span></a> *           <a class="link" href="nih-Hash.html#nih-hash-new" title="nih_hash_new ()">nih_hash_new</a>                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> entries</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Hash.html#NihKeyFunction" title="NihKeyFunction ()"><span class="type">NihKeyFunction</span></a> key_function</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Hash.html#NihHashFunction" title="NihHashFunction ()"><span class="type">NihHashFunction</span></a> hash_function</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Hash.html#NihCmpFunction" title="NihCmpFunction ()"><span class="type">NihCmpFunction</span></a> cmp_function</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-Hash.html#nih-hash-add" title="nih_hash_add ()">nih_hash_add</a>                        (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-Hash.html#nih-hash-add-unique" title="nih_hash_add_unique ()">nih_hash_add_unique</a>                 (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-Hash.html#nih-hash-replace" title="nih_hash_replace ()">nih_hash_replace</a>                    (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-Hash.html#nih-hash-search" title="nih_hash_search ()">nih_hash_search</a>                     (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           <a class="link" href="nih-Hash.html#nih-hash-lookup" title="nih_hash_lookup ()">nih_hash_lookup</a>                     (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *key</code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="nih-Hash.html#nih-hash-string-key" title="nih_hash_string_key ()">nih_hash_string_key</a>                 (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);
+<span class="returnvalue">uint32_t</span>            <a class="link" href="nih-Hash.html#nih-hash-string-hash" title="nih_hash_string_hash ()">nih_hash_string_hash</a>                (<em class="parameter"><code>const <span class="type">char</span> *key</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Hash.html#nih-hash-string-cmp" title="nih_hash_string_cmp ()">nih_hash_string_cmp</a>                 (<em class="parameter"><code>const <span class="type">char</span> *key1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *key2</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-Hash.description"></a><h2>Description</h2>
+<p>
+Provides a generic hash table implementation using NihList for the bins,
+which means that entries may be freely moved between lists and hash
+tables.
+</p>
+<p>
+Members are identified by a constant key, which is used for both hashing
+and comparison.  The key function takes a given member (referenced by
+its list head) and returns a pointer, this pointer is passed to the
+hash function for hashing and the comparison function for comparison.
+</p>
+<p>
+The key, hash and comparison function are given when creating the hash
+table with <a class="link" href="nih-Hash.html#nih-hash-new" title="nih_hash_new ()"><code class="function">nih_hash_new()</code></a>.
+</p>
+<p>
+The most common use of this pointer is a string, generally a constant
+one found as the first member in the structure after the list head.
+For this case, you may use <a class="link" href="nih-Hash.html#nih-hash-string-new" title="nih_hash_string_new()"><code class="function">nih_hash_string_new()</code></a> instead.
+</p>
+<p>
+Entries may be added to a hash table using <a class="link" href="nih-Hash.html#nih-hash-add" title="nih_hash_add ()"><code class="function">nih_hash_add()</code></a>, no assumption
+is made about whether duplicate entries are permitted or not.  To add
+and fail if the entry already exists use <a class="link" href="nih-Hash.html#nih-hash-add-unique" title="nih_hash_add_unique ()"><code class="function">nih_hash_add_unique()</code></a>, to add
+and replace an existing entry use <a class="link" href="nih-Hash.html#nih-hash-replace" title="nih_hash_replace ()"><code class="function">nih_hash_replace()</code></a>.
+</p>
+<p>
+The hash table may be iterated with <a class="link" href="nih-Hash.html#nih-hash-search" title="nih_hash_search ()"><code class="function">nih_hash_search()</code></a>, passing the return
+value to subsequent calls iterates all values with the given key.
+</p>
+<p>
+To lookup the first value <a class="link" href="nih-Hash.html#nih-hash-lookup" title="nih_hash_lookup ()"><code class="function">nih_hash_lookup()</code></a> is a convenient simpler
+function.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-Hash.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihKeyFunction"></a><h3>NihKeyFunction ()</h3>
+<pre class="programlisting">const <span class="returnvalue">void</span> *        (*NihKeyFunction)                   (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+This function is used to obtain a constant key for a given table entry.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to key.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>constant key from entry.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihHashFunction"></a><h3>NihHashFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">uint32_t</span>            (*NihHashFunction)                  (<em class="parameter"><code>const <span class="type">void</span> *key</code></em>);</pre>
+<p>
+This function is used to generate a 32-bit hash for a given constant
+key, this will be bounded by the hash size automatically.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>key to hash.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>32-bit hash.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihCmpFunction"></a><h3>NihCmpFunction ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*NihCmpFunction)                   (<em class="parameter"><code>const <span class="type">void</span> *key1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *key2</code></em>);</pre>
+<p>
+This function is used to compare constant keys from two given table
+entries.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key1</code></em> :</span></p></td>
+<td>key to compare,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key2</code></em> :</span></p></td>
+<td>key to compare against.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>integer less than, equal to or greater than zero if <em class="parameter"><code>key1</code></em> is
+respectively less then, equal to or greater than <em class="parameter"><code>key2</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihHash"></a><h3>NihHash</h3>
+<pre class="programlisting">typedef struct {
+	NihList         *bins;
+	size_t           size;
+
+	NihKeyFunction   key_function;
+	NihHashFunction  hash_function;
+	NihCmpFunction   cmp_function;
+} NihHash;
+</pre>
+<p>
+This structure represents a hash table which is more efficient for
+looking up members than an ordinary list.
+</p>
+<p>
+Individual members of the hash table are NihList members as are the
+bins themselves, so to remove an entry from the table you can just
+use <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *<em class="structfield"><code><a name="NihHash.bins"></a>bins</code></em>;</span></p></td>
+<td>array of bins,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">size_t</span> <em class="structfield"><code><a name="NihHash.size"></a>size</code></em>;</span></p></td>
+<td>size of bins array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-Hash.html#NihKeyFunction" title="NihKeyFunction ()"><span class="type">NihKeyFunction</span></a> <em class="structfield"><code><a name="NihHash.key-function"></a>key_function</code></em>;</span></p></td>
+<td>function used to obtain keys for entries,</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-Hash.html#NihHashFunction" title="NihHashFunction ()"><span class="type">NihHashFunction</span></a> <em class="structfield"><code><a name="NihHash.hash-function"></a>hash_function</code></em>;</span></p></td>
+<td>function used to obtain hash of keys,</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-Hash.html#NihCmpFunction" title="NihCmpFunction ()"><span class="type">NihCmpFunction</span></a> <em class="structfield"><code><a name="NihHash.cmp-function"></a>cmp_function</code></em>;</span></p></td>
+<td>function used to compare keys.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-HASH-FOREACH:CAPS"></a><h3>NIH_HASH_FOREACH()</h3>
+<pre class="programlisting">#define             NIH_HASH_FOREACH(hash, iter)</pre>
+<p>
+Expands to nested for statements that iterate over each entry in each
+bin of <em class="parameter"><code>hash</code></em>, except the bin head pointer, setting <em class="parameter"><code>iter</code></em> to each entry
+for the block within the loop.  A variable named _<em class="parameter"><code>iter_i</code></em> is used to
+iterate the hash bins.
+</p>
+<p>
+This is the cheapest form of iteration, however it is not safe to perform
+various modifications to the hash; most importantly, you must not change
+the member being iterated in any way, including removing it from the hash
+or freeing it.  If you need to do that, use <a class="link" href="nih-Hash.html#NIH-HASH-FOREACH-SAFE:CAPS" title="NIH_HASH_FOREACH_SAFE()"><code class="function">NIH_HASH_FOREACH_SAFE()</code></a> instead.
+</p>
+<p>
+However since it doesn't modify the hash being iterated in any way, it
+is safe to traverse or iterate the hash again while iterating.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash</code></em> :</span></p></td>
+<td>hash table to iterate,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>name of iterator variable.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-HASH-FOREACH-SAFE:CAPS"></a><h3>NIH_HASH_FOREACH_SAFE()</h3>
+<pre class="programlisting">#define             NIH_HASH_FOREACH_SAFE(hash, iter)</pre>
+<p>
+Expands to nested for statements that iterate over each entry in each
+bin of <em class="parameter"><code>hash</code></em>, except for the bin head pointer, setting <em class="parameter"><code>iter</code></em> to each
+entry for the block within the loop.  A variable named _<em class="parameter"><code>iter_i</code></em> is used
+to iterate the hash bins.
+</p>
+<p>
+The iteration is performed safely by placing a cursor node after <em class="parameter"><code>iter</code></em>;
+this means that any node including <em class="parameter"><code>iter</code></em> can be removed from the hash,
+added to a different hash or list, or entries added before or after it.
+</p>
+<p>
+Note that if you add an entry directly after <em class="parameter"><code>iter</code></em> and wish it to be
+visited, you would need to use <a class="link" href="nih-Hash.html#NIH-HASH-FOREACH:CAPS" title="NIH_HASH_FOREACH()"><code class="function">NIH_HASH_FOREACH()</code></a> instead, as this
+would be placed before the cursor and thus skipped.
+</p>
+<p>
+Also since the hash has an extra node during iteration of a different
+type, it is expressly not safe to traverse or iterate the hash while
+iterating - including performing lookups.  If you need to perform
+multiple iterations, lookups, or reference the next or previous pointers
+of a node, you must use <a class="link" href="nih-Hash.html#NIH-HASH-FOREACH:CAPS" title="NIH_HASH_FOREACH()"><code class="function">NIH_HASH_FOREACH()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash</code></em> :</span></p></td>
+<td>hash table to iterate,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iter</code></em> :</span></p></td>
+<td>name of iterator variable.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-string-new"></a><h3>nih_hash_string_new()</h3>
+<pre class="programlisting">#define             nih_hash_string_new(parent, entries)</pre>
+<p>
+Allocates a new hash table, the number of buckets selected is a prime
+number that is no larger than <em class="parameter"><code>entries</code></em>; this should be set to a rough
+number of expected entries to ensure optimum distribution.
+</p>
+<p>
+Individual members of the hash table are NihList member which have
+a constant string as the first member that can be used as the hash key,
+these will be compared case sensitively.
+</p>
+<p>
+The structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> so it can be used as a
+context to other allocations; there is no non-allocated version of this
+function because the hash must be usable as a parent context to its bins.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned hash table.  When all parents
+of the returned hash table are freed, the returned hash table will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent of new hash,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entries</code></em> :</span></p></td>
+<td>rough number of entries expected,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new hash table or NULL if the allocation failed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-new"></a><h3>nih_hash_new ()</h3>
+<pre class="programlisting"><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="returnvalue">NihHash</span></a> *           nih_hash_new                        (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> entries</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Hash.html#NihKeyFunction" title="NihKeyFunction ()"><span class="type">NihKeyFunction</span></a> key_function</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Hash.html#NihHashFunction" title="NihHashFunction ()"><span class="type">NihHashFunction</span></a> hash_function</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Hash.html#NihCmpFunction" title="NihCmpFunction ()"><span class="type">NihCmpFunction</span></a> cmp_function</code></em>);</pre>
+<p>
+Allocates a new hash table, the number of buckets selected is a prime
+number that is no larger than <em class="parameter"><code>entries</code></em>; this should be set to a rough
+number of expected entries to ensure optimum distribution.
+</p>
+<p>
+Individual members of the hash table are NihList members, so to
+associate them with a constant key <em class="parameter"><code>key_function</code></em> must be provided, to
+convert that key into a hash <em class="parameter"><code>hash_function</code></em> must be provided and to
+compare keys <em class="parameter"><code>cmp_function</code></em> must be provided.  The <a class="link" href="nih-Hash.html#nih-hash-string-new" title="nih_hash_string_new()"><code class="function">nih_hash_string_new()</code></a>
+macro wraps this function for the most common case of a string key as
+the first structure member.
+</p>
+<p>
+The structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> so it can be used as a
+context to other allocations; there is no non-allocated version of this
+function because the hash must be usable as a parent context to its bins.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned hash table.  When all parents
+of the returned hash table are freed, the returned hash table will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent of new hash,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entries</code></em> :</span></p></td>
+<td>rough number of entries expected,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key_function</code></em> :</span></p></td>
+<td>function used to obtain keys for entries,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash_function</code></em> :</span></p></td>
+<td>function used to obtain hash for keys,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cmp_function</code></em> :</span></p></td>
+<td>function used to compare keys.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new hash table or NULL if the allocation failed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-add"></a><h3>nih_hash_add ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_hash_add                        (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>entry</code></em> to <em class="parameter"><code>hash</code></em> using the value returned by the hash functions
+to indicate which bin the entry should be placed into.
+</p>
+<p>
+For speed reasons, this function does not check whether an entry already
+exists with the key.  If you need that constraint use either
+<a class="link" href="nih-Hash.html#nih-hash-add-unique" title="nih_hash_add_unique ()"><code class="function">nih_hash_add_unique()</code></a> or <a class="link" href="nih-Hash.html#nih-hash-replace" title="nih_hash_replace ()"><code class="function">nih_hash_replace()</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>entry</code></em> is already in another list it is removed so there is no need
+to call <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> before this function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash</code></em> :</span></p></td>
+<td>destination hash table,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be added.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>entry</code></em> which is now a member of one of <em class="parameter"><code>hash</code></em>'s bins.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-add-unique"></a><h3>nih_hash_add_unique ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_hash_add_unique                 (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>entry</code></em> to <em class="parameter"><code>hash</code></em> using the value returned by the hash functions
+to indicate which bin the entry should be placed into, provided the key
+is unique.
+</p>
+<p>
+Because the hash table does not store the key of each entry, this requires
+that the key function be called for each entry in the destination bin, so
+should only be used where the uniqueness constraint is required and not
+already enforced by other code.
+</p>
+<p>
+If <em class="parameter"><code>entry</code></em> is already in another list it is removed so there is no need
+to call <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> before this function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash</code></em> :</span></p></td>
+<td>destination hash table,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be added.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>entry</code></em> which is now a member of one of <em class="parameter"><code>hash</code></em>'s bins or NULL if
+an entry already existed with the same key.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-replace"></a><h3>nih_hash_replace ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_hash_replace                    (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>entry</code></em> to <em class="parameter"><code>hash</code></em> using the value returned by the hash functions
+to indicate which bin the entry should be placed into, replacing any
+existing entry with the same key.
+</p>
+<p>
+Because the hash table does not store the key of each entry, this requires
+that the key function be called for each entry in the destination bin, so
+should only be used where the uniqueness constraint is required and not
+already enforced by other code.
+</p>
+<p>
+The replaced entry is returned, it is up to the caller to free it and
+ensure this does not come as a surprise to other code.
+</p>
+<p>
+If <em class="parameter"><code>entry</code></em> is already in another list it is removed so there is no need
+to call <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> before this function.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash</code></em> :</span></p></td>
+<td>destination hash table,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to be added.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>existing entry with the same key replaced in the table, or NULL
+if no such entry existed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-search"></a><h3>nih_hash_search ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_hash_search                     (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *key</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Finds all entries in <em class="parameter"><code>hash</code></em> with a key of <em class="parameter"><code>key</code></em> by calling the hash's
+key function on each entry in the appropriate bin, starting with <em class="parameter"><code>entry</code></em>,
+until one is found.
+</p>
+<p>
+The initial <em class="parameter"><code>entry</code></em> can be found by passing NULL or using <a class="link" href="nih-Hash.html#nih-hash-lookup" title="nih_hash_lookup ()"><code class="function">nih_hash_lookup()</code></a>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash</code></em> :</span></p></td>
+<td>hash table to search,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>key to look for,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>previous entry found.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>next entry in the hash or NULL if there are no more entries.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-lookup"></a><h3>nih_hash_lookup ()</h3>
+<pre class="programlisting"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="returnvalue">NihList</span></a> *           nih_hash_lookup                     (<em class="parameter"><code><a class="link" href="nih-Hash.html#NihHash" title="NihHash"><span class="type">NihHash</span></a> *hash</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *key</code></em>);</pre>
+<p>
+Finds the first entry in <em class="parameter"><code>hash</code></em> with a key of <em class="parameter"><code>key</code></em> by calling the hash's
+NihKeyFunction on each entry in the appropriate bin until one is found.
+</p>
+<p>
+If multiple entries are expected, use <a class="link" href="nih-Hash.html#nih-hash-search" title="nih_hash_search ()"><code class="function">nih_hash_search()</code></a> instead.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>hash</code></em> :</span></p></td>
+<td>hash table to search.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>key to look for.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>entry found or NULL if no entry existed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-string-key"></a><h3>nih_hash_string_key ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *        nih_hash_string_key                 (<em class="parameter"><code><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> *entry</code></em>);</pre>
+<p>
+Key function that can be used for any list entry where the first member
+immediately after the list header is a pointer to the string containing
+the name.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>entry</code></em> :</span></p></td>
+<td>entry to create key for.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>pointer to that string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-string-hash"></a><h3>nih_hash_string_hash ()</h3>
+<pre class="programlisting"><span class="returnvalue">uint32_t</span>            nih_hash_string_hash                (<em class="parameter"><code>const <span class="type">char</span> *key</code></em>);</pre>
+<p>
+Generates and returns a 32-bit hash for the given string key using the
+FNV-1 algorithm as documented at http://www.isthe.com/chongo/tech/comp/fnv/
+</p>
+<p>
+The returned key will need to be bounded within the number of bins
+used in the hash table.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key</code></em> :</span></p></td>
+<td>string key to hash.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>32-bit hash.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-hash-string-cmp"></a><h3>nih_hash_string_cmp ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_hash_string_cmp                 (<em class="parameter"><code>const <span class="type">char</span> *key1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *key2</code></em>);</pre>
+<p>
+Compares <em class="parameter"><code>key1</code></em> to <em class="parameter"><code>key2</code></em> case-sensitively.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key1</code></em> :</span></p></td>
+<td>key to compare,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>key2</code></em> :</span></p></td>
+<td>key to compare against.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>integer less than, equal to or greater than zero if <em class="parameter"><code>key1</code></em> is
+respectively less then, equal to or greater than <em class="parameter"><code>key2</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Macros</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-Logging.html" title="Logging">
+<link rel="next" href="nih-main.html" title="main">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-Logging.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-main.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-Macros.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-Macros.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-Macros"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-Macros.top_of_page"></a>Macros</span></h2>
+<p>Macros — Useful macros</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-Macros.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="nih-Macros.html#NIH-BEGIN-EXTERN:CAPS" title="NIH_BEGIN_EXTERN">NIH_BEGIN_EXTERN</a>
+#define             <a class="link" href="nih-Macros.html#NIH-END-EXTERN:CAPS" title="NIH_END_EXTERN">NIH_END_EXTERN</a>
+#define             <a class="link" href="nih-Macros.html#nih-min" title="nih_min()">nih_min</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Macros.html#nih-max" title="nih_max()">nih_max</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Macros.html#NIH-ALIGN-SIZE:CAPS" title="NIH_ALIGN_SIZE">NIH_ALIGN_SIZE</a>
+#define             <a class="link" href="nih-Macros.html#NIH-STRINGIFY:CAPS" title="NIH_STRINGIFY()">NIH_STRINGIFY</a>                       (_s)
+#define             <a class="link" href="nih-Macros.html#NIH-LIKELY:CAPS" title="NIH_LIKELY()">NIH_LIKELY</a>                          (_e)
+#define             <a class="link" href="nih-Macros.html#NIH-UNLIKELY:CAPS" title="NIH_UNLIKELY()">NIH_UNLIKELY</a>                        (_e)
+#define             <a class="link" href="nih-Macros.html#NIH-MUST:CAPS" title="NIH_MUST()">NIH_MUST</a>                            (_e)
+#define             <a class="link" href="nih-Macros.html#NIH-ZERO:CAPS" title="NIH_ZERO()">NIH_ZERO</a>                            (_e)
+#define             <a class="link" href="nih-Macros.html#gettext-macro" title="_()">_</a>                                   (_str)
+#define             <a class="link" href="nih-Macros.html#N-:CAPS" title="N_()">N_</a>                                  (_str)
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-Macros.description"></a><h2>Description</h2>
+<p>
+This header tends to be included by every file that uses libnih, it makes
+sure various sensible macros and types (including standard ones from the
+C library) are defined.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-Macros.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NIH-BEGIN-EXTERN:CAPS"></a><h3>NIH_BEGIN_EXTERN</h3>
+<pre class="programlisting"># define NIH_BEGIN_EXTERN  extern "C" {
+</pre>
+<p>
+Use before beginning external definitions in header files, so that they
+may be safely included from C++ code. Must be paired with NIH_END_EXTERN.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-END-EXTERN:CAPS"></a><h3>NIH_END_EXTERN</h3>
+<pre class="programlisting"># define NIH_END_EXTERN    }
+</pre>
+<p>
+Use after external definitions in header files, so that they may be safely
+included from C++ code.  Must be paired with NIH_BEGIN_EXTERN.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-min"></a><h3>nih_min()</h3>
+<pre class="programlisting">#define             nih_min(_a, _b)</pre>
+<p>
+Compares the two values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em>, which must be compatible C types.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first value,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second value.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the smaller of the two values.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-max"></a><h3>nih_max()</h3>
+<pre class="programlisting">#define             nih_max(_a, _b)</pre>
+<p>
+Compares the two values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em>, which must be compatible C types.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first value,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second value.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the larger of the two values.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-ALIGN-SIZE:CAPS"></a><h3>NIH_ALIGN_SIZE</h3>
+<pre class="programlisting">#define             NIH_ALIGN_SIZE</pre>
+<p>
+In general, pointer alignment is something that the compiler takes care
+of for us; but in some situations (e.g. nih_alloc) we need to return a
+pointer that is generically aligned for any data type without actually
+knowing the data type.
+</p>
+<p>
+This is a good guess as to the largest alignment of the platform, based
+on recommendations in the C standard and comments in GNU libc.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-STRINGIFY:CAPS"></a><h3>NIH_STRINGIFY()</h3>
+<pre class="programlisting">#define NIH_STRINGIFY(_s)    _STRINGIFY_AGAIN(_s)
+</pre>
+<p>
+Turns the macro <em class="parameter"><code>_s</code></em> into a string.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_s</code></em> :</span></p></td>
+<td>macro.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-LIKELY:CAPS"></a><h3>NIH_LIKELY()</h3>
+<pre class="programlisting">#define NIH_LIKELY(_e)   __builtin_expect ((_e) ? TRUE : FALSE, TRUE)
+</pre>
+<p>
+Indicates to the compiler that the expression <em class="parameter"><code>_e</code></em> is likely to be true,
+can aid optimisation when used properly.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_e</code></em> :</span></p></td>
+<td>C expression.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-UNLIKELY:CAPS"></a><h3>NIH_UNLIKELY()</h3>
+<pre class="programlisting">#define NIH_UNLIKELY(_e) __builtin_expect ((_e) ? TRUE : FALSE, FALSE)
+</pre>
+<p>
+Indicates to the compiler that the expression <em class="parameter"><code>_e</code></em> is likely to be false,
+can aid optimisation when used properly.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_e</code></em> :</span></p></td>
+<td>C expression.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-MUST:CAPS"></a><h3>NIH_MUST()</h3>
+<pre class="programlisting">#define             NIH_MUST(_e)</pre>
+<p>
+Repeats the expression <em class="parameter"><code>_e</code></em> until it yields a true value, normally used
+around functions that perform memory allocation and return a pointer to
+spin in out-of-memory situations.
+</p>
+<p>
+For situations where the the expression can raise an NihError and returns
+false, where an error can include out-of-memory, you may want to use
+<a class="link" href="nih-Error.html#NIH-SHOULD:CAPS" title="NIH_SHOULD()"><code class="function">NIH_SHOULD()</code></a> to spin on OOM but break on other conditions.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_e</code></em> :</span></p></td>
+<td>C expression.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>value of expression <em class="parameter"><code>_e</code></em> which will be evaluated as many times
+as necessary to become true.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-ZERO:CAPS"></a><h3>NIH_ZERO()</h3>
+<pre class="programlisting">#define             NIH_ZERO(_e)</pre>
+<p>
+Repeats the expression <em class="parameter"><code>_e</code></em> until it yields a zero value, normally used
+around functions that return zero to indicate success and non-zero to
+indicate a temporary failure.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_e</code></em> :</span></p></td>
+<td>C expression.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>value of expression <em class="parameter"><code>_e</code></em> which will be evaluated as many times
+as necessary to become zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gettext-macro"></a><h3>_()</h3>
+<pre class="programlisting"># define _(_str) gettext (_str)
+</pre>
+<p>
+Marks the string <em class="parameter"><code>str</code></em> for translation, if gettext is available.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_str</code></em> :</span></p></td>
+<td>string.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+<em class="parameter"><code>_str</code></em> or translated string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="N-:CAPS"></a><h3>N_()</h3>
+<pre class="programlisting"># define N_(_str) (_str)
+</pre>
+<p>
+Marks the static string <em class="parameter"><code>_str</code></em> for translation by gettext, but does not
+return the translation.  You must call <code class="function">gettext()</code> on the string before
+presenting it to the user.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_str</code></em> :</span></p></td>
+<td>string.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td><em class="parameter"><code>_str</code></em></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

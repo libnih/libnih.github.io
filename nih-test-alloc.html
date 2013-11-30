@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>test_alloc</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-test.html" title="test">
+<link rel="next" href="nih-test-divert.html" title="test_divert">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-test.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-test-divert.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-test-alloc.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-test-alloc.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-test-alloc"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-test-alloc.top_of_page"></a>test_alloc</span></h2>
+<p>test_alloc</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-test-alloc.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="nih-test-alloc.html#TEST-ALLOC-SIZE:CAPS" title="TEST_ALLOC_SIZE()">TEST_ALLOC_SIZE</a>                     (_ptr,
+                                                         _sz)
+#define             <a class="link" href="nih-test-alloc.html#TEST-ALLOC-PARENT:CAPS" title="TEST_ALLOC_PARENT()">TEST_ALLOC_PARENT</a>                   (_ptr,
+                                                         _parent)
+#define             <a class="link" href="nih-test-alloc.html#TEST-ALLOC-NOT-PARENT:CAPS" title="TEST_ALLOC_NOT_PARENT()">TEST_ALLOC_NOT_PARENT</a>               (_ptr,
+                                                         _parent)
+<span class="returnvalue">return</span>              <a class="link" href="nih-test-alloc.html#realloc" title="realloc ()">realloc</a>                             (<em class="parameter"><code><span class="type">ptr</span> Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">size</span> Param2</code></em>);
+#define             <a class="link" href="nih-test-alloc.html#TEST-ALLOC-FAIL:CAPS" title="TEST_ALLOC_FAIL">TEST_ALLOC_FAIL</a>
+#define             <a class="link" href="nih-test-alloc.html#TEST-ALLOC-SAFE:CAPS" title="TEST_ALLOC_SAFE">TEST_ALLOC_SAFE</a>
+struct              <a class="link" href="nih-test-alloc.html#test-free-tag" title="struct test_free_tag">test_free_tag</a>;
+#define             <a class="link" href="nih-test-alloc.html#TEST-FREE-TAG:CAPS" title="TEST_FREE_TAG()">TEST_FREE_TAG</a>                       (_ptr)
+#define             <a class="link" href="nih-test-alloc.html#TEST-FREE:CAPS" title="TEST_FREE()">TEST_FREE</a>                           (_ptr)
+#define             <a class="link" href="nih-test-alloc.html#TEST-NOT-FREE:CAPS" title="TEST_NOT_FREE()">TEST_NOT_FREE</a>                       (_ptr)
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-test-alloc.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-test-alloc.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TEST-ALLOC-SIZE:CAPS"></a><h3>TEST_ALLOC_SIZE()</h3>
+<pre class="programlisting">#define             TEST_ALLOC_SIZE(_ptr, _sz)</pre>
+<p>
+Check that the pointer <em class="parameter"><code>_ptr</code></em> was allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and has
+enough space for at least <em class="parameter"><code>_sz</code></em> bytes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_sz</code></em> :</span></p></td>
+<td>expected size.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-PARENT:CAPS"></a><h3>TEST_ALLOC_PARENT()</h3>
+<pre class="programlisting">#define             TEST_ALLOC_PARENT(_ptr, _parent)</pre>
+<p>
+Check that the pointer <em class="parameter"><code>_ptr</code></em> was allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and has
+the other block <em class="parameter"><code>_parent</code></em> as a parent.  <em class="parameter"><code>_parent</code></em> may be the special
+NULL parent.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_parent</code></em> :</span></p></td>
+<td>expected parent.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-NOT-PARENT:CAPS"></a><h3>TEST_ALLOC_NOT_PARENT()</h3>
+<pre class="programlisting">#define             TEST_ALLOC_NOT_PARENT(_ptr, _parent)</pre>
+<p>
+Check that the pointer <em class="parameter"><code>_ptr</code></em> was allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and does not
+have the other block <em class="parameter"><code>_parent</code></em> as a parent.  <em class="parameter"><code>_parent</code></em> may be the special
+NULL parent.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_parent</code></em> :</span></p></td>
+<td>expected non-parent.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="realloc"></a><h3>realloc ()</h3>
+<pre class="programlisting"><span class="returnvalue">return</span>              realloc                             (<em class="parameter"><code><span class="type">ptr</span> Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">size</span> Param2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-FAIL:CAPS"></a><h3>TEST_ALLOC_FAIL</h3>
+<pre class="programlisting">#define             TEST_ALLOC_FAIL</pre>
+<p>
+This macro expands to code that runs the following block repeatedly; the
+first time (when the special test_alloc_failed variable is zero) is
+used to determine how many allocations are performed by the following block;
+subsequent calls (when test_alloc_failed is a positive integer) mean that
+the test_alloc_failedth call to realloc has failed.
+</p>
+<p>
+This cannot be nested as it relies on setting an alternate allocator
+and sharing a global state.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-SAFE:CAPS"></a><h3>TEST_ALLOC_SAFE</h3>
+<pre class="programlisting">#define             TEST_ALLOC_SAFE</pre>
+<p>
+This macro may be used within a TEST_ALLOC_FAIL block to guard the
+following block of code from failing allocation.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="test-free-tag"></a><h3>struct test_free_tag</h3>
+<pre class="programlisting">struct test_free_tag {
+	NihList  entry;
+	void    *ptr;
+};
+</pre>
+<p>
+This structure is used to find out whether an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object
+has been freed or not.  It works by being allocated as a child of the
+tagged object, and added to a linked list of known tags.  When freed,
+it is removed from the linked list.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> <em class="structfield"><code><a name="test-free-tag.entry"></a>entry</code></em>;</span></p></td>
+<td>list entry,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">void</span> *<em class="structfield"><code><a name="test-free-tag.ptr"></a>ptr</code></em>;</span></p></td>
+<td>tagged object.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FREE-TAG:CAPS"></a><h3>TEST_FREE_TAG()</h3>
+<pre class="programlisting">#define             TEST_FREE_TAG(_ptr)</pre>
+<p>
+This macro is used to tag an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object to determine
+whether or not it is freed.  It works by allocating a child object of
+<em class="parameter"><code>_ptr</code></em> and storing it in a linked list.
+</p>
+<p>
+This can be tested with either the TEST_FREE or TEST_NOT_FREE macros as
+many times as you like.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated object.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FREE:CAPS"></a><h3>TEST_FREE()</h3>
+<pre class="programlisting">#define             TEST_FREE(_ptr)</pre>
+<p>
+Check that the <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object <em class="parameter"><code>_ptr</code></em> was freed as expected; it
+must have been first prepared by using TEST_FREE_TAG on it otherwise this
+will always fail.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated object.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NOT-FREE:CAPS"></a><h3>TEST_NOT_FREE()</h3>
+<pre class="programlisting">#define             TEST_NOT_FREE(_ptr)</pre>
+<p>
+Check that the <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object <em class="parameter"><code>_ptr</code></em> was not freed
+unexpectedly; it must have been first prepared by using TEST_FREE_TAG
+on it otherwise this will always succeed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated block.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

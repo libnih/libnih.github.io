@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Child">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Child.top_of_page">Child</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Child</refname>
+<refpurpose>Monitoring child processes</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Child.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>enum                <link linkend="NihChildEvents">NihChildEvents</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihChildHandler">*NihChildHandler</link>)                  (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="pid-t"><type>pid_t</type></link> pid</parameter>,
+                                                         <parameter><link linkend="NihChildEvents"><type>NihChildEvents</type></link> event</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> status</parameter>);
+                    <link linkend="NihChildWatch">NihChildWatch</link>;
+extern NihList *    <link linkend="nih-child-watches">nih_child_watches</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-child-init">nih_child_init</link>                      (<parameter><type>void</type></parameter>);
+<link linkend="NihChildWatch"><returnvalue>NihChildWatch</returnvalue></link> *     <link linkend="nih-child-add-watch">nih_child_add_watch</link>                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="pid-t"><type>pid_t</type></link> pid</parameter>,
+                                                         <parameter><link linkend="NihChildEvents"><type>NihChildEvents</type></link> events</parameter>,
+                                                         <parameter><link linkend="NihChildHandler"><type>NihChildHandler</type></link> handler</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-child-poll">nih_child_poll</link>                      (<parameter><type>void</type></parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Child.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-Child.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihChildEvents" role="enum">
+<title>enum NihChildEvents</title>
+<indexterm zone="NihChildEvents"><primary>NihChildEvents</primary></indexterm>
+<programlisting>typedef enum {
+	NIH_CHILD_NONE      = 0000,
+	NIH_CHILD_EXITED    = 0001,
+	NIH_CHILD_KILLED    = 0002,
+	NIH_CHILD_DUMPED    = 0004,
+	NIH_CHILD_STOPPED   = 0010,
+	NIH_CHILD_CONTINUED = 0020,
+	NIH_CHILD_TRAPPED   = 0040,
+	NIH_CHILD_PTRACE    = 0100,
+	NIH_CHILD_ALL       = 0177
+} NihChildEvents;
+</programlisting>
+<para>
+Events that can occur for child processes, and used to determine the
+content of the translated status field.
+</para><variablelist role="enum">
+<varlistentry id="NIH-CHILD-NONE:CAPS" role="constant">
+<term><literal>NIH_CHILD_NONE</literal></term>
+<listitem><simpara>none
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-EXITED:CAPS" role="constant">
+<term><literal>NIH_CHILD_EXITED</literal></term>
+<listitem><simpara>exit status of the program
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-KILLED:CAPS" role="constant">
+<term><literal>NIH_CHILD_KILLED</literal></term>
+<listitem><simpara>killed
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-DUMPED:CAPS" role="constant">
+<term><literal>NIH_CHILD_DUMPED</literal></term>
+<listitem><simpara>dumped
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-STOPPED:CAPS" role="constant">
+<term><literal>NIH_CHILD_STOPPED</literal></term>
+<listitem><simpara>stopped
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-CONTINUED:CAPS" role="constant">
+<term><literal>NIH_CHILD_CONTINUED</literal></term>
+<listitem><simpara>continued
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-TRAPPED:CAPS" role="constant">
+<term><literal>NIH_CHILD_TRAPPED</literal></term>
+<listitem><simpara>trapped
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-PTRACE:CAPS" role="constant">
+<term><literal>NIH_CHILD_PTRACE</literal></term>
+<listitem><simpara>one of the <parameter>PTRACE_EVENT_</parameter>* constants or the
+signal that killed, dumped, stopped or continued the process or was
+trapped through ptrace.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-CHILD-ALL:CAPS" role="constant">
+<term><literal>NIH_CHILD_ALL</literal></term>
+<listitem><simpara>all
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihChildHandler" role="function">
+<title>NihChildHandler ()</title>
+<indexterm zone="NihChildHandler"><primary>NihChildHandler</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihChildHandler)                  (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="pid-t"><type>pid_t</type></link> pid</parameter>,
+                                                         <parameter><link linkend="NihChildEvents"><type>NihChildEvents</type></link> event</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> status</parameter>);</programlisting>
+<para>
+A child handler is a function called for events on the child process
+obtained through <link linkend="waitid"><function>waitid()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer given with callback,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pid</parameter>&#160;:</term>
+<listitem><simpara>process that changed,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&#160;:</term>
+<listitem><simpara>event that occurred on the child,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>exit status of process, signal that killed it or ptrace event.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihChildWatch" role="struct">
+<title>NihChildWatch</title>
+<indexterm zone="NihChildWatch"><primary>NihChildWatch</primary></indexterm>
+<programlisting>typedef struct {
+	NihList          entry;
+	pid_t            pid;
+	NihChildEvents   events;
+
+	NihChildHandler  handler;
+	void            *data;
+} NihChildWatch;
+</programlisting>
+<para>
+This structure represents a watch on a particular child, the <parameter>reaper</parameter>
+function is called when an event in <parameter>events</parameter> occurs to a child with
+process id <parameter>pid</parameter>.  If <parameter>pid</parameter> is -1 then this function is called when <parameter>events</parameter>
+occur for all processes.
+</para>
+<para>
+The watch can be cancelled by calling <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> on the structure
+as they are held in a list internally.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="NihList"><type>NihList</type></link>&#160;<structfield id="NihChildWatch.entry">entry</structfield>;</term>
+<listitem><simpara>list header,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="pid-t"><type>pid_t</type></link>&#160;<structfield id="NihChildWatch.pid">pid</structfield>;</term>
+<listitem><simpara>process id to watch or -1,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="NihChildEvents"><type>NihChildEvents</type></link>&#160;<structfield id="NihChildWatch.events">events</structfield>;</term>
+<listitem><simpara>events to watch for,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="NihChildHandler"><type>NihChildHandler</type></link>&#160;<structfield id="NihChildWatch.handler">handler</structfield>;</term>
+<listitem><simpara>function called when events occur to child,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="void"><type>void</type></link>&#160;*<structfield id="NihChildWatch.data">data</structfield>;</term>
+<listitem><simpara>pointer passed to <parameter>reaper</parameter>.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-child-watches" role="variable">
+<title>nih_child_watches</title>
+<indexterm zone="nih-child-watches"><primary>nih_child_watches</primary></indexterm>
+<programlisting>extern NihList *nih_child_watches;
+</programlisting>
+<para>
+This is the list of current child watches, not sorted into any
+particular order.  Each item is an NihChildWatch structure.
+</para></refsect2>
+<refsect2 id="nih-child-init" role="function">
+<title>nih_child_init ()</title>
+<indexterm zone="nih-child-init"><primary>nih_child_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_child_init                      (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialise the list of child watches.
+</para></refsect2>
+<refsect2 id="nih-child-add-watch" role="function">
+<title>nih_child_add_watch ()</title>
+<indexterm zone="nih-child-add-watch"><primary>nih_child_add_watch</primary></indexterm>
+<programlisting><link linkend="NihChildWatch"><returnvalue>NihChildWatch</returnvalue></link> *     nih_child_add_watch                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="pid-t"><type>pid_t</type></link> pid</parameter>,
+                                                         <parameter><link linkend="NihChildEvents"><type>NihChildEvents</type></link> events</parameter>,
+                                                         <parameter><link linkend="NihChildHandler"><type>NihChildHandler</type></link> handler</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Adds <parameter>handler</parameter> to the list of functions that should be called by
+<link linkend="nih-child-poll"><function>nih_child_poll()</function></link> if any of the events listed in <parameter>events</parameter> occurs to the
+process with id <parameter>pid</parameter>.  If <parameter>pid</parameter> is -1 then <parameter>handler</parameter> is called for all
+children.
+</para>
+<para>
+The watch structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and stored in a linked
+list; there is no non-allocated version because of this and because it
+will be automatically freed once called if <parameter>pid</parameter> is not -1 and the event
+indicates that the process has terminated.
+</para>
+<para>
+Removal of the watch can be performed by freeing it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned watch.  When all parents
+of the returned watch are freed, the returned watch will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new watch,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pid</parameter>&#160;:</term>
+<listitem><simpara>process id to watch or -1,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>events</parameter>&#160;:</term>
+<listitem><simpara>events to watch for,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handler</parameter>&#160;:</term>
+<listitem><simpara>function to call on <parameter>events</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to <parameter>handler</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the watch information, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-child-poll" role="function">
+<title>nih_child_poll ()</title>
+<indexterm zone="nih-child-poll"><primary>nih_child_poll</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_child_poll                      (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Repeatedly call <link linkend="waitid"><function>waitid()</function></link> until there are no children waiting to be
+reaped.  For each child that an event occurs for, the list of child
+watches is iterated and the handler function for appropriate entries
+is called.
+</para>
+<para>
+It is safe for the handler to remove itself.
+</para></refsect2>
+
+</refsect1>
+
+</refentry>

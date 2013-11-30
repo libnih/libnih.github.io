@@ -1,0 +1,311 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-test-values">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-test-values.top_of_page">test_values</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>test_values</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-test-values.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="assert0">assert0</link>                             (_expr)
+#define             <link linkend="TEST-TRUE:CAPS">TEST_TRUE</link>                           (_expr)
+#define             <link linkend="TEST-FALSE:CAPS">TEST_FALSE</link>                          (_expr)
+#define             <link linkend="TEST-EQ:CAPS">TEST_EQ</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-U:CAPS">TEST_EQ_U</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-P:CAPS">TEST_EQ_P</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-STR:CAPS">TEST_EQ_STR</link>                         (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-STRN:CAPS">TEST_EQ_STRN</link>                        (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-MEM:CAPS">TEST_EQ_MEM</link>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <link linkend="TEST-NE:CAPS">TEST_NE</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-U:CAPS">TEST_NE_U</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-P:CAPS">TEST_NE_P</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-STR:CAPS">TEST_NE_STR</link>                         (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-STRN:CAPS">TEST_NE_STRN</link>                        (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-MEM:CAPS">TEST_NE_MEM</link>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <link linkend="TEST-LT:CAPS">TEST_LT</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-LE:CAPS">TEST_LE</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-GT:CAPS">TEST_GT</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-GE:CAPS">TEST_GE</link>                             (_a,
+                                                         _b)
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-test-values.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-test-values.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="assert0" role="macro">
+<title>assert0()</title>
+<indexterm zone="assert0"><primary>assert0</primary></indexterm>
+<programlisting>#define             assert0(_expr)</programlisting>
+<para>
+Wrapper around the usual <link linkend="assert"><function>assert()</function></link> function that handles the common case
+of asserting that <parameter>_expr</parameter> returns zero, rather than a TRUE value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_expr</parameter>&#160;:</term>
+<listitem><simpara>expression to check.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-TRUE:CAPS" role="macro">
+<title>TEST_TRUE()</title>
+<indexterm zone="TEST-TRUE:CAPS"><primary>TEST_TRUE</primary></indexterm>
+<programlisting>#define             TEST_TRUE(_expr)</programlisting>
+<para>
+Check that the expression <parameter>_expr</parameter> evaluates to TRUE.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_expr</parameter>&#160;:</term>
+<listitem><simpara>value or expression to test.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FALSE:CAPS" role="macro">
+<title>TEST_FALSE()</title>
+<indexterm zone="TEST-FALSE:CAPS"><primary>TEST_FALSE</primary></indexterm>
+<programlisting>#define             TEST_FALSE(_expr)</programlisting>
+<para>
+Check that the expression <parameter>_expr</parameter> evaluates to FALSE.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_expr</parameter>&#160;:</term>
+<listitem><simpara>value or expression to test.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ:CAPS" role="macro">
+<title>TEST_EQ()</title>
+<indexterm zone="TEST-EQ:CAPS"><primary>TEST_EQ</primary></indexterm>
+<programlisting>#define             TEST_EQ(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are equal, they are cast
+to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-U:CAPS" role="macro">
+<title>TEST_EQ_U()</title>
+<indexterm zone="TEST-EQ-U:CAPS"><primary>TEST_EQ_U</primary></indexterm>
+<programlisting>#define             TEST_EQ_U(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are equal, they are cast
+to size_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first unsigned integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second unsigned integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-P:CAPS" role="macro">
+<title>TEST_EQ_P()</title>
+<indexterm zone="TEST-EQ-P:CAPS"><primary>TEST_EQ_P</primary></indexterm>
+<programlisting>#define             TEST_EQ_P(_a, _b)</programlisting>
+<para>
+Check that the two pointers <parameter>_a</parameter> and <parameter>_b</parameter> are equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second pointer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-STR:CAPS" role="macro">
+<title>TEST_EQ_STR()</title>
+<indexterm zone="TEST-EQ-STR:CAPS"><primary>TEST_EQ_STR</primary></indexterm>
+<programlisting>#define             TEST_EQ_STR(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-STRN:CAPS" role="macro">
+<title>TEST_EQ_STRN()</title>
+<indexterm zone="TEST-EQ-STRN:CAPS"><primary>TEST_EQ_STRN</primary></indexterm>
+<programlisting>#define             TEST_EQ_STRN(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are equal, up to the length of
+the second string.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-MEM:CAPS" role="macro">
+<title>TEST_EQ_MEM()</title>
+<indexterm zone="TEST-EQ-MEM:CAPS"><primary>TEST_EQ_MEM</primary></indexterm>
+<programlisting>#define             TEST_EQ_MEM(_a, _b, _l)</programlisting>
+<para>
+Check that the two <parameter>_l</parameter> byte long areas of memory at <parameter>_a</parameter> and <parameter>_b</parameter> are
+identical.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_l</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>_a</parameter> and <parameter>_b</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE:CAPS" role="macro">
+<title>TEST_NE()</title>
+<indexterm zone="TEST-NE:CAPS"><primary>TEST_NE</primary></indexterm>
+<programlisting>#define             TEST_NE(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are not equal, they are
+cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-U:CAPS" role="macro">
+<title>TEST_NE_U()</title>
+<indexterm zone="TEST-NE-U:CAPS"><primary>TEST_NE_U</primary></indexterm>
+<programlisting>#define             TEST_NE_U(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are not equal, they are
+cast to size_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first unsigned integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second unsigned integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-P:CAPS" role="macro">
+<title>TEST_NE_P()</title>
+<indexterm zone="TEST-NE-P:CAPS"><primary>TEST_NE_P</primary></indexterm>
+<programlisting>#define             TEST_NE_P(_a, _b)</programlisting>
+<para>
+Check that the two pointers <parameter>_a</parameter> and <parameter>_b</parameter> are not equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second pointer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-STR:CAPS" role="macro">
+<title>TEST_NE_STR()</title>
+<indexterm zone="TEST-NE-STR:CAPS"><primary>TEST_NE_STR</primary></indexterm>
+<programlisting>#define             TEST_NE_STR(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are not equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-STRN:CAPS" role="macro">
+<title>TEST_NE_STRN()</title>
+<indexterm zone="TEST-NE-STRN:CAPS"><primary>TEST_NE_STRN</primary></indexterm>
+<programlisting>#define             TEST_NE_STRN(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are not equal, up to the length
+of the second string.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-MEM:CAPS" role="macro">
+<title>TEST_NE_MEM()</title>
+<indexterm zone="TEST-NE-MEM:CAPS"><primary>TEST_NE_MEM</primary></indexterm>
+<programlisting>#define             TEST_NE_MEM(_a, _b, _l)</programlisting>
+<para>
+Check that the two <parameter>_l</parameter> byte long areas of memory at <parameter>_a</parameter> and <parameter>_b</parameter> are
+different.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_l</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>_a</parameter> and <parameter>_b</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-LT:CAPS" role="macro">
+<title>TEST_LT()</title>
+<indexterm zone="TEST-LT:CAPS"><primary>TEST_LT</primary></indexterm>
+<programlisting>#define             TEST_LT(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is less than the numeric value <parameter>_b</parameter>,
+they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-LE:CAPS" role="macro">
+<title>TEST_LE()</title>
+<indexterm zone="TEST-LE:CAPS"><primary>TEST_LE</primary></indexterm>
+<programlisting>#define             TEST_LE(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is less than or equal to the numeric
+value <parameter>_b</parameter>, they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-GT:CAPS" role="macro">
+<title>TEST_GT()</title>
+<indexterm zone="TEST-GT:CAPS"><primary>TEST_GT</primary></indexterm>
+<programlisting>#define             TEST_GT(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is greater than the numeric value <parameter>_b</parameter>,
+they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-GE:CAPS" role="macro">
+<title>TEST_GE()</title>
+<indexterm zone="TEST-GE:CAPS"><primary>TEST_GE</primary></indexterm>
+<programlisting>#define             TEST_GE(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is greater than or equal to the numeric
+value <parameter>_b</parameter>, they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

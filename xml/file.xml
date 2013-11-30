@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-file">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-file.top_of_page">file</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>file</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-file.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihFileFilter">*NihFileFilter</link>)                    (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> is_dir</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihFileVisitor">*NihFileVisitor</link>)                   (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *dirname</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><type>struct stat</type> *statbuf</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihFileErrorHandler">*NihFileErrorHandler</link>)              (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *dirname</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><type>struct stat</type> *statbuf</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-file-read">nih_file_read</link>                       (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *length</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link> *              <link linkend="nih-file-map">nih_file_map</link>                        (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> flags</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *length</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-file-unmap">nih_file_unmap</link>                      (<parameter><link linkend="void"><type>void</type></link> *map</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> length</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-file-is-hidden">nih_file_is_hidden</link>                  (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-file-is-backup">nih_file_is_backup</link>                  (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-file-is-swap">nih_file_is_swap</link>                    (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-file-is-rcs">nih_file_is_rcs</link>                     (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-file-is-packaging">nih_file_is_packaging</link>               (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-file-ignore">nih_file_ignore</link>                     (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-dir-walk">nih_dir_walk</link>                        (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="NihFileFilter"><type>NihFileFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="NihFileVisitor"><type>NihFileVisitor</type></link> visitor</parameter>,
+                                                         <parameter><link linkend="NihFileErrorHandler"><type>NihFileErrorHandler</type></link> error</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-file.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-file.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihFileFilter" role="function">
+<title>NihFileFilter ()</title>
+<indexterm zone="NihFileFilter"><primary>NihFileFilter</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihFileFilter)                    (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> is_dir</parameter>);</programlisting>
+<para>
+A file filter is a function that can be called to determine whether
+a particular path should be ignored because of its filename.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to file,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>is_dir</parameter>&#160;:</term>
+<listitem><simpara>TRUE if <parameter>path</parameter> is a directory.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if the path should be ignored, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihFileVisitor" role="function">
+<title>NihFileVisitor ()</title>
+<indexterm zone="NihFileVisitor"><primary>NihFileVisitor</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihFileVisitor)                   (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *dirname</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><type>struct stat</type> *statbuf</parameter>);</programlisting>
+<para>
+A file visitor is a function that can be called for a filesystem object
+visited by <link linkend="nih-dir-walk"><function>nih_dir_walk()</function></link> that does not match the filter given to that
+function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer given to <link linkend="nih-dir-walk"><function>nih_dir_walk()</function></link>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dirname</parameter>&#160;:</term>
+<listitem><simpara>top-level path being walked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to file,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>statbuf</parameter>&#160;:</term>
+<listitem><simpara>stat of <parameter>path</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihFileErrorHandler" role="function">
+<title>NihFileErrorHandler ()</title>
+<indexterm zone="NihFileErrorHandler"><primary>NihFileErrorHandler</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihFileErrorHandler)              (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *dirname</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><type>struct stat</type> *statbuf</parameter>);</programlisting>
+<para>
+A file error handler is a function called whenever the visitor function
+returns a raised error, or the attempt to walk <parameter>path</parameter> fails.  Note that
+<parameter>statbuf</parameter> might be invalid if it was <link linkend="stat"><function>stat()</function></link> that failed.
+</para>
+<para>
+This function should handle the error and return zero; alternatively
+it may raise the error again (or a different error) and return a negative
+value to abort the tree walk.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer given to <link linkend="nih-dir-walk"><function>nih_dir_walk()</function></link>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dirname</parameter>&#160;:</term>
+<listitem><simpara>top-level path being walked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to file,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>statbuf</parameter>&#160;:</term>
+<listitem><simpara>stat of <parameter>path</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-read" role="function">
+<title>nih_file_read ()</title>
+<indexterm zone="nih-file-read"><primary>nih_file_read</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_file_read                       (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *length</parameter>);</programlisting>
+<para>
+Opens the file at <parameter>path</parameter> and reads the contents into memory, returning
+a newly allocated string.  If the file is particularly large, it may
+not be possible to read into memory at all, and you'll need to use
+<link linkend="nih-file-map"><function>nih_file_map()</function></link> instead.
+</para>
+<para>
+The returned data will NOT be NULL terminated.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to read,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>length</parameter>&#160;:</term>
+<listitem><simpara>pointer to store file length in.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>newly allocated string or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-map" role="function">
+<title>nih_file_map ()</title>
+<indexterm zone="nih-file-map"><primary>nih_file_map</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link> *              nih_file_map                        (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> flags</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *length</parameter>);</programlisting>
+<para>
+Opens the file at <parameter>path</parameter> and maps it into memory, returning the mapped
+pointer and the length of the file (required to unmap it later).  The
+file is opened with the <parameter>flags</parameter> given.
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to open,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara>open mode,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>length</parameter>&#160;:</term>
+<listitem><simpara>pointer to store file length.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>memory mapped file or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-unmap" role="function">
+<title>nih_file_unmap ()</title>
+<indexterm zone="nih-file-unmap"><primary>nih_file_unmap</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_file_unmap                      (<parameter><link linkend="void"><type>void</type></link> *map</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> length</parameter>);</programlisting>
+<para>
+Unmap a file previously mapped with <link linkend="nih-file-map"><function>nih_file_map()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>map</parameter>&#160;:</term>
+<listitem><simpara>memory mapped file,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>length</parameter>&#160;:</term>
+<listitem><simpara>length of file.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-is-hidden" role="function">
+<title>nih_file_is_hidden ()</title>
+<indexterm zone="nih-file-is-hidden"><primary>nih_file_is_hidden</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_file_is_hidden                  (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);</programlisting>
+<para>
+Determines whether <parameter>path</parameter> represents a hidden file, matching it against
+common patterns for that type of file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if it matches, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-is-backup" role="function">
+<title>nih_file_is_backup ()</title>
+<indexterm zone="nih-file-is-backup"><primary>nih_file_is_backup</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_file_is_backup                  (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);</programlisting>
+<para>
+Determines whether <parameter>path</parameter> represents a backup file, matching it against
+common patterns for that type of file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if it matches, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-is-swap" role="function">
+<title>nih_file_is_swap ()</title>
+<indexterm zone="nih-file-is-swap"><primary>nih_file_is_swap</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_file_is_swap                    (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);</programlisting>
+<para>
+Determines whether <parameter>path</parameter> represents an editor swap file, matching it
+against common patterns for that type of file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if it matches, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-is-rcs" role="function">
+<title>nih_file_is_rcs ()</title>
+<indexterm zone="nih-file-is-rcs"><primary>nih_file_is_rcs</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_file_is_rcs                     (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);</programlisting>
+<para>
+Determines whether <parameter>path</parameter> represents a file or directory used by a
+common revision control system, matching it against common patterns
+for known RCSs.
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if it matches, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-is-packaging" role="function">
+<title>nih_file_is_packaging ()</title>
+<indexterm zone="nih-file-is-packaging"><primary>nih_file_is_packaging</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_file_is_packaging               (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);</programlisting>
+<para>
+Determines whether <parameter>path</parameter> represents a file or directory used by a
+common package manager, matching it against common patterns.
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if it matches, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-file-ignore" role="function">
+<title>nih_file_ignore ()</title>
+<indexterm zone="nih-file-ignore"><primary>nih_file_ignore</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_file_ignore                     (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *path</parameter>);</programlisting>
+<para>
+Determines whether <parameter>path</parameter> should normally be ignored when walking a
+directory tree.  Files ignored are those that are hidden, represent
+backup files, editor swap files and both files and directories used
+by revision control systems.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to check.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if it should be ignored, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-dir-walk" role="function">
+<title>nih_dir_walk ()</title>
+<indexterm zone="nih-dir-walk"><primary>nih_dir_walk</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_dir_walk                        (<parameter>const <link linkend="char"><type>char</type></link> *path</parameter>,
+                                                         <parameter><link linkend="NihFileFilter"><type>NihFileFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="NihFileVisitor"><type>NihFileVisitor</type></link> visitor</parameter>,
+                                                         <parameter><link linkend="NihFileErrorHandler"><type>NihFileErrorHandler</type></link> error</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Iterates the directory tree starting at <parameter>path</parameter>, calling <parameter>visitor</parameter> for
+each file, directory or other object found.  Sub-directories are
+descended into, and the same <parameter>visitor</parameter> called for those.
+</para>
+<para>
+<parameter>visitor</parameter> is not called for <parameter>path</parameter> itself.
+</para>
+<para>
+<parameter>filter</parameter> can be used to restrict both the sub-directories iterated and
+the objects that <parameter>visitor</parameter> is called for.  It is passed the full path
+of the object, and if it returns TRUE, the object is ignored.
+</para>
+<para>
+If <parameter>visitor</parameter> returns a negative value, or there's an error obtaining
+the listing for a particular sub-directory, then the <parameter>error</parameter> function
+will be called.  This function should handle the error and return zero,
+or raise an error again and return a negative value which causes the
+entire walk to be aborted.  If <parameter>error</parameter> is NULL, then a warning is emitted
+instead.
+</para><variablelist role="params">
+<varlistentry><term><parameter>path</parameter>&#160;:</term>
+<listitem><simpara>path to walk,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>path filter,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>visitor</parameter>&#160;:</term>
+<listitem><simpara>function to call for each path,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>function to call on error,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data to pass to <parameter>visitor</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

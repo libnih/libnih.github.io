@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-timer">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-timer.top_of_page">timer</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>timer</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-timer.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="NihTimer">NihTimer</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihTimerCb">*NihTimerCb</link>)                       (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihTimer"><type>NihTimer</type></link> *timer</parameter>);
+enum                <link linkend="NihTimerType">NihTimerType</link>;
+                    <link linkend="NihTimerSchedule">NihTimerSchedule</link>;
+extern NihList *    <link linkend="nih-timers">nih_timers</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-timer-init">nih_timer_init</link>                      (<parameter><type>void</type></parameter>);
+<link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          <link linkend="nih-timer-add-timeout">nih_timer_add_timeout</link>               (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> timeout</parameter>,
+                                                         <parameter><link linkend="NihTimerCb"><type>NihTimerCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          <link linkend="nih-timer-add-periodic">nih_timer_add_periodic</link>              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> period</parameter>,
+                                                         <parameter><link linkend="NihTimerCb"><type>NihTimerCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          <link linkend="nih-timer-add-scheduled">nih_timer_add_scheduled</link>             (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihTimerSchedule"><type>NihTimerSchedule</type></link> *schedule</parameter>,
+                                                         <parameter><link linkend="NihTimerCb"><type>NihTimerCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          <link linkend="nih-timer-next-due">nih_timer_next_due</link>                  (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-timer-poll">nih_timer_poll</link>                      (<parameter><type>void</type></parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-timer.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-timer.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihTimer" role="typedef">
+<title>NihTimer</title>
+<indexterm zone="NihTimer"><primary>NihTimer</primary></indexterm>
+<programlisting>typedef struct nih_timer NihTimer;
+</programlisting>
+<para>
+Timers may be used whenever a function needs to be called later in
+the process.  They are divided into three types, identified by <parameter>type</parameter>.
+</para>
+<para>
+Timeouts are called once, <parameter>timeout</parameter> seconds after they were registered.
+Periodic timers are called every <parameter>period</parameter> seconds after they were registered.
+Scheduled timers are called based on the information in <parameter>schedule</parameter>.
+</para>
+<para>
+In all cases, a timer may be cancelled by calling <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> on
+it as they are held in a list internally.
+</para></refsect2>
+<refsect2 id="NihTimerCb" role="function">
+<title>NihTimerCb ()</title>
+<indexterm zone="NihTimerCb"><primary>NihTimerCb</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihTimerCb)                       (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihTimer"><type>NihTimer</type></link> *timer</parameter>);</programlisting>
+<para>
+The timer callback is called whenever the timer has been triggered.
+For periodic and scheduled timers, the timer may be removed by calling
+<link linkend="nih-list-remove"><function>nih_list_remove()</function></link> or similar; this happens automatically for timeouts.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer given with callback,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timer</parameter>&#160;:</term>
+<listitem><simpara>timer that triggered the call.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihTimerType" role="enum">
+<title>enum NihTimerType</title>
+<indexterm zone="NihTimerType"><primary>NihTimerType</primary></indexterm>
+<programlisting>typedef enum {
+	NIH_TIMER_TIMEOUT,
+	NIH_TIMER_PERIODIC,
+	NIH_TIMER_SCHEDULED
+} NihTimerType;
+</programlisting>
+<para>
+Used to identify the different types of timers that can be registered;
+note that scheduled timers are not yet implemented.
+</para><variablelist role="enum">
+<varlistentry id="NIH-TIMER-TIMEOUT:CAPS" role="constant">
+<term><literal>NIH_TIMER_TIMEOUT</literal></term>
+<listitem><simpara>timeout,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-TIMER-PERIODIC:CAPS" role="constant">
+<term><literal>NIH_TIMER_PERIODIC</literal></term>
+<listitem><simpara>periodic,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-TIMER-SCHEDULED:CAPS" role="constant">
+<term><literal>NIH_TIMER_SCHEDULED</literal></term>
+<listitem><simpara>scheduled.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihTimerSchedule" role="struct">
+<title>NihTimerSchedule</title>
+<indexterm zone="NihTimerSchedule"><primary>NihTimerSchedule</primary></indexterm>
+<programlisting>typedef struct {
+	uint64_t minutes;
+	uint32_t hours;
+	uint32_t mdays;
+	uint16_t months;
+	uint8_t  wdays;
+} NihTimerSchedule;
+</programlisting>
+<para>
+Indidcates when scheduled timers should be run, each member is a bit
+field where the bit is 1 if the timer should be run for that value and
+0 if not.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="uint64-t"><type>uint64_t</type></link>&#160;<structfield id="NihTimerSchedule.minutes">minutes</structfield>;</term>
+<listitem><simpara>minutes past the hour (0-59),</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="uint32-t"><type>uint32_t</type></link>&#160;<structfield id="NihTimerSchedule.hours">hours</structfield>;</term>
+<listitem><simpara>hours (0-23),</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="uint32-t"><type>uint32_t</type></link>&#160;<structfield id="NihTimerSchedule.mdays">mdays</structfield>;</term>
+<listitem><simpara>days of month (1-31),</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="uint16-t"><type>uint16_t</type></link>&#160;<structfield id="NihTimerSchedule.months">months</structfield>;</term>
+<listitem><simpara>months (1-12),</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="uint8-t"><type>uint8_t</type></link>&#160;<structfield id="NihTimerSchedule.wdays">wdays</structfield>;</term>
+<listitem><simpara>days of week (0-7).</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-timers" role="variable">
+<title>nih_timers</title>
+<indexterm zone="nih-timers"><primary>nih_timers</primary></indexterm>
+<programlisting>extern NihList *nih_timers;
+</programlisting>
+<para>
+This is the list of all registered timers, it is not sorted into any
+particular order.  The due time of timers should be set when the timer
+is added to this list, or rescheduled; it is not calculated on the fly.
+</para>
+<para>
+Each item is an NihTimer structure.
+</para></refsect2>
+<refsect2 id="nih-timer-init" role="function">
+<title>nih_timer_init ()</title>
+<indexterm zone="nih-timer-init"><primary>nih_timer_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_timer_init                      (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialise the timer list.
+</para></refsect2>
+<refsect2 id="nih-timer-add-timeout" role="function">
+<title>nih_timer_add_timeout ()</title>
+<indexterm zone="nih-timer-add-timeout"><primary>nih_timer_add_timeout</primary></indexterm>
+<programlisting><link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          nih_timer_add_timeout               (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> timeout</parameter>,
+                                                         <parameter><link linkend="NihTimerCb"><type>NihTimerCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Arranges for the <parameter>callback</parameter> function to be called in <parameter>timeout</parameter> seconds
+time, or the soonest period thereafter.  A timer may be called
+immediately by passing zero or a non-negative number as <parameter>timeout</parameter>.
+</para>
+<para>
+The timer structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and stored in
+a linked list; there is no non-allocated version of this function
+because of this and because it will be automatically freed once called.
+</para>
+<para>
+Cancellation of the timer can be performed by freeing it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned timer.  When all parents
+of the returned timer are freed, the returned timer will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new timer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timeout</parameter>&#160;:</term>
+<listitem><simpara>seconds to wait before triggering,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&#160;:</term>
+<listitem><simpara>function to be called,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to function as first argument.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new timer information, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-timer-add-periodic" role="function">
+<title>nih_timer_add_periodic ()</title>
+<indexterm zone="nih-timer-add-periodic"><primary>nih_timer_add_periodic</primary></indexterm>
+<programlisting><link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          nih_timer_add_periodic              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> period</parameter>,
+                                                         <parameter><link linkend="NihTimerCb"><type>NihTimerCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Arranges for the <parameter>callback</parameter> function to be called every <parameter>period</parameter> seconds,
+or the soonest time thereafter.
+</para>
+<para>
+The timer structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and stored in
+a linked list; there is no non-allocated version of this function
+because of this.
+</para>
+<para>
+Cancellation of the timer can be performed by freeing it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned timer.  When all parents
+of the returned timer are freed, the returned timer will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new timer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>period</parameter>&#160;:</term>
+<listitem><simpara>number of seconds between calls,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&#160;:</term>
+<listitem><simpara>function to be called,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to function as first argument.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new timer information, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-timer-add-scheduled" role="function">
+<title>nih_timer_add_scheduled ()</title>
+<indexterm zone="nih-timer-add-scheduled"><primary>nih_timer_add_scheduled</primary></indexterm>
+<programlisting><link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          nih_timer_add_scheduled             (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="NihTimerSchedule"><type>NihTimerSchedule</type></link> *schedule</parameter>,
+                                                         <parameter><link linkend="NihTimerCb"><type>NihTimerCb</type></link> callback</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Arranges for the <parameter>callback</parameter> function to be called based on the <parameter>schedule</parameter>
+given.
+</para>
+<para>
+The timer structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and stored in
+a linked list; there is no non-allocated version of this function
+because of this.
+</para>
+<para>
+Cancellation of the timer can be performed by freeing it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned timer.  When all parents
+of the returned timer are freed, the returned timer will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new timer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>schedule</parameter>&#160;:</term>
+<listitem><simpara>trigger schedule,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&#160;:</term>
+<listitem><simpara>function to be called,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to function as first argument.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new timer information, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-timer-next-due" role="function">
+<title>nih_timer_next_due ()</title>
+<indexterm zone="nih-timer-next-due"><primary>nih_timer_next_due</primary></indexterm>
+<programlisting><link linkend="NihTimer"><returnvalue>NihTimer</returnvalue></link> *          nih_timer_next_due                  (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Iterates the complete list of timers looking for the one with the
+lowest due time, so that the timer returned is either due to be triggered
+now or in some period's time.
+</para>
+<para>
+Normally used to determine how long we can sleep for by subtracting the
+current time from the due time of the next timer.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next timer due, or NULL if there are no timers.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-timer-poll" role="function">
+<title>nih_timer_poll ()</title>
+<indexterm zone="nih-timer-poll"><primary>nih_timer_poll</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_timer_poll                      (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Iterates the complete list of timers and triggers any for which the
+due time is less than or equal to the current time by calling their
+callback functions.
+</para>
+<para>
+Arranges for the timer to be rescheuled, unless it is a timeout in which
+case it is removed from the timer list.
+</para></refsect2>
+
+</refsect1>
+
+</refentry>

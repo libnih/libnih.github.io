@@ -1,0 +1,575 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Option</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-main.html" title="main">
+<link rel="next" href="nih-signal.html" title="signal">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-main.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-signal.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-Option.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-Option.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-Option"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-Option.top_of_page"></a>Option</span></h2>
+<p>Option — Option and arguments parser</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-Option.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="nih-Option.html#NihOption" title="NihOption">NihOption</a>;
+<span class="returnvalue">int</span>                 (<a class="link" href="nih-Option.html#NihOptionSetter" title="NihOptionSetter ()">*NihOptionSetter</a>)                  (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);
+                    <a class="link" href="nih-Option.html#NihOptionGroup" title="NihOptionGroup">NihOptionGroup</a>;
+#define             <a class="link" href="nih-Option.html#NIH-OPTION-LAST:CAPS" title="NIH_OPTION_LAST">NIH_OPTION_LAST</a>
+<span class="returnvalue">char</span> **             <a class="link" href="nih-Option.html#nih-option-parser" title="nih_option_parser ()">nih_option_parser</a>                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *argv[]</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *options</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> break_nonopt</code></em>);
+<a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="returnvalue">NihOption</span></a> *         <a class="link" href="nih-Option.html#nih-option-join" title="nih_option_join ()">nih_option_join</a>                     (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *a</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *b</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Option.html#nih-option-count" title="nih_option_count ()">nih_option_count</a>                    (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Option.html#nih-option-int" title="nih_option_int ()">nih_option_int</a>                      (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Option.html#nih-option-quiet" title="nih_option_quiet ()">nih_option_quiet</a>                    (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Option.html#nih-option-verbose" title="nih_option_verbose ()">nih_option_verbose</a>                  (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Option.html#nih-option-debug" title="nih_option_debug ()">nih_option_debug</a>                    (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Option.html#nih-option-set-usage" title="nih_option_set_usage ()">nih_option_set_usage</a>                (<em class="parameter"><code>const <span class="type">char</span> *usage</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Option.html#nih-option-set-usage-stem" title="nih_option_set_usage_stem ()">nih_option_set_usage_stem</a>           (<em class="parameter"><code>const <span class="type">char</span> *usage</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Option.html#nih-option-set-synopsis" title="nih_option_set_synopsis ()">nih_option_set_synopsis</a>             (<em class="parameter"><code>const <span class="type">char</span> *synopsis</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Option.html#nih-option-set-help" title="nih_option_set_help ()">nih_option_set_help</a>                 (<em class="parameter"><code>const <span class="type">char</span> *help</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Option.html#nih-option-set-footer" title="nih_option_set_footer ()">nih_option_set_footer</a>               (<em class="parameter"><code>const <span class="type">char</span> *footer</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-Option.description"></a><h2>Description</h2>
+<p>
+Provides a flexible command-line option and arguments parser that
+automatically provides built-in options for adjusting output verbosity
+and provides --help output.
+</p>
+<p>
+Describe your commands options using an array of NihOption members
+and pass this along with the argc and argv variables to
+<a class="link" href="nih-Option.html#nih-option-parser" title="nih_option_parser ()"><code class="function">nih_option_parser()</code></a>.
+</p>
+<p>
+Options can be set from arguments with helper functions, <a class="link" href="nih-Option.html#nih-option-count" title="nih_option_count ()"><code class="function">nih_option_count()</code></a>
+and <a class="link" href="nih-Option.html#nih-option-int" title="nih_option_int ()"><code class="function">nih_option_int()</code></a> are provided for you.
+</p>
+<p>
+Help and usage output can be customised with the <a class="link" href="nih-Option.html#nih-option-set-usage" title="nih_option_set_usage ()"><code class="function">nih_option_set_usage()</code></a>,
+<a class="link" href="nih-Option.html#nih-option-set-usage-stem" title="nih_option_set_usage_stem ()"><code class="function">nih_option_set_usage_stem()</code></a>, <a class="link" href="nih-Option.html#nih-option-set-synopsis" title="nih_option_set_synopsis ()"><code class="function">nih_option_set_synopsis()</code></a>,
+<a class="link" href="nih-Option.html#nih-option-set-help" title="nih_option_set_help ()"><code class="function">nih_option_set_help()</code></a> and <a class="link" href="nih-Option.html#nih-option-set-footer" title="nih_option_set_footer ()"><code class="function">nih_option_set_footer()</code></a> functions.  Be sure
+to call these before the option parser.
+</p>
+</div>
+<div class="refsect1">
+<a name="nih-Option.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihOption"></a><h3>NihOption</h3>
+<pre class="programlisting">typedef struct nih_option NihOption;
+</pre>
+<p>
+This structure defines an option that may be found in the command-line
+arguments.  One or both of <em class="parameter"><code>option</code></em> and <em class="parameter"><code>long_option</code></em> myst be specified,
+if no short option is wanted it may be zero and if no <em class="parameter"><code>long_option</code></em> is
+wanted it may be NULL.
+</p>
+<p>
+If <em class="parameter"><code>arg_name</code></em> is not NULL then the option takes the next non-option
+argument from the command-line; if <em class="parameter"><code>setter</code></em> is not NULL it is passed
+this argument, otherwise <em class="parameter"><code>value</code></em> should contain the address of a char *
+in which a newly allocated copy of the argument will be stored.
+</p>
+<p>
+If <em class="parameter"><code>arg_name</code></em> is NULL then NULL if passed to <em class="parameter"><code>setter</code></em>.  If both
+<em class="parameter"><code>arg_name</code></em> and <em class="parameter"><code>setter</code></em> are NULL then <em class="parameter"><code>value</code></em> should contain the address
+of an int in which a TRUE value is stored.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihOptionSetter"></a><h3>NihOptionSetter ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 (*NihOptionSetter)                  (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);</pre>
+<p>
+An option setter is a function that is called whenever an option is
+found in the command-line arguments.  If the option expects a value
+then the argument is passed to the function, otherwise NULL is
+passed.
+</p>
+<p>
+The function may use the value member of <em class="parameter"><code>option</code></em> to store the parsed
+value, or may take its own action.
+</p>
+<p>
+If there is an error with the argument the function may return zero
+to abort parsing.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>option</code></em> :</span></p></td>
+<td>NihOption invoked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg</code></em> :</span></p></td>
+<td>argument to parse.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihOptionGroup"></a><h3>NihOptionGroup</h3>
+<pre class="programlisting">typedef struct {
+	char *title;
+} NihOptionGroup;
+</pre>
+<p>
+This structure is used to define a group of options that are collated
+together when --help is given.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="NihOptionGroup.title"></a>title</code></em>;</span></p></td>
+<td>descriptive help message.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-OPTION-LAST:CAPS"></a><h3>NIH_OPTION_LAST</h3>
+<pre class="programlisting">#define NIH_OPTION_LAST { 0, NULL, NULL, NULL, NULL, NULL, NULL }
+</pre>
+<p>
+This macro may be used as the last option in the list to avoid typing
+all those NULLs and 0s yourself.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-parser"></a><h3>nih_option_parser ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> **             nih_option_parser                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> argc</code></em>,
+                                                         <em class="parameter"><code><span class="type">char</span> *argv[]</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *options</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> break_nonopt</code></em>);</pre>
+<p>
+Parses the command-line arguments given in <em class="parameter"><code>argv</code></em> looking for options
+described in <em class="parameter"><code>options</code></em>, or those built-in.  Options are handled according
+to common UNIX semantics so that short options may be grouped together
+and arguments need not immediately follow the option that requires it.
+</p>
+<p>
+Remaining non-option arguments are placed into an array for processing
+by the caller.  If <em class="parameter"><code>break_nonopt</code></em> is FALSE then the first non-option
+argument concludes option processing and all subsequent options are
+considered to be ordinary arguments; this is most useful when the
+first argument should be a command.
+</p>
+<p>
+Both the array itself, and the array items are allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>;
+the items are children of the array, so it is only necessary to call
+<a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> on the array.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</p>
+<p>
+Errors are handled by printing a message to standard error.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for returned array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argc</code></em> :</span></p></td>
+<td>number of arguments,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>argv</code></em> :</span></p></td>
+<td>command-line arguments,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>options</code></em> :</span></p></td>
+<td>options to look for,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>break_nonopt</code></em> :</span></p></td>
+<td>stop processing options at first non-option argument.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>non-option arguments array or NULL on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-join"></a><h3>nih_option_join ()</h3>
+<pre class="programlisting"><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="returnvalue">NihOption</span></a> *         nih_option_join                     (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *a</code></em>,
+                                                         <em class="parameter"><code>const <a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *b</code></em>);</pre>
+<p>
+Joins the two option arrays together to produce a combined array containing
+the options from <em class="parameter"><code>a</code></em> followed by the options from <em class="parameter"><code>b</code></em>.
+</p>
+<p>
+The new list is allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, but the members are just
+copied in from <em class="parameter"><code>a</code></em> and <em class="parameter"><code>b</code></em> including any pointers therein.  Freeing the
+new array with <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> is entirely safe.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>a</code></em> :</span></p></td>
+<td>first option array,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>b</code></em> :</span></p></td>
+<td>second option array.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>combined option array.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-count"></a><h3>nih_option_count ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_option_count                    (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);</pre>
+<p>
+This option setter may be used to create arguments that count the number
+of times they are placed on the command line.
+</p>
+<p>
+The value member of <em class="parameter"><code>option</code></em> must be a pointer to an integer variable,
+the arg_name member must be NULL.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>option</code></em> :</span></p></td>
+<td>NihOption invoked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg</code></em> :</span></p></td>
+<td>argument to parse.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>always returns zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-int"></a><h3>nih_option_int ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_option_int                      (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);</pre>
+<p>
+This option setter may be used to parse an integer from the command line
+and store it in the value member of <em class="parameter"><code>option</code></em>, which must be a pointer to
+an integer variable.
+</p>
+<p>
+The arg_name member of <em class="parameter"><code>option</code></em> must not be NULL.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>option</code></em> :</span></p></td>
+<td>NihOption invoked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg</code></em> :</span></p></td>
+<td>argument to parse.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, non-zero on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-quiet"></a><h3>nih_option_quiet ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_option_quiet                    (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);</pre>
+<p>
+This option setter is used by the built-in -q/--quiet option to set the
+default logging level to ERROR.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>option</code></em> :</span></p></td>
+<td>NihOption invoked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg</code></em> :</span></p></td>
+<td>argument to parse.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>always returns zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-verbose"></a><h3>nih_option_verbose ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_option_verbose                  (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);</pre>
+<p>
+This option setter is used by the built-in -v/--verbose option to set the
+default logging level to INFO.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>option</code></em> :</span></p></td>
+<td>NihOption invoked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg</code></em> :</span></p></td>
+<td>argument to parse.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>always returns zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-debug"></a><h3>nih_option_debug ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_option_debug                    (<em class="parameter"><code><a class="link" href="nih-Option.html#NihOption" title="NihOption"><span class="type">NihOption</span></a> *option</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *arg</code></em>);</pre>
+<p>
+This option setter is used by the built-in --debug option to set the
+default logging level to DEBUG.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>option</code></em> :</span></p></td>
+<td>NihOption invoked,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg</code></em> :</span></p></td>
+<td>argument to parse.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>always returns zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-set-usage"></a><h3>nih_option_set_usage ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_option_set_usage                (<em class="parameter"><code>const <span class="type">char</span> *usage</code></em>);</pre>
+<p>
+Set the usage string appended to the program usage line in the help output,
+this should be a static translated string.
+</p>
+<p>
+The string should not be terminated with a newline.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>usage</code></em> :</span></p></td>
+<td>usage string.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-set-usage-stem"></a><h3>nih_option_set_usage_stem ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_option_set_usage_stem           (<em class="parameter"><code>const <span class="type">char</span> *usage</code></em>);</pre>
+<p>
+Set the usage stem prepended to the program usage line in the help output,
+this should be a static translated string.
+</p>
+<p>
+The string should not be terminated with a newline.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>usage</code></em> :</span></p></td>
+<td>usage stem.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-set-synopsis"></a><h3>nih_option_set_synopsis ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_option_set_synopsis             (<em class="parameter"><code>const <span class="type">char</span> *synopsis</code></em>);</pre>
+<p>
+Set the synopsis string, shown after the program usage line in the help
+output.  This should be a static translated string.  It will be
+automatically wrapped to the screen width.
+</p>
+<p>
+The string should not be terminated with a newline.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>synopsis</code></em> :</span></p></td>
+<td>synopsis string.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-set-help"></a><h3>nih_option_set_help ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_option_set_help                 (<em class="parameter"><code>const <span class="type">char</span> *help</code></em>);</pre>
+<p>
+Set the help string, this is displayed after the options in the help
+output.  This should be a static translated string.  It will be
+automatically wrapped to the screen width.
+</p>
+<p>
+The string should not be terminated with a newline.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>help</code></em> :</span></p></td>
+<td>help string.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-option-set-footer"></a><h3>nih_option_set_footer ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_option_set_footer               (<em class="parameter"><code>const <span class="type">char</span> *footer</code></em>);</pre>
+<p>
+Set the footer string, this is displayed after the options and help
+text in the output.  This should be a static translated string.
+</p>
+<p>
+The string should not be terminated with a newline.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>footer</code></em> :</span></p></td>
+<td>footer string.</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

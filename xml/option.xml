@@ -1,0 +1,383 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Option">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Option.top_of_page">Option</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Option</refname>
+<refpurpose>Option and arguments parser</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Option.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="NihOption">NihOption</link>;
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihOptionSetter">*NihOptionSetter</link>)                  (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);
+                    <link linkend="NihOptionGroup">NihOptionGroup</link>;
+#define             <link linkend="NIH-OPTION-LAST:CAPS">NIH_OPTION_LAST</link>
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-option-parser">nih_option_parser</link>                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> argc</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> *argv[]</parameter>,
+                                                         <parameter><link linkend="NihOption"><type>NihOption</type></link> *options</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> break_nonopt</parameter>);
+<link linkend="NihOption"><returnvalue>NihOption</returnvalue></link> *         <link linkend="nih-option-join">nih_option_join</link>                     (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="NihOption"><type>NihOption</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="NihOption"><type>NihOption</type></link> *b</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-option-count">nih_option_count</link>                    (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-option-int">nih_option_int</link>                      (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-option-quiet">nih_option_quiet</link>                    (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-option-verbose">nih_option_verbose</link>                  (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-option-debug">nih_option_debug</link>                    (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-option-set-usage">nih_option_set_usage</link>                (<parameter>const <link linkend="char"><type>char</type></link> *usage</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-option-set-usage-stem">nih_option_set_usage_stem</link>           (<parameter>const <link linkend="char"><type>char</type></link> *usage</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-option-set-synopsis">nih_option_set_synopsis</link>             (<parameter>const <link linkend="char"><type>char</type></link> *synopsis</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-option-set-help">nih_option_set_help</link>                 (<parameter>const <link linkend="char"><type>char</type></link> *help</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-option-set-footer">nih_option_set_footer</link>               (<parameter>const <link linkend="char"><type>char</type></link> *footer</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Option.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Provides a flexible command-line option and arguments parser that
+automatically provides built-in options for adjusting output verbosity
+and provides --help output.
+</para>
+<para>
+Describe your commands options using an array of NihOption members
+and pass this along with the argc and argv variables to
+<link linkend="nih-option-parser"><function>nih_option_parser()</function></link>.
+</para>
+<para>
+Options can be set from arguments with helper functions, <link linkend="nih-option-count"><function>nih_option_count()</function></link>
+and <link linkend="nih-option-int"><function>nih_option_int()</function></link> are provided for you.
+</para>
+<para>
+Help and usage output can be customised with the <link linkend="nih-option-set-usage"><function>nih_option_set_usage()</function></link>,
+<link linkend="nih-option-set-usage-stem"><function>nih_option_set_usage_stem()</function></link>, <link linkend="nih-option-set-synopsis"><function>nih_option_set_synopsis()</function></link>,
+<link linkend="nih-option-set-help"><function>nih_option_set_help()</function></link> and <link linkend="nih-option-set-footer"><function>nih_option_set_footer()</function></link> functions.  Be sure
+to call these before the option parser.
+</para>
+</refsect1>
+<refsect1 id="nih-Option.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihOption" role="typedef">
+<title>NihOption</title>
+<indexterm zone="NihOption"><primary>NihOption</primary></indexterm>
+<programlisting>typedef struct nih_option NihOption;
+</programlisting>
+<para>
+This structure defines an option that may be found in the command-line
+arguments.  One or both of <parameter>option</parameter> and <parameter>long_option</parameter> myst be specified,
+if no short option is wanted it may be zero and if no <parameter>long_option</parameter> is
+wanted it may be NULL.
+</para>
+<para>
+If <parameter>arg_name</parameter> is not NULL then the option takes the next non-option
+argument from the command-line; if <parameter>setter</parameter> is not NULL it is passed
+this argument, otherwise <parameter>value</parameter> should contain the address of a char *
+in which a newly allocated copy of the argument will be stored.
+</para>
+<para>
+If <parameter>arg_name</parameter> is NULL then NULL if passed to <parameter>setter</parameter>.  If both
+<parameter>arg_name</parameter> and <parameter>setter</parameter> are NULL then <parameter>value</parameter> should contain the address
+of an int in which a TRUE value is stored.
+</para></refsect2>
+<refsect2 id="NihOptionSetter" role="function">
+<title>NihOptionSetter ()</title>
+<indexterm zone="NihOptionSetter"><primary>NihOptionSetter</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihOptionSetter)                  (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);</programlisting>
+<para>
+An option setter is a function that is called whenever an option is
+found in the command-line arguments.  If the option expects a value
+then the argument is passed to the function, otherwise NULL is
+passed.
+</para>
+<para>
+The function may use the value member of <parameter>option</parameter> to store the parsed
+value, or may take its own action.
+</para>
+<para>
+If there is an error with the argument the function may return zero
+to abort parsing.
+</para><variablelist role="params">
+<varlistentry><term><parameter>option</parameter>&#160;:</term>
+<listitem><simpara>NihOption invoked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg</parameter>&#160;:</term>
+<listitem><simpara>argument to parse.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihOptionGroup" role="struct">
+<title>NihOptionGroup</title>
+<indexterm zone="NihOptionGroup"><primary>NihOptionGroup</primary></indexterm>
+<programlisting>typedef struct {
+	char *title;
+} NihOptionGroup;
+</programlisting>
+<para>
+This structure is used to define a group of options that are collated
+together when --help is given.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="char"><type>char</type></link>&#160;*<structfield id="NihOptionGroup.title">title</structfield>;</term>
+<listitem><simpara>descriptive help message.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-OPTION-LAST:CAPS" role="macro">
+<title>NIH_OPTION_LAST</title>
+<indexterm zone="NIH-OPTION-LAST:CAPS"><primary>NIH_OPTION_LAST</primary></indexterm>
+<programlisting>#define NIH_OPTION_LAST { 0, NULL, NULL, NULL, NULL, NULL, NULL }
+</programlisting>
+<para>
+This macro may be used as the last option in the list to avoid typing
+all those NULLs and 0s yourself.
+</para></refsect2>
+<refsect2 id="nih-option-parser" role="function">
+<title>nih_option_parser ()</title>
+<indexterm zone="nih-option-parser"><primary>nih_option_parser</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_option_parser                   (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> argc</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> *argv[]</parameter>,
+                                                         <parameter><link linkend="NihOption"><type>NihOption</type></link> *options</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> break_nonopt</parameter>);</programlisting>
+<para>
+Parses the command-line arguments given in <parameter>argv</parameter> looking for options
+described in <parameter>options</parameter>, or those built-in.  Options are handled according
+to common UNIX semantics so that short options may be grouped together
+and arguments need not immediately follow the option that requires it.
+</para>
+<para>
+Remaining non-option arguments are placed into an array for processing
+by the caller.  If <parameter>break_nonopt</parameter> is FALSE then the first non-option
+argument concludes option processing and all subsequent options are
+considered to be ordinary arguments; this is most useful when the
+first argument should be a command.
+</para>
+<para>
+Both the array itself, and the array items are allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>;
+the items are children of the array, so it is only necessary to call
+<link linkend="nih-free"><function>nih_free()</function></link> on the array.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</para>
+<para>
+Errors are handled by printing a message to standard error.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for returned array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argc</parameter>&#160;:</term>
+<listitem><simpara>number of arguments,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&#160;:</term>
+<listitem><simpara>command-line arguments,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>options</parameter>&#160;:</term>
+<listitem><simpara>options to look for,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>break_nonopt</parameter>&#160;:</term>
+<listitem><simpara>stop processing options at first non-option argument.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>non-option arguments array or NULL on error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-join" role="function">
+<title>nih_option_join ()</title>
+<indexterm zone="nih-option-join"><primary>nih_option_join</primary></indexterm>
+<programlisting><link linkend="NihOption"><returnvalue>NihOption</returnvalue></link> *         nih_option_join                     (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="NihOption"><type>NihOption</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="NihOption"><type>NihOption</type></link> *b</parameter>);</programlisting>
+<para>
+Joins the two option arrays together to produce a combined array containing
+the options from <parameter>a</parameter> followed by the options from <parameter>b</parameter>.
+</para>
+<para>
+The new list is allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>, but the members are just
+copied in from <parameter>a</parameter> and <parameter>b</parameter> including any pointers therein.  Freeing the
+new array with <link linkend="nih-free"><function>nih_free()</function></link> is entirely safe.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>first option array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>second option array.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>combined option array.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-count" role="function">
+<title>nih_option_count ()</title>
+<indexterm zone="nih-option-count"><primary>nih_option_count</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_option_count                    (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);</programlisting>
+<para>
+This option setter may be used to create arguments that count the number
+of times they are placed on the command line.
+</para>
+<para>
+The value member of <parameter>option</parameter> must be a pointer to an integer variable,
+the arg_name member must be NULL.
+</para><variablelist role="params">
+<varlistentry><term><parameter>option</parameter>&#160;:</term>
+<listitem><simpara>NihOption invoked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg</parameter>&#160;:</term>
+<listitem><simpara>argument to parse.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>always returns zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-int" role="function">
+<title>nih_option_int ()</title>
+<indexterm zone="nih-option-int"><primary>nih_option_int</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_option_int                      (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);</programlisting>
+<para>
+This option setter may be used to parse an integer from the command line
+and store it in the value member of <parameter>option</parameter>, which must be a pointer to
+an integer variable.
+</para>
+<para>
+The arg_name member of <parameter>option</parameter> must not be NULL.
+</para><variablelist role="params">
+<varlistentry><term><parameter>option</parameter>&#160;:</term>
+<listitem><simpara>NihOption invoked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg</parameter>&#160;:</term>
+<listitem><simpara>argument to parse.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, non-zero on error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-quiet" role="function">
+<title>nih_option_quiet ()</title>
+<indexterm zone="nih-option-quiet"><primary>nih_option_quiet</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_option_quiet                    (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);</programlisting>
+<para>
+This option setter is used by the built-in -q/--quiet option to set the
+default logging level to ERROR.
+</para><variablelist role="params">
+<varlistentry><term><parameter>option</parameter>&#160;:</term>
+<listitem><simpara>NihOption invoked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg</parameter>&#160;:</term>
+<listitem><simpara>argument to parse.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>always returns zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-verbose" role="function">
+<title>nih_option_verbose ()</title>
+<indexterm zone="nih-option-verbose"><primary>nih_option_verbose</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_option_verbose                  (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);</programlisting>
+<para>
+This option setter is used by the built-in -v/--verbose option to set the
+default logging level to INFO.
+</para><variablelist role="params">
+<varlistentry><term><parameter>option</parameter>&#160;:</term>
+<listitem><simpara>NihOption invoked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg</parameter>&#160;:</term>
+<listitem><simpara>argument to parse.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>always returns zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-debug" role="function">
+<title>nih_option_debug ()</title>
+<indexterm zone="nih-option-debug"><primary>nih_option_debug</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_option_debug                    (<parameter><link linkend="NihOption"><type>NihOption</type></link> *option</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *arg</parameter>);</programlisting>
+<para>
+This option setter is used by the built-in --debug option to set the
+default logging level to DEBUG.
+</para><variablelist role="params">
+<varlistentry><term><parameter>option</parameter>&#160;:</term>
+<listitem><simpara>NihOption invoked,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg</parameter>&#160;:</term>
+<listitem><simpara>argument to parse.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>always returns zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-set-usage" role="function">
+<title>nih_option_set_usage ()</title>
+<indexterm zone="nih-option-set-usage"><primary>nih_option_set_usage</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_option_set_usage                (<parameter>const <link linkend="char"><type>char</type></link> *usage</parameter>);</programlisting>
+<para>
+Set the usage string appended to the program usage line in the help output,
+this should be a static translated string.
+</para>
+<para>
+The string should not be terminated with a newline.
+</para><variablelist role="params">
+<varlistentry><term><parameter>usage</parameter>&#160;:</term>
+<listitem><simpara>usage string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-set-usage-stem" role="function">
+<title>nih_option_set_usage_stem ()</title>
+<indexterm zone="nih-option-set-usage-stem"><primary>nih_option_set_usage_stem</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_option_set_usage_stem           (<parameter>const <link linkend="char"><type>char</type></link> *usage</parameter>);</programlisting>
+<para>
+Set the usage stem prepended to the program usage line in the help output,
+this should be a static translated string.
+</para>
+<para>
+The string should not be terminated with a newline.
+</para><variablelist role="params">
+<varlistentry><term><parameter>usage</parameter>&#160;:</term>
+<listitem><simpara>usage stem.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-set-synopsis" role="function">
+<title>nih_option_set_synopsis ()</title>
+<indexterm zone="nih-option-set-synopsis"><primary>nih_option_set_synopsis</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_option_set_synopsis             (<parameter>const <link linkend="char"><type>char</type></link> *synopsis</parameter>);</programlisting>
+<para>
+Set the synopsis string, shown after the program usage line in the help
+output.  This should be a static translated string.  It will be
+automatically wrapped to the screen width.
+</para>
+<para>
+The string should not be terminated with a newline.
+</para><variablelist role="params">
+<varlistentry><term><parameter>synopsis</parameter>&#160;:</term>
+<listitem><simpara>synopsis string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-set-help" role="function">
+<title>nih_option_set_help ()</title>
+<indexterm zone="nih-option-set-help"><primary>nih_option_set_help</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_option_set_help                 (<parameter>const <link linkend="char"><type>char</type></link> *help</parameter>);</programlisting>
+<para>
+Set the help string, this is displayed after the options in the help
+output.  This should be a static translated string.  It will be
+automatically wrapped to the screen width.
+</para>
+<para>
+The string should not be terminated with a newline.
+</para><variablelist role="params">
+<varlistentry><term><parameter>help</parameter>&#160;:</term>
+<listitem><simpara>help string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-option-set-footer" role="function">
+<title>nih_option_set_footer ()</title>
+<indexterm zone="nih-option-set-footer"><primary>nih_option_set_footer</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_option_set_footer               (<parameter>const <link linkend="char"><type>char</type></link> *footer</parameter>);</programlisting>
+<para>
+Set the footer string, this is displayed after the options and help
+text in the output.  This should be a static translated string.
+</para>
+<para>
+The string should not be terminated with a newline.
+</para><variablelist role="params">
+<varlistentry><term><parameter>footer</parameter>&#160;:</term>
+<listitem><simpara>footer string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

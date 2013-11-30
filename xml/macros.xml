@@ -1,0 +1,205 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Macros">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Macros.top_of_page">Macros</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Macros</refname>
+<refpurpose>Useful macros</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Macros.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="NIH-BEGIN-EXTERN:CAPS">NIH_BEGIN_EXTERN</link>
+#define             <link linkend="NIH-END-EXTERN:CAPS">NIH_END_EXTERN</link>
+#define             <link linkend="nih-min">nih_min</link>                             (_a,
+                                                         _b)
+#define             <link linkend="nih-max">nih_max</link>                             (_a,
+                                                         _b)
+#define             <link linkend="NIH-ALIGN-SIZE:CAPS">NIH_ALIGN_SIZE</link>
+#define             <link linkend="NIH-STRINGIFY:CAPS">NIH_STRINGIFY</link>                       (_s)
+#define             <link linkend="NIH-LIKELY:CAPS">NIH_LIKELY</link>                          (_e)
+#define             <link linkend="NIH-UNLIKELY:CAPS">NIH_UNLIKELY</link>                        (_e)
+#define             <link linkend="NIH-MUST:CAPS">NIH_MUST</link>                            (_e)
+#define             <link linkend="NIH-ZERO:CAPS">NIH_ZERO</link>                            (_e)
+#define             <link linkend="gettext-macro">_</link>                                   (_str)
+#define             <link linkend="N-:CAPS">N_</link>                                  (_str)
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Macros.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+This header tends to be included by every file that uses libnih, it makes
+sure various sensible macros and types (including standard ones from the
+C library) are defined.
+</para>
+</refsect1>
+<refsect1 id="nih-Macros.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NIH-BEGIN-EXTERN:CAPS" role="macro">
+<title>NIH_BEGIN_EXTERN</title>
+<indexterm zone="NIH-BEGIN-EXTERN:CAPS"><primary>NIH_BEGIN_EXTERN</primary></indexterm>
+<programlisting># define NIH_BEGIN_EXTERN  extern "C" {
+</programlisting>
+<para>
+Use before beginning external definitions in header files, so that they
+may be safely included from C++ code. Must be paired with NIH_END_EXTERN.
+</para></refsect2>
+<refsect2 id="NIH-END-EXTERN:CAPS" role="macro">
+<title>NIH_END_EXTERN</title>
+<indexterm zone="NIH-END-EXTERN:CAPS"><primary>NIH_END_EXTERN</primary></indexterm>
+<programlisting># define NIH_END_EXTERN    }
+</programlisting>
+<para>
+Use after external definitions in header files, so that they may be safely
+included from C++ code.  Must be paired with NIH_BEGIN_EXTERN.
+</para></refsect2>
+<refsect2 id="nih-min" role="macro">
+<title>nih_min()</title>
+<indexterm zone="nih-min"><primary>nih_min</primary></indexterm>
+<programlisting>#define             nih_min(_a, _b)</programlisting>
+<para>
+Compares the two values <parameter>_a</parameter> and <parameter>_b</parameter>, which must be compatible C types.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first value,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second value.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the smaller of the two values.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-max" role="macro">
+<title>nih_max()</title>
+<indexterm zone="nih-max"><primary>nih_max</primary></indexterm>
+<programlisting>#define             nih_max(_a, _b)</programlisting>
+<para>
+Compares the two values <parameter>_a</parameter> and <parameter>_b</parameter>, which must be compatible C types.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first value,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second value.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the larger of the two values.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-ALIGN-SIZE:CAPS" role="macro">
+<title>NIH_ALIGN_SIZE</title>
+<indexterm zone="NIH-ALIGN-SIZE:CAPS"><primary>NIH_ALIGN_SIZE</primary></indexterm>
+<programlisting>#define             NIH_ALIGN_SIZE</programlisting>
+<para>
+In general, pointer alignment is something that the compiler takes care
+of for us; but in some situations (e.g. nih_alloc) we need to return a
+pointer that is generically aligned for any data type without actually
+knowing the data type.
+</para>
+<para>
+This is a good guess as to the largest alignment of the platform, based
+on recommendations in the C standard and comments in GNU libc.
+</para></refsect2>
+<refsect2 id="NIH-STRINGIFY:CAPS" role="macro">
+<title>NIH_STRINGIFY()</title>
+<indexterm zone="NIH-STRINGIFY:CAPS"><primary>NIH_STRINGIFY</primary></indexterm>
+<programlisting>#define NIH_STRINGIFY(_s)    _STRINGIFY_AGAIN(_s)
+</programlisting>
+<para>
+Turns the macro <parameter>_s</parameter> into a string.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_s</parameter>&#160;:</term>
+<listitem><simpara>macro.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-LIKELY:CAPS" role="macro">
+<title>NIH_LIKELY()</title>
+<indexterm zone="NIH-LIKELY:CAPS"><primary>NIH_LIKELY</primary></indexterm>
+<programlisting>#define NIH_LIKELY(_e)   __builtin_expect ((_e) ? TRUE : FALSE, TRUE)
+</programlisting>
+<para>
+Indicates to the compiler that the expression <parameter>_e</parameter> is likely to be true,
+can aid optimisation when used properly.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_e</parameter>&#160;:</term>
+<listitem><simpara>C expression.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-UNLIKELY:CAPS" role="macro">
+<title>NIH_UNLIKELY()</title>
+<indexterm zone="NIH-UNLIKELY:CAPS"><primary>NIH_UNLIKELY</primary></indexterm>
+<programlisting>#define NIH_UNLIKELY(_e) __builtin_expect ((_e) ? TRUE : FALSE, FALSE)
+</programlisting>
+<para>
+Indicates to the compiler that the expression <parameter>_e</parameter> is likely to be false,
+can aid optimisation when used properly.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_e</parameter>&#160;:</term>
+<listitem><simpara>C expression.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-MUST:CAPS" role="macro">
+<title>NIH_MUST()</title>
+<indexterm zone="NIH-MUST:CAPS"><primary>NIH_MUST</primary></indexterm>
+<programlisting>#define             NIH_MUST(_e)</programlisting>
+<para>
+Repeats the expression <parameter>_e</parameter> until it yields a true value, normally used
+around functions that perform memory allocation and return a pointer to
+spin in out-of-memory situations.
+</para>
+<para>
+For situations where the the expression can raise an NihError and returns
+false, where an error can include out-of-memory, you may want to use
+<link linkend="NIH-SHOULD:CAPS"><function>NIH_SHOULD()</function></link> to spin on OOM but break on other conditions.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_e</parameter>&#160;:</term>
+<listitem><simpara>C expression.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>value of expression <parameter>_e</parameter> which will be evaluated as many times
+as necessary to become true.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-ZERO:CAPS" role="macro">
+<title>NIH_ZERO()</title>
+<indexterm zone="NIH-ZERO:CAPS"><primary>NIH_ZERO</primary></indexterm>
+<programlisting>#define             NIH_ZERO(_e)</programlisting>
+<para>
+Repeats the expression <parameter>_e</parameter> until it yields a zero value, normally used
+around functions that return zero to indicate success and non-zero to
+indicate a temporary failure.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_e</parameter>&#160;:</term>
+<listitem><simpara>C expression.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>value of expression <parameter>_e</parameter> which will be evaluated as many times
+as necessary to become zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="gettext-macro" role="macro">
+<title>_()</title>
+<indexterm zone="gettext-macro"><primary>_</primary></indexterm>
+<programlisting># define _(_str) gettext (_str)
+</programlisting>
+<para>
+Marks the string <parameter>str</parameter> for translation, if gettext is available.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_str</parameter>&#160;:</term>
+<listitem><simpara>string.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>_str</parameter> or translated string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="N-:CAPS" role="macro">
+<title>N_()</title>
+<indexterm zone="N-:CAPS"><primary>N_</primary></indexterm>
+<programlisting># define N_(_str) (_str)
+</programlisting>
+<para>
+Marks the static string <parameter>_str</parameter> for translation by gettext, but does not
+return the translation.  You must call <link linkend="gettext"><function>gettext()</function></link> on the string before
+presenting it to the user.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_str</parameter>&#160;:</term>
+<listitem><simpara>string.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>_str</parameter></simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

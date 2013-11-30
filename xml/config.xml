@@ -1,0 +1,854 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Config">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Config.top_of_page">Config</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Config</refname>
+<refpurpose>Configuration parser</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Config.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="NihConfigStanza">NihConfigStanza</link>;
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihConfigHandler">*NihConfigHandler</link>)                 (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanza</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+#define             <link linkend="NIH-CONFIG-LAST:CAPS">NIH_CONFIG_LAST</link>
+#define             <link linkend="NIH-CONFIG-WS:CAPS">NIH_CONFIG_WS</link>
+#define             <link linkend="NIH-CONFIG-CNL:CAPS">NIH_CONFIG_CNL</link>
+#define             <link linkend="NIH-CONFIG-CNLWS:CAPS">NIH_CONFIG_CNLWS</link>
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-config-has-token">nih_config_has_token</link>                (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-config-token">nih_config_token</link>                    (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dequote</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *toklen</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-config-next-token">nih_config_next_token</link>               (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dequote</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-config-next-arg">nih_config_next_arg</link>                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-config-next-line">nih_config_next_line</link>                (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-config-skip-whitespace">nih_config_skip_whitespace</link>          (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-config-skip-comment">nih_config_skip_comment</link>             (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> **             <link linkend="nih-config-parse-args">nih_config_parse_args</link>               (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-config-parse-command">nih_config_parse_command</link>            (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);
+<link linkend="char"><returnvalue>char</returnvalue></link> *              <link linkend="nih-config-parse-block">nih_config_parse_block</link>              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *type</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-config-skip-block">nih_config_skip_block</link>               (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *type</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *endpos</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-config-parse-stanza">nih_config_parse_stanza</link>             (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanzas</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-config-parse-file">nih_config_parse_file</link>               (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanzas</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-config-parse">nih_config_parse</link>                    (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanzas</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Config.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Implements a flexible configuration parser based on keyword stanzas and zero
+or more arguments, handling such matters as quotation, whitespace and
+commands for you.
+</para>
+<para>
+You describe the stanzas with an array of NihConfigStanza members,
+each is handled by a function that receives a number of arguments
+referencing the current position within the file being parsed.
+</para>
+<para>
+The function may then call any of the parsing functions to parse its
+arguments, consuming as much of the following file as it wishes.  Most
+will call <link linkend="nih-config-parse-args"><function>nih_config_parse_args()</function></link> to do the hard work.
+</para>
+<para>
+Configuration can be parsed as a file with <link linkend="nih-config-parse-file"><function>nih_config_parse_file()</function></link> or
+as a string with <link linkend="nih-config-parse"><function>nih_config_parse()</function></link>.
+</para>
+</refsect1>
+<refsect1 id="nih-Config.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihConfigStanza" role="typedef">
+<title>NihConfigStanza</title>
+<indexterm zone="NihConfigStanza"><primary>NihConfigStanza</primary></indexterm>
+<programlisting>typedef struct nih_config_stanza NihConfigStanza;
+</programlisting>
+<para>
+This structure defines a configuration file stanza, when a stanza
+called <parameter>name</parameter> is found within a configuration file, <parameter>handler</parameter> will be
+called from a position after the stanza and any following whitespace.
+</para></refsect2>
+<refsect2 id="NihConfigHandler" role="function">
+<title>NihConfigHandler ()</title>
+<indexterm zone="NihConfigHandler"><primary>NihConfigHandler</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihConfigHandler)                 (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanza</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+A config handler is a function that is called when <parameter>stanza</parameter> is found
+in a configuration file.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> is given
+as the offset within that the stanza's arguments begin, and <parameter>len</parameter> will
+be the length of the file as a whole.
+</para>
+<para>
+<parameter>pos</parameter> must be updated to point to the next stanza in the configuration
+file, past whatever terminator is used for the one being parsed.
+</para>
+<para>
+If <parameter>lineno</parameter> is not NULL, it contains the current line number and must be
+incremented each time a new line is discovered in the file.
+</para>
+<para>
+(These things are taken care of for you if you use the nih_config_*
+functions).
+</para>
+<para>
+If you encounter errors, you should use the usual logging functions to
+output warnings using both <parameter>file</parameter> and <parameter>lineno</parameter>, but only if <parameter>file</parameter>
+is not NULL.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data passed to parser,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>stanza</parameter>&#160;:</term>
+<listitem><simpara>stanza found,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-CONFIG-LAST:CAPS" role="macro">
+<title>NIH_CONFIG_LAST</title>
+<indexterm zone="NIH-CONFIG-LAST:CAPS"><primary>NIH_CONFIG_LAST</primary></indexterm>
+<programlisting>#define NIH_CONFIG_LAST { NULL, NULL }
+</programlisting>
+<para>
+This macro may be used as the last stanza in the list to avoid typing
+all those NULLs yourself.
+</para></refsect2>
+<refsect2 id="NIH-CONFIG-WS:CAPS" role="macro">
+<title>NIH_CONFIG_WS</title>
+<indexterm zone="NIH-CONFIG-WS:CAPS"><primary>NIH_CONFIG_WS</primary></indexterm>
+<programlisting>#define NIH_CONFIG_WS " \t\r"
+</programlisting>
+<para>
+Definition of what characters we consider whitespace.
+</para></refsect2>
+<refsect2 id="NIH-CONFIG-CNL:CAPS" role="macro">
+<title>NIH_CONFIG_CNL</title>
+<indexterm zone="NIH-CONFIG-CNL:CAPS"><primary>NIH_CONFIG_CNL</primary></indexterm>
+<programlisting>#define NIH_CONFIG_CNL "#\n"
+</programlisting>
+<para>
+Definition of what characters nominally end a line; a comment start
+character or a newline.
+</para></refsect2>
+<refsect2 id="NIH-CONFIG-CNLWS:CAPS" role="macro">
+<title>NIH_CONFIG_CNLWS</title>
+<indexterm zone="NIH-CONFIG-CNLWS:CAPS"><primary>NIH_CONFIG_CNLWS</primary></indexterm>
+<programlisting>#define NIH_CONFIG_CNLWS " \t\r#\n"
+</programlisting>
+<para>
+Defintion of what characters nominally separate tokens.
+</para></refsect2>
+<refsect2 id="nih-config-has-token" role="function">
+<title>nih_config_has_token ()</title>
+<indexterm zone="nih-config-has-token"><primary>nih_config_has_token</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_config_has_token                (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+Checks the current position in <parameter>file</parameter> to see whether it has a parseable
+token at this position; ie. we're not at the end of file, and the
+current character is neither a comment or newline character.
+</para>
+<para>
+If this returns FALSE, it's normal to call <link linkend="nih-config-skip-comment"><function>nih_config_skip_comment()</function></link>
+to move to the next parseable point and check again.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+<parameter>pos</parameter> is used as the offset within <parameter>file</parameter> to begin, otherwise the start
+is assumed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if the current character is before the end of file and
+is neither a comment or newline, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-token" role="function">
+<title>nih_config_token ()</title>
+<indexterm zone="nih-config-token"><primary>nih_config_token</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_config_token                    (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="char"><type>char</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dequote</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *toklen</parameter>);</programlisting>
+<para>
+Parses a single token from <parameter>file</parameter> which is stopped when any character
+in <parameter>delim</parameter> is encountered outside of a quoted string and not escaped
+using a backslash.  The length of the parsed token is stored in <parameter>toklen</parameter>
+if given.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.  Usually when <parameter>dest</parameter> is given, <parameter>file</parameter> is instead the pointer to
+the start of the token and <parameter>len</parameter> is the difference between the start
+and end of the token (NOT the return value from this function).
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+to <parameter>delim</parameter> or past the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para>
+<para>
+To copy the token into another string, collapsing any newlines and
+surrounding whitespace to a single space, pass <parameter>dest</parameter> which should be
+pre-allocated to the right size (obtained by calling this function
+with NULL).
+</para>
+<para>
+If you also want quotes to be removed and escaped characters to be
+replaced with the character itself, set <parameter>dequote</parameter> to TRUE.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>destination to copy to,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>delim</parameter>&#160;:</term>
+<listitem><simpara>characters to stop on,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dequote</parameter>&#160;:</term>
+<listitem><simpara>remove quotes and escapes.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toklen</parameter>&#160;:</term>
+<listitem><simpara>pointer to store token length in.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-next-token" role="function">
+<title>nih_config_next_token ()</title>
+<indexterm zone="nih-config-next-token"><primary>nih_config_next_token</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_config_next_token               (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *delim</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> dequote</parameter>);</programlisting>
+<para>
+Extracts a single token from <parameter>file</parameter> which is stopped when any character
+in <parameter>delim</parameter> is encountered outside of a quoted string and not escaped
+using a backslash.  If <parameter>delim</parameter> contains any whitespace character, then
+all whitespace after the token is also consumed, but not returned,
+including that with escaped newlines within it.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+to <parameter>delim</parameter> or past the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para>
+<para>
+If you also want quotes to be removed and escaped characters to be
+replaced with the character itself, set <parameter>dequote</parameter> to TRUE.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned token.  When all parents
+of the returned token are freed, the returned token will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for returned token,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>delim</parameter>&#160;:</term>
+<listitem><simpara>characters to stop on,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dequote</parameter>&#160;:</term>
+<listitem><simpara>remove quotes and escapes.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the token found or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-next-arg" role="function">
+<title>nih_config_next_arg ()</title>
+<indexterm zone="nih-config-next-arg"><primary>nih_config_next_arg</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_config_next_arg                 (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+Extracts a single argument from <parameter>file</parameter>, a dequoted token that is stopped
+on any comment, space or newline character that is not quoted or escaped
+with a backslash.  Any whitespace after the argument is also consumed,
+but not returned, including that with escaped newlines within it.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+to <parameter>delim</parameter> or past the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned argument.  When all parents
+of the returned argument are freed, the returned argument will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for returned argument,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the argument found or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-next-line" role="function">
+<title>nih_config_next_line ()</title>
+<indexterm zone="nih-config-next-line"><primary>nih_config_next_line</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_config_next_line                (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+Skips to the end of the current line in <parameter>file</parameter>, ignoring any tokens,
+comments, etc. along the way.  If you want to ensure that no arguments
+are missed, use <link linkend="nih-config-skip-comment"><function>nih_config_skip_comment()</function></link> instead.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+<parameter>pos</parameter> is used as the offset within <parameter>file</parameter> to begin, and will be updated
+to point to past the end of the line or file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-skip-whitespace" role="function">
+<title>nih_config_skip_whitespace ()</title>
+<indexterm zone="nih-config-skip-whitespace"><primary>nih_config_skip_whitespace</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_config_skip_whitespace          (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+Skips an amount of whitespace and finds either the next token or the end
+of the current line in <parameter>file</parameter>.  Escaped newlines within the whitespace
+are treated as whitespace.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+<parameter>pos</parameter> is used as the offset within <parameter>file</parameter> to begin, and will be updated
+to point to past the end of the line or file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-skip-comment" role="function">
+<title>nih_config_skip_comment ()</title>
+<indexterm zone="nih-config-skip-comment"><primary>nih_config_skip_comment</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_config_skip_comment             (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+Skips a comment and finds the end of the current line in <parameter>file</parameter>.  If the
+current position does not point to the end of a line, or a comment,
+then an error is raised.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+<parameter>pos</parameter> is used as the offset within <parameter>file</parameter> to begin, and will be updated
+to point to past the end of the line or file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-parse-args" role="function">
+<title>nih_config_parse_args ()</title>
+<indexterm zone="nih-config-parse-args"><primary>nih_config_parse_args</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> **             nih_config_parse_args               (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+Extracts a list of arguments from <parameter>file</parameter>, each argument is separated
+by whitespace and parsing is stopped when a newline is encountered
+outside of a quoted string and not escaped using a backslash.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+past the end of the line or the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para>
+<para>
+The arguments are returned as a NULL-terminated array, with each argument
+dequoted before being returned.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned array.  When all parents
+of the returned array are freed, the returned array will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for returned array,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the list of arguments found or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-parse-command" role="function">
+<title>nih_config_parse_command ()</title>
+<indexterm zone="nih-config-parse-command"><primary>nih_config_parse_command</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_config_parse_command            (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>);</programlisting>
+<para>
+Extracts a command and its arguments from <parameter>file</parameter>, stopping when a
+newline is encountered outside of a quoted string and not escaped
+using a blackslash.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+past the end of the line or the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para>
+<para>
+The command is returned as a string allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for returned string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the newly allocated command found or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-parse-block" role="function">
+<title>nih_config_parse_block ()</title>
+<indexterm zone="nih-config-parse-block"><primary>nih_config_parse_block</primary></indexterm>
+<programlisting><link linkend="char"><returnvalue>char</returnvalue></link> *              nih_config_parse_block              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *type</parameter>);</programlisting>
+<para>
+Extracts a block of text from <parameter>line</parameter>, stopping when the phrase "end <parameter>type</parameter>"
+is encountered without any quotes or blackslash escaping within it.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+past the end of the block or the end of the file.
+</para>
+<para>
+Either <parameter>file</parameter> or <parameter>pos</parameter> should point to the start of the block, after the
+opening stanza, rather than the start of the stanza that opens it.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para>
+<para>
+The block is returned as a string allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for returned string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>block identifier.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the text contained within the block or NULL on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-skip-block" role="function">
+<title>nih_config_skip_block ()</title>
+<indexterm zone="nih-config-skip-block"><primary>nih_config_skip_block</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_config_skip_block               (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *type</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *endpos</parameter>);</programlisting>
+<para>
+Skips over a block of text from <parameter>file</parameter>, stopping when the phrase
+"end <parameter>type</parameter>" is encountered without any quotes or blackslash escaping
+within it.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+past the end of the block and block marker or the end of the file.
+</para>
+<para>
+Either <parameter>file</parameter> or <parameter>pos</parameter> should point to the start of the block, after the
+opening stanza, rather than the start of the stanza that opens it.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para>
+<para>
+<parameter>endpos</parameter> will be set to the end of the block and the start of the block
+marker, this is useful for determining the length of the block skipped,
+to parse it for example.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>block identifier,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>endpos</parameter>&#160;:</term>
+<listitem><simpara>pointer to end of block.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-parse-stanza" role="function">
+<title>nih_config_parse_stanza ()</title>
+<indexterm zone="nih-config-parse-stanza"><primary>nih_config_parse_stanza</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_config_parse_stanza             (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanzas</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Extracts a configuration stanza from <parameter>file</parameter> and calls the handler
+function for that stanza found in the <parameter>stanzas</parameter> table to handle the
+rest of the line from thereon in.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+to <parameter>delim</parameter> or past the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>stanzas</parameter>&#160;:</term>
+<listitem><simpara>table of stanza handlers,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to stanza handler.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success or negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-parse-file" role="function">
+<title>nih_config_parse_file ()</title>
+<indexterm zone="nih-config-parse-file"><primary>nih_config_parse_file</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_config_parse_file               (<parameter>const <link linkend="char"><type>char</type></link> *file</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> len</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanzas</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Parses configuration file lines from <parameter>file</parameter>, skipping initial whitespace,
+blank lines and comments while calling <link linkend="nih-config-parse-stanza"><function>nih_config_parse_stanza()</function></link> for
+anything else.
+</para>
+<para>
+<parameter>file</parameter> may be a memory mapped file, in which case <parameter>pos</parameter> should be given
+as the offset within and <parameter>len</parameter> should be the length of the file as a
+whole.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+to <parameter>delim</parameter> or past the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>file</parameter>&#160;:</term>
+<listitem><simpara>file or string to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>stanzas</parameter>&#160;:</term>
+<listitem><simpara>table of stanza handlers,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to stanza handler.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-config-parse" role="function">
+<title>nih_config_parse ()</title>
+<indexterm zone="nih-config-parse"><primary>nih_config_parse</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_config_parse                    (<parameter>const <link linkend="char"><type>char</type></link> *filename</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *pos</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> *lineno</parameter>,
+                                                         <parameter><link linkend="NihConfigStanza"><type>NihConfigStanza</type></link> *stanzas</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Reads <parameter>filename</parameter> into memory and them parses configuration lines from it
+using <link linkend="nih-config-parse-file"><function>nih_config_parse_file()</function></link>.
+</para>
+<para>
+If <parameter>pos</parameter> is given then it will be used as the offset within <parameter>file</parameter> to
+begin (otherwise the start is assumed), and will be updated to point
+to <parameter>delim</parameter> or past the end of the file.
+</para>
+<para>
+If <parameter>lineno</parameter> is given it will be incremented each time a new line is
+discovered in the file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara>name of file to parse,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&#160;:</term>
+<listitem><simpara>offset within <parameter>file</parameter>,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lineno</parameter>&#160;:</term>
+<listitem><simpara>line number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>stanzas</parameter>&#160;:</term>
+<listitem><simpara>table of stanza handlers,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to stanza handler.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on raised error.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

@@ -1,0 +1,351 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Error">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Error.top_of_page">Error</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Error</refname>
+<refpurpose>System and application error handling</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Error.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="NihError">NihError</link>;
+#define             <link linkend="nih-error-raise">nih_error_raise</link>                     (number,
+                                                         message)
+#define             <link linkend="nih-error-raise-printf">nih_error_raise_printf</link>              (number,
+                                                         format,
+                                                         ...)
+#define             <link linkend="nih-error-raise-system">nih_error_raise_system</link>
+#define             <link linkend="nih-error-raise-no-memory">nih_error_raise_no_memory</link>
+#define             <link linkend="nih-error-raise-error">nih_error_raise_error</link>               (error)
+#define             <link linkend="nih-return-error">nih_return_error</link>                    (retval,
+                                                         number,
+                                                         message)
+#define             <link linkend="nih-return-system-error">nih_return_system_error</link>             (retval)
+#define             <link linkend="nih-return-no-memory-error">nih_return_no_memory_error</link>          (retval)
+#define             <link linkend="NIH-SHOULD:CAPS">NIH_SHOULD</link>                          (_e)
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-error-init">nih_error_init</link>                      (<parameter><type>void</type></parameter>);
+<link linkend="NihError"><returnvalue>NihError</returnvalue></link> *          <link linkend="nih-error-get">nih_error_get</link>                       (<parameter><type>void</type></parameter>);
+<link linkend="NihError"><returnvalue>NihError</returnvalue></link> *          <link linkend="nih-error-steal">nih_error_steal</link>                     (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-error-push-context">nih_error_push_context</link>              (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-error-pop-context">nih_error_pop_context</link>               (<parameter><type>void</type></parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Error.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Many functions in libnih use these functions to report information about
+errors, those that don't use the ordinary errno mechnism which can
+also be reported within this framework.
+</para>
+<para>
+Errors are raised as NihError structures, kept globally.  Only one error
+may be active at any one time, raising an error when another is already
+raised will result in an assertion.
+</para>
+<para>
+Errors are raised with the <link linkend="nih-error-raise"><function>nih_error_raise()</function></link> or <link linkend="nih-error-raise-printf"><function>nih_error_raise_printf()</function></link>
+functions, passing the error number and a human-readable messages.
+</para>
+<para>
+System errors can be raised with <link linkend="nih-error-raise-system"><function>nih_error_raise_system()</function></link>, and both
+caught errors and self-allocated errors can be raised with
+<link linkend="nih-error-raise-error"><function>nih_error_raise_error()</function></link>.
+</para>
+<para>
+You then report the error condition through your return value, or some
+other stack-based method.
+</para>
+<para>
+A higher function that wishes to handle the error calls <link linkend="nih-error-get"><function>nih_error_get()</function></link>
+to retrieve it, it's an error to do so if you do not know that an error
+is pending.  This returns the currently raised error structure.
+</para>
+<para>
+To clear the error, it should be freed with <link linkend="nih-free"><function>nih_free()</function></link>.  To return the
+error from your own function, simply don't free it.
+</para>
+<para>
+Errors may be partitioned using contexts, a new context is pushed with
+<link linkend="nih-error-push-context"><function>nih_error_push_context()</function></link>; any errors raised are now stored in this
+context and any previous raised errors are hidden from view.  The context
+can be popped again with <link linkend="nih-error-pop-context"><function>nih_error_pop_context()</function></link> provided that any raised
+error has been dealt with.  The previously hidden raised errors are now
+visible again.
+</para>
+<para>
+To raise an error from one context, into another, you can't simply call
+<link linkend="nih-error-get"><function>nih_error_get()</function></link> before <link linkend="nih-error-pop-context"><function>nih_error_pop_context()</function></link> since the latter will
+assert because of the unfreed error.  Instead <link linkend="nih-error-steal"><function>nih_error_steal()</function></link> may be
+used which returns the error as <link linkend="nih-error-get"><function>nih_error_get()</function></link> does but also removes
+it from the context.
+</para>
+<para>
+<link linkend="nih-error-steal"><function>nih_error_steal()</function></link> may also be used to stash errors before trying an
+alternate code path.
+</para>
+</refsect1>
+<refsect1 id="nih-Error.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihError" role="struct">
+<title>NihError</title>
+<indexterm zone="NihError"><primary>NihError</primary></indexterm>
+<programlisting>typedef struct {
+	const char *filename;
+	int         line;			
+	const char *function;			
+						
+	int         number;			
+	const char *message;
+} NihError;
+</programlisting>
+<para>
+This structure represents an error, defining the error <parameter>number</parameter> for
+programmers to capture and handle them and a human-readable <parameter>message</parameter>
+that should be pre-translated.
+</para>
+<para>
+The structure is allocated when an error occurs, and only one structure
+may exist in one context at a time; when another error is raised, the
+existing error, if any, is freed.
+</para>
+<para>
+You may also use this structure as the header for more complicated error
+objects, in which case do not worry about setting <parameter>filename</parameter>, <parameter>line</parameter> or
+<parameter>function</parameter> since these are set when you call <link linkend="nih-error-raise-error"><function>nih_error_raise_error()</function></link>; the
+correct way to do this is to place the macro NIH_ERROR_MEMBERS at the
+front of your structure, rather than an NihError named member - this
+makes code that uses your custom error a little easier.
+</para><variablelist role="struct">
+<varlistentry><term>const&#160;<link linkend="char"><type>char</type></link>&#160;*<structfield id="NihError.filename">filename</structfield>;</term>
+<listitem><simpara>filename where the error was raised,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="NihError.line">line</structfield>;</term>
+<listitem><simpara>line number of <parameter>filename</parameter> where the error was raised,</simpara></listitem>
+</varlistentry>
+<varlistentry><term>const&#160;<link linkend="char"><type>char</type></link>&#160;*<structfield id="NihError.function">function</structfield>;</term>
+<listitem><simpara>function name the error was raised within,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="NihError.number">number</structfield>;</term>
+<listitem><simpara>numeric identifier,</simpara></listitem>
+</varlistentry>
+<varlistentry><term>const&#160;<link linkend="char"><type>char</type></link>&#160;*<structfield id="NihError.message">message</structfield>;</term>
+<listitem><simpara>human-readable message.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-error-raise" role="macro">
+<title>nih_error_raise()</title>
+<indexterm zone="nih-error-raise"><primary>nih_error_raise</primary></indexterm>
+<programlisting>#define             nih_error_raise(number, message)</programlisting>
+<para>
+Raises an error with the given details in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</para>
+<para>
+<parameter>message</parameter> should be a static string, as it will not be freed when the
+error object is.
+</para><variablelist role="params">
+<varlistentry><term><parameter>number</parameter>&#160;:</term>
+<listitem><simpara>numeric identifier,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>human-readable message.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-error-raise-printf" role="macro">
+<title>nih_error_raise_printf()</title>
+<indexterm zone="nih-error-raise-printf"><primary>nih_error_raise_printf</primary></indexterm>
+<programlisting>#define             nih_error_raise_printf(number, format, ...)</programlisting>
+<para>
+Raises an error with the given details in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</para>
+<para>
+The human-readable message for the error is parsed according to <parameter>format</parameter>,
+and allocated as a child of the error object so that it is freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>number</parameter>&#160;:</term>
+<listitem><simpara>numeric identifier,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&#160;:</term>
+<listitem><simpara>format string for human-readable message,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-error-raise-system" role="macro">
+<title>nih_error_raise_system</title>
+<indexterm zone="nih-error-raise-system"><primary>nih_error_raise_system</primary></indexterm>
+<programlisting>#define             nih_error_raise_system()</programlisting>
+<para>
+Raises an error with details taken from the current value of errno,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</para></refsect2>
+<refsect2 id="nih-error-raise-no-memory" role="macro">
+<title>nih_error_raise_no_memory</title>
+<indexterm zone="nih-error-raise-no-memory"><primary>nih_error_raise_no_memory</primary></indexterm>
+<programlisting>#define             nih_error_raise_no_memory()</programlisting>
+<para>
+Raises an ENOMEM system error, if an unhandled error already exists then
+an error message is emitted through the logging system; you should try
+to avoid this.
+</para></refsect2>
+<refsect2 id="nih-error-raise-error" role="macro">
+<title>nih_error_raise_error()</title>
+<indexterm zone="nih-error-raise-error"><primary>nih_error_raise_error</primary></indexterm>
+<programlisting>#define             nih_error_raise_error(error)</programlisting>
+<para>
+Raises the existing error object in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</para>
+<para>
+This is normally used to raise a taken error that has not been handled,
+or to raise a custom error object.
+</para>
+<para>
+The destructor of <parameter>error</parameter> will be overwritten so that the context can
+be cleared when the error is freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>existing object to raise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-return-error" role="macro">
+<title>nih_return_error()</title>
+<indexterm zone="nih-return-error"><primary>nih_return_error</primary></indexterm>
+<programlisting>#define             nih_return_error(retval, number,  message)</programlisting>
+<para>
+Raises an error with the given details in the current error context,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</para>
+<para>
+Will return from the current function with <parameter>retval</parameter>, which may be left
+empty to return from a void function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>retval</parameter>&#160;:</term>
+<listitem><simpara>return value for function,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>number</parameter>&#160;:</term>
+<listitem><simpara>numeric identifier,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>human-readable message.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-return-system-error" role="macro">
+<title>nih_return_system_error()</title>
+<indexterm zone="nih-return-system-error"><primary>nih_return_system_error</primary></indexterm>
+<programlisting>#define             nih_return_system_error(retval)</programlisting>
+<para>
+Raises an error with details taken from the current value of errno,
+if an unhandled error already exists then an error message is emitted
+through the logging system; you should try to avoid this.
+</para>
+<para>
+Will return from the current function with <parameter>retval</parameter>, which may be left
+empty to return from a void function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>retval</parameter>&#160;:</term>
+<listitem><simpara>return value for function.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-return-no-memory-error" role="macro">
+<title>nih_return_no_memory_error()</title>
+<indexterm zone="nih-return-no-memory-error"><primary>nih_return_no_memory_error</primary></indexterm>
+<programlisting>#define             nih_return_no_memory_error(retval)</programlisting>
+<para>
+Raises an ENOMEM system error, if an unhandled error already exists then
+an error message is emitted through the logging system; you should try
+to avoid this.
+</para>
+<para>
+Will return from the current function with <parameter>retval</parameter>, which may be left
+empty to return from a void function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>retval</parameter>&#160;:</term>
+<listitem><simpara>return value for function.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-SHOULD:CAPS" role="macro">
+<title>NIH_SHOULD()</title>
+<indexterm zone="NIH-SHOULD:CAPS"><primary>NIH_SHOULD</primary></indexterm>
+<programlisting>#define             NIH_SHOULD(_e)</programlisting>
+<para>
+Repeats the expression <parameter>_e</parameter> until it either yields a true value, or
+raises an error other than ENOMEM.
+</para>
+<para>
+This can only be used when the expression always raises an error if
+it does not yield a true value.
+</para>
+<para>
+The raised error remains raised and should be dealt with following
+this function, thus you should store the value of the expression so you
+know whether or not an error occurred.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_e</parameter>&#160;:</term>
+<listitem><simpara>C expression.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>value of expression <parameter>_e</parameter> which will be evaluated as many times
+as necessary to become true.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-error-init" role="function">
+<title>nih_error_init ()</title>
+<indexterm zone="nih-error-init"><primary>nih_error_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_error_init                      (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialise the context stack.
+</para></refsect2>
+<refsect2 id="nih-error-get" role="function">
+<title>nih_error_get ()</title>
+<indexterm zone="nih-error-get"><primary>nih_error_get</primary></indexterm>
+<programlisting><link linkend="NihError"><returnvalue>NihError</returnvalue></link> *          nih_error_get                       (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Returns the last unhandled error from the current context.
+</para>
+<para>
+The object must be freed with <link linkend="nih-free"><function>nih_free()</function></link> once you are finished with it,
+otherwise the error will still considered to be raised.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>error object from current context.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-error-steal" role="function">
+<title>nih_error_steal ()</title>
+<indexterm zone="nih-error-steal"><primary>nih_error_steal</primary></indexterm>
+<programlisting><link linkend="NihError"><returnvalue>NihError</returnvalue></link> *          nih_error_steal                     (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Returns the last unhandled error from the current context, and removes
+it from the error context.  To re-raise, it must be given to
+<link linkend="nih-error-raise-error"><function>nih_error_raise_error()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>error object from current context.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-error-push-context" role="function">
+<title>nih_error_push_context ()</title>
+<indexterm zone="nih-error-push-context"><primary>nih_error_push_context</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_error_push_context              (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Creates a new context in which errors can occur without disturbing any
+previous unhandled error, useful for touring a particular piece of
+processing that handles its own errors and may be triggered as a result
+of another error.
+</para></refsect2>
+<refsect2 id="nih-error-pop-context" role="function">
+<title>nih_error_pop_context ()</title>
+<indexterm zone="nih-error-pop-context"><primary>nih_error_pop_context</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_error_pop_context               (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Ends the last context created with <link linkend="nih-error-push-context"><function>nih_error_push_context()</function></link>, deliberate
+care should be taken so that these are always properly nested (through
+the correct use of scope, for example) and contexts are not left unpopped.
+</para></refsect2>
+
+</refsect1>
+
+</refentry>

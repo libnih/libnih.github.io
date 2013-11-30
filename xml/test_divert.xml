@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-test-divert">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-test-divert.top_of_page">test_divert</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>test_divert</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-test-divert.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="TEST-DIVERT-STDOUT-FD:CAPS">TEST_DIVERT_STDOUT_FD</link>               (_fd)
+#define             <link linkend="TEST-DIVERT-STDOUT:CAPS">TEST_DIVERT_STDOUT</link>                  (_file)
+#define             <link linkend="TEST-DIVERT-STDERR-FD:CAPS">TEST_DIVERT_STDERR_FD</link>               (_fd)
+#define             <link linkend="TEST-DIVERT-STDERR:CAPS">TEST_DIVERT_STDERR</link>                  (_file)
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-test-divert.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-test-divert.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="TEST-DIVERT-STDOUT-FD:CAPS" role="macro">
+<title>TEST_DIVERT_STDOUT_FD()</title>
+<indexterm zone="TEST-DIVERT-STDOUT-FD:CAPS"><primary>TEST_DIVERT_STDOUT_FD</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDOUT_FD(_fd)</programlisting>
+<para>
+This macro diverts standard output to a different file descriptor
+for the duration of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>fd to send standard output to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-DIVERT-STDOUT:CAPS" role="macro">
+<title>TEST_DIVERT_STDOUT()</title>
+<indexterm zone="TEST-DIVERT-STDOUT:CAPS"><primary>TEST_DIVERT_STDOUT</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDOUT(_file)</programlisting>
+<para>
+This macro diverts standard output to a different file for the duration
+of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to send standard output to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-DIVERT-STDERR-FD:CAPS" role="macro">
+<title>TEST_DIVERT_STDERR_FD()</title>
+<indexterm zone="TEST-DIVERT-STDERR-FD:CAPS"><primary>TEST_DIVERT_STDERR_FD</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDERR_FD(_fd)</programlisting>
+<para>
+This macro diverts standard error to a different file descriptor for the
+duration of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>fd to send standard error to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-DIVERT-STDERR:CAPS" role="macro">
+<title>TEST_DIVERT_STDERR()</title>
+<indexterm zone="TEST-DIVERT-STDERR:CAPS"><primary>TEST_DIVERT_STDERR</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDERR(_file)</programlisting>
+<para>
+This macro diverts standard error to a different file for the duration
+of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to send standard error to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

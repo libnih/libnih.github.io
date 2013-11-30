@@ -1,0 +1,769 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Tree">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Tree.top_of_page">Tree</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Tree</refname>
+<refpurpose>Binary trees</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Tree.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>enum                <link linkend="NihTreeWhere">NihTreeWhere</link>;
+                    <link linkend="NihTree">NihTree</link>;
+                    <link linkend="NihTreeEntry">NihTreeEntry</link>;
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihTreeFilter">*NihTreeFilter</link>)                    (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);
+#define             <link linkend="NIH-TREE-FOREACH-FULL:CAPS">NIH_TREE_FOREACH_FULL</link>               (tree,
+                                                         iter,
+                                                         filter,
+                                                         data)
+#define             <link linkend="NIH-TREE-FOREACH-PRE-FULL:CAPS">NIH_TREE_FOREACH_PRE_FULL</link>           (tree,
+                                                         iter,
+                                                         filter,
+                                                         data)
+#define             <link linkend="NIH-TREE-FOREACH-POST-FULL:CAPS">NIH_TREE_FOREACH_POST_FULL</link>          (tree,
+                                                         iter,
+                                                         filter,
+                                                         data)
+#define             <link linkend="nih-tree-next">nih_tree_next</link>                       (tree,
+                                                         node)
+#define             <link linkend="nih-tree-prev">nih_tree_prev</link>                       (tree,
+                                                         node)
+#define             <link linkend="nih-tree-next-pre">nih_tree_next_pre</link>                   (tree,
+                                                         node)
+#define             <link linkend="nih-tree-prev-pre">nih_tree_prev_pre</link>                   (tree,
+                                                         node)
+#define             <link linkend="nih-tree-next-post">nih_tree_next_post</link>                  (tree,
+                                                         node)
+#define             <link linkend="nih-tree-prev-post">nih_tree_prev_post</link>                  (tree,
+                                                         node)
+#define             <link linkend="NIH-TREE-FOREACH:CAPS">NIH_TREE_FOREACH</link>                    (tree,
+                                                         iter)
+#define             <link linkend="NIH-TREE-FOREACH-PRE:CAPS">NIH_TREE_FOREACH_PRE</link>                (tree,
+                                                         iter)
+#define             <link linkend="NIH-TREE-FOREACH-POST:CAPS">NIH_TREE_FOREACH_POST</link>               (tree,
+                                                         iter)
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-tree-init">nih_tree_init</link>                       (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-new">nih_tree_new</link>                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="NihTreeEntry"><returnvalue>NihTreeEntry</returnvalue></link> *      <link linkend="nih-tree-entry-new">nih_tree_entry_new</link>                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-add">nih_tree_add</link>                        (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeWhere"><type>NihTreeWhere</type></link> where</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-remove">nih_tree_remove</link>                     (<parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-unlink">nih_tree_unlink</link>                     (<parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-tree-destroy">nih_tree_destroy</link>                    (<parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-next-full">nih_tree_next_full</link>                  (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-prev-full">nih_tree_prev_full</link>                  (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-next-pre-full">nih_tree_next_pre_full</link>              (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-prev-pre-full">nih_tree_prev_pre_full</link>              (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-next-post-full">nih_tree_next_post_full</link>             (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           <link linkend="nih-tree-prev-post-full">nih_tree_prev_post_full</link>             (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Tree.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Provides a generic binary tree implementation.  No assumption is
+made about the structure of the tree, or its rules.  Instead when
+you add a node to a tree, you must specify the parent node and whether
+to add the new node to its left or right.
+</para>
+<para>
+Tree nodes may be created in one of two ways.  The most common is to
+embed the NihTree structure as the first member of your own structure,
+and initialise it with <link linkend="nih-tree-init"><function>nih_tree_init()</function></link> after allocating the structure.
+Alternatively you may create NihTreeEntry structures with
+<link linkend="nih-tree-entry-new"><function>nih_tree_entry_new()</function></link> and point at your own data from them.
+</para>
+<para>
+If you need no data for the tree root, you may use NihTree itself and
+allocate it with <link linkend="nih-tree-new"><function>nih_tree_new()</function></link>.
+</para>
+<para>
+Nodes may be added to the tree with <link linkend="nih-tree-add"><function>nih_tree_add()</function></link>, passing the parent
+node, the new node and whether to add to the left or right.
+</para>
+<para>
+To remove a node from the tree, and its children, use <link linkend="nih-tree-remove"><function>nih_tree_remove()</function></link>;
+the node removed becomes the root of a new tree.
+</para>
+<para>
+Nodes may be moved between trees, or relocated within a tree, by simply
+calling <link linkend="nih-tree-add"><function>nih_tree_add()</function></link> - there's no need to call <link linkend="nih-tree-remove"><function>nih_tree_remove()</function></link> first.
+</para>
+<para>
+A node may also be removed from a tree and from its children using
+<link linkend="nih-tree-unlink"><function>nih_tree_unlink()</function></link>; the node removed, and each of its children, become
+the roots of new trees.
+</para>
+<para>
+Tree-iteration may be performed non-recursively in a pre-order, in-order
+or post-order fashion; forwards or backwards.  The functions
+<link linkend="nih-tree-next-full"><function>nih_tree_next_full()</function></link>, <link linkend="nih-tree-prev-full"><function>nih_tree_prev_full()</function></link>, <link linkend="nih-tree-next-pre-full"><function>nih_tree_next_pre_full()</function></link>,
+<link linkend="nih-tree-prev-pre-full"><function>nih_tree_prev_pre_full()</function></link>, <link linkend="nih-tree-next-post-full"><function>nih_tree_next_post_full()</function></link> and
+<link linkend="nih-tree-prev-post-full"><function>nih_tree_prev_post_full()</function></link> all return the next or previous node, allowing
+for filtering.  If you do not need to filter macros are provided that
+pass NULL, named without the _full extension.
+</para>
+<para>
+These are almost always used in a for loop, so macros are provided that
+expand to a for loop for each of the different orders;
+<link linkend="NIH-TREE-FOREACH-FULL:CAPS"><function>NIH_TREE_FOREACH_FULL()</function></link>, <link linkend="NIH-TREE-FOREACH-PRE-FULL:CAPS"><function>NIH_TREE_FOREACH_PRE_FULL()</function></link> and
+<link linkend="NIH-TREE-FOREACH-POST-FULL:CAPS"><function>NIH_TREE_FOREACH_POST_FULL()</function></link>.  Versions which pass NULL for the filter
+are provided without the _FULL extension.
+</para>
+</refsect1>
+<refsect1 id="nih-Tree.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihTreeWhere" role="enum">
+<title>enum NihTreeWhere</title>
+<indexterm zone="NihTreeWhere"><primary>NihTreeWhere</primary></indexterm>
+<programlisting>typedef enum {
+	NIH_TREE_LEFT  = -1,
+	NIH_TREE_RIGHT =  1,
+} NihTreeWhere;
+</programlisting>
+<para>
+These constants define a position for one node, relative to another;
+usually for when adding a node to an existing tree.
+</para><variablelist role="enum">
+<varlistentry id="NIH-TREE-LEFT:CAPS" role="constant">
+<term><literal>NIH_TREE_LEFT</literal></term>
+<listitem><simpara>left,
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="NIH-TREE-RIGHT:CAPS" role="constant">
+<term><literal>NIH_TREE_RIGHT</literal></term>
+<listitem><simpara>right.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihTree" role="struct">
+<title>NihTree</title>
+<indexterm zone="NihTree"><primary>NihTree</primary></indexterm>
+<programlisting>typedef struct {
+	struct nih_tree *parent, *left, *right;
+} NihTree;
+</programlisting>
+<para>
+This structure can be used both to refer to a binary tree and can be
+placed in your own structures to use them as tree nodes.
+</para>
+<para>
+A node without any parent (root node) has <parameter>parent</parameter> set to NULL, nodes
+without any children (leaf nodes) have <parameter>left</parameter> and <parameter>right</parameter> set to NULL.
+</para>
+<para>
+NihTree is most useful for implementing pure binary trees, where the
+properties of that structure (such as simple location or traversal) are
+desired.
+</para>
+<para>
+General trees (where each node may have zero or more nodes, beyond two)
+can be implemented using binary trees as described by Knuth (fundamentally,
+head right for siblings, left for children) or as lists of children in
+each node (such as used by nih_alloc); pick whichever suits your data
+best.
+</para><variablelist role="struct">
+<varlistentry><term>struct&#160;<link linkend="nih-tree"><type>nih_tree</type></link>&#160;*<structfield id="NihTree.parent">parent</structfield>;</term>
+<listitem><simpara>parent node in the tree,</simpara></listitem>
+</varlistentry>
+<varlistentry><term>struct&#160;<link linkend="nih-tree"><type>nih_tree</type></link>&#160;*<structfield id="NihTree.left">left</structfield>;</term>
+<listitem><simpara>left child node,</simpara></listitem>
+</varlistentry>
+<varlistentry><term>struct&#160;<link linkend="nih-tree"><type>nih_tree</type></link>&#160;*<structfield id="NihTree.right">right</structfield>;</term>
+<listitem><simpara>right child node.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihTreeEntry" role="struct">
+<title>NihTreeEntry</title>
+<indexterm zone="NihTreeEntry"><primary>NihTreeEntry</primary></indexterm>
+<programlisting>typedef struct {
+	NihTree node;
+	union {
+		void *data;
+		char *str;
+		int   int_data;
+	};
+} NihTreeEntry;
+</programlisting>
+<para>
+This structure can be used as a generic NihTree node that contains
+a pointer to generic data, a string or contains an integer value.
+</para>
+<para>
+You should take care of setting the data yourself.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="NihTree"><type>NihTree</type></link>&#160;<structfield id="NihTreeEntry.node">node</structfield>;</term>
+<listitem><simpara>tree node,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="void"><type>void</type></link>&#160;*<structfield id="NihTreeEntry.data">data</structfield>;</term>
+<listitem><simpara>data pointer,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="char"><type>char</type></link>&#160;*<structfield id="NihTreeEntry.str">str</structfield>;</term>
+<listitem><simpara>string pointer,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="int"><type>int</type></link>&#160;<structfield id="NihTreeEntry.int-data">int_data</structfield>;</term>
+<listitem><simpara>integer value.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihTreeFilter" role="function">
+<title>NihTreeFilter ()</title>
+<indexterm zone="NihTreeFilter"><primary>NihTreeFilter</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihTreeFilter)                    (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);</programlisting>
+<para>
+A tree filter is a function that is called when iterating a tree to
+determine whether a particular node and its children should be ignored.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node to be visited.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>TRUE if the node should be ignored, FALSE otherwise.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-TREE-FOREACH-FULL:CAPS" role="macro">
+<title>NIH_TREE_FOREACH_FULL()</title>
+<indexterm zone="NIH-TREE-FOREACH-FULL:CAPS"><primary>NIH_TREE_FOREACH_FULL</primary></indexterm>
+<programlisting>#define             NIH_TREE_FOREACH_FULL(tree, iter, filter, data)</programlisting>
+<para>
+Expands to a for statement that in-order iterates over each node in <parameter>tree</parameter>,
+setting <parameter>iter</parameter> to each node for the block within the loop.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para>
+<para>
+You should not make changes to the structure of the tree while iterating,
+since the order will be relatively unpredictable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>root of the tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-TREE-FOREACH-PRE-FULL:CAPS" role="macro">
+<title>NIH_TREE_FOREACH_PRE_FULL()</title>
+<indexterm zone="NIH-TREE-FOREACH-PRE-FULL:CAPS"><primary>NIH_TREE_FOREACH_PRE_FULL</primary></indexterm>
+<programlisting>#define             NIH_TREE_FOREACH_PRE_FULL(tree, iter, filter, data)</programlisting>
+<para>
+Expands to a for statement that pre-order iterates over each node in <parameter>tree</parameter>,
+setting <parameter>iter</parameter> to each node for the block within the loop.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para>
+<para>
+You should not make changes to the structure of the tree while iterating,
+since the order will be relatively unpredictable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>root of the tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-TREE-FOREACH-POST-FULL:CAPS" role="macro">
+<title>NIH_TREE_FOREACH_POST_FULL()</title>
+<indexterm zone="NIH-TREE-FOREACH-POST-FULL:CAPS"><primary>NIH_TREE_FOREACH_POST_FULL</primary></indexterm>
+<programlisting>#define             NIH_TREE_FOREACH_POST_FULL(tree, iter, filter, data)</programlisting>
+<para>
+Expands to a for statement that post-order iterates over each node in <parameter>tree</parameter>,
+setting <parameter>iter</parameter> to each node for the block within the loop.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para>
+<para>
+You should not make changes to the structure of the tree while iterating,
+since the order will be relatively unpredictable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>root of the tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-next" role="macro">
+<title>nih_tree_next()</title>
+<indexterm zone="nih-tree-next"><primary>nih_tree_next</primary></indexterm>
+<programlisting>#define             nih_tree_next(tree, node)</programlisting>
+<para>
+Iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the first node,
+<parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-prev" role="macro">
+<title>nih_tree_prev()</title>
+<indexterm zone="nih-tree-prev"><primary>nih_tree_prev</primary></indexterm>
+<programlisting>#define             nih_tree_prev(tree, node)</programlisting>
+<para>
+Reverse-iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the last
+node, <parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>previous in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-next-pre" role="macro">
+<title>nih_tree_next_pre()</title>
+<indexterm zone="nih-tree-next-pre"><primary>nih_tree_next_pre</primary></indexterm>
+<programlisting>#define             nih_tree_next_pre(tree, node)</programlisting>
+<para>
+Iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the first node,
+<parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-prev-pre" role="macro">
+<title>nih_tree_prev_pre()</title>
+<indexterm zone="nih-tree-prev-pre"><primary>nih_tree_prev_pre</primary></indexterm>
+<programlisting>#define             nih_tree_prev_pre(tree, node)</programlisting>
+<para>
+Reverse-iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the last
+node, <parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>previous in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-next-post" role="macro">
+<title>nih_tree_next_post()</title>
+<indexterm zone="nih-tree-next-post"><primary>nih_tree_next_post</primary></indexterm>
+<programlisting>#define             nih_tree_next_post(tree, node)</programlisting>
+<para>
+Iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the first node,
+<parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-prev-post" role="macro">
+<title>nih_tree_prev_post()</title>
+<indexterm zone="nih-tree-prev-post"><primary>nih_tree_prev_post</primary></indexterm>
+<programlisting>#define             nih_tree_prev_post(tree, node)</programlisting>
+<para>
+Reverse-iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the last
+node, <parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>previous in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-TREE-FOREACH:CAPS" role="macro">
+<title>NIH_TREE_FOREACH()</title>
+<indexterm zone="NIH-TREE-FOREACH:CAPS"><primary>NIH_TREE_FOREACH</primary></indexterm>
+<programlisting>#define             NIH_TREE_FOREACH(tree, iter)</programlisting>
+<para>
+Expands to a for statement that in-order iterates over each node in <parameter>tree</parameter>,
+setting <parameter>iter</parameter> to each node for the block within the loop.
+</para>
+<para>
+You should not make changes to the structure of the tree while iterating,
+since the order will be relatively unpredictable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>root of the tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-TREE-FOREACH-PRE:CAPS" role="macro">
+<title>NIH_TREE_FOREACH_PRE()</title>
+<indexterm zone="NIH-TREE-FOREACH-PRE:CAPS"><primary>NIH_TREE_FOREACH_PRE</primary></indexterm>
+<programlisting>#define             NIH_TREE_FOREACH_PRE(tree, iter)</programlisting>
+<para>
+Expands to a for statement that pre-order iterates over each node in <parameter>tree</parameter>,
+setting <parameter>iter</parameter> to each node for the block within the loop.
+</para>
+<para>
+You should not make changes to the structure of the tree while iterating,
+since the order will be relatively unpredictable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>root of the tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-TREE-FOREACH-POST:CAPS" role="macro">
+<title>NIH_TREE_FOREACH_POST()</title>
+<indexterm zone="NIH-TREE-FOREACH-POST:CAPS"><primary>NIH_TREE_FOREACH_POST</primary></indexterm>
+<programlisting>#define             NIH_TREE_FOREACH_POST(tree, iter)</programlisting>
+<para>
+Expands to a for statement that post-order iterates over each node in <parameter>tree</parameter>,
+setting <parameter>iter</parameter> to each node for the block within the loop.
+</para>
+<para>
+You should not make changes to the structure of the tree while iterating,
+since the order will be relatively unpredictable.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>root of the tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-init" role="function">
+<title>nih_tree_init ()</title>
+<indexterm zone="nih-tree-init"><primary>nih_tree_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_tree_init                       (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>);</programlisting>
+<para>
+Initialise an already allocated tree node, once done it can be used
+as the start of a new binary tree or added to an existing tree.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree node to be initialised.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-new" role="function">
+<title>nih_tree_new ()</title>
+<indexterm zone="nih-tree-new"><primary>nih_tree_new</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_new                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Allocates a new tree structure, usually used as the root of a new
+binary tree.  You may prefer to allocate the NihTree structure statically
+and use <link linkend="nih-tree-init"><function>nih_tree_init()</function></link> to initialise it instead.
+</para>
+<para>
+The structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> so can be used as a context
+to other allocations.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned tree node.  When all parents
+of the returned tree node are freed, the returned tree node will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new node.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new tree node or NULL if the allocation failed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-entry-new" role="function">
+<title>nih_tree_entry_new ()</title>
+<indexterm zone="nih-tree-entry-new"><primary>nih_tree_entry_new</primary></indexterm>
+<programlisting><link linkend="NihTreeEntry"><returnvalue>NihTreeEntry</returnvalue></link> *      nih_tree_entry_new                  (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>);</programlisting>
+<para>
+Allocates a new tree entry structure, leaving the caller to set the
+data of the entry.
+</para>
+<para>
+The structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> so can be used as a context
+to other allocations.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned tree entry.  When all parents
+of the returned tree entry are freed, the returned tree entry will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new entry.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new tree entry or NULL if the allocation failed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-add" role="function">
+<title>nih_tree_add ()</title>
+<indexterm zone="nih-tree-add"><primary>nih_tree_add</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_add                        (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeWhere"><type>NihTreeWhere</type></link> where</parameter>);</programlisting>
+<para>
+Adds <parameter>node</parameter> to a new binary tree, either as a child of or, or replacing,
+the existing node <parameter>tree</parameter>.  The exact position is determined by <parameter>where</parameter>,
+which may be NIH_TREE_LEFT or NIH_TREE_RIGHT to indicate that <parameter>node</parameter>
+should be a child of <parameter>tree</parameter> or NIH_TREE_HERE to indicate that <parameter>node</parameter>
+should replace <parameter>tree</parameter>.
+</para>
+<para>
+If <parameter>node</parameter> is already in another tree it is removed so there is no need
+to call <link linkend="nih-tree-remove"><function>nih_tree_remove()</function></link> before this function.  There is also no
+requirement that the trees be different, so this can be used to reorder
+a tree.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>node in the destination tree,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node to be added to the tree,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>where</parameter>&#160;:</term>
+<listitem><simpara>where <parameter>node</parameter> should be added.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>node replaced by <parameter>node</parameter>, normally NULL.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-remove" role="function">
+<title>nih_tree_remove ()</title>
+<indexterm zone="nih-tree-remove"><primary>nih_tree_remove</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_remove                     (<parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);</programlisting>
+<para>
+Removes <parameter>node</parameter> and its children from the containing tree.  Neither the
+node nor children are freed, and the children are not unlinked from the
+node.  Instead the node is returned so that it can be added to another
+tree (through there's no need to call <link linkend="nih-tree-remove"><function>nih_tree_remove()</function></link> first if you
+wanted to do that) or used as the root of a new tree.
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node to be removed.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>node</parameter> as a root node.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-unlink" role="function">
+<title>nih_tree_unlink ()</title>
+<indexterm zone="nih-tree-unlink"><primary>nih_tree_unlink</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_unlink                     (<parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);</programlisting>
+<para>
+Removes <parameter>node</parameter> from its containing tree, as <link linkend="nih-tree-remove"><function>nih_tree_remove()</function></link> does, but
+also unlinks the node's children from itself so that they don't have
+a dangling pointer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node to be removed.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>node</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-destroy" role="function">
+<title>nih_tree_destroy ()</title>
+<indexterm zone="nih-tree-destroy"><primary>nih_tree_destroy</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_tree_destroy                    (<parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>);</programlisting>
+<para>
+Removes <parameter>node</parameter> from its containing tree.
+</para>
+<para>
+Normally used or called from an <link linkend="nih-alloc"><function>nih_alloc()</function></link> destructor so that the list
+item is automatically removed from its containing list when freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node to be removed.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-next-full" role="function">
+<title>nih_tree_next_full ()</title>
+<indexterm zone="nih-tree-next-full"><primary>nih_tree_next_full</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_next_full                  (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the first node,
+<parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-prev-full" role="function">
+<title>nih_tree_prev_full ()</title>
+<indexterm zone="nih-tree-prev-full"><primary>nih_tree_prev_full</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_prev_full                  (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Reverse-iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the last
+node, <parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>previous in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-next-pre-full" role="function">
+<title>nih_tree_next_pre_full ()</title>
+<indexterm zone="nih-tree-next-pre-full"><primary>nih_tree_next_pre_full</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_next_pre_full              (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the first node,
+<parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-prev-pre-full" role="function">
+<title>nih_tree_prev_pre_full ()</title>
+<indexterm zone="nih-tree-prev-pre-full"><primary>nih_tree_prev_pre_full</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_prev_pre_full              (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Reverse-iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the last
+node, <parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>previous in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-next-post-full" role="function">
+<title>nih_tree_next_post_full ()</title>
+<indexterm zone="nih-tree-next-post-full"><primary>nih_tree_next_post_full</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_next_post_full             (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the first node,
+<parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-tree-prev-post-full" role="function">
+<title>nih_tree_prev_post_full ()</title>
+<indexterm zone="nih-tree-prev-post-full"><primary>nih_tree_prev_post_full</primary></indexterm>
+<programlisting><link linkend="NihTree"><returnvalue>NihTree</returnvalue></link> *           nih_tree_prev_post_full             (<parameter><link linkend="NihTree"><type>NihTree</type></link> *tree</parameter>,
+                                                         <parameter><link linkend="NihTree"><type>NihTree</type></link> *node</parameter>,
+                                                         <parameter><link linkend="NihTreeFilter"><type>NihTreeFilter</type></link> filter</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Reverse-iterates the <parameter>tree</parameter> in-order non-recursively; to obtain the last
+node, <parameter>tree</parameter> should be set to the root of the tree and <parameter>node</parameter> should be NULL.
+Then for subsequent nodes, <parameter>node</parameter> should be the previous return value
+from this function.
+</para>
+<para>
+If <parameter>filter</parameter> is given, it will be called for each node visited and must
+return FALSE otherwise the node and its children will be ignored.
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree</parameter>&#160;:</term>
+<listitem><simpara>tree to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>node just visited,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&#160;:</term>
+<listitem><simpara>filter function to test each node,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>data pointer to pass to <parameter>filter</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>previous in-order node within <parameter>tree</parameter> or NULL if no further nodes.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

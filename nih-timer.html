@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>timer</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-test-values.html" title="test_values">
+<link rel="next" href="nih-Tree.html" title="Tree">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-test-values.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-Tree.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-timer.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-timer.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-timer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-timer.top_of_page"></a>timer</span></h2>
+<p>timer</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-timer.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="nih-timer.html#NihTimer" title="NihTimer">NihTimer</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="nih-timer.html#NihTimerCb" title="NihTimerCb ()">*NihTimerCb</a>)                       (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="type">NihTimer</span></a> *timer</code></em>);
+enum                <a class="link" href="nih-timer.html#NihTimerType" title="enum NihTimerType">NihTimerType</a>;
+                    <a class="link" href="nih-timer.html#NihTimerSchedule" title="NihTimerSchedule">NihTimerSchedule</a>;
+extern NihList *    <a class="link" href="nih-timer.html#nih-timers" title="nih_timers">nih_timers</a>;
+<span class="returnvalue">void</span>                <a class="link" href="nih-timer.html#nih-timer-init" title="nih_timer_init ()">nih_timer_init</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          <a class="link" href="nih-timer.html#nih-timer-add-timeout" title="nih_timer_add_timeout ()">nih_timer_add_timeout</a>               (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">time_t</span> timeout</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerCb" title="NihTimerCb ()"><span class="type">NihTimerCb</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);
+<a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          <a class="link" href="nih-timer.html#nih-timer-add-periodic" title="nih_timer_add_periodic ()">nih_timer_add_periodic</a>              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">time_t</span> period</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerCb" title="NihTimerCb ()"><span class="type">NihTimerCb</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);
+<a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          <a class="link" href="nih-timer.html#nih-timer-add-scheduled" title="nih_timer_add_scheduled ()">nih_timer_add_scheduled</a>             (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerSchedule" title="NihTimerSchedule"><span class="type">NihTimerSchedule</span></a> *schedule</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerCb" title="NihTimerCb ()"><span class="type">NihTimerCb</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);
+<a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          <a class="link" href="nih-timer.html#nih-timer-next-due" title="nih_timer_next_due ()">nih_timer_next_due</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-timer.html#nih-timer-poll" title="nih_timer_poll ()">nih_timer_poll</a>                      (<em class="parameter"><code><span class="type">void</span></code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-timer.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-timer.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihTimer"></a><h3>NihTimer</h3>
+<pre class="programlisting">typedef struct nih_timer NihTimer;
+</pre>
+<p>
+Timers may be used whenever a function needs to be called later in
+the process.  They are divided into three types, identified by <em class="parameter"><code>type</code></em>.
+</p>
+<p>
+Timeouts are called once, <em class="parameter"><code>timeout</code></em> seconds after they were registered.
+Periodic timers are called every <em class="parameter"><code>period</code></em> seconds after they were registered.
+Scheduled timers are called based on the information in <em class="parameter"><code>schedule</code></em>.
+</p>
+<p>
+In all cases, a timer may be cancelled by calling <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> on
+it as they are held in a list internally.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihTimerCb"></a><h3>NihTimerCb ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihTimerCb)                       (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="type">NihTimer</span></a> *timer</code></em>);</pre>
+<p>
+The timer callback is called whenever the timer has been triggered.
+For periodic and scheduled timers, the timer may be removed by calling
+<a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> or similar; this happens automatically for timeouts.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer given with callback,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timer</code></em> :</span></p></td>
+<td>timer that triggered the call.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihTimerType"></a><h3>enum NihTimerType</h3>
+<pre class="programlisting">typedef enum {
+	NIH_TIMER_TIMEOUT,
+	NIH_TIMER_PERIODIC,
+	NIH_TIMER_SCHEDULED
+} NihTimerType;
+</pre>
+<p>
+Used to identify the different types of timers that can be registered;
+note that scheduled timers are not yet implemented.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="NIH-TIMER-TIMEOUT:CAPS"></a><span class="term"><code class="literal">NIH_TIMER_TIMEOUT</code></span></p></td>
+<td>timeout,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-TIMER-PERIODIC:CAPS"></a><span class="term"><code class="literal">NIH_TIMER_PERIODIC</code></span></p></td>
+<td>periodic,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-TIMER-SCHEDULED:CAPS"></a><span class="term"><code class="literal">NIH_TIMER_SCHEDULED</code></span></p></td>
+<td>scheduled.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihTimerSchedule"></a><h3>NihTimerSchedule</h3>
+<pre class="programlisting">typedef struct {
+	uint64_t minutes;
+	uint32_t hours;
+	uint32_t mdays;
+	uint16_t months;
+	uint8_t  wdays;
+} NihTimerSchedule;
+</pre>
+<p>
+Indidcates when scheduled timers should be run, each member is a bit
+field where the bit is 1 if the timer should be run for that value and
+0 if not.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">uint64_t</span> <em class="structfield"><code><a name="NihTimerSchedule.minutes"></a>minutes</code></em>;</span></p></td>
+<td>minutes past the hour (0-59),</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">uint32_t</span> <em class="structfield"><code><a name="NihTimerSchedule.hours"></a>hours</code></em>;</span></p></td>
+<td>hours (0-23),</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">uint32_t</span> <em class="structfield"><code><a name="NihTimerSchedule.mdays"></a>mdays</code></em>;</span></p></td>
+<td>days of month (1-31),</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">uint16_t</span> <em class="structfield"><code><a name="NihTimerSchedule.months"></a>months</code></em>;</span></p></td>
+<td>months (1-12),</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">uint8_t</span> <em class="structfield"><code><a name="NihTimerSchedule.wdays"></a>wdays</code></em>;</span></p></td>
+<td>days of week (0-7).</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-timers"></a><h3>nih_timers</h3>
+<pre class="programlisting">extern NihList *nih_timers;
+</pre>
+<p>
+This is the list of all registered timers, it is not sorted into any
+particular order.  The due time of timers should be set when the timer
+is added to this list, or rescheduled; it is not calculated on the fly.
+</p>
+<p>
+Each item is an NihTimer structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-timer-init"></a><h3>nih_timer_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_timer_init                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Initialise the timer list.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-timer-add-timeout"></a><h3>nih_timer_add_timeout ()</h3>
+<pre class="programlisting"><a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          nih_timer_add_timeout               (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">time_t</span> timeout</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerCb" title="NihTimerCb ()"><span class="type">NihTimerCb</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+Arranges for the <em class="parameter"><code>callback</code></em> function to be called in <em class="parameter"><code>timeout</code></em> seconds
+time, or the soonest period thereafter.  A timer may be called
+immediately by passing zero or a non-negative number as <em class="parameter"><code>timeout</code></em>.
+</p>
+<p>
+The timer structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and stored in
+a linked list; there is no non-allocated version of this function
+because of this and because it will be automatically freed once called.
+</p>
+<p>
+Cancellation of the timer can be performed by freeing it.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned timer.  When all parents
+of the returned timer are freed, the returned timer will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new timer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>timeout</code></em> :</span></p></td>
+<td>seconds to wait before triggering,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>function to be called,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to pass to function as first argument.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new timer information, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-timer-add-periodic"></a><h3>nih_timer_add_periodic ()</h3>
+<pre class="programlisting"><a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          nih_timer_add_periodic              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">time_t</span> period</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerCb" title="NihTimerCb ()"><span class="type">NihTimerCb</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+Arranges for the <em class="parameter"><code>callback</code></em> function to be called every <em class="parameter"><code>period</code></em> seconds,
+or the soonest time thereafter.
+</p>
+<p>
+The timer structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and stored in
+a linked list; there is no non-allocated version of this function
+because of this.
+</p>
+<p>
+Cancellation of the timer can be performed by freeing it.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned timer.  When all parents
+of the returned timer are freed, the returned timer will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new timer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>period</code></em> :</span></p></td>
+<td>number of seconds between calls,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>function to be called,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to pass to function as first argument.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new timer information, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-timer-add-scheduled"></a><h3>nih_timer_add_scheduled ()</h3>
+<pre class="programlisting"><a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          nih_timer_add_scheduled             (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerSchedule" title="NihTimerSchedule"><span class="type">NihTimerSchedule</span></a> *schedule</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-timer.html#NihTimerCb" title="NihTimerCb ()"><span class="type">NihTimerCb</span></a> callback</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+Arranges for the <em class="parameter"><code>callback</code></em> function to be called based on the <em class="parameter"><code>schedule</code></em>
+given.
+</p>
+<p>
+The timer structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and stored in
+a linked list; there is no non-allocated version of this function
+because of this.
+</p>
+<p>
+Cancellation of the timer can be performed by freeing it.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned timer.  When all parents
+of the returned timer are freed, the returned timer will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new timer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>schedule</code></em> :</span></p></td>
+<td>trigger schedule,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>callback</code></em> :</span></p></td>
+<td>function to be called,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to pass to function as first argument.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the new timer information, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-timer-next-due"></a><h3>nih_timer_next_due ()</h3>
+<pre class="programlisting"><a class="link" href="nih-timer.html#NihTimer" title="NihTimer"><span class="returnvalue">NihTimer</span></a> *          nih_timer_next_due                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Iterates the complete list of timers looking for the one with the
+lowest due time, so that the timer returned is either due to be triggered
+now or in some period's time.
+</p>
+<p>
+Normally used to determine how long we can sleep for by subtracting the
+current time from the due time of the next timer.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>next timer due, or NULL if there are no timers.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-timer-poll"></a><h3>nih_timer_poll ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_timer_poll                      (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Iterates the complete list of timers and triggers any for which the
+due time is less than or equal to the current time by calling their
+callback functions.
+</p>
+<p>
+Arranges for the timer to be rescheuled, unless it is a timeout in which
+case it is removed from the timer list.
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

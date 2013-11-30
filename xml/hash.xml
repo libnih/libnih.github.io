@@ -1,0 +1,473 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-Hash">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-Hash.top_of_page">Hash</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>Hash</refname>
+<refpurpose>Generic hash tables</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-Hash.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>const <link linkend="void"><returnvalue>void</returnvalue></link> *        (<link linkend="NihKeyFunction">*NihKeyFunction</link>)                   (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="uint32-t"><returnvalue>uint32_t</returnvalue></link>            (<link linkend="NihHashFunction">*NihHashFunction</link>)                  (<parameter>const <link linkend="void"><type>void</type></link> *key</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihCmpFunction">*NihCmpFunction</link>)                   (<parameter>const <link linkend="void"><type>void</type></link> *key1</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *key2</parameter>);
+                    <link linkend="NihHash">NihHash</link>;
+#define             <link linkend="NIH-HASH-FOREACH:CAPS">NIH_HASH_FOREACH</link>                    (hash,
+                                                         iter)
+#define             <link linkend="NIH-HASH-FOREACH-SAFE:CAPS">NIH_HASH_FOREACH_SAFE</link>               (hash,
+                                                         iter)
+#define             <link linkend="nih-hash-string-new">nih_hash_string_new</link>                 (parent,
+                                                         entries)
+<link linkend="NihHash"><returnvalue>NihHash</returnvalue></link> *           <link linkend="nih-hash-new">nih_hash_new</link>                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> entries</parameter>,
+                                                         <parameter><link linkend="NihKeyFunction"><type>NihKeyFunction</type></link> key_function</parameter>,
+                                                         <parameter><link linkend="NihHashFunction"><type>NihHashFunction</type></link> hash_function</parameter>,
+                                                         <parameter><link linkend="NihCmpFunction"><type>NihCmpFunction</type></link> cmp_function</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-hash-add">nih_hash_add</link>                        (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-hash-add-unique">nih_hash_add_unique</link>                 (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-hash-replace">nih_hash_replace</link>                    (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-hash-search">nih_hash_search</link>                     (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *key</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           <link linkend="nih-hash-lookup">nih_hash_lookup</link>                     (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *key</parameter>);
+const <link linkend="char"><returnvalue>char</returnvalue></link> *        <link linkend="nih-hash-string-key">nih_hash_string_key</link>                 (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);
+<link linkend="uint32-t"><returnvalue>uint32_t</returnvalue></link>            <link linkend="nih-hash-string-hash">nih_hash_string_hash</link>                (<parameter>const <link linkend="char"><type>char</type></link> *key</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-hash-string-cmp">nih_hash_string_cmp</link>                 (<parameter>const <link linkend="char"><type>char</type></link> *key1</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *key2</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-Hash.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Provides a generic hash table implementation using NihList for the bins,
+which means that entries may be freely moved between lists and hash
+tables.
+</para>
+<para>
+Members are identified by a constant key, which is used for both hashing
+and comparison.  The key function takes a given member (referenced by
+its list head) and returns a pointer, this pointer is passed to the
+hash function for hashing and the comparison function for comparison.
+</para>
+<para>
+The key, hash and comparison function are given when creating the hash
+table with <link linkend="nih-hash-new"><function>nih_hash_new()</function></link>.
+</para>
+<para>
+The most common use of this pointer is a string, generally a constant
+one found as the first member in the structure after the list head.
+For this case, you may use <link linkend="nih-hash-string-new"><function>nih_hash_string_new()</function></link> instead.
+</para>
+<para>
+Entries may be added to a hash table using <link linkend="nih-hash-add"><function>nih_hash_add()</function></link>, no assumption
+is made about whether duplicate entries are permitted or not.  To add
+and fail if the entry already exists use <link linkend="nih-hash-add-unique"><function>nih_hash_add_unique()</function></link>, to add
+and replace an existing entry use <link linkend="nih-hash-replace"><function>nih_hash_replace()</function></link>.
+</para>
+<para>
+The hash table may be iterated with <link linkend="nih-hash-search"><function>nih_hash_search()</function></link>, passing the return
+value to subsequent calls iterates all values with the given key.
+</para>
+<para>
+To lookup the first value <link linkend="nih-hash-lookup"><function>nih_hash_lookup()</function></link> is a convenient simpler
+function.
+</para>
+</refsect1>
+<refsect1 id="nih-Hash.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihKeyFunction" role="function">
+<title>NihKeyFunction ()</title>
+<indexterm zone="NihKeyFunction"><primary>NihKeyFunction</primary></indexterm>
+<programlisting>const <link linkend="void"><returnvalue>void</returnvalue></link> *        (*NihKeyFunction)                   (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+This function is used to obtain a constant key for a given table entry.
+</para><variablelist role="params">
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to key.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>constant key from entry.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihHashFunction" role="function">
+<title>NihHashFunction ()</title>
+<indexterm zone="NihHashFunction"><primary>NihHashFunction</primary></indexterm>
+<programlisting><link linkend="uint32-t"><returnvalue>uint32_t</returnvalue></link>            (*NihHashFunction)                  (<parameter>const <link linkend="void"><type>void</type></link> *key</parameter>);</programlisting>
+<para>
+This function is used to generate a 32-bit hash for a given constant
+key, this will be bounded by the hash size automatically.
+</para><variablelist role="params">
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>key to hash.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>32-bit hash.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihCmpFunction" role="function">
+<title>NihCmpFunction ()</title>
+<indexterm zone="NihCmpFunction"><primary>NihCmpFunction</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 (*NihCmpFunction)                   (<parameter>const <link linkend="void"><type>void</type></link> *key1</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *key2</parameter>);</programlisting>
+<para>
+This function is used to compare constant keys from two given table
+entries.
+</para><variablelist role="params">
+<varlistentry><term><parameter>key1</parameter>&#160;:</term>
+<listitem><simpara>key to compare,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key2</parameter>&#160;:</term>
+<listitem><simpara>key to compare against.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>integer less than, equal to or greater than zero if <parameter>key1</parameter> is
+respectively less then, equal to or greater than <parameter>key2</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NihHash" role="struct">
+<title>NihHash</title>
+<indexterm zone="NihHash"><primary>NihHash</primary></indexterm>
+<programlisting>typedef struct {
+	NihList         *bins;
+	size_t           size;
+
+	NihKeyFunction   key_function;
+	NihHashFunction  hash_function;
+	NihCmpFunction   cmp_function;
+} NihHash;
+</programlisting>
+<para>
+This structure represents a hash table which is more efficient for
+looking up members than an ordinary list.
+</para>
+<para>
+Individual members of the hash table are NihList members as are the
+bins themselves, so to remove an entry from the table you can just
+use <link linkend="nih-list-remove"><function>nih_list_remove()</function></link>.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="NihList"><type>NihList</type></link>&#160;*<structfield id="NihHash.bins">bins</structfield>;</term>
+<listitem><simpara>array of bins,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="size-t"><type>size_t</type></link>&#160;<structfield id="NihHash.size">size</structfield>;</term>
+<listitem><simpara>size of bins array,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="NihKeyFunction"><type>NihKeyFunction</type></link>&#160;<structfield id="NihHash.key-function">key_function</structfield>;</term>
+<listitem><simpara>function used to obtain keys for entries,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="NihHashFunction"><type>NihHashFunction</type></link>&#160;<structfield id="NihHash.hash-function">hash_function</structfield>;</term>
+<listitem><simpara>function used to obtain hash of keys,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="NihCmpFunction"><type>NihCmpFunction</type></link>&#160;<structfield id="NihHash.cmp-function">cmp_function</structfield>;</term>
+<listitem><simpara>function used to compare keys.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-HASH-FOREACH:CAPS" role="macro">
+<title>NIH_HASH_FOREACH()</title>
+<indexterm zone="NIH-HASH-FOREACH:CAPS"><primary>NIH_HASH_FOREACH</primary></indexterm>
+<programlisting>#define             NIH_HASH_FOREACH(hash, iter)</programlisting>
+<para>
+Expands to nested for statements that iterate over each entry in each
+bin of <parameter>hash</parameter>, except the bin head pointer, setting <parameter>iter</parameter> to each entry
+for the block within the loop.  A variable named _<parameter>iter_i</parameter> is used to
+iterate the hash bins.
+</para>
+<para>
+This is the cheapest form of iteration, however it is not safe to perform
+various modifications to the hash; most importantly, you must not change
+the member being iterated in any way, including removing it from the hash
+or freeing it.  If you need to do that, use <link linkend="NIH-HASH-FOREACH-SAFE:CAPS"><function>NIH_HASH_FOREACH_SAFE()</function></link> instead.
+</para>
+<para>
+However since it doesn't modify the hash being iterated in any way, it
+is safe to traverse or iterate the hash again while iterating.
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>hash table to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="NIH-HASH-FOREACH-SAFE:CAPS" role="macro">
+<title>NIH_HASH_FOREACH_SAFE()</title>
+<indexterm zone="NIH-HASH-FOREACH-SAFE:CAPS"><primary>NIH_HASH_FOREACH_SAFE</primary></indexterm>
+<programlisting>#define             NIH_HASH_FOREACH_SAFE(hash, iter)</programlisting>
+<para>
+Expands to nested for statements that iterate over each entry in each
+bin of <parameter>hash</parameter>, except for the bin head pointer, setting <parameter>iter</parameter> to each
+entry for the block within the loop.  A variable named _<parameter>iter_i</parameter> is used
+to iterate the hash bins.
+</para>
+<para>
+The iteration is performed safely by placing a cursor node after <parameter>iter</parameter>;
+this means that any node including <parameter>iter</parameter> can be removed from the hash,
+added to a different hash or list, or entries added before or after it.
+</para>
+<para>
+Note that if you add an entry directly after <parameter>iter</parameter> and wish it to be
+visited, you would need to use <link linkend="NIH-HASH-FOREACH:CAPS"><function>NIH_HASH_FOREACH()</function></link> instead, as this
+would be placed before the cursor and thus skipped.
+</para>
+<para>
+Also since the hash has an extra node during iteration of a different
+type, it is expressly not safe to traverse or iterate the hash while
+iterating - including performing lookups.  If you need to perform
+multiple iterations, lookups, or reference the next or previous pointers
+of a node, you must use <link linkend="NIH-HASH-FOREACH:CAPS"><function>NIH_HASH_FOREACH()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>hash table to iterate,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>name of iterator variable.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-string-new" role="macro">
+<title>nih_hash_string_new()</title>
+<indexterm zone="nih-hash-string-new"><primary>nih_hash_string_new</primary></indexterm>
+<programlisting>#define             nih_hash_string_new(parent, entries)</programlisting>
+<para>
+Allocates a new hash table, the number of buckets selected is a prime
+number that is no larger than <parameter>entries</parameter>; this should be set to a rough
+number of expected entries to ensure optimum distribution.
+</para>
+<para>
+Individual members of the hash table are NihList member which have
+a constant string as the first member that can be used as the hash key,
+these will be compared case sensitively.
+</para>
+<para>
+The structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> so it can be used as a
+context to other allocations; there is no non-allocated version of this
+function because the hash must be usable as a parent context to its bins.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned hash table.  When all parents
+of the returned hash table are freed, the returned hash table will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent of new hash,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entries</parameter>&#160;:</term>
+<listitem><simpara>rough number of entries expected,</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new hash table or NULL if the allocation failed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-new" role="function">
+<title>nih_hash_new ()</title>
+<indexterm zone="nih-hash-new"><primary>nih_hash_new</primary></indexterm>
+<programlisting><link linkend="NihHash"><returnvalue>NihHash</returnvalue></link> *           nih_hash_new                        (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="size-t"><type>size_t</type></link> entries</parameter>,
+                                                         <parameter><link linkend="NihKeyFunction"><type>NihKeyFunction</type></link> key_function</parameter>,
+                                                         <parameter><link linkend="NihHashFunction"><type>NihHashFunction</type></link> hash_function</parameter>,
+                                                         <parameter><link linkend="NihCmpFunction"><type>NihCmpFunction</type></link> cmp_function</parameter>);</programlisting>
+<para>
+Allocates a new hash table, the number of buckets selected is a prime
+number that is no larger than <parameter>entries</parameter>; this should be set to a rough
+number of expected entries to ensure optimum distribution.
+</para>
+<para>
+Individual members of the hash table are NihList members, so to
+associate them with a constant key <parameter>key_function</parameter> must be provided, to
+convert that key into a hash <parameter>hash_function</parameter> must be provided and to
+compare keys <parameter>cmp_function</parameter> must be provided.  The <link linkend="nih-hash-string-new"><function>nih_hash_string_new()</function></link>
+macro wraps this function for the most common case of a string key as
+the first structure member.
+</para>
+<para>
+The structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> so it can be used as a
+context to other allocations; there is no non-allocated version of this
+function because the hash must be usable as a parent context to its bins.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned hash table.  When all parents
+of the returned hash table are freed, the returned hash table will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent of new hash,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entries</parameter>&#160;:</term>
+<listitem><simpara>rough number of entries expected,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key_function</parameter>&#160;:</term>
+<listitem><simpara>function used to obtain keys for entries,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>hash_function</parameter>&#160;:</term>
+<listitem><simpara>function used to obtain hash for keys,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cmp_function</parameter>&#160;:</term>
+<listitem><simpara>function used to compare keys.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the new hash table or NULL if the allocation failed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-add" role="function">
+<title>nih_hash_add ()</title>
+<indexterm zone="nih-hash-add"><primary>nih_hash_add</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_hash_add                        (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Adds <parameter>entry</parameter> to <parameter>hash</parameter> using the value returned by the hash functions
+to indicate which bin the entry should be placed into.
+</para>
+<para>
+For speed reasons, this function does not check whether an entry already
+exists with the key.  If you need that constraint use either
+<link linkend="nih-hash-add-unique"><function>nih_hash_add_unique()</function></link> or <link linkend="nih-hash-replace"><function>nih_hash_replace()</function></link>.
+</para>
+<para>
+If <parameter>entry</parameter> is already in another list it is removed so there is no need
+to call <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> before this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>destination hash table,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be added.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>entry</parameter> which is now a member of one of <parameter>hash</parameter>'s bins.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-add-unique" role="function">
+<title>nih_hash_add_unique ()</title>
+<indexterm zone="nih-hash-add-unique"><primary>nih_hash_add_unique</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_hash_add_unique                 (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Adds <parameter>entry</parameter> to <parameter>hash</parameter> using the value returned by the hash functions
+to indicate which bin the entry should be placed into, provided the key
+is unique.
+</para>
+<para>
+Because the hash table does not store the key of each entry, this requires
+that the key function be called for each entry in the destination bin, so
+should only be used where the uniqueness constraint is required and not
+already enforced by other code.
+</para>
+<para>
+If <parameter>entry</parameter> is already in another list it is removed so there is no need
+to call <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> before this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>destination hash table,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be added.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara><parameter>entry</parameter> which is now a member of one of <parameter>hash</parameter>'s bins or NULL if
+an entry already existed with the same key.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-replace" role="function">
+<title>nih_hash_replace ()</title>
+<indexterm zone="nih-hash-replace"><primary>nih_hash_replace</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_hash_replace                    (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Adds <parameter>entry</parameter> to <parameter>hash</parameter> using the value returned by the hash functions
+to indicate which bin the entry should be placed into, replacing any
+existing entry with the same key.
+</para>
+<para>
+Because the hash table does not store the key of each entry, this requires
+that the key function be called for each entry in the destination bin, so
+should only be used where the uniqueness constraint is required and not
+already enforced by other code.
+</para>
+<para>
+The replaced entry is returned, it is up to the caller to free it and
+ensure this does not come as a surprise to other code.
+</para>
+<para>
+If <parameter>entry</parameter> is already in another list it is removed so there is no need
+to call <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> before this function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>destination hash table,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to be added.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>existing entry with the same key replaced in the table, or NULL
+if no such entry existed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-search" role="function">
+<title>nih_hash_search ()</title>
+<indexterm zone="nih-hash-search"><primary>nih_hash_search</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_hash_search                     (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *key</parameter>,
+                                                         <parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Finds all entries in <parameter>hash</parameter> with a key of <parameter>key</parameter> by calling the hash's
+key function on each entry in the appropriate bin, starting with <parameter>entry</parameter>,
+until one is found.
+</para>
+<para>
+The initial <parameter>entry</parameter> can be found by passing NULL or using <link linkend="nih-hash-lookup"><function>nih_hash_lookup()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>hash table to search,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>key to look for,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>previous entry found.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>next entry in the hash or NULL if there are no more entries.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-lookup" role="function">
+<title>nih_hash_lookup ()</title>
+<indexterm zone="nih-hash-lookup"><primary>nih_hash_lookup</primary></indexterm>
+<programlisting><link linkend="NihList"><returnvalue>NihList</returnvalue></link> *           nih_hash_lookup                     (<parameter><link linkend="NihHash"><type>NihHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="void"><type>void</type></link> *key</parameter>);</programlisting>
+<para>
+Finds the first entry in <parameter>hash</parameter> with a key of <parameter>key</parameter> by calling the hash's
+NihKeyFunction on each entry in the appropriate bin until one is found.
+</para>
+<para>
+If multiple entries are expected, use <link linkend="nih-hash-search"><function>nih_hash_search()</function></link> instead.
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>hash table to search.</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>key to look for.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>entry found or NULL if no entry existed.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-string-key" role="function">
+<title>nih_hash_string_key ()</title>
+<indexterm zone="nih-hash-string-key"><primary>nih_hash_string_key</primary></indexterm>
+<programlisting>const <link linkend="char"><returnvalue>char</returnvalue></link> *        nih_hash_string_key                 (<parameter><link linkend="NihList"><type>NihList</type></link> *entry</parameter>);</programlisting>
+<para>
+Key function that can be used for any list entry where the first member
+immediately after the list header is a pointer to the string containing
+the name.
+</para><variablelist role="params">
+<varlistentry><term><parameter>entry</parameter>&#160;:</term>
+<listitem><simpara>entry to create key for.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>pointer to that string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-string-hash" role="function">
+<title>nih_hash_string_hash ()</title>
+<indexterm zone="nih-hash-string-hash"><primary>nih_hash_string_hash</primary></indexterm>
+<programlisting><link linkend="uint32-t"><returnvalue>uint32_t</returnvalue></link>            nih_hash_string_hash                (<parameter>const <link linkend="char"><type>char</type></link> *key</parameter>);</programlisting>
+<para>
+Generates and returns a 32-bit hash for the given string key using the
+FNV-1 algorithm as documented at http://www.isthe.com/chongo/tech/comp/fnv/
+</para>
+<para>
+The returned key will need to be bounded within the number of bins
+used in the hash table.
+</para><variablelist role="params">
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>string key to hash.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>32-bit hash.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-hash-string-cmp" role="function">
+<title>nih_hash_string_cmp ()</title>
+<indexterm zone="nih-hash-string-cmp"><primary>nih_hash_string_cmp</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_hash_string_cmp                 (<parameter>const <link linkend="char"><type>char</type></link> *key1</parameter>,
+                                                         <parameter>const <link linkend="char"><type>char</type></link> *key2</parameter>);</programlisting>
+<para>
+Compares <parameter>key1</parameter> to <parameter>key2</parameter> case-sensitively.
+</para><variablelist role="params">
+<varlistentry><term><parameter>key1</parameter>&#160;:</term>
+<listitem><simpara>key to compare,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key2</parameter>&#160;:</term>
+<listitem><simpara>key to compare against.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>integer less than, equal to or greater than zero if <parameter>key1</parameter> is
+respectively less then, equal to or greater than <parameter>key2</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

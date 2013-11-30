@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-test-hash">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-test-hash.top_of_page">test_hash</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>test_hash</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-test-hash.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="TEST-HASH-EMPTY:CAPS">TEST_HASH_EMPTY</link>                     (_hash)
+#define             <link linkend="TEST-HASH-NOT-EMPTY:CAPS">TEST_HASH_NOT_EMPTY</link>                 (_hash)
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-test-hash.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-test-hash.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="TEST-HASH-EMPTY:CAPS" role="macro">
+<title>TEST_HASH_EMPTY()</title>
+<indexterm zone="TEST-HASH-EMPTY:CAPS"><primary>TEST_HASH_EMPTY</primary></indexterm>
+<programlisting>#define             TEST_HASH_EMPTY(_hash)</programlisting>
+<para>
+Check that the hash table <parameter>_hash</parameter> is empty.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_hash</parameter>&#160;:</term>
+<listitem><simpara>hash table.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-HASH-NOT-EMPTY:CAPS" role="macro">
+<title>TEST_HASH_NOT_EMPTY()</title>
+<indexterm zone="TEST-HASH-NOT-EMPTY:CAPS"><primary>TEST_HASH_NOT_EMPTY</primary></indexterm>
+<programlisting>#define             TEST_HASH_NOT_EMPTY(_hash)</programlisting>
+<para>
+Check that the hash table <parameter>_hash</parameter> is not empty.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_hash</parameter>&#160;:</term>
+<listitem><simpara>entry in list.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

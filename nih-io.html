@@ -1,0 +1,1496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>io</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-Hash.html" title="Hash">
+<link rel="next" href="nih-List.html" title="List">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-Hash.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-List.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-io.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-io.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-io"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-io.top_of_page"></a>io</span></h2>
+<p>io</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-io.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">enum                <a class="link" href="nih-io.html#NihIoType" title="enum NihIoType">NihIoType</a>;
+enum                <a class="link" href="nih-io.html#NihIoEvents" title="enum NihIoEvents">NihIoEvents</a>;
+typedef             <a class="link" href="nih-io.html#NihIoWatch" title="NihIoWatch">NihIoWatch</a>;
+typedef             <a class="link" href="nih-io.html#NihIo" title="NihIo">NihIo</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="nih-io.html#NihIoWatcher" title="NihIoWatcher ()">*NihIoWatcher</a>)                     (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoWatch" title="NihIoWatch"><span class="type">NihIoWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoEvents" title="enum NihIoEvents"><span class="type">NihIoEvents</span></a> events</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="nih-io.html#NihIoReader" title="NihIoReader ()">*NihIoReader</a>)                      (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="nih-io.html#NihIoCloseHandler" title="NihIoCloseHandler ()">*NihIoCloseHandler</a>)                (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);
+<span class="returnvalue">void</span>                (<a class="link" href="nih-io.html#NihIoErrorHandler" title="NihIoErrorHandler ()">*NihIoErrorHandler</a>)                (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);
+                    <a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer">NihIoBuffer</a>;
+                    <a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage">NihIoMessage</a>;
+extern NihList *    <a class="link" href="nih-io.html#nih-io-watches" title="nih_io_watches">nih_io_watches</a>;
+<span class="returnvalue">void</span>                <a class="link" href="nih-io.html#nih-io-init" title="nih_io_init ()">nih_io_init</a>                         (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="nih-io.html#NihIoWatch" title="NihIoWatch"><span class="returnvalue">NihIoWatch</span></a> *        <a class="link" href="nih-io.html#nih-io-add-watch" title="nih_io_add_watch ()">nih_io_add_watch</a>                    (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoEvents" title="enum NihIoEvents"><span class="type">NihIoEvents</span></a> events</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoWatcher" title="NihIoWatcher ()"><span class="type">NihIoWatcher</span></a> watcher</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-io.html#nih-io-select-fds" title="nih_io_select_fds ()">nih_io_select_fds</a>                   (<em class="parameter"><code><span class="type">int</span> *nfds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *readfds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *writefds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *exceptfds</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-io.html#nih-io-handle-fds" title="nih_io_handle_fds ()">nih_io_handle_fds</a>                   (<em class="parameter"><code><span class="type">fd_set</span> *readfds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *writefds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *exceptfds</code></em>);
+<a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="returnvalue">NihIoBuffer</span></a> *       <a class="link" href="nih-io.html#nih-io-buffer-new" title="nih_io_buffer_new ()">nih_io_buffer_new</a>                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-buffer-resize" title="nih_io_buffer_resize ()">nih_io_buffer_resize</a>                (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> grow</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-io.html#nih-io-buffer-pop" title="nih_io_buffer_pop ()">nih_io_buffer_pop</a>                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-io.html#nih-io-buffer-shrink" title="nih_io_buffer_shrink ()">nih_io_buffer_shrink</a>                (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-buffer-push" title="nih_io_buffer_push ()">nih_io_buffer_push</a>                  (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);
+<a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="returnvalue">NihIoMessage</span></a> *      <a class="link" href="nih-io.html#nih-io-message-new" title="nih_io_message_new ()">nih_io_message_new</a>                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-message-add-control" title="nih_io_message_add_control ()">nih_io_message_add_control</a>          (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="type">NihIoMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> level</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">socklen_t</span> len</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *data</code></em>);
+<a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="returnvalue">NihIoMessage</span></a> *      <a class="link" href="nih-io.html#nih-io-message-recv" title="nih_io_message_recv ()">nih_io_message_recv</a>                 (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>);
+<span class="returnvalue">ssize_t</span>             <a class="link" href="nih-io.html#nih-io-message-send" title="nih_io_message_send ()">nih_io_message_send</a>                 (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="type">NihIoMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>);
+<a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="returnvalue">NihIo</span></a> *             <a class="link" href="nih-io.html#nih-io-reopen" title="nih_io_reopen ()">nih_io_reopen</a>                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoType" title="enum NihIoType"><span class="type">NihIoType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoReader" title="NihIoReader ()"><span class="type">NihIoReader</span></a> reader</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoCloseHandler" title="NihIoCloseHandler ()"><span class="type">NihIoCloseHandler</span></a> close_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoErrorHandler" title="NihIoErrorHandler ()"><span class="type">NihIoErrorHandler</span></a> error_handler</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-io.html#nih-io-shutdown" title="nih_io_shutdown ()">nih_io_shutdown</a>                     (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-destroy" title="nih_io_destroy ()">nih_io_destroy</a>                      (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);
+<a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="returnvalue">NihIoMessage</span></a> *      <a class="link" href="nih-io.html#nih-io-read-message" title="nih_io_read_message ()">nih_io_read_message</a>                 (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-io.html#nih-io-send-message" title="nih_io_send_message ()">nih_io_send_message</a>                 (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="type">NihIoMessage</span></a> *message</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-io.html#nih-io-read" title="nih_io_read ()">nih_io_read</a>                         (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-write" title="nih_io_write ()">nih_io_write</a>                        (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);
+<span class="returnvalue">char</span> *              <a class="link" href="nih-io.html#nih-io-get" title="nih_io_get ()">nih_io_get</a>                          (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *delim</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-printf" title="nih_io_printf ()">nih_io_printf</a>                       (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-set-nonblock" title="nih_io_set_nonblock ()">nih_io_set_nonblock</a>                 (<em class="parameter"><code><span class="type">int</span> fd</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-io.html#nih-io-set-cloexec" title="nih_io_set_cloexec ()">nih_io_set_cloexec</a>                  (<em class="parameter"><code><span class="type">int</span> fd</code></em>);
+<span class="returnvalue">ssize_t</span>             <a class="link" href="nih-io.html#nih-io-get-family" title="nih_io_get_family ()">nih_io_get_family</a>                   (<em class="parameter"><code><span class="type">int</span> fd</code></em>);
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-io.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-io.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NihIoType"></a><h3>enum NihIoType</h3>
+<pre class="programlisting">typedef enum {
+	NIH_IO_STREAM,
+	NIH_IO_MESSAGE
+} NihIoType;
+</pre>
+<p>
+Whether an NihIo structure is used for a buffered stream of data, or
+a queue of discreet messages.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="NIH-IO-STREAM:CAPS"></a><span class="term"><code class="literal">NIH_IO_STREAM</code></span></p></td>
+<td>stream
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-IO-MESSAGE:CAPS"></a><span class="term"><code class="literal">NIH_IO_MESSAGE</code></span></p></td>
+<td>message
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoEvents"></a><h3>enum NihIoEvents</h3>
+<pre class="programlisting">typedef enum {
+	NIH_IO_NONE   = 00,
+	NIH_IO_READ   = 01,
+	NIH_IO_WRITE  = 02,
+	NIH_IO_EXCEPT = 04,
+} NihIoEvents;
+</pre>
+<p>
+Events that we can watch for, generally used as a bit mask of the events
+that have occurred.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><a name="NIH-IO-NONE:CAPS"></a><span class="term"><code class="literal">NIH_IO_NONE</code></span></p></td>
+<td>no events,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-IO-READ:CAPS"></a><span class="term"><code class="literal">NIH_IO_READ</code></span></p></td>
+<td>read,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-IO-WRITE:CAPS"></a><span class="term"><code class="literal">NIH_IO_WRITE</code></span></p></td>
+<td>write,
+</td>
+</tr>
+<tr>
+<td><p><a name="NIH-IO-EXCEPT:CAPS"></a><span class="term"><code class="literal">NIH_IO_EXCEPT</code></span></p></td>
+<td>exception.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoWatch"></a><h3>NihIoWatch</h3>
+<pre class="programlisting">typedef struct nih_io_watch NihIoWatch;
+</pre>
+<p>
+This structure represents the most basic kind of I/O handling, a watch
+on a file descriptor or socket that causes a function to be called
+when listed events occur.
+</p>
+<p>
+The watch can be cancelled by calling <a class="link" href="nih-List.html#nih-list-remove" title="nih_list_remove ()"><code class="function">nih_list_remove()</code></a> on the structure
+as they are held in a list internally.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIo"></a><h3>NihIo</h3>
+<pre class="programlisting">typedef struct nih_io       NihIo;
+</pre>
+<p>
+This structure implements more featureful I/O handling than provided by
+an NihIoWatch alone.
+</p>
+<p>
+When used in the stream mode (<em class="parameter"><code>type</code></em> is NIH_IO_STREAM), it combines an
+NihIoWatch and two NihIoBuffer structures to implement a high-throughput
+alternative to the traditional stdio functions.
+</p>
+<p>
+Those functions are optimised to reduce the number of <code class="function">read()</code> or <code class="function">write()</code>
+calls made on a file descriptor, and cannot be used to pool large
+amounts of data for processing.
+</p>
+<p>
+The NihIo functions are instead optimised for being able to queue and
+receive much data as possible, and have the data sent in the background
+or processed at your leisure.
+</p>
+<p>
+When used in the message mode (<em class="parameter"><code>type</code></em> is NIH_IO_MESSAGE), it combines the
+NihIoWatch with an NihList of NihIoMessage structures to implement
+asynchronous handling of datagram sockets.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoWatcher"></a><h3>NihIoWatcher ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihIoWatcher)                     (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoWatch" title="NihIoWatch"><span class="type">NihIoWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoEvents" title="enum NihIoEvents"><span class="type">NihIoEvents</span></a> events</code></em>);</pre>
+<p>
+An I/O watcher is a function that is called whenever an event occurs
+on a file descriptor or socket being watched.  It is safe for the
+watcher to remove the watch during the call.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given when registered,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>watch</code></em> :</span></p></td>
+<td>
+<a class="link" href="nih-io.html#NihIoWatch" title="NihIoWatch"><span class="type">NihIoWatch</span></a> for which an event occurred,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>events</code></em> :</span></p></td>
+<td>events that occurred.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoReader"></a><h3>NihIoReader ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihIoReader)                      (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);</pre>
+<p>
+An I/O reader is a function that is called whenever new data or a new
+message has been received on a file descriptor or socket and placed
+into the receive buffer or queue.
+</p>
+<p>
+In stream mode, <em class="parameter"><code>buf</code></em> and <em class="parameter"><code>len</code></em> will point to the entire receive buffer
+and this function need not clear the buffer, it is entirely permitted
+for the data to be left there.  When further data arrives, the buffer
+will be extended and the reader called again.
+</p>
+<p>
+In message mode, <em class="parameter"><code>buf</code></em> and <em class="parameter"><code>len</code></em> will point to the contents of the oldest
+message in the receive queue.  You'll almost certainly want to remove
+this message from the queue, otherwise when a new message arrives, the
+function will still be called with the same oldest message.
+</p>
+<p>
+It is safe to call <a class="link" href="nih-io.html#nih-io-shutdown" title="nih_io_shutdown ()"><code class="function">nih_io_shutdown()</code></a> from within the reader function, this
+results in the structure being flagged to be closed when the watcher
+that invokes it has finished.  You must not <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> <em class="parameter"><code>io</code></em> or cause it
+to be freed from within this function, except by <code class="function">nih_io_closed()</code>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given when registered,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>NihIo with data to be read,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>buffer data is available in,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>bytes in <em class="parameter"><code>buf</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoCloseHandler"></a><h3>NihIoCloseHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihIoCloseHandler)                (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);</pre>
+<p>
+An I/O close handler is a function that is called when the remote end
+of a file descriptor or socket is closed and data can no longer be
+read from it.
+</p>
+<p>
+It should take appropriate action, which may include closing the
+file descriptor with <code class="function">nih_io_closed()</code>.  You must not <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> <em class="parameter"><code>io</code></em> or
+cause it to be freed from within this function, except by <code class="function">nih_io_closed()</code>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given when registered.</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>NihIo that closed.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoErrorHandler"></a><h3>NihIoErrorHandler ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*NihIoErrorHandler)                (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);</pre>
+<p>
+An I/O error handler is a function that is called to handle an error
+raise while reading from the file descriptor or socket.  The error
+itself can be obtained using <a class="link" href="nih-Error.html#nih-error-get" title="nih_error_get ()"><code class="function">nih_error_get()</code></a>.
+</p>
+<p>
+It should take appropriate action, which may include closing the
+file descriptor with <code class="function">nih_io_closed()</code>.  You must not <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a> <em class="parameter"><code>io</code></em> or
+cause it to be freed from within this function, except by <code class="function">nih_io_closed()</code>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data pointer given when registered,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>NihIo that caused the error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoBuffer"></a><h3>NihIoBuffer</h3>
+<pre class="programlisting">typedef struct {
+	char   *buf;
+	size_t  size;
+	size_t  len;
+} NihIoBuffer;
+</pre>
+<p>
+This structure is used to represent a buffer holding data that is
+waiting to be sent or processed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><span class="type">char</span> *<em class="structfield"><code><a name="NihIoBuffer.buf"></a>buf</code></em>;</span></p></td>
+<td>memory allocated for buffer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">size_t</span> <em class="structfield"><code><a name="NihIoBuffer.size"></a>size</code></em>;</span></p></td>
+<td>allocated size of <em class="parameter"><code>buf</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">size_t</span> <em class="structfield"><code><a name="NihIoBuffer.len"></a>len</code></em>;</span></p></td>
+<td>number of bytes of <em class="parameter"><code>buf</code></em> used.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NihIoMessage"></a><h3>NihIoMessage</h3>
+<pre class="programlisting">typedef struct {
+	NihList           entry;
+
+	struct sockaddr  *addr;
+	socklen_t         addrlen;
+
+	NihIoBuffer      *data;
+	struct cmsghdr  **control;
+
+	union {
+		int      int_data;
+		void    *ptr_data;
+	};
+} NihIoMessage;
+</pre>
+<p>
+This structure is used to represent an individual message waiting in
+a queue to be sent or processed.
+</p>
+<p>
+When a message is in the queue, it is sometimes useful to be able to
+associate it with the source or destination of the message, for example
+when handling errors.  You may use the <em class="parameter"><code>int_data</code></em> or <em class="parameter"><code>ptr_member</code></em> to store
+an integer or pointer value that is useful to you.  These are not usually
+initialised.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> <em class="structfield"><code><a name="NihIoMessage.entry"></a>entry</code></em>;</span></p></td>
+<td>list header,</td>
+</tr>
+<tr>
+<td><p><span class="term">struct <span class="type">sockaddr</span> *<em class="structfield"><code><a name="NihIoMessage.addr"></a>addr</code></em>;</span></p></td>
+<td>address received from or to be sent to,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">socklen_t</span> <em class="structfield"><code><a name="NihIoMessage.addrlen"></a>addrlen</code></em>;</span></p></td>
+<td>length of <em class="parameter"><code>addr</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *<em class="structfield"><code><a name="NihIoMessage.data"></a>data</code></em>;</span></p></td>
+<td>buffer for message data,</td>
+</tr>
+<tr>
+<td><p><span class="term">struct <span class="type">cmsghdr</span> **<em class="structfield"><code><a name="NihIoMessage.control"></a>control</code></em>;</span></p></td>
+<td>NULL-terminated array of control messages,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">int</span> <em class="structfield"><code><a name="NihIoMessage.int-data"></a>int_data</code></em>;</span></p></td>
+<td>user-supplied integer data,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">void</span> *<em class="structfield"><code><a name="NihIoMessage.ptr-data"></a>ptr_data</code></em>;</span></p></td>
+<td>user-supplied pointer data.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-watches"></a><h3>nih_io_watches</h3>
+<pre class="programlisting">extern NihList *nih_io_watches;
+</pre>
+<p>
+This is the list of current watches on file descriptors and sockets,
+not sorted into any particular order.  Each item is an NihIoWatch
+structure.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-init"></a><h3>nih_io_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_io_init                         (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Initialise the list of I/O watches.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-add-watch"></a><h3>nih_io_add_watch ()</h3>
+<pre class="programlisting"><a class="link" href="nih-io.html#NihIoWatch" title="NihIoWatch"><span class="returnvalue">NihIoWatch</span></a> *        nih_io_add_watch                    (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoEvents" title="enum NihIoEvents"><span class="type">NihIoEvents</span></a> events</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoWatcher" title="NihIoWatcher ()"><span class="type">NihIoWatcher</span></a> watcher</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+Adds <em class="parameter"><code>fd</code></em> to the list of file descriptors and sockets to watch, when any
+of <em class="parameter"><code>events</code></em> occur <em class="parameter"><code>watcher</code></em> will be called.  <em class="parameter"><code>events</code></em> is a bit mask
+of the different events we care about.
+</p>
+<p>
+This is the simplest form of watch and satisfies most basic purposes.
+</p>
+<p>
+The watch structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and stored in a linked
+list; there is no non-allocated version because of this.
+</p>
+<p>
+Removal of the watch can be performed by freeing it.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned watch.  When all parents
+of the returned watch are freed, the returned watch will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new watch,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor or socket to watch,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>events</code></em> :</span></p></td>
+<td>events to watch for,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>watcher</code></em> :</span></p></td>
+<td>function to call when <em class="parameter"><code>events</code></em> occur on <em class="parameter"><code>fd</code></em>,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>pointer to pass to <em class="parameter"><code>watcher</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the watch structure, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-select-fds"></a><h3>nih_io_select_fds ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_io_select_fds                   (<em class="parameter"><code><span class="type">int</span> *nfds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *readfds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *writefds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *exceptfds</code></em>);</pre>
+<p>
+Fills the given fd_set arrays based on the list of I/O watches.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>nfds</code></em> :</span></p></td>
+<td>pointer to store highest number in,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>readfds</code></em> :</span></p></td>
+<td>pointer to set of descriptors to check for read,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>writefds</code></em> :</span></p></td>
+<td>pointer to set of descriptors to check for write,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>exceptfds</code></em> :</span></p></td>
+<td>pointer to set of descriptors to check for exceptions.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-handle-fds"></a><h3>nih_io_handle_fds ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_io_handle_fds                   (<em class="parameter"><code><span class="type">fd_set</span> *readfds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *writefds</code></em>,
+                                                         <em class="parameter"><code><span class="type">fd_set</span> *exceptfds</code></em>);</pre>
+<p>
+Receives arrays of fd_set structures which have been cleared of any
+descriptors which haven't changed and iterates the watch list calling
+the appropriate functions.
+</p>
+<p>
+It is safe for watches to remove the watch during their call.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>readfds</code></em> :</span></p></td>
+<td>pointer to set of descriptors ready for read,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>writefds</code></em> :</span></p></td>
+<td>pointer to set of descriptors ready for write,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>exceptfds</code></em> :</span></p></td>
+<td>pointer to set of descriptors with exceptions.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-buffer-new"></a><h3>nih_io_buffer_new ()</h3>
+<pre class="programlisting"><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="returnvalue">NihIoBuffer</span></a> *       nih_io_buffer_new                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);</pre>
+<p>
+Allocates a new NihIoBuffer structure containing an empty buffer.
+</p>
+<p>
+The buffer is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and all functions that use the
+buffer ensure that the internal data is an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> child of the buffer
+itself, so this can be freed using <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a>; there is no non-allocated
+version because of this,
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned buffer.  When all parents
+of the returned buffer are freed, the returned buffer will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new buffer.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new buffer, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-buffer-resize"></a><h3>nih_io_buffer_resize ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_buffer_resize                (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> grow</code></em>);</pre>
+<p>
+This function resizes the given <em class="parameter"><code>buffer</code></em> so there is enough space for
+both the current data and <em class="parameter"><code>grow</code></em> additional bytes (which may be zero).
+If there is more room than there needs to be, the buffer may actually
+be decreased in size.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>buffer to be resized,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>grow</code></em> :</span></p></td>
+<td>number of bytes to grow by.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-buffer-pop"></a><h3>nih_io_buffer_pop ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_io_buffer_pop                   (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>);</pre>
+<p>
+Takes <em class="parameter"><code>len</code></em> bytes from the start of <em class="parameter"><code>buffer</code></em>, reducing the size if
+necessary, and returns them in a new string allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>.
+<em class="parameter"><code>len</code></em> is updated to contain the actual number of bytes returned.
+</p>
+<p>
+The returned string is always NULL terminated, even if there was
+not a NULL in the buffer.
+</p>
+<p>
+If there are not <em class="parameter"><code>len</code></em> bytes in the buffer, the maximum amount there is
+will be returned, if there is nothing you'll get a zero-length string.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned object.  When all parents
+of the returned watch are freed, the returned object will also be
+object.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new object,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>buffer to shrink,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>bytes to take.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated data pointer, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-buffer-shrink"></a><h3>nih_io_buffer_shrink ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_io_buffer_shrink                (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);</pre>
+<p>
+Removes <em class="parameter"><code>len</code></em> bytes from the beginning of <em class="parameter"><code>buffer</code></em> and moves the rest
+of the data up to begin there.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>buffer to shrink,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>bytes to remove from the front.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-buffer-push"></a><h3>nih_io_buffer_push ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_buffer_push                  (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoBuffer" title="NihIoBuffer"><span class="type">NihIoBuffer</span></a> *buffer</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);</pre>
+<p>
+Pushes <em class="parameter"><code>len</code></em> bytes from <em class="parameter"><code>str</code></em> onto the end of <em class="parameter"><code>buffer</code></em>, increasing the size
+if necessary.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>buffer to extend,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>data to push,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>str</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-message-new"></a><h3>nih_io_message_new ()</h3>
+<pre class="programlisting"><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="returnvalue">NihIoMessage</span></a> *      nih_io_message_new                  (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>);</pre>
+<p>
+Allocates a new NihIoMessage structure with empty buffers.
+</p>
+<p>
+All functions that use the message structure ensure that the internal
+data is an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> child of the message or its buffers, so the entire
+message freed using <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a>; there is no non-allocated version because
+of this.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned message.  When all parents
+of the returned message are freed, the returned message will also be
+freed.
+</p>
+<p>
+<em class="parameter"><code>parent</code></em> should not be the NihIo object this is to be sent with, that
+will take a reference when you send the message.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new message.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new message, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-message-add-control"></a><h3>nih_io_message_add_control ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_message_add_control          (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="type">NihIoMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> level</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> type</code></em>,
+                                                         <em class="parameter"><code><span class="type">socklen_t</span> len</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">void</span> *data</code></em>);</pre>
+<p>
+Adds a new control message with the <em class="parameter"><code>level</code></em> and <em class="parameter"><code>type</code></em> given to <em class="parameter"><code>message</code></em>.
+The control data is copied from <em class="parameter"><code>data</code></em> into the message and should be <em class="parameter"><code>len</code></em>
+bytes long.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>message to add control message to,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>level</code></em> :</span></p></td>
+<td>level of control message,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>protocol-specific type,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of control data,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>control data.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-message-recv"></a><h3>nih_io_message_recv ()</h3>
+<pre class="programlisting"><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="returnvalue">NihIoMessage</span></a> *      nih_io_message_recv                 (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>);</pre>
+<p>
+Allocates a new NihIoMessage structure and fills it with a message
+received on <em class="parameter"><code>fd</code></em> with <code class="function">recvmsg()</code>.  The buffer is increased in size until
+all of the message can fit within it.  <em class="parameter"><code>len</code></em> is set to contain the actual
+number of bytes read.
+</p>
+<p>
+The message structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and normally
+stored in a linked list.  Removal of the message can be performed by
+freeing it.
+</p>
+<p>
+All functions that use the message structure ensure that the internal
+data is an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> child of the message or its buffers, so the entire
+message freed using <a class="link" href="nih-Alloc.html#nih-free" title="nih_free ()"><code class="function">nih_free()</code></a>.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned message.  When all parents
+of the returned message are freed, the returned message will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new message,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>number of bytes read.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>new message, or NULL on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-message-send"></a><h3>nih_io_message_send ()</h3>
+<pre class="programlisting"><span class="returnvalue">ssize_t</span>             nih_io_message_send                 (<em class="parameter"><code><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="type">NihIoMessage</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>
+Send <em class="parameter"><code>message</code></em>, an already allocated and filled NihIoMessage structure
+to the file descriptor or socket <em class="parameter"><code>fd</code></em> using <code class="function">sendmsg()</code>.
+</p>
+<p>
+If <em class="parameter"><code>fd</code></em> is not connected, the destination for the message can be specified
+in the addr and addrlen members of the structure.  The message data itself
+should be pushed into the data member, and any control data added to the
+control member (usually using <a class="link" href="nih-io.html#nih-io-message-add-control" title="nih_io_message_add_control ()"><code class="function">nih_io_message_add_control()</code></a>).
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>message to be sent,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor to send to.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>length of message sent, negative value on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-reopen"></a><h3>nih_io_reopen ()</h3>
+<pre class="programlisting"><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="returnvalue">NihIo</span></a> *             nih_io_reopen                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><span class="type">int</span> fd</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoType" title="enum NihIoType"><span class="type">NihIoType</span></a> type</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoReader" title="NihIoReader ()"><span class="type">NihIoReader</span></a> reader</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoCloseHandler" title="NihIoCloseHandler ()"><span class="type">NihIoCloseHandler</span></a> close_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoErrorHandler" title="NihIoErrorHandler ()"><span class="type">NihIoErrorHandler</span></a> error_handler</code></em>,
+                                                         <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
+<p>
+This allocates a new NihIo structure using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, used to manage an
+already opened file descriptor.  The descriptor is set to be non-blocking
+if it hasn't already been and the SIGPIPE signal is set to be ignored.
+The file descriptor will be closed when the structure is freed.
+</p>
+<p>
+If <em class="parameter"><code>type</code></em> is NIH_IO_STREAM, the descriptor is managed in stream mode; data
+to be sent and data received are held in a single buffer that is expanded
+and shrunk as required.  If <em class="parameter"><code>type</code></em> is NIH_IO_MESSAGE, the descriptor is
+managed in message mode; individual messages are queued to be sent and
+are received into a queue as discreet messages.
+</p>
+<p>
+Data is automatically read from the file descriptor whenever it is
+available, and stored in the receive buffer or queue.  If <em class="parameter"><code>reader</code></em> is
+given, this function is called whenever new data has been received.
+In stream mode, this function is under no obligation to remove any data,
+it's perfectly valid to leave it in the buffer until more data is added.
+In message mode, the message must be processed as even if more messages
+are read, the reader will only be called with the first one in the queue.
+</p>
+<p>
+If <em class="parameter"><code>close_handler</code></em> is given then it is called whenever the remote end of the
+file descriptor is closed, otherwise the local end is closed and the
+entire structure freed (which may be surprising to you).
+</p>
+<p>
+If <em class="parameter"><code>error_handler</code></em> is given then it is called whenever any errors are
+raised, otherwise the <em class="parameter"><code>close_handler</code></em> is called or the same action taken
+if that is not given either.
+</p>
+<p>
+The returned structure is allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and children buffers
+and watches are allocated as children so will be automatically freed;
+there is no non-allocated version because of this.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned structure.  When all parents
+of the returned structure are freed, the returned structure will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new structure,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor to manage,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>type</code></em> :</span></p></td>
+<td>handling mode,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>reader</code></em> :</span></p></td>
+<td>function to call when new data available,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>close_handler</code></em> :</span></p></td>
+<td>function to call on close,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error_handler</code></em> :</span></p></td>
+<td>function to call on error,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>data</code></em> :</span></p></td>
+<td>data to pass to functions.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated structure, or NULL on raised error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-shutdown"></a><h3>nih_io_shutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_io_shutdown                     (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);</pre>
+<p>
+Marks the NihIo structure to be closed once the buffers or queue have
+been emptied, rather than immediately.  Closure is performed by calling
+the close handler if given or <code class="function">nih_io_closed()</code>.
+</p>
+<p>
+This is most useful to send a burst of data and discard the structure
+once the data has been sent, without worrying about keeping track of
+the structure in the mean time.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to be closed.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-destroy"></a><h3>nih_io_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_destroy                      (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);</pre>
+<p>
+Closes the file descriptor associated with an NihIo structure so that
+the structure can be freed.  If an error is caught by closing the
+descriptor, the error handler is called instead of the error being raised;
+this allows you to group your error handling in one place rather than
+special-case close.
+</p>
+<p>
+Normally used or called from an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> destructor.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to be destroyed.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-read-message"></a><h3>nih_io_read_message ()</h3>
+<pre class="programlisting"><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="returnvalue">NihIoMessage</span></a> *      nih_io_read_message                 (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>);</pre>
+<p>
+Obtains the oldest message in the receive queue of <em class="parameter"><code>io</code></em>, removes it
+from the queue and returns it reparented.
+</p>
+<p>
+This may only be used when <em class="parameter"><code>io</code></em> is in message mode.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned message.  When all parents
+of the returned message are freed, the returned message will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new message,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to read from.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>message from queue, or NULL if the queue is empty.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-send-message"></a><h3>nih_io_send_message ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                nih_io_send_message                 (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIoMessage" title="NihIoMessage"><span class="type">NihIoMessage</span></a> *message</code></em>);</pre>
+<p>
+Appends message to the send queue of <em class="parameter"><code>io</code></em> so that it will be sent in
+turn when possible.
+</p>
+<p>
+<em class="parameter"><code>message</code></em> itself is added to the queue, and freed once written.
+</p>
+<p>
+When called on a message already in the send queue, this moves it to
+the end of the queue.  It's entirely permitted to call this on messages
+taken from the receive queue (usually of another NihIo).
+</p>
+<p>
+This may only be used when <em class="parameter"><code>io</code></em> is in message mode.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to write to,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>message to write.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-read"></a><h3>nih_io_read ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_io_read                         (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> *len</code></em>);</pre>
+<p>
+Reads <em class="parameter"><code>len</code></em> bytes from the receive buffer of <em class="parameter"><code>io</code></em> or the oldest message
+in the receive queue and returns the data in a new string allocated with
+<a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> that is always NULL terminated even if there was not a NULL
+in the buffer.
+</p>
+<p>
+<em class="parameter"><code>len</code></em> is updated to contain the actual number of bytes returned.
+</p>
+<p>
+If there are not <em class="parameter"><code>len</code></em> bytes in the buffer or message, the maximum amount
+there is will be returned, if there is nothing you'll get a zero-length
+string.
+</p>
+<p>
+If the message has no more data in the buffer, it is removed from the
+receive queue, and the next call to this function will operate on the
+next oldest message in the queue.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>number of bytes to read.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated string, or NULL if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-write"></a><h3>nih_io_write ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_write                        (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *str</code></em>,
+                                                         <em class="parameter"><code><span class="type">size_t</span> len</code></em>);</pre>
+<p>
+Writes <em class="parameter"><code>len</code></em> bytes from <em class="parameter"><code>str</code></em> into the send buffer of <em class="parameter"><code>io</code></em>, or into a new
+message placed in the send queue.  The data will not be sent immediately
+but whenever possible.
+</p>
+<p>
+Care should be taken to ensure <em class="parameter"><code>len</code></em> does not include the NULL
+terminator unless you really want that sent.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to write to,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>data to write,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>str</code></em>.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-get"></a><h3>nih_io_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *              nih_io_get                          (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *delim</code></em>);</pre>
+<p>
+Reads from the receive buffer of <em class="parameter"><code>io</code></em> or the oldest message in the
+receive queue until a character in <em class="parameter"><code>delim</code></em> or the NULL terminator is
+found, and returns a new string allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> that contains
+a copy of the string up to, but not including, the delimiter.
+</p>
+<p>
+<em class="parameter"><code>delim</code></em> may be the empty string if only the NULL terminator is considered
+a delimiter.
+</p>
+<p>
+The string and the delimiter are removed from the buffer or message.
+</p>
+<p>
+If the message has no more data in the buffer, it is removed from the
+receive queue, and the next call to this function will operate on the
+next oldest message in the queue.
+</p>
+<p>
+If <em class="parameter"><code>parent</code></em> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned string.  When all parents
+of the returned string are freed, the returned string will also be
+freed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parent</code></em> :</span></p></td>
+<td>parent object for new string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>delim</code></em> :</span></p></td>
+<td>character to read until.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocated string or NULL if delimiter not found or
+insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-printf"></a><h3>nih_io_printf ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_printf                       (<em class="parameter"><code><a class="link" href="nih-io.html#NihIo" title="NihIo"><span class="type">NihIo</span></a> *io</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">char</span> *format</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Writes data formatted according to the printf-style <em class="parameter"><code>format</code></em> string to
+the send buffer of <em class="parameter"><code>io</code></em>, or into a new message placed in the send queue.
+The data will not be sent immediately but whenever possible.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>io</code></em> :</span></p></td>
+<td>structure to write to,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>format</code></em> :</span></p></td>
+<td>printf format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value if insufficient memory.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-set-nonblock"></a><h3>nih_io_set_nonblock ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_set_nonblock                 (<em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>
+Change the flags of <em class="parameter"><code>fd</code></em> so that all operations become non-blocking.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor to change.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value on invalid file descriptor.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-set-cloexec"></a><h3>nih_io_set_cloexec ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_io_set_cloexec                  (<em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>
+Change the flags of <em class="parameter"><code>fd</code></em> so that the file descriptor is closed on <code class="function">exec()</code>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor to change.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>zero on success, negative value on invalid file descriptor.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="nih-io-get-family"></a><h3>nih_io_get_family ()</h3>
+<pre class="programlisting"><span class="returnvalue">ssize_t</span>             nih_io_get_family                   (<em class="parameter"><code><span class="type">int</span> fd</code></em>);</pre>
+<p>
+Queries the socket so that the family it belongs to (PF_UNIX, PF_INET,
+PF_INET6) can be found.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fd</code></em> :</span></p></td>
+<td>file descriptor to check.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>the family of the socket, or -1 on error.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

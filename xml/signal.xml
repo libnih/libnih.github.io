@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+[
+  <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<refentry id="nih-signal">
+<refmeta>
+<refentrytitle role="top_of_page" id="nih-signal.top_of_page">signal</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  NIH Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>signal</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="nih-signal.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>typedef             <link linkend="NihSignal">NihSignal</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="NihSignalHandler">*NihSignalHandler</link>)                 (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihSignal"><type>NihSignal</type></link> *signal</parameter>);
+extern NihList *    <link linkend="nih-signals">nih_signals</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-signal-init">nih_signal_init</link>                     (<parameter><type>void</type></parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-signal-set-handler">nih_signal_set_handler</link>              (<parameter><link linkend="int"><type>int</type></link> signum</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> (*handler) (int)</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-signal-set-default">nih_signal_set_default</link>              (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-signal-set-ignore">nih_signal_set_ignore</link>               (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-signal-reset">nih_signal_reset</link>                    (<parameter><type>void</type></parameter>);
+<link linkend="NihSignal"><returnvalue>NihSignal</returnvalue></link> *         <link linkend="nih-signal-add-handler">nih_signal_add_handler</link>              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> signum</parameter>,
+                                                         <parameter><link linkend="NihSignalHandler"><type>NihSignalHandler</type></link> handler</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-signal-handler">nih_signal_handler</link>                  (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="nih-signal-poll">nih_signal_poll</link>                     (<parameter><type>void</type></parameter>);
+const <link linkend="char"><returnvalue>char</returnvalue></link> *        <link linkend="nih-signal-to-name">nih_signal_to_name</link>                  (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);
+<link linkend="int"><returnvalue>int</returnvalue></link>                 <link linkend="nih-signal-from-name">nih_signal_from_name</link>                (<parameter>const <link linkend="char"><type>char</type></link> *signame</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="nih-signal.description" role="desc">
+<title role="desc.title">Description</title>
+
+</refsect1>
+<refsect1 id="nih-signal.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="NihSignal" role="typedef">
+<title>NihSignal</title>
+<indexterm zone="NihSignal"><primary>NihSignal</primary></indexterm>
+<programlisting>typedef struct nih_signal NihSignal;
+</programlisting>
+<para>
+This structure contains information about a function that should be
+called whenever a particular signal is raised.  The calling is done
+inside the main loop rather than inside the signal handler, so the
+function is free to do whatever it wishes.
+</para>
+<para>
+The callback can be removed by using <link linkend="nih-list-remove"><function>nih_list_remove()</function></link> as they are
+held in a list internally.
+</para></refsect2>
+<refsect2 id="NihSignalHandler" role="function">
+<title>NihSignalHandler ()</title>
+<indexterm zone="NihSignalHandler"><primary>NihSignalHandler</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*NihSignalHandler)                 (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
+                                                         <parameter><link linkend="NihSignal"><type>NihSignal</type></link> *signal</parameter>);</programlisting>
+<para>
+A signal handler is called whenever the signal has been raised, it
+is passed the NihSignal structure rather than the actual signal so that
+it can be removed if desired.
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer given with handler,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>signal</parameter>&#160;:</term>
+<listitem><simpara>signal watch structure.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-signals" role="variable">
+<title>nih_signals</title>
+<indexterm zone="nih-signals"><primary>nih_signals</primary></indexterm>
+<programlisting>extern NihList *nih_signals;
+</programlisting>
+<para>
+This is the list of registered signals, not sorted into any particular
+order.  Each item is an NihSignal structure.
+</para></refsect2>
+<refsect2 id="nih-signal-init" role="function">
+<title>nih_signal_init ()</title>
+<indexterm zone="nih-signal-init"><primary>nih_signal_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_signal_init                     (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Initialise the list of signals.
+</para></refsect2>
+<refsect2 id="nih-signal-set-handler" role="function">
+<title>nih_signal_set_handler ()</title>
+<indexterm zone="nih-signal-set-handler"><primary>nih_signal_set_handler</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_signal_set_handler              (<parameter><link linkend="int"><type>int</type></link> signum</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> (*handler) (int)</parameter>);</programlisting>
+<para>
+Sets signal <parameter>signum</parameter> to call the <parameter>handler</parameter> function when raised, with
+sensible defaults for the flags and signal mask.
+</para><variablelist role="params">
+<varlistentry><term><parameter>signum</parameter>&#160;:</term>
+<listitem><simpara>signal number,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handler</parameter>&#160;:</term>
+<listitem><simpara>new handler function.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on invalid signal.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-signal-set-default" role="function">
+<title>nih_signal_set_default ()</title>
+<indexterm zone="nih-signal-set-default"><primary>nih_signal_set_default</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_signal_set_default              (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);</programlisting>
+<para>
+Sets signal <parameter>signum</parameter> to perform the operating system default action when
+raised, with sensible defaults for the flags and signal mask.
+</para><variablelist role="params">
+<varlistentry><term><parameter>signum</parameter>&#160;:</term>
+<listitem><simpara>signal number.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on invalid signal.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-signal-set-ignore" role="function">
+<title>nih_signal_set_ignore ()</title>
+<indexterm zone="nih-signal-set-ignore"><primary>nih_signal_set_ignore</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_signal_set_ignore               (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);</programlisting>
+<para>
+Sets signal <parameter>signum</parameter> to be ignored, with sensible defaults for the flags
+and signal mask.
+</para><variablelist role="params">
+<varlistentry><term><parameter>signum</parameter>&#160;:</term>
+<listitem><simpara>signal number.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>zero on success, negative value on invalid signal.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-signal-reset" role="function">
+<title>nih_signal_reset ()</title>
+<indexterm zone="nih-signal-reset"><primary>nih_signal_reset</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_signal_reset                    (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Resets all signals to their default handling.
+</para></refsect2>
+<refsect2 id="nih-signal-add-handler" role="function">
+<title>nih_signal_add_handler ()</title>
+<indexterm zone="nih-signal-add-handler"><primary>nih_signal_add_handler</primary></indexterm>
+<programlisting><link linkend="NihSignal"><returnvalue>NihSignal</returnvalue></link> *         nih_signal_add_handler              (<parameter>const <link linkend="void"><type>void</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="int"><type>int</type></link> signum</parameter>,
+                                                         <parameter><link linkend="NihSignalHandler"><type>NihSignalHandler</type></link> handler</parameter>,
+                                                         <parameter><link linkend="void"><type>void</type></link> *data</parameter>);</programlisting>
+<para>
+Adds <parameter>handler</parameter> to the list of functions that should be called by
+<link linkend="nih-signal-poll"><function>nih_signal_poll()</function></link> if the <parameter>signum</parameter> signal was raised.  The signal must first
+have been set to <link linkend="nih-signal-handler"><function>nih_signal_handler()</function></link> using <link linkend="nih-signal-set-handler"><function>nih_signal_set_handler()</function></link>,
+</para>
+<para>
+The callback structure is allocated using <link linkend="nih-alloc"><function>nih_alloc()</function></link> and stored in a
+linked list; there is no non-allocated version because of this.
+</para>
+<para>
+Removal of the handler can be performed by freeing it.
+</para>
+<para>
+If <parameter>parent</parameter> is not NULL, it should be a pointer to another object which
+will be used as a parent for the returned signal.  When all parents
+of the returned signal are freed, the returned signal will also be
+freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>parent object for new signal,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>signum</parameter>&#160;:</term>
+<listitem><simpara>signal number to catch,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handler</parameter>&#160;:</term>
+<listitem><simpara>function to call,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>pointer to pass to <parameter>handler</parameter>.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>the signal information, or NULL if insufficient memory.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-signal-handler" role="function">
+<title>nih_signal_handler ()</title>
+<indexterm zone="nih-signal-handler"><primary>nih_signal_handler</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_signal_handler                  (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);</programlisting>
+<para>
+This signal handler should be used for any signals that you wish to use
+<link linkend="nih-signal-add-handler"><function>nih_signal_add_handler()</function></link> and <link linkend="nih-signal-poll"><function>nih_signal_poll()</function></link> for.  It simply sets a
+volatile sig_atomic_t variable so that the signal can be detected in
+the main loop.
+</para><variablelist role="params">
+<varlistentry><term><parameter>signum</parameter>&#160;:</term>
+<listitem><simpara>signal raised.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-signal-poll" role="function">
+<title>nih_signal_poll ()</title>
+<indexterm zone="nih-signal-poll"><primary>nih_signal_poll</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                nih_signal_poll                     (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Iterate the list of registered signal handlers and call the function
+if that signal has been raised since the last time <link linkend="nih-signal-poll"><function>nih_signal_poll()</function></link> was
+called.
+</para>
+<para>
+It is safe for the handler to remove itself.
+</para></refsect2>
+<refsect2 id="nih-signal-to-name" role="function">
+<title>nih_signal_to_name ()</title>
+<indexterm zone="nih-signal-to-name"><primary>nih_signal_to_name</primary></indexterm>
+<programlisting>const <link linkend="char"><returnvalue>char</returnvalue></link> *        nih_signal_to_name                  (<parameter><link linkend="int"><type>int</type></link> signum</parameter>);</programlisting>
+<para>
+Looks up <parameter>signum</parameter> in the table of signal names and returns the common
+name for the signal, in the form TERM/CHLD.
+</para><variablelist role="params">
+<varlistentry><term><parameter>signum</parameter>&#160;:</term>
+<listitem><simpara>signal number to look up.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>static name string or NULL if signal is unknown.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="nih-signal-from-name" role="function">
+<title>nih_signal_from_name ()</title>
+<indexterm zone="nih-signal-from-name"><primary>nih_signal_from_name</primary></indexterm>
+<programlisting><link linkend="int"><returnvalue>int</returnvalue></link>                 nih_signal_from_name                (<parameter>const <link linkend="char"><type>char</type></link> *signame</parameter>);</programlisting>
+<para>
+Looks up <parameter>signame</parameter> in the table of signal names and returns the
+number for the signal; <parameter>signame</parameter> may be in the form SIGTERM or TERM.
+</para><variablelist role="params">
+<varlistentry><term><parameter>signame</parameter>&#160;:</term>
+<listitem><simpara>signal name to look up.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>signal number or negative value if signal is unknown.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

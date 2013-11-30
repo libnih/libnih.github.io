@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>test_files</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="nih Reference Manual">
+<link rel="up" href="ch01.html" title="NIH Utility Library">
+<link rel="prev" href="nih-test-divert.html" title="test_divert">
+<link rel="next" href="nih-test-hash.html" title="test_hash">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-test-divert.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">nih Reference Manual</th>
+<td><a accesskey="n" href="nih-test-hash.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-test-files.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-test-files.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-test-files"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-test-files.top_of_page"></a>test_files</span></h2>
+<p>test_files</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-test-files.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">#define             <a class="link" href="nih-test-files.html#TEST-FILENAME:CAPS" title="TEST_FILENAME()">TEST_FILENAME</a>                       (_var)
+#define             <a class="link" href="nih-test-files.html#TEST-FILE-EQ:CAPS" title="TEST_FILE_EQ()">TEST_FILE_EQ</a>                        (_file,
+                                                         _line)
+#define             <a class="link" href="nih-test-files.html#TEST-FILE-MATCH:CAPS" title="TEST_FILE_MATCH()">TEST_FILE_MATCH</a>                     (_file,
+                                                         _pattern)
+#define             <a class="link" href="nih-test-files.html#TEST-FILE-EQ-N:CAPS" title="TEST_FILE_EQ_N()">TEST_FILE_EQ_N</a>                      (_file,
+                                                         _line)
+#define             <a class="link" href="nih-test-files.html#TEST-FILE-NE:CAPS" title="TEST_FILE_NE()">TEST_FILE_NE</a>                        (_file,
+                                                         _line)
+#define             <a class="link" href="nih-test-files.html#TEST-FILE-NE-N:CAPS" title="TEST_FILE_NE_N()">TEST_FILE_NE_N</a>                      (_file,
+                                                         _line)
+#define             <a class="link" href="nih-test-files.html#TEST-FILE-END:CAPS" title="TEST_FILE_END()">TEST_FILE_END</a>                       (_file)
+#define             <a class="link" href="nih-test-files.html#TEST-FILE-RESET:CAPS" title="TEST_FILE_RESET()">TEST_FILE_RESET</a>                     (_file)
+#define             <a class="link" href="nih-test-files.html#TEST-EXPECTED-STR:CAPS" title="TEST_EXPECTED_STR()">TEST_EXPECTED_STR</a>                   (_str,
+                                                         _filename)
+#define             <a class="link" href="nih-test-files.html#TEST-EXPECTED-FILE:CAPS" title="TEST_EXPECTED_FILE()">TEST_EXPECTED_FILE</a>                  (_file,
+                                                         _filename)
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-test-files.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-test-files.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="TEST-FILENAME:CAPS"></a><h3>TEST_FILENAME()</h3>
+<pre class="programlisting">#define             TEST_FILENAME(_var)</pre>
+<p>
+Generate a filename that may be used for testing, it's unlinked if it
+exists and it's up to you to unlink it when done.  <em class="parameter"><code>_var</code></em> should be at
+least PATH_MAX long.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_var</code></em> :</span></p></td>
+<td>variable to store filename in.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-EQ:CAPS"></a><h3>TEST_FILE_EQ()</h3>
+<pre class="programlisting">#define             TEST_FILE_EQ(_file, _line)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> is <em class="parameter"><code>_line</code></em>, which should
+include the terminating newline if one is expected.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-MATCH:CAPS"></a><h3>TEST_FILE_MATCH()</h3>
+<pre class="programlisting">#define             TEST_FILE_MATCH(_file, _pattern)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> matches the glob pattern
+<em class="parameter"><code>_pattern</code></em>, which should include the terminating newline if one is expected.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_pattern</code></em> :</span></p></td>
+<td>pattern to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-EQ-N:CAPS"></a><h3>TEST_FILE_EQ_N()</h3>
+<pre class="programlisting">#define             TEST_FILE_EQ_N(_file, _line)</pre>
+<p>
+Check that the start of the next line in the file <em class="parameter"><code>_file</code></em> is <em class="parameter"><code>_line</code></em>, up to
+the length of that argument.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-NE:CAPS"></a><h3>TEST_FILE_NE()</h3>
+<pre class="programlisting">#define             TEST_FILE_NE(_file, _line)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> is not <em class="parameter"><code>_line</code></em>, but also not
+end of file.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-NE-N:CAPS"></a><h3>TEST_FILE_NE_N()</h3>
+<pre class="programlisting">#define             TEST_FILE_NE_N(_file, _line)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> does not start with <em class="parameter"><code>_line</code></em>,
+up to the length of that argument; but also not end of file.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-END:CAPS"></a><h3>TEST_FILE_END()</h3>
+<pre class="programlisting">#define             TEST_FILE_END(_file)</pre>
+<p>
+Check that the end of the file <em class="parameter"><code>_file</code></em> has been reached, and that there
+are no more lines to read.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to check.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-RESET:CAPS"></a><h3>TEST_FILE_RESET()</h3>
+<pre class="programlisting">#define             TEST_FILE_RESET(_file)</pre>
+<p>
+This macro may be used to reset a temporary file such that it can be
+treated as a new one.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to reset.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EXPECTED-STR:CAPS"></a><h3>TEST_EXPECTED_STR()</h3>
+<pre class="programlisting">#define             TEST_EXPECTED_STR(_str, _filename)</pre>
+<p>
+Check that the string <em class="parameter"><code>_str</code></em> exactly matches the contents of the
+file <em class="parameter"><code>_filename</code></em>, which is local to the expected directory.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_str</code></em> :</span></p></td>
+<td>string to check,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_filename</code></em> :</span></p></td>
+<td>filename to compare against.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EXPECTED-FILE:CAPS"></a><h3>TEST_EXPECTED_FILE()</h3>
+<pre class="programlisting">#define             TEST_EXPECTED_FILE(_file, _filename)</pre>
+<p>
+Check that the contents of file <em class="parameter"><code>_file</code></em> exactly matches the contents of
+the file <em class="parameter"><code>_filename</code></em>, which is local to the expected directory.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>open file to check,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_filename</code></em> :</span></p></td>
+<td>filename to compare against.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>
