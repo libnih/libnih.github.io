@@ -2,74 +2,74 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>watch</title>
+<title>Watch</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
-<link rel="home" href="index.html" title="nih Reference Manual">
-<link rel="up" href="ch01.html" title="NIH Utility Library">
-<link rel="prev" href="nih-Tree.html" title="Tree">
-<link rel="next" href="api-index-full.html" title="API Index">
+<link rel="home" href="index.html" title="NIH Utility Library Reference Manual">
+<link rel="up" href="ch03.html" title="Operating System Facilities">
+<link rel="prev" href="nih-File.html" title="File">
+<link rel="next" href="nih-Timer.html" title="Timer">
 <meta name="generator" content="GTK-Doc V1.19 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="nih-Tree.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="nih-File.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">nih Reference Manual</th>
-<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<th width="100%" align="center">NIH Utility Library Reference Manual</th>
+<td><a accesskey="n" href="nih-Timer.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
-<a href="#nih-watch.synopsis" class="shortcut">Top</a>
+<a href="#nih-Watch.synopsis" class="shortcut">Top</a>
                    | 
-                  <a href="#nih-watch.description" class="shortcut">Description</a>
+                  <a href="#nih-Watch.description" class="shortcut">Description</a>
 </td></tr>
 </table>
 <div class="refentry">
-<a name="nih-watch"></a><div class="titlepage"></div>
+<a name="nih-Watch"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
-<h2><span class="refentrytitle"><a name="nih-watch.top_of_page"></a>watch</span></h2>
-<p>watch</p>
+<h2><span class="refentrytitle"><a name="nih-Watch.top_of_page"></a>Watch</span></h2>
+<p>Watch — Inotify watch abstraction</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
 <div class="refsynopsisdiv">
-<a name="nih-watch.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">typedef             <a class="link" href="nih-watch.html#NihWatch" title="NihWatch">NihWatch</a>;
-<span class="returnvalue">void</span>                (<a class="link" href="nih-watch.html#NihCreateHandler" title="NihCreateHandler ()">*NihCreateHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+<a name="nih-Watch.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="nih-Watch.html#NihWatch" title="NihWatch">NihWatch</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="nih-Watch.html#NihCreateHandler" title="NihCreateHandler ()">*NihCreateHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);
-<span class="returnvalue">void</span>                (<a class="link" href="nih-watch.html#NihModifyHandler" title="NihModifyHandler ()">*NihModifyHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+<span class="returnvalue">void</span>                (<a class="link" href="nih-Watch.html#NihModifyHandler" title="NihModifyHandler ()">*NihModifyHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);
-<span class="returnvalue">void</span>                (<a class="link" href="nih-watch.html#NihDeleteHandler" title="NihDeleteHandler ()">*NihDeleteHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+<span class="returnvalue">void</span>                (<a class="link" href="nih-Watch.html#NihDeleteHandler" title="NihDeleteHandler ()">*NihDeleteHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>);
-                    <a class="link" href="nih-watch.html#NihWatchHandle" title="NihWatchHandle">NihWatchHandle</a>;
-<a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="returnvalue">NihWatch</span></a> *          <a class="link" href="nih-watch.html#nih-watch-new" title="nih_watch_new ()">nih_watch_new</a>                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                    <a class="link" href="nih-Watch.html#NihWatchHandle" title="NihWatchHandle">NihWatchHandle</a>;
+<a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="returnvalue">NihWatch</span></a> *          <a class="link" href="nih-Watch.html#nih-watch-new" title="nih_watch_new ()">nih_watch_new</a>                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> subdirs</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> create</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihCreateHandler" title="NihCreateHandler ()"><span class="type">NihCreateHandler</span></a> create_handler</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihModifyHandler" title="NihModifyHandler ()"><span class="type">NihModifyHandler</span></a> modify_handler</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihDeleteHandler" title="NihDeleteHandler ()"><span class="type">NihDeleteHandler</span></a> delete_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-File.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihCreateHandler" title="NihCreateHandler ()"><span class="type">NihCreateHandler</span></a> create_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihModifyHandler" title="NihModifyHandler ()"><span class="type">NihModifyHandler</span></a> modify_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihDeleteHandler" title="NihDeleteHandler ()"><span class="type">NihDeleteHandler</span></a> delete_handler</code></em>,
                                                          <em class="parameter"><code><span class="type">void</span> *data</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-watch.html#nih-watch-add" title="nih_watch_add ()">nih_watch_add</a>                       (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Watch.html#nih-watch-add" title="nih_watch_add ()">nih_watch_add</a>                       (<em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> subdirs</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-watch.html#nih-watch-destroy" title="nih_watch_destroy ()">nih_watch_destroy</a>                   (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Watch.html#nih-watch-destroy" title="nih_watch_destroy ()">nih_watch_destroy</a>                   (<em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>);
 </pre>
 </div>
 <div class="refsect1">
-<a name="nih-watch.description"></a><h2>Description</h2>
+<a name="nih-Watch.description"></a><h2>Description</h2>
 </div>
 <div class="refsect1">
-<a name="nih-watch.details"></a><h2>Details</h2>
+<a name="nih-Watch.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="NihWatch"></a><h3>NihWatch</h3>
 <pre class="programlisting">typedef struct nih_watch NihWatch;
@@ -84,7 +84,7 @@ just watch multiple different files calling the same functions for each.
 <div class="refsect2">
 <a name="NihCreateHandler"></a><h3>NihCreateHandler ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                (*NihCreateHandler)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);</pre>
 <p>
@@ -125,7 +125,7 @@ It is safe to remove the watch with <a class="link" href="nih-Alloc.html#nih-fre
 <div class="refsect2">
 <a name="NihModifyHandler"></a><h3>NihModifyHandler ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                (*NihModifyHandler)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">struct stat</span> *statbuf</code></em>);</pre>
 <p>
@@ -166,7 +166,7 @@ It is safe to remove the watch with <a class="link" href="nih-Alloc.html#nih-fre
 <div class="refsect2">
 <a name="NihDeleteHandler"></a><h3>NihDeleteHandler ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                (*NihDeleteHandler)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>);</pre>
 <p>
 A delete handler is a function that is called whenever a file or other
@@ -243,14 +243,14 @@ an NihWatch structure.
 <hr>
 <div class="refsect2">
 <a name="nih-watch-new"></a><h3>nih_watch_new ()</h3>
-<pre class="programlisting"><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="returnvalue">NihWatch</span></a> *          nih_watch_new                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+<pre class="programlisting"><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="returnvalue">NihWatch</span></a> *          nih_watch_new                       (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> subdirs</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> create</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-file.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihCreateHandler" title="NihCreateHandler ()"><span class="type">NihCreateHandler</span></a> create_handler</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihModifyHandler" title="NihModifyHandler ()"><span class="type">NihModifyHandler</span></a> modify_handler</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-watch.html#NihDeleteHandler" title="NihDeleteHandler ()"><span class="type">NihDeleteHandler</span></a> delete_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-File.html#NihFileFilter" title="NihFileFilter ()"><span class="type">NihFileFilter</span></a> filter</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihCreateHandler" title="NihCreateHandler ()"><span class="type">NihCreateHandler</span></a> create_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihModifyHandler" title="NihModifyHandler ()"><span class="type">NihModifyHandler</span></a> modify_handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Watch.html#NihDeleteHandler" title="NihDeleteHandler ()"><span class="type">NihDeleteHandler</span></a> delete_handler</code></em>,
                                                          <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
 <p>
 Watches <em class="parameter"><code>path</code></em> for changes, which may be either a single file or a
@@ -344,7 +344,7 @@ freed.
 <hr>
 <div class="refsect2">
 <a name="nih-watch-add"></a><h3>nih_watch_add ()</h3>
-<pre class="programlisting"><span class="returnvalue">int</span>                 nih_watch_add                       (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_watch_add                       (<em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *path</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> subdirs</code></em>);</pre>
 <p>
@@ -389,7 +389,7 @@ non-allocated version of this because of this.
 <hr>
 <div class="refsect2">
 <a name="nih-watch-destroy"></a><h3>nih_watch_destroy ()</h3>
-<pre class="programlisting"><span class="returnvalue">int</span>                 nih_watch_destroy                   (<em class="parameter"><code><a class="link" href="nih-watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">int</span>                 nih_watch_destroy                   (<em class="parameter"><code><a class="link" href="nih-Watch.html#NihWatch" title="NihWatch"><span class="type">NihWatch</span></a> *watch</code></em>);</pre>
 <p>
 Closes the inotify descriptor and frees the NihIo instance handling it.
 </p>

@@ -1,0 +1,1381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Test</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="NIH Utility Library Reference Manual">
+<link rel="up" href="ch01.html" title="Memory Management and Basic Types">
+<link rel="prev" href="nih-Macros.html" title="Macros">
+<link rel="next" href="ch02.html" title="Main Loop and Application Development Helpers">
+<meta name="generator" content="GTK-Doc V1.19 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="nih-Macros.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">NIH Utility Library Reference Manual</th>
+<td><a accesskey="n" href="ch02.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#nih-Test.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#nih-Test.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry">
+<a name="nih-Test"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="nih-Test.top_of_page"></a>Test</span></h2>
+<p>Test — Unit testing framework</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="nih-Test.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">
+#include &lt;nih/test.h&gt;
+
+#define             <a class="link" href="nih-Test.html#NIH-IN-TEST-H:CAPS" title="NIH_IN_TEST_H">NIH_IN_TEST_H</a>
+#define             <a class="link" href="nih-Test.html#TEST-ALLOC-SIZE:CAPS" title="TEST_ALLOC_SIZE()">TEST_ALLOC_SIZE</a>                     (_ptr,
+                                                         _sz)
+#define             <a class="link" href="nih-Test.html#TEST-ALLOC-PARENT:CAPS" title="TEST_ALLOC_PARENT()">TEST_ALLOC_PARENT</a>                   (_ptr,
+                                                         _parent)
+#define             <a class="link" href="nih-Test.html#TEST-ALLOC-NOT-PARENT:CAPS" title="TEST_ALLOC_NOT_PARENT()">TEST_ALLOC_NOT_PARENT</a>               (_ptr,
+                                                         _parent)
+<span class="returnvalue">return</span>              <a class="link" href="nih-Test.html#realloc" title="realloc ()">realloc</a>                             (<em class="parameter"><code><span class="type">ptr</span> Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">size</span> Param2</code></em>);
+#define             <a class="link" href="nih-Test.html#TEST-ALLOC-FAIL:CAPS" title="TEST_ALLOC_FAIL">TEST_ALLOC_FAIL</a>
+#define             <a class="link" href="nih-Test.html#TEST-ALLOC-SAFE:CAPS" title="TEST_ALLOC_SAFE">TEST_ALLOC_SAFE</a>
+struct              <a class="link" href="nih-Test.html#test-free-tag" title="struct test_free_tag">test_free_tag</a>;
+#define             <a class="link" href="nih-Test.html#TEST-FREE-TAG:CAPS" title="TEST_FREE_TAG()">TEST_FREE_TAG</a>                       (_ptr)
+#define             <a class="link" href="nih-Test.html#TEST-FREE:CAPS" title="TEST_FREE()">TEST_FREE</a>                           (_ptr)
+#define             <a class="link" href="nih-Test.html#TEST-NOT-FREE:CAPS" title="TEST_NOT_FREE()">TEST_NOT_FREE</a>                       (_ptr)
+#define             <a class="link" href="nih-Test.html#TEST-DIVERT-STDOUT-FD:CAPS" title="TEST_DIVERT_STDOUT_FD()">TEST_DIVERT_STDOUT_FD</a>               (_fd)
+#define             <a class="link" href="nih-Test.html#TEST-DIVERT-STDOUT:CAPS" title="TEST_DIVERT_STDOUT()">TEST_DIVERT_STDOUT</a>                  (_file)
+#define             <a class="link" href="nih-Test.html#TEST-DIVERT-STDERR-FD:CAPS" title="TEST_DIVERT_STDERR_FD()">TEST_DIVERT_STDERR_FD</a>               (_fd)
+#define             <a class="link" href="nih-Test.html#TEST-DIVERT-STDERR:CAPS" title="TEST_DIVERT_STDERR()">TEST_DIVERT_STDERR</a>                  (_file)
+#define             <a class="link" href="nih-Test.html#TEST-FILENAME:CAPS" title="TEST_FILENAME()">TEST_FILENAME</a>                       (_var)
+#define             <a class="link" href="nih-Test.html#TEST-FILE-EQ:CAPS" title="TEST_FILE_EQ()">TEST_FILE_EQ</a>                        (_file,
+                                                         _line)
+#define             <a class="link" href="nih-Test.html#TEST-FILE-MATCH:CAPS" title="TEST_FILE_MATCH()">TEST_FILE_MATCH</a>                     (_file,
+                                                         _pattern)
+#define             <a class="link" href="nih-Test.html#TEST-FILE-EQ-N:CAPS" title="TEST_FILE_EQ_N()">TEST_FILE_EQ_N</a>                      (_file,
+                                                         _line)
+#define             <a class="link" href="nih-Test.html#TEST-FILE-NE:CAPS" title="TEST_FILE_NE()">TEST_FILE_NE</a>                        (_file,
+                                                         _line)
+#define             <a class="link" href="nih-Test.html#TEST-FILE-NE-N:CAPS" title="TEST_FILE_NE_N()">TEST_FILE_NE_N</a>                      (_file,
+                                                         _line)
+#define             <a class="link" href="nih-Test.html#TEST-FILE-END:CAPS" title="TEST_FILE_END()">TEST_FILE_END</a>                       (_file)
+#define             <a class="link" href="nih-Test.html#TEST-FILE-RESET:CAPS" title="TEST_FILE_RESET()">TEST_FILE_RESET</a>                     (_file)
+#define             <a class="link" href="nih-Test.html#TEST-EXPECTED-STR:CAPS" title="TEST_EXPECTED_STR()">TEST_EXPECTED_STR</a>                   (_str,
+                                                         _filename)
+#define             <a class="link" href="nih-Test.html#TEST-EXPECTED-FILE:CAPS" title="TEST_EXPECTED_FILE()">TEST_EXPECTED_FILE</a>                  (_file,
+                                                         _filename)
+#define             <a class="link" href="nih-Test.html#TEST-HASH-EMPTY:CAPS" title="TEST_HASH_EMPTY()">TEST_HASH_EMPTY</a>                     (_hash)
+#define             <a class="link" href="nih-Test.html#TEST-HASH-NOT-EMPTY:CAPS" title="TEST_HASH_NOT_EMPTY()">TEST_HASH_NOT_EMPTY</a>                 (_hash)
+#define             <a class="link" href="nih-Test.html#TEST-LIST-EMPTY:CAPS" title="TEST_LIST_EMPTY()">TEST_LIST_EMPTY</a>                     (_list)
+#define             <a class="link" href="nih-Test.html#TEST-LIST-NOT-EMPTY:CAPS" title="TEST_LIST_NOT_EMPTY()">TEST_LIST_NOT_EMPTY</a>                 (_list)
+#define             <a class="link" href="nih-Test.html#TEST-GROUP:CAPS" title="TEST_GROUP()">TEST_GROUP</a>                          (_name)
+#define             <a class="link" href="nih-Test.html#TEST-FUNCTION:CAPS" title="TEST_FUNCTION()">TEST_FUNCTION</a>                       (_func)
+#define             <a class="link" href="nih-Test.html#TEST-FUNCTION-FEATURE:CAPS" title="TEST_FUNCTION_FEATURE()">TEST_FUNCTION_FEATURE</a>               (_func,
+                                                         _feat)
+#define             <a class="link" href="nih-Test.html#TEST-FEATURE:CAPS" title="TEST_FEATURE()">TEST_FEATURE</a>                        (_feat)
+#define             <a class="link" href="nih-Test.html#TEST-FAILED:CAPS" title="TEST_FAILED()">TEST_FAILED</a>                         (_fmt,
+                                                         ...)
+#define             <a class="link" href="nih-Test.html#TEST-CHILD:CAPS" title="TEST_CHILD()">TEST_CHILD</a>                          (_pid)
+#define             <a class="link" href="nih-Test.html#TEST-CHILD-WAIT:CAPS" title="TEST_CHILD_WAIT()">TEST_CHILD_WAIT</a>                     (_pid,
+                                                         _fd)
+#define             <a class="link" href="nih-Test.html#TEST-CHILD-RELEASE:CAPS" title="TEST_CHILD_RELEASE()">TEST_CHILD_RELEASE</a>                  (_fd)
+#define             <a class="link" href="nih-Test.html#assert0" title="assert0()">assert0</a>                             (_expr)
+#define             <a class="link" href="nih-Test.html#TEST-TRUE:CAPS" title="TEST_TRUE()">TEST_TRUE</a>                           (_expr)
+#define             <a class="link" href="nih-Test.html#TEST-FALSE:CAPS" title="TEST_FALSE()">TEST_FALSE</a>                          (_expr)
+#define             <a class="link" href="nih-Test.html#TEST-EQ:CAPS" title="TEST_EQ()">TEST_EQ</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-EQ-U:CAPS" title="TEST_EQ_U()">TEST_EQ_U</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-EQ-P:CAPS" title="TEST_EQ_P()">TEST_EQ_P</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-EQ-STR:CAPS" title="TEST_EQ_STR()">TEST_EQ_STR</a>                         (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-EQ-STRN:CAPS" title="TEST_EQ_STRN()">TEST_EQ_STRN</a>                        (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-EQ-MEM:CAPS" title="TEST_EQ_MEM()">TEST_EQ_MEM</a>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <a class="link" href="nih-Test.html#TEST-NE:CAPS" title="TEST_NE()">TEST_NE</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-NE-U:CAPS" title="TEST_NE_U()">TEST_NE_U</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-NE-P:CAPS" title="TEST_NE_P()">TEST_NE_P</a>                           (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-NE-STR:CAPS" title="TEST_NE_STR()">TEST_NE_STR</a>                         (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-NE-STRN:CAPS" title="TEST_NE_STRN()">TEST_NE_STRN</a>                        (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-NE-MEM:CAPS" title="TEST_NE_MEM()">TEST_NE_MEM</a>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <a class="link" href="nih-Test.html#TEST-LT:CAPS" title="TEST_LT()">TEST_LT</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-LE:CAPS" title="TEST_LE()">TEST_LE</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-GT:CAPS" title="TEST_GT()">TEST_GT</a>                             (_a,
+                                                         _b)
+#define             <a class="link" href="nih-Test.html#TEST-GE:CAPS" title="TEST_GE()">TEST_GE</a>                             (_a,
+                                                         _b)
+</pre>
+</div>
+<div class="refsect1">
+<a name="nih-Test.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="nih-Test.details"></a><h2>Details</h2>
+<div class="refsect2">
+<a name="NIH-IN-TEST-H:CAPS"></a><h3>NIH_IN_TEST_H</h3>
+<pre class="programlisting">#define NIH_IN_TEST_H
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-SIZE:CAPS"></a><h3>TEST_ALLOC_SIZE()</h3>
+<pre class="programlisting">#define             TEST_ALLOC_SIZE(_ptr, _sz)</pre>
+<p>
+Check that the pointer <em class="parameter"><code>_ptr</code></em> was allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a>, and has
+enough space for at least <em class="parameter"><code>_sz</code></em> bytes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_sz</code></em> :</span></p></td>
+<td>expected size.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-PARENT:CAPS"></a><h3>TEST_ALLOC_PARENT()</h3>
+<pre class="programlisting">#define             TEST_ALLOC_PARENT(_ptr, _parent)</pre>
+<p>
+Check that the pointer <em class="parameter"><code>_ptr</code></em> was allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and has
+the other block <em class="parameter"><code>_parent</code></em> as a parent.  <em class="parameter"><code>_parent</code></em> may be the special
+NULL parent.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_parent</code></em> :</span></p></td>
+<td>expected parent.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-NOT-PARENT:CAPS"></a><h3>TEST_ALLOC_NOT_PARENT()</h3>
+<pre class="programlisting">#define             TEST_ALLOC_NOT_PARENT(_ptr, _parent)</pre>
+<p>
+Check that the pointer <em class="parameter"><code>_ptr</code></em> was allocated with <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and does not
+have the other block <em class="parameter"><code>_parent</code></em> as a parent.  <em class="parameter"><code>_parent</code></em> may be the special
+NULL parent.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_parent</code></em> :</span></p></td>
+<td>expected non-parent.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="realloc"></a><h3>realloc ()</h3>
+<pre class="programlisting"><span class="returnvalue">return</span>              realloc                             (<em class="parameter"><code><span class="type">ptr</span> Param1</code></em>,
+                                                         <em class="parameter"><code><span class="type">size</span> Param2</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-FAIL:CAPS"></a><h3>TEST_ALLOC_FAIL</h3>
+<pre class="programlisting">#define             TEST_ALLOC_FAIL</pre>
+<p>
+This macro expands to code that runs the following block repeatedly; the
+first time (when the special test_alloc_failed variable is zero) is
+used to determine how many allocations are performed by the following block;
+subsequent calls (when test_alloc_failed is a positive integer) mean that
+the test_alloc_failedth call to realloc has failed.
+</p>
+<p>
+This cannot be nested as it relies on setting an alternate allocator
+and sharing a global state.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-ALLOC-SAFE:CAPS"></a><h3>TEST_ALLOC_SAFE</h3>
+<pre class="programlisting">#define             TEST_ALLOC_SAFE</pre>
+<p>
+This macro may be used within a TEST_ALLOC_FAIL block to guard the
+following block of code from failing allocation.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="test-free-tag"></a><h3>struct test_free_tag</h3>
+<pre class="programlisting">struct test_free_tag {
+	NihList  entry;
+	void    *ptr;
+};
+</pre>
+<p>
+This structure is used to find out whether an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object
+has been freed or not.  It works by being allocated as a child of the
+tagged object, and added to a linked list of known tags.  When freed,
+it is removed from the linked list.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><a class="link" href="nih-List.html#NihList" title="NihList"><span class="type">NihList</span></a> <em class="structfield"><code><a name="test-free-tag.entry"></a>entry</code></em>;</span></p></td>
+<td>list entry,</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="type">void</span> *<em class="structfield"><code><a name="test-free-tag.ptr"></a>ptr</code></em>;</span></p></td>
+<td>tagged object.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FREE-TAG:CAPS"></a><h3>TEST_FREE_TAG()</h3>
+<pre class="programlisting">#define             TEST_FREE_TAG(_ptr)</pre>
+<p>
+This macro is used to tag an <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object to determine
+whether or not it is freed.  It works by allocating a child object of
+<em class="parameter"><code>_ptr</code></em> and storing it in a linked list.
+</p>
+<p>
+This can be tested with either the TEST_FREE or TEST_NOT_FREE macros as
+many times as you like.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated object.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FREE:CAPS"></a><h3>TEST_FREE()</h3>
+<pre class="programlisting">#define             TEST_FREE(_ptr)</pre>
+<p>
+Check that the <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object <em class="parameter"><code>_ptr</code></em> was freed as expected; it
+must have been first prepared by using TEST_FREE_TAG on it otherwise this
+will always fail.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated object.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NOT-FREE:CAPS"></a><h3>TEST_NOT_FREE()</h3>
+<pre class="programlisting">#define             TEST_NOT_FREE(_ptr)</pre>
+<p>
+Check that the <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> allocated object <em class="parameter"><code>_ptr</code></em> was not freed
+unexpectedly; it must have been first prepared by using TEST_FREE_TAG
+on it otherwise this will always succeed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_ptr</code></em> :</span></p></td>
+<td>allocated block.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-DIVERT-STDOUT-FD:CAPS"></a><h3>TEST_DIVERT_STDOUT_FD()</h3>
+<pre class="programlisting">#define             TEST_DIVERT_STDOUT_FD(_fd)</pre>
+<p>
+This macro diverts standard output to a different file descriptor
+for the duration of a block of code that should follow it.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_fd</code></em> :</span></p></td>
+<td>fd to send standard output to.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-DIVERT-STDOUT:CAPS"></a><h3>TEST_DIVERT_STDOUT()</h3>
+<pre class="programlisting">#define             TEST_DIVERT_STDOUT(_file)</pre>
+<p>
+This macro diverts standard output to a different file for the duration
+of a block of code that should follow it.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to send standard output to.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-DIVERT-STDERR-FD:CAPS"></a><h3>TEST_DIVERT_STDERR_FD()</h3>
+<pre class="programlisting">#define             TEST_DIVERT_STDERR_FD(_fd)</pre>
+<p>
+This macro diverts standard error to a different file descriptor for the
+duration of a block of code that should follow it.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_fd</code></em> :</span></p></td>
+<td>fd to send standard error to.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-DIVERT-STDERR:CAPS"></a><h3>TEST_DIVERT_STDERR()</h3>
+<pre class="programlisting">#define             TEST_DIVERT_STDERR(_file)</pre>
+<p>
+This macro diverts standard error to a different file for the duration
+of a block of code that should follow it.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to send standard error to.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILENAME:CAPS"></a><h3>TEST_FILENAME()</h3>
+<pre class="programlisting">#define             TEST_FILENAME(_var)</pre>
+<p>
+Generate a filename that may be used for testing, it's unlinked if it
+exists and it's up to you to unlink it when done.  <em class="parameter"><code>_var</code></em> should be at
+least PATH_MAX long.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_var</code></em> :</span></p></td>
+<td>variable to store filename in.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-EQ:CAPS"></a><h3>TEST_FILE_EQ()</h3>
+<pre class="programlisting">#define             TEST_FILE_EQ(_file, _line)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> is <em class="parameter"><code>_line</code></em>, which should
+include the terminating newline if one is expected.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-MATCH:CAPS"></a><h3>TEST_FILE_MATCH()</h3>
+<pre class="programlisting">#define             TEST_FILE_MATCH(_file, _pattern)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> matches the glob pattern
+<em class="parameter"><code>_pattern</code></em>, which should include the terminating newline if one is expected.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_pattern</code></em> :</span></p></td>
+<td>pattern to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-EQ-N:CAPS"></a><h3>TEST_FILE_EQ_N()</h3>
+<pre class="programlisting">#define             TEST_FILE_EQ_N(_file, _line)</pre>
+<p>
+Check that the start of the next line in the file <em class="parameter"><code>_file</code></em> is <em class="parameter"><code>_line</code></em>, up to
+the length of that argument.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-NE:CAPS"></a><h3>TEST_FILE_NE()</h3>
+<pre class="programlisting">#define             TEST_FILE_NE(_file, _line)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> is not <em class="parameter"><code>_line</code></em>, but also not
+end of file.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-NE-N:CAPS"></a><h3>TEST_FILE_NE_N()</h3>
+<pre class="programlisting">#define             TEST_FILE_NE_N(_file, _line)</pre>
+<p>
+Check that the next line in the file <em class="parameter"><code>_file</code></em> does not start with <em class="parameter"><code>_line</code></em>,
+up to the length of that argument; but also not end of file.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to read from,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_line</code></em> :</span></p></td>
+<td>line to expect.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-END:CAPS"></a><h3>TEST_FILE_END()</h3>
+<pre class="programlisting">#define             TEST_FILE_END(_file)</pre>
+<p>
+Check that the end of the file <em class="parameter"><code>_file</code></em> has been reached, and that there
+are no more lines to read.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to check.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FILE-RESET:CAPS"></a><h3>TEST_FILE_RESET()</h3>
+<pre class="programlisting">#define             TEST_FILE_RESET(_file)</pre>
+<p>
+This macro may be used to reset a temporary file such that it can be
+treated as a new one.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>FILE to reset.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EXPECTED-STR:CAPS"></a><h3>TEST_EXPECTED_STR()</h3>
+<pre class="programlisting">#define             TEST_EXPECTED_STR(_str, _filename)</pre>
+<p>
+Check that the string <em class="parameter"><code>_str</code></em> exactly matches the contents of the
+file <em class="parameter"><code>_filename</code></em>, which is local to the expected directory.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_str</code></em> :</span></p></td>
+<td>string to check,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_filename</code></em> :</span></p></td>
+<td>filename to compare against.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EXPECTED-FILE:CAPS"></a><h3>TEST_EXPECTED_FILE()</h3>
+<pre class="programlisting">#define             TEST_EXPECTED_FILE(_file, _filename)</pre>
+<p>
+Check that the contents of file <em class="parameter"><code>_file</code></em> exactly matches the contents of
+the file <em class="parameter"><code>_filename</code></em>, which is local to the expected directory.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_file</code></em> :</span></p></td>
+<td>open file to check,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_filename</code></em> :</span></p></td>
+<td>filename to compare against.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-HASH-EMPTY:CAPS"></a><h3>TEST_HASH_EMPTY()</h3>
+<pre class="programlisting">#define             TEST_HASH_EMPTY(_hash)</pre>
+<p>
+Check that the hash table <em class="parameter"><code>_hash</code></em> is empty.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_hash</code></em> :</span></p></td>
+<td>hash table.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-HASH-NOT-EMPTY:CAPS"></a><h3>TEST_HASH_NOT_EMPTY()</h3>
+<pre class="programlisting">#define             TEST_HASH_NOT_EMPTY(_hash)</pre>
+<p>
+Check that the hash table <em class="parameter"><code>_hash</code></em> is not empty.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_hash</code></em> :</span></p></td>
+<td>entry in list.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-LIST-EMPTY:CAPS"></a><h3>TEST_LIST_EMPTY()</h3>
+<pre class="programlisting">#define             TEST_LIST_EMPTY(_list)</pre>
+<p>
+Check that the list of which <em class="parameter"><code>_list</code></em> is a member is empty, ie. that
+<em class="parameter"><code>_list</code></em> is the sole member.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_list</code></em> :</span></p></td>
+<td>entry in list.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-LIST-NOT-EMPTY:CAPS"></a><h3>TEST_LIST_NOT_EMPTY()</h3>
+<pre class="programlisting">#define             TEST_LIST_NOT_EMPTY(_list)</pre>
+<p>
+Check that the list of which <em class="parameter"><code>_list</code></em> is a member is not empty, ie. that
+there are more members than just <em class="parameter"><code>_list</code></em>.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_list</code></em> :</span></p></td>
+<td>entry in list.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-GROUP:CAPS"></a><h3>TEST_GROUP()</h3>
+<pre class="programlisting">#define             TEST_GROUP(_name)</pre>
+<p>
+Output a message indicating that a group of tests testing <em class="parameter"><code>_name</code></em> are
+being performed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_name</code></em> :</span></p></td>
+<td>name of group being tested.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FUNCTION:CAPS"></a><h3>TEST_FUNCTION()</h3>
+<pre class="programlisting">#define             TEST_FUNCTION(_func)</pre>
+<p>
+Output a message indicating that tests of the function named <em class="parameter"><code>_func</code></em> are
+being performed.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_func</code></em> :</span></p></td>
+<td>name of function being tested.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FUNCTION-FEATURE:CAPS"></a><h3>TEST_FUNCTION_FEATURE()</h3>
+<pre class="programlisting">#define             TEST_FUNCTION_FEATURE(_func, _feat)</pre>
+<p>
+Output a message indicating that tests of the function named <em class="parameter"><code>_func</code></em> are
+being performed, specifically of the <em class="parameter"><code>_feat</code></em> feature.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_func</code></em> :</span></p></td>
+<td>name of function being tested,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_feat</code></em> :</span></p></td>
+<td>feature being tested.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FEATURE:CAPS"></a><h3>TEST_FEATURE()</h3>
+<pre class="programlisting">#define             TEST_FEATURE(_feat)</pre>
+<p>
+Output a message indicating that a sub-test of a function or
+group is being performed, specifically the feature named _feat.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_feat</code></em> :</span></p></td>
+<td>name of function or group feature being tested.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FAILED:CAPS"></a><h3>TEST_FAILED()</h3>
+<pre class="programlisting">#define             TEST_FAILED(_fmt, ...)</pre>
+<p>
+Output a formatted message indicating that a test has failed, including
+the file, line number and function where the failure happened.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_fmt</code></em> :</span></p></td>
+<td>format string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>format string arguments.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-CHILD:CAPS"></a><h3>TEST_CHILD()</h3>
+<pre class="programlisting">#define             TEST_CHILD(_pid)</pre>
+<p>
+Spawn a child in which a test can be performed without affecting the
+main flow of the process.  The pid of the child is stored in <em class="parameter"><code>_pid</code></em>.
+</p>
+<p>
+This macro ensures that the child has begun execution before the
+parent is allowed to continue through the usual use of a pipe.
+</p>
+<p>
+A block of code should follow this macro, which is the code that will
+be run in the child process; if the block ends, the child will abort.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_pid</code></em> :</span></p></td>
+<td>variable to store pid in.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-CHILD-WAIT:CAPS"></a><h3>TEST_CHILD_WAIT()</h3>
+<pre class="programlisting">#define             TEST_CHILD_WAIT(_pid, _fd)</pre>
+<p>
+Spawn a child in which a test can be performed while the parent waits
+in this macro for the child to reach the TEST_CHILD_RELEASE macro
+or die.
+</p>
+<p>
+The pid of the child is stored in <em class="parameter"><code>_pid</code></em>, a file descriptor is stored
+in the <em class="parameter"><code>_fd</code></em> variable which is used by the TEST_CHILD_RELEASE macro.
+</p>
+<p>
+A block of code should follow this macro, which is the code that will
+be run in the child process; if the block ends, the child will abort.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_pid</code></em> :</span></p></td>
+<td>variable to store pid in,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_fd</code></em> :</span></p></td>
+<td>variable to store lock fd in.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-CHILD-RELEASE:CAPS"></a><h3>TEST_CHILD_RELEASE()</h3>
+<pre class="programlisting">#define             TEST_CHILD_RELEASE(_fd)</pre>
+<p>
+Release the parent of a child spawned by TEST_CHILD_WAIT now that the
+child has reached the critical point.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_fd</code></em> :</span></p></td>
+<td>variable lock fd stored in.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="assert0"></a><h3>assert0()</h3>
+<pre class="programlisting">#define             assert0(_expr)</pre>
+<p>
+Wrapper around the usual <code class="function">assert()</code> function that handles the common case
+of asserting that <em class="parameter"><code>_expr</code></em> returns zero, rather than a TRUE value.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_expr</code></em> :</span></p></td>
+<td>expression to check.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-TRUE:CAPS"></a><h3>TEST_TRUE()</h3>
+<pre class="programlisting">#define             TEST_TRUE(_expr)</pre>
+<p>
+Check that the expression <em class="parameter"><code>_expr</code></em> evaluates to TRUE.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_expr</code></em> :</span></p></td>
+<td>value or expression to test.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-FALSE:CAPS"></a><h3>TEST_FALSE()</h3>
+<pre class="programlisting">#define             TEST_FALSE(_expr)</pre>
+<p>
+Check that the expression <em class="parameter"><code>_expr</code></em> evaluates to FALSE.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>_expr</code></em> :</span></p></td>
+<td>value or expression to test.</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ:CAPS"></a><h3>TEST_EQ()</h3>
+<pre class="programlisting">#define             TEST_EQ(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal, they are cast
+to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-U:CAPS"></a><h3>TEST_EQ_U()</h3>
+<pre class="programlisting">#define             TEST_EQ_U(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal, they are cast
+to size_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first unsigned integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second unsigned integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-P:CAPS"></a><h3>TEST_EQ_P()</h3>
+<pre class="programlisting">#define             TEST_EQ_P(_a, _b)</pre>
+<p>
+Check that the two pointers <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second pointer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-STR:CAPS"></a><h3>TEST_EQ_STR()</h3>
+<pre class="programlisting">#define             TEST_EQ_STR(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-STRN:CAPS"></a><h3>TEST_EQ_STRN()</h3>
+<pre class="programlisting">#define             TEST_EQ_STRN(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are equal, up to the length of
+the second string.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-EQ-MEM:CAPS"></a><h3>TEST_EQ_MEM()</h3>
+<pre class="programlisting">#define             TEST_EQ_MEM(_a, _b, _l)</pre>
+<p>
+Check that the two <em class="parameter"><code>_l</code></em> byte long areas of memory at <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are
+identical.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_l</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE:CAPS"></a><h3>TEST_NE()</h3>
+<pre class="programlisting">#define             TEST_NE(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal, they are
+cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-U:CAPS"></a><h3>TEST_NE_U()</h3>
+<pre class="programlisting">#define             TEST_NE_U(_a, _b)</pre>
+<p>
+Check that the two numeric values <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal, they are
+cast to size_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first unsigned integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second unsigned integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-P:CAPS"></a><h3>TEST_NE_P()</h3>
+<pre class="programlisting">#define             TEST_NE_P(_a, _b)</pre>
+<p>
+Check that the two pointers <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first pointer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second pointer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-STR:CAPS"></a><h3>TEST_NE_STR()</h3>
+<pre class="programlisting">#define             TEST_NE_STR(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-STRN:CAPS"></a><h3>TEST_NE_STRN()</h3>
+<pre class="programlisting">#define             TEST_NE_STRN(_a, _b)</pre>
+<p>
+Check that the two strings <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are not equal, up to the length
+of the second string.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first string,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second string.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-NE-MEM:CAPS"></a><h3>TEST_NE_MEM()</h3>
+<pre class="programlisting">#define             TEST_NE_MEM(_a, _b, _l)</pre>
+<p>
+Check that the two <em class="parameter"><code>_l</code></em> byte long areas of memory at <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em> are
+different.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second memory area,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_l</code></em> :</span></p></td>
+<td>length of <em class="parameter"><code>_a</code></em> and <em class="parameter"><code>_b</code></em>.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-LT:CAPS"></a><h3>TEST_LT()</h3>
+<pre class="programlisting">#define             TEST_LT(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is less than the numeric value <em class="parameter"><code>_b</code></em>,
+they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-LE:CAPS"></a><h3>TEST_LE()</h3>
+<pre class="programlisting">#define             TEST_LE(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is less than or equal to the numeric
+value <em class="parameter"><code>_b</code></em>, they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-GT:CAPS"></a><h3>TEST_GT()</h3>
+<pre class="programlisting">#define             TEST_GT(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is greater than the numeric value <em class="parameter"><code>_b</code></em>,
+they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="TEST-GE:CAPS"></a><h3>TEST_GE()</h3>
+<pre class="programlisting">#define             TEST_GE(_a, _b)</pre>
+<p>
+Check that the numeric value <em class="parameter"><code>_a</code></em> is greater than or equal to the numeric
+value <em class="parameter"><code>_b</code></em>, they are cast to ssize_t for display purposes.
+</p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_a</code></em> :</span></p></td>
+<td>first integer,</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>_b</code></em> :</span></p></td>
+<td>second integer.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.19</div>
+</body>
+</html>

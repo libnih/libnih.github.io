@@ -4,20 +4,20 @@
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
-<refentry id="nih-watch">
+<refentry id="nih-Watch">
 <refmeta>
-<refentrytitle role="top_of_page" id="nih-watch.top_of_page">watch</refentrytitle>
+<refentrytitle role="top_of_page" id="nih-Watch.top_of_page">Watch</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>
   NIH Library
 </refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>watch</refname>
-<refpurpose></refpurpose>
+<refname>Watch</refname>
+<refpurpose>Inotify watch abstraction</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv id="nih-watch.synopsis" role="synopsis">
+<refsynopsisdiv id="nih-Watch.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
 <synopsis>typedef             <link linkend="NihWatch">NihWatch</link>;
@@ -49,11 +49,11 @@
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1 id="nih-watch.description" role="desc">
+<refsect1 id="nih-Watch.description" role="desc">
 <title role="desc.title">Description</title>
 
 </refsect1>
-<refsect1 id="nih-watch.details" role="details">
+<refsect1 id="nih-Watch.details" role="details">
 <title role="details.title">Details</title>
 <refsect2 id="NihWatch" role="typedef">
 <title>NihWatch</title>

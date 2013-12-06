@@ -4,20 +4,20 @@
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
-<refentry id="nih-signal">
+<refentry id="nih-Signal">
 <refmeta>
-<refentrytitle role="top_of_page" id="nih-signal.top_of_page">signal</refentrytitle>
+<refentrytitle role="top_of_page" id="nih-Signal.top_of_page">Signal</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>
   NIH Library
 </refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>signal</refname>
-<refpurpose></refpurpose>
+<refname>Signal</refname>
+<refpurpose>Signal Handlers</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv id="nih-signal.synopsis" role="synopsis">
+<refsynopsisdiv id="nih-Signal.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
 <synopsis>typedef             <link linkend="NihSignal">NihSignal</link>;
@@ -41,11 +41,11 @@ const <link linkend="char"><returnvalue>char</returnvalue></link> *        <link
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1 id="nih-signal.description" role="desc">
+<refsect1 id="nih-Signal.description" role="desc">
 <title role="desc.title">Description</title>
 
 </refsect1>
-<refsect1 id="nih-signal.details" role="details">
+<refsect1 id="nih-Signal.details" role="details">
 <title role="details.title">Details</title>
 <refsect2 id="NihSignal" role="typedef">
 <title>NihSignal</title>

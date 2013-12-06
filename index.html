@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>nih Reference Manual</title>
+<title>NIH Utility Library Reference Manual</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
-<link rel="home" href="index.html" title="nih Reference Manual">
-<link rel="next" href="ch01.html" title="NIH Utility Library">
+<link rel="home" href="index.html" title="NIH Utility Library Reference Manual">
+<link rel="next" href="ch01.html" title="Memory Management and Basic Types">
 <meta name="generator" content="GTK-Doc V1.19 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -13,23 +13,50 @@
 <div class="book">
 <div class="titlepage">
 <div>
-<div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">nih Reference Manual</p></th></tr></table></div>
+<div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">NIH Utility Library Reference Manual</p></th></tr></table></div>
 <div><p class="releaseinfo">
-      for nih 1.0.
+      for libnih 1.0.
       The latest version of this documentation can be found on-line at
-      <a class="ulink" href="http://%5BSERVER%5D/nih/index.html" target="_top">http://[SERVER]/nih/</a>.
+      <a class="ulink" href="http://libnih.la/" target="_top">http://libnih.la/</a>.
     </p></div>
 </div>
 <hr>
 </div>
 <div class="toc"><dl class="toc">
-<dt><span class="chapter"><a href="ch01.html">NIH Utility Library</a></span></dt>
+<dt><span class="chapter"><a href="ch01.html">Memory Management and Basic Types</a></span></dt>
 <dd><dl>
 <dt>
 <span class="refentrytitle"><a href="nih-Alloc.html">Alloc</a></span><span class="refpurpose"> — Object memory allocation</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="nih-Child.html">Child</a></span><span class="refpurpose"> — Monitoring child processes</span>
+<span class="refentrytitle"><a href="nih-String.html">String</a></span><span class="refpurpose"> — Strings and string arrays</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-List.html">List</a></span><span class="refpurpose"> — Circular doubly-linked lists</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Tree.html">Tree</a></span><span class="refpurpose"> — Binary trees</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Hash.html">Hash</a></span><span class="refpurpose"> — Generic hash tables</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Macros.html">Macros</a></span><span class="refpurpose"> — Useful macros</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Test.html">Test</a></span><span class="refpurpose"> — Unit testing framework</span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch02.html">Main Loop and Application Development Helpers</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="nih-Main-Loop.html">Main Loop</a></span><span class="refpurpose"> — Application main loop</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Logging.html">Logging</a></span><span class="refpurpose"> — Logging interface</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Option.html">Option</a></span><span class="refpurpose"> — Option and arguments parser</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="nih-Command.html">Command</a></span><span class="refpurpose"> — Sub-commands options and arguments</span>
@@ -37,77 +64,29 @@
 <dt>
 <span class="refentrytitle"><a href="nih-Config.html">Config</a></span><span class="refpurpose"> — Configuration parser</span>
 </dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch03.html">Operating System Facilities</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="nih-File.html">File</a></span><span class="refpurpose"> — Directory traversal and file reading</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Watch.html">Watch</a></span><span class="refpurpose"> — Inotify watch abstraction</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Timer.html">Timer</a></span><span class="refpurpose"> — Delayed execution</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-IO.html">IO</a></span><span class="refpurpose"> — Efficient and high-throughput IO</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Child.html">Child</a></span><span class="refpurpose"> — Monitoring child processes</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="nih-Signal.html">Signal</a></span><span class="refpurpose"> — Signal Handlers</span>
+</dt>
 <dt>
 <span class="refentrytitle"><a href="nih-Error.html">Error</a></span><span class="refpurpose"> — System and application error handling</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-Errors.html">Errors</a></span><span class="refpurpose"> — Well-known errors</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-file.html">file</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-Hash.html">Hash</a></span><span class="refpurpose"> — Generic hash tables</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-io.html">io</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-List.html">List</a></span><span class="refpurpose"> — Circular doubly-linked lists</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-Logging.html">Logging</a></span><span class="refpurpose"> — Logging interface</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-Macros.html">Macros</a></span><span class="refpurpose"> — Useful macros</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-main.html">main</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-Option.html">Option</a></span><span class="refpurpose"> — Option and arguments parser</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-signal.html">signal</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-String.html">String</a></span><span class="refpurpose"> — Strings and string arrays</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test.html">test</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-alloc.html">test_alloc</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-divert.html">test_divert</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-files.html">test_files</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-hash.html">test_hash</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-list.html">test_list</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-output.html">test_output</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-process.html">test_process</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-test-values.html">test_values</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-timer.html">timer</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-Tree.html">Tree</a></span><span class="refpurpose"> — Binary trees</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="nih-watch.html">watch</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
 <dt><span class="index"><a href="api-index-full.html">API Index</a></span></dt>

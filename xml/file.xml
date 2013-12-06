@@ -4,20 +4,20 @@
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
-<refentry id="nih-file">
+<refentry id="nih-File">
 <refmeta>
-<refentrytitle role="top_of_page" id="nih-file.top_of_page">file</refentrytitle>
+<refentrytitle role="top_of_page" id="nih-File.top_of_page">File</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>
   NIH Library
 </refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>file</refname>
-<refpurpose></refpurpose>
+<refname>File</refname>
+<refpurpose>Directory traversal and file reading</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv id="nih-file.synopsis" role="synopsis">
+<refsynopsisdiv id="nih-File.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
 <synopsis><link linkend="int"><returnvalue>int</returnvalue></link>                 (<link linkend="NihFileFilter">*NihFileFilter</link>)                    (<parameter><link linkend="void"><type>void</type></link> *data</parameter>,
@@ -54,11 +54,11 @@
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1 id="nih-file.description" role="desc">
+<refsect1 id="nih-File.description" role="desc">
 <title role="desc.title">Description</title>
 
 </refsect1>
-<refsect1 id="nih-file.details" role="details">
+<refsect1 id="nih-File.details" role="details">
 <title role="details.title">Details</title>
 <refsect2 id="NihFileFilter" role="function">
 <title>NihFileFilter ()</title>

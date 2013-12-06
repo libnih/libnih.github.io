@@ -4,31 +4,121 @@
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
-<refentry id="nih-test">
+<refentry id="nih-Test">
 <refmeta>
-<refentrytitle role="top_of_page" id="nih-test.top_of_page">test</refentrytitle>
+<refentrytitle role="top_of_page" id="nih-Test.top_of_page">Test</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>
   NIH Library
 </refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>test</refname>
-<refpurpose></refpurpose>
+<refname>Test</refname>
+<refpurpose>Unit testing framework</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv id="nih-test.synopsis" role="synopsis">
+<refsynopsisdiv id="nih-Test.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
-<synopsis>#define             <link linkend="NIH-IN-TEST-H:CAPS">NIH_IN_TEST_H</link>
+<synopsis>
+#include &lt;nih/test.h&gt;
+
+#define             <link linkend="NIH-IN-TEST-H:CAPS">NIH_IN_TEST_H</link>
+#define             <link linkend="TEST-ALLOC-SIZE:CAPS">TEST_ALLOC_SIZE</link>                     (_ptr,
+                                                         _sz)
+#define             <link linkend="TEST-ALLOC-PARENT:CAPS">TEST_ALLOC_PARENT</link>                   (_ptr,
+                                                         _parent)
+#define             <link linkend="TEST-ALLOC-NOT-PARENT:CAPS">TEST_ALLOC_NOT_PARENT</link>               (_ptr,
+                                                         _parent)
+<link linkend="return"><returnvalue>return</returnvalue></link>              <link linkend="realloc">realloc</link>                             (<parameter><link linkend="ptr"><type>ptr</type></link> Param1</parameter>,
+                                                         <parameter><link linkend="size"><type>size</type></link> Param2</parameter>);
+#define             <link linkend="TEST-ALLOC-FAIL:CAPS">TEST_ALLOC_FAIL</link>
+#define             <link linkend="TEST-ALLOC-SAFE:CAPS">TEST_ALLOC_SAFE</link>
+struct              <link linkend="test-free-tag">test_free_tag</link>;
+#define             <link linkend="TEST-FREE-TAG:CAPS">TEST_FREE_TAG</link>                       (_ptr)
+#define             <link linkend="TEST-FREE:CAPS">TEST_FREE</link>                           (_ptr)
+#define             <link linkend="TEST-NOT-FREE:CAPS">TEST_NOT_FREE</link>                       (_ptr)
+#define             <link linkend="TEST-DIVERT-STDOUT-FD:CAPS">TEST_DIVERT_STDOUT_FD</link>               (_fd)
+#define             <link linkend="TEST-DIVERT-STDOUT:CAPS">TEST_DIVERT_STDOUT</link>                  (_file)
+#define             <link linkend="TEST-DIVERT-STDERR-FD:CAPS">TEST_DIVERT_STDERR_FD</link>               (_fd)
+#define             <link linkend="TEST-DIVERT-STDERR:CAPS">TEST_DIVERT_STDERR</link>                  (_file)
+#define             <link linkend="TEST-FILENAME:CAPS">TEST_FILENAME</link>                       (_var)
+#define             <link linkend="TEST-FILE-EQ:CAPS">TEST_FILE_EQ</link>                        (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-MATCH:CAPS">TEST_FILE_MATCH</link>                     (_file,
+                                                         _pattern)
+#define             <link linkend="TEST-FILE-EQ-N:CAPS">TEST_FILE_EQ_N</link>                      (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-NE:CAPS">TEST_FILE_NE</link>                        (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-NE-N:CAPS">TEST_FILE_NE_N</link>                      (_file,
+                                                         _line)
+#define             <link linkend="TEST-FILE-END:CAPS">TEST_FILE_END</link>                       (_file)
+#define             <link linkend="TEST-FILE-RESET:CAPS">TEST_FILE_RESET</link>                     (_file)
+#define             <link linkend="TEST-EXPECTED-STR:CAPS">TEST_EXPECTED_STR</link>                   (_str,
+                                                         _filename)
+#define             <link linkend="TEST-EXPECTED-FILE:CAPS">TEST_EXPECTED_FILE</link>                  (_file,
+                                                         _filename)
+#define             <link linkend="TEST-HASH-EMPTY:CAPS">TEST_HASH_EMPTY</link>                     (_hash)
+#define             <link linkend="TEST-HASH-NOT-EMPTY:CAPS">TEST_HASH_NOT_EMPTY</link>                 (_hash)
+#define             <link linkend="TEST-LIST-EMPTY:CAPS">TEST_LIST_EMPTY</link>                     (_list)
+#define             <link linkend="TEST-LIST-NOT-EMPTY:CAPS">TEST_LIST_NOT_EMPTY</link>                 (_list)
+#define             <link linkend="TEST-GROUP:CAPS">TEST_GROUP</link>                          (_name)
+#define             <link linkend="TEST-FUNCTION:CAPS">TEST_FUNCTION</link>                       (_func)
+#define             <link linkend="TEST-FUNCTION-FEATURE:CAPS">TEST_FUNCTION_FEATURE</link>               (_func,
+                                                         _feat)
+#define             <link linkend="TEST-FEATURE:CAPS">TEST_FEATURE</link>                        (_feat)
+#define             <link linkend="TEST-FAILED:CAPS">TEST_FAILED</link>                         (_fmt,
+                                                         ...)
+#define             <link linkend="TEST-CHILD:CAPS">TEST_CHILD</link>                          (_pid)
+#define             <link linkend="TEST-CHILD-WAIT:CAPS">TEST_CHILD_WAIT</link>                     (_pid,
+                                                         _fd)
+#define             <link linkend="TEST-CHILD-RELEASE:CAPS">TEST_CHILD_RELEASE</link>                  (_fd)
+#define             <link linkend="assert0">assert0</link>                             (_expr)
+#define             <link linkend="TEST-TRUE:CAPS">TEST_TRUE</link>                           (_expr)
+#define             <link linkend="TEST-FALSE:CAPS">TEST_FALSE</link>                          (_expr)
+#define             <link linkend="TEST-EQ:CAPS">TEST_EQ</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-U:CAPS">TEST_EQ_U</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-P:CAPS">TEST_EQ_P</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-STR:CAPS">TEST_EQ_STR</link>                         (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-STRN:CAPS">TEST_EQ_STRN</link>                        (_a,
+                                                         _b)
+#define             <link linkend="TEST-EQ-MEM:CAPS">TEST_EQ_MEM</link>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <link linkend="TEST-NE:CAPS">TEST_NE</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-U:CAPS">TEST_NE_U</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-P:CAPS">TEST_NE_P</link>                           (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-STR:CAPS">TEST_NE_STR</link>                         (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-STRN:CAPS">TEST_NE_STRN</link>                        (_a,
+                                                         _b)
+#define             <link linkend="TEST-NE-MEM:CAPS">TEST_NE_MEM</link>                         (_a,
+                                                         _b,
+                                                         _l)
+#define             <link linkend="TEST-LT:CAPS">TEST_LT</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-LE:CAPS">TEST_LE</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-GT:CAPS">TEST_GT</link>                             (_a,
+                                                         _b)
+#define             <link linkend="TEST-GE:CAPS">TEST_GE</link>                             (_a,
+                                                         _b)
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1 id="nih-test.description" role="desc">
+<refsect1 id="nih-Test.description" role="desc">
 <title role="desc.title">Description</title>
 
 </refsect1>
-<refsect1 id="nih-test.details" role="details">
+<refsect1 id="nih-Test.details" role="details">
 <title role="details.title">Details</title>
 <refsect2 id="NIH-IN-TEST-H:CAPS" role="macro">
 <title>NIH_IN_TEST_H</title>
@@ -36,6 +126,698 @@
 <programlisting>#define NIH_IN_TEST_H
 </programlisting>
 </refsect2>
+<refsect2 id="TEST-ALLOC-SIZE:CAPS" role="macro">
+<title>TEST_ALLOC_SIZE()</title>
+<indexterm zone="TEST-ALLOC-SIZE:CAPS"><primary>TEST_ALLOC_SIZE</primary></indexterm>
+<programlisting>#define             TEST_ALLOC_SIZE(_ptr, _sz)</programlisting>
+<para>
+Check that the pointer <parameter>_ptr</parameter> was allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link>, and has
+enough space for at least <parameter>_sz</parameter> bytes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_ptr</parameter>&#160;:</term>
+<listitem><simpara>allocated pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_sz</parameter>&#160;:</term>
+<listitem><simpara>expected size.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-ALLOC-PARENT:CAPS" role="macro">
+<title>TEST_ALLOC_PARENT()</title>
+<indexterm zone="TEST-ALLOC-PARENT:CAPS"><primary>TEST_ALLOC_PARENT</primary></indexterm>
+<programlisting>#define             TEST_ALLOC_PARENT(_ptr, _parent)</programlisting>
+<para>
+Check that the pointer <parameter>_ptr</parameter> was allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link> and has
+the other block <parameter>_parent</parameter> as a parent.  <parameter>_parent</parameter> may be the special
+NULL parent.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_ptr</parameter>&#160;:</term>
+<listitem><simpara>allocated pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_parent</parameter>&#160;:</term>
+<listitem><simpara>expected parent.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-ALLOC-NOT-PARENT:CAPS" role="macro">
+<title>TEST_ALLOC_NOT_PARENT()</title>
+<indexterm zone="TEST-ALLOC-NOT-PARENT:CAPS"><primary>TEST_ALLOC_NOT_PARENT</primary></indexterm>
+<programlisting>#define             TEST_ALLOC_NOT_PARENT(_ptr, _parent)</programlisting>
+<para>
+Check that the pointer <parameter>_ptr</parameter> was allocated with <link linkend="nih-alloc"><function>nih_alloc()</function></link> and does not
+have the other block <parameter>_parent</parameter> as a parent.  <parameter>_parent</parameter> may be the special
+NULL parent.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_ptr</parameter>&#160;:</term>
+<listitem><simpara>allocated pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_parent</parameter>&#160;:</term>
+<listitem><simpara>expected non-parent.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="realloc" role="function">
+<title>realloc ()</title>
+<indexterm zone="realloc"><primary>realloc</primary></indexterm>
+<programlisting><link linkend="return"><returnvalue>return</returnvalue></link>              realloc                             (<parameter><link linkend="ptr"><type>ptr</type></link> Param1</parameter>,
+                                                         <parameter><link linkend="size"><type>size</type></link> Param2</parameter>);</programlisting>
+</refsect2>
+<refsect2 id="TEST-ALLOC-FAIL:CAPS" role="macro">
+<title>TEST_ALLOC_FAIL</title>
+<indexterm zone="TEST-ALLOC-FAIL:CAPS"><primary>TEST_ALLOC_FAIL</primary></indexterm>
+<programlisting>#define             TEST_ALLOC_FAIL</programlisting>
+<para>
+This macro expands to code that runs the following block repeatedly; the
+first time (when the special test_alloc_failed variable is zero) is
+used to determine how many allocations are performed by the following block;
+subsequent calls (when test_alloc_failed is a positive integer) mean that
+the test_alloc_failedth call to realloc has failed.
+</para>
+<para>
+This cannot be nested as it relies on setting an alternate allocator
+and sharing a global state.
+</para></refsect2>
+<refsect2 id="TEST-ALLOC-SAFE:CAPS" role="macro">
+<title>TEST_ALLOC_SAFE</title>
+<indexterm zone="TEST-ALLOC-SAFE:CAPS"><primary>TEST_ALLOC_SAFE</primary></indexterm>
+<programlisting>#define             TEST_ALLOC_SAFE</programlisting>
+<para>
+This macro may be used within a TEST_ALLOC_FAIL block to guard the
+following block of code from failing allocation.
+</para></refsect2>
+<refsect2 id="test-free-tag" role="struct">
+<title>struct test_free_tag</title>
+<indexterm zone="test-free-tag"><primary>test_free_tag</primary></indexterm>
+<programlisting>struct test_free_tag {
+	NihList  entry;
+	void    *ptr;
+};
+</programlisting>
+<para>
+This structure is used to find out whether an <link linkend="nih-alloc"><function>nih_alloc()</function></link> allocated object
+has been freed or not.  It works by being allocated as a child of the
+tagged object, and added to a linked list of known tags.  When freed,
+it is removed from the linked list.
+</para><variablelist role="struct">
+<varlistentry><term><link linkend="NihList"><type>NihList</type></link>&#160;<structfield id="test-free-tag.entry">entry</structfield>;</term>
+<listitem><simpara>list entry,</simpara></listitem>
+</varlistentry>
+<varlistentry><term><link linkend="void"><type>void</type></link>&#160;*<structfield id="test-free-tag.ptr">ptr</structfield>;</term>
+<listitem><simpara>tagged object.</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FREE-TAG:CAPS" role="macro">
+<title>TEST_FREE_TAG()</title>
+<indexterm zone="TEST-FREE-TAG:CAPS"><primary>TEST_FREE_TAG</primary></indexterm>
+<programlisting>#define             TEST_FREE_TAG(_ptr)</programlisting>
+<para>
+This macro is used to tag an <link linkend="nih-alloc"><function>nih_alloc()</function></link> allocated object to determine
+whether or not it is freed.  It works by allocating a child object of
+<parameter>_ptr</parameter> and storing it in a linked list.
+</para>
+<para>
+This can be tested with either the TEST_FREE or TEST_NOT_FREE macros as
+many times as you like.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_ptr</parameter>&#160;:</term>
+<listitem><simpara>allocated object.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FREE:CAPS" role="macro">
+<title>TEST_FREE()</title>
+<indexterm zone="TEST-FREE:CAPS"><primary>TEST_FREE</primary></indexterm>
+<programlisting>#define             TEST_FREE(_ptr)</programlisting>
+<para>
+Check that the <link linkend="nih-alloc"><function>nih_alloc()</function></link> allocated object <parameter>_ptr</parameter> was freed as expected; it
+must have been first prepared by using TEST_FREE_TAG on it otherwise this
+will always fail.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_ptr</parameter>&#160;:</term>
+<listitem><simpara>allocated object.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NOT-FREE:CAPS" role="macro">
+<title>TEST_NOT_FREE()</title>
+<indexterm zone="TEST-NOT-FREE:CAPS"><primary>TEST_NOT_FREE</primary></indexterm>
+<programlisting>#define             TEST_NOT_FREE(_ptr)</programlisting>
+<para>
+Check that the <link linkend="nih-alloc"><function>nih_alloc()</function></link> allocated object <parameter>_ptr</parameter> was not freed
+unexpectedly; it must have been first prepared by using TEST_FREE_TAG
+on it otherwise this will always succeed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_ptr</parameter>&#160;:</term>
+<listitem><simpara>allocated block.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-DIVERT-STDOUT-FD:CAPS" role="macro">
+<title>TEST_DIVERT_STDOUT_FD()</title>
+<indexterm zone="TEST-DIVERT-STDOUT-FD:CAPS"><primary>TEST_DIVERT_STDOUT_FD</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDOUT_FD(_fd)</programlisting>
+<para>
+This macro diverts standard output to a different file descriptor
+for the duration of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>fd to send standard output to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-DIVERT-STDOUT:CAPS" role="macro">
+<title>TEST_DIVERT_STDOUT()</title>
+<indexterm zone="TEST-DIVERT-STDOUT:CAPS"><primary>TEST_DIVERT_STDOUT</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDOUT(_file)</programlisting>
+<para>
+This macro diverts standard output to a different file for the duration
+of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to send standard output to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-DIVERT-STDERR-FD:CAPS" role="macro">
+<title>TEST_DIVERT_STDERR_FD()</title>
+<indexterm zone="TEST-DIVERT-STDERR-FD:CAPS"><primary>TEST_DIVERT_STDERR_FD</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDERR_FD(_fd)</programlisting>
+<para>
+This macro diverts standard error to a different file descriptor for the
+duration of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>fd to send standard error to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-DIVERT-STDERR:CAPS" role="macro">
+<title>TEST_DIVERT_STDERR()</title>
+<indexterm zone="TEST-DIVERT-STDERR:CAPS"><primary>TEST_DIVERT_STDERR</primary></indexterm>
+<programlisting>#define             TEST_DIVERT_STDERR(_file)</programlisting>
+<para>
+This macro diverts standard error to a different file for the duration
+of a block of code that should follow it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to send standard error to.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILENAME:CAPS" role="macro">
+<title>TEST_FILENAME()</title>
+<indexterm zone="TEST-FILENAME:CAPS"><primary>TEST_FILENAME</primary></indexterm>
+<programlisting>#define             TEST_FILENAME(_var)</programlisting>
+<para>
+Generate a filename that may be used for testing, it's unlinked if it
+exists and it's up to you to unlink it when done.  <parameter>_var</parameter> should be at
+least PATH_MAX long.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_var</parameter>&#160;:</term>
+<listitem><simpara>variable to store filename in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-EQ:CAPS" role="macro">
+<title>TEST_FILE_EQ()</title>
+<indexterm zone="TEST-FILE-EQ:CAPS"><primary>TEST_FILE_EQ</primary></indexterm>
+<programlisting>#define             TEST_FILE_EQ(_file, _line)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> is <parameter>_line</parameter>, which should
+include the terminating newline if one is expected.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-MATCH:CAPS" role="macro">
+<title>TEST_FILE_MATCH()</title>
+<indexterm zone="TEST-FILE-MATCH:CAPS"><primary>TEST_FILE_MATCH</primary></indexterm>
+<programlisting>#define             TEST_FILE_MATCH(_file, _pattern)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> matches the glob pattern
+<parameter>_pattern</parameter>, which should include the terminating newline if one is expected.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_pattern</parameter>&#160;:</term>
+<listitem><simpara>pattern to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-EQ-N:CAPS" role="macro">
+<title>TEST_FILE_EQ_N()</title>
+<indexterm zone="TEST-FILE-EQ-N:CAPS"><primary>TEST_FILE_EQ_N</primary></indexterm>
+<programlisting>#define             TEST_FILE_EQ_N(_file, _line)</programlisting>
+<para>
+Check that the start of the next line in the file <parameter>_file</parameter> is <parameter>_line</parameter>, up to
+the length of that argument.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-NE:CAPS" role="macro">
+<title>TEST_FILE_NE()</title>
+<indexterm zone="TEST-FILE-NE:CAPS"><primary>TEST_FILE_NE</primary></indexterm>
+<programlisting>#define             TEST_FILE_NE(_file, _line)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> is not <parameter>_line</parameter>, but also not
+end of file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-NE-N:CAPS" role="macro">
+<title>TEST_FILE_NE_N()</title>
+<indexterm zone="TEST-FILE-NE-N:CAPS"><primary>TEST_FILE_NE_N</primary></indexterm>
+<programlisting>#define             TEST_FILE_NE_N(_file, _line)</programlisting>
+<para>
+Check that the next line in the file <parameter>_file</parameter> does not start with <parameter>_line</parameter>,
+up to the length of that argument; but also not end of file.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to read from,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_line</parameter>&#160;:</term>
+<listitem><simpara>line to expect.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-END:CAPS" role="macro">
+<title>TEST_FILE_END()</title>
+<indexterm zone="TEST-FILE-END:CAPS"><primary>TEST_FILE_END</primary></indexterm>
+<programlisting>#define             TEST_FILE_END(_file)</programlisting>
+<para>
+Check that the end of the file <parameter>_file</parameter> has been reached, and that there
+are no more lines to read.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to check.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FILE-RESET:CAPS" role="macro">
+<title>TEST_FILE_RESET()</title>
+<indexterm zone="TEST-FILE-RESET:CAPS"><primary>TEST_FILE_RESET</primary></indexterm>
+<programlisting>#define             TEST_FILE_RESET(_file)</programlisting>
+<para>
+This macro may be used to reset a temporary file such that it can be
+treated as a new one.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>FILE to reset.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EXPECTED-STR:CAPS" role="macro">
+<title>TEST_EXPECTED_STR()</title>
+<indexterm zone="TEST-EXPECTED-STR:CAPS"><primary>TEST_EXPECTED_STR</primary></indexterm>
+<programlisting>#define             TEST_EXPECTED_STR(_str, _filename)</programlisting>
+<para>
+Check that the string <parameter>_str</parameter> exactly matches the contents of the
+file <parameter>_filename</parameter>, which is local to the expected directory.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_str</parameter>&#160;:</term>
+<listitem><simpara>string to check,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_filename</parameter>&#160;:</term>
+<listitem><simpara>filename to compare against.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EXPECTED-FILE:CAPS" role="macro">
+<title>TEST_EXPECTED_FILE()</title>
+<indexterm zone="TEST-EXPECTED-FILE:CAPS"><primary>TEST_EXPECTED_FILE</primary></indexterm>
+<programlisting>#define             TEST_EXPECTED_FILE(_file, _filename)</programlisting>
+<para>
+Check that the contents of file <parameter>_file</parameter> exactly matches the contents of
+the file <parameter>_filename</parameter>, which is local to the expected directory.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_file</parameter>&#160;:</term>
+<listitem><simpara>open file to check,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_filename</parameter>&#160;:</term>
+<listitem><simpara>filename to compare against.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-HASH-EMPTY:CAPS" role="macro">
+<title>TEST_HASH_EMPTY()</title>
+<indexterm zone="TEST-HASH-EMPTY:CAPS"><primary>TEST_HASH_EMPTY</primary></indexterm>
+<programlisting>#define             TEST_HASH_EMPTY(_hash)</programlisting>
+<para>
+Check that the hash table <parameter>_hash</parameter> is empty.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_hash</parameter>&#160;:</term>
+<listitem><simpara>hash table.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-HASH-NOT-EMPTY:CAPS" role="macro">
+<title>TEST_HASH_NOT_EMPTY()</title>
+<indexterm zone="TEST-HASH-NOT-EMPTY:CAPS"><primary>TEST_HASH_NOT_EMPTY</primary></indexterm>
+<programlisting>#define             TEST_HASH_NOT_EMPTY(_hash)</programlisting>
+<para>
+Check that the hash table <parameter>_hash</parameter> is not empty.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_hash</parameter>&#160;:</term>
+<listitem><simpara>entry in list.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-LIST-EMPTY:CAPS" role="macro">
+<title>TEST_LIST_EMPTY()</title>
+<indexterm zone="TEST-LIST-EMPTY:CAPS"><primary>TEST_LIST_EMPTY</primary></indexterm>
+<programlisting>#define             TEST_LIST_EMPTY(_list)</programlisting>
+<para>
+Check that the list of which <parameter>_list</parameter> is a member is empty, ie. that
+<parameter>_list</parameter> is the sole member.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_list</parameter>&#160;:</term>
+<listitem><simpara>entry in list.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-LIST-NOT-EMPTY:CAPS" role="macro">
+<title>TEST_LIST_NOT_EMPTY()</title>
+<indexterm zone="TEST-LIST-NOT-EMPTY:CAPS"><primary>TEST_LIST_NOT_EMPTY</primary></indexterm>
+<programlisting>#define             TEST_LIST_NOT_EMPTY(_list)</programlisting>
+<para>
+Check that the list of which <parameter>_list</parameter> is a member is not empty, ie. that
+there are more members than just <parameter>_list</parameter>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_list</parameter>&#160;:</term>
+<listitem><simpara>entry in list.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-GROUP:CAPS" role="macro">
+<title>TEST_GROUP()</title>
+<indexterm zone="TEST-GROUP:CAPS"><primary>TEST_GROUP</primary></indexterm>
+<programlisting>#define             TEST_GROUP(_name)</programlisting>
+<para>
+Output a message indicating that a group of tests testing <parameter>_name</parameter> are
+being performed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_name</parameter>&#160;:</term>
+<listitem><simpara>name of group being tested.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FUNCTION:CAPS" role="macro">
+<title>TEST_FUNCTION()</title>
+<indexterm zone="TEST-FUNCTION:CAPS"><primary>TEST_FUNCTION</primary></indexterm>
+<programlisting>#define             TEST_FUNCTION(_func)</programlisting>
+<para>
+Output a message indicating that tests of the function named <parameter>_func</parameter> are
+being performed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_func</parameter>&#160;:</term>
+<listitem><simpara>name of function being tested.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FUNCTION-FEATURE:CAPS" role="macro">
+<title>TEST_FUNCTION_FEATURE()</title>
+<indexterm zone="TEST-FUNCTION-FEATURE:CAPS"><primary>TEST_FUNCTION_FEATURE</primary></indexterm>
+<programlisting>#define             TEST_FUNCTION_FEATURE(_func, _feat)</programlisting>
+<para>
+Output a message indicating that tests of the function named <parameter>_func</parameter> are
+being performed, specifically of the <parameter>_feat</parameter> feature.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_func</parameter>&#160;:</term>
+<listitem><simpara>name of function being tested,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_feat</parameter>&#160;:</term>
+<listitem><simpara>feature being tested.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FEATURE:CAPS" role="macro">
+<title>TEST_FEATURE()</title>
+<indexterm zone="TEST-FEATURE:CAPS"><primary>TEST_FEATURE</primary></indexterm>
+<programlisting>#define             TEST_FEATURE(_feat)</programlisting>
+<para>
+Output a message indicating that a sub-test of a function or
+group is being performed, specifically the feature named _feat.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_feat</parameter>&#160;:</term>
+<listitem><simpara>name of function or group feature being tested.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FAILED:CAPS" role="macro">
+<title>TEST_FAILED()</title>
+<indexterm zone="TEST-FAILED:CAPS"><primary>TEST_FAILED</primary></indexterm>
+<programlisting>#define             TEST_FAILED(_fmt, ...)</programlisting>
+<para>
+Output a formatted message indicating that a test has failed, including
+the file, line number and function where the failure happened.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_fmt</parameter>&#160;:</term>
+<listitem><simpara>format string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&#160;:</term>
+<listitem><simpara>format string arguments.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-CHILD:CAPS" role="macro">
+<title>TEST_CHILD()</title>
+<indexterm zone="TEST-CHILD:CAPS"><primary>TEST_CHILD</primary></indexterm>
+<programlisting>#define             TEST_CHILD(_pid)</programlisting>
+<para>
+Spawn a child in which a test can be performed without affecting the
+main flow of the process.  The pid of the child is stored in <parameter>_pid</parameter>.
+</para>
+<para>
+This macro ensures that the child has begun execution before the
+parent is allowed to continue through the usual use of a pipe.
+</para>
+<para>
+A block of code should follow this macro, which is the code that will
+be run in the child process; if the block ends, the child will abort.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_pid</parameter>&#160;:</term>
+<listitem><simpara>variable to store pid in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-CHILD-WAIT:CAPS" role="macro">
+<title>TEST_CHILD_WAIT()</title>
+<indexterm zone="TEST-CHILD-WAIT:CAPS"><primary>TEST_CHILD_WAIT</primary></indexterm>
+<programlisting>#define             TEST_CHILD_WAIT(_pid, _fd)</programlisting>
+<para>
+Spawn a child in which a test can be performed while the parent waits
+in this macro for the child to reach the TEST_CHILD_RELEASE macro
+or die.
+</para>
+<para>
+The pid of the child is stored in <parameter>_pid</parameter>, a file descriptor is stored
+in the <parameter>_fd</parameter> variable which is used by the TEST_CHILD_RELEASE macro.
+</para>
+<para>
+A block of code should follow this macro, which is the code that will
+be run in the child process; if the block ends, the child will abort.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_pid</parameter>&#160;:</term>
+<listitem><simpara>variable to store pid in,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>variable to store lock fd in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-CHILD-RELEASE:CAPS" role="macro">
+<title>TEST_CHILD_RELEASE()</title>
+<indexterm zone="TEST-CHILD-RELEASE:CAPS"><primary>TEST_CHILD_RELEASE</primary></indexterm>
+<programlisting>#define             TEST_CHILD_RELEASE(_fd)</programlisting>
+<para>
+Release the parent of a child spawned by TEST_CHILD_WAIT now that the
+child has reached the critical point.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_fd</parameter>&#160;:</term>
+<listitem><simpara>variable lock fd stored in.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="assert0" role="macro">
+<title>assert0()</title>
+<indexterm zone="assert0"><primary>assert0</primary></indexterm>
+<programlisting>#define             assert0(_expr)</programlisting>
+<para>
+Wrapper around the usual <link linkend="assert"><function>assert()</function></link> function that handles the common case
+of asserting that <parameter>_expr</parameter> returns zero, rather than a TRUE value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_expr</parameter>&#160;:</term>
+<listitem><simpara>expression to check.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-TRUE:CAPS" role="macro">
+<title>TEST_TRUE()</title>
+<indexterm zone="TEST-TRUE:CAPS"><primary>TEST_TRUE</primary></indexterm>
+<programlisting>#define             TEST_TRUE(_expr)</programlisting>
+<para>
+Check that the expression <parameter>_expr</parameter> evaluates to TRUE.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_expr</parameter>&#160;:</term>
+<listitem><simpara>value or expression to test.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-FALSE:CAPS" role="macro">
+<title>TEST_FALSE()</title>
+<indexterm zone="TEST-FALSE:CAPS"><primary>TEST_FALSE</primary></indexterm>
+<programlisting>#define             TEST_FALSE(_expr)</programlisting>
+<para>
+Check that the expression <parameter>_expr</parameter> evaluates to FALSE.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_expr</parameter>&#160;:</term>
+<listitem><simpara>value or expression to test.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ:CAPS" role="macro">
+<title>TEST_EQ()</title>
+<indexterm zone="TEST-EQ:CAPS"><primary>TEST_EQ</primary></indexterm>
+<programlisting>#define             TEST_EQ(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are equal, they are cast
+to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-U:CAPS" role="macro">
+<title>TEST_EQ_U()</title>
+<indexterm zone="TEST-EQ-U:CAPS"><primary>TEST_EQ_U</primary></indexterm>
+<programlisting>#define             TEST_EQ_U(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are equal, they are cast
+to size_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first unsigned integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second unsigned integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-P:CAPS" role="macro">
+<title>TEST_EQ_P()</title>
+<indexterm zone="TEST-EQ-P:CAPS"><primary>TEST_EQ_P</primary></indexterm>
+<programlisting>#define             TEST_EQ_P(_a, _b)</programlisting>
+<para>
+Check that the two pointers <parameter>_a</parameter> and <parameter>_b</parameter> are equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second pointer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-STR:CAPS" role="macro">
+<title>TEST_EQ_STR()</title>
+<indexterm zone="TEST-EQ-STR:CAPS"><primary>TEST_EQ_STR</primary></indexterm>
+<programlisting>#define             TEST_EQ_STR(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-STRN:CAPS" role="macro">
+<title>TEST_EQ_STRN()</title>
+<indexterm zone="TEST-EQ-STRN:CAPS"><primary>TEST_EQ_STRN</primary></indexterm>
+<programlisting>#define             TEST_EQ_STRN(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are equal, up to the length of
+the second string.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-EQ-MEM:CAPS" role="macro">
+<title>TEST_EQ_MEM()</title>
+<indexterm zone="TEST-EQ-MEM:CAPS"><primary>TEST_EQ_MEM</primary></indexterm>
+<programlisting>#define             TEST_EQ_MEM(_a, _b, _l)</programlisting>
+<para>
+Check that the two <parameter>_l</parameter> byte long areas of memory at <parameter>_a</parameter> and <parameter>_b</parameter> are
+identical.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_l</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>_a</parameter> and <parameter>_b</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE:CAPS" role="macro">
+<title>TEST_NE()</title>
+<indexterm zone="TEST-NE:CAPS"><primary>TEST_NE</primary></indexterm>
+<programlisting>#define             TEST_NE(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are not equal, they are
+cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-U:CAPS" role="macro">
+<title>TEST_NE_U()</title>
+<indexterm zone="TEST-NE-U:CAPS"><primary>TEST_NE_U</primary></indexterm>
+<programlisting>#define             TEST_NE_U(_a, _b)</programlisting>
+<para>
+Check that the two numeric values <parameter>_a</parameter> and <parameter>_b</parameter> are not equal, they are
+cast to size_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first unsigned integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second unsigned integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-P:CAPS" role="macro">
+<title>TEST_NE_P()</title>
+<indexterm zone="TEST-NE-P:CAPS"><primary>TEST_NE_P</primary></indexterm>
+<programlisting>#define             TEST_NE_P(_a, _b)</programlisting>
+<para>
+Check that the two pointers <parameter>_a</parameter> and <parameter>_b</parameter> are not equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first pointer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second pointer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-STR:CAPS" role="macro">
+<title>TEST_NE_STR()</title>
+<indexterm zone="TEST-NE-STR:CAPS"><primary>TEST_NE_STR</primary></indexterm>
+<programlisting>#define             TEST_NE_STR(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are not equal.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-STRN:CAPS" role="macro">
+<title>TEST_NE_STRN()</title>
+<indexterm zone="TEST-NE-STRN:CAPS"><primary>TEST_NE_STRN</primary></indexterm>
+<programlisting>#define             TEST_NE_STRN(_a, _b)</programlisting>
+<para>
+Check that the two strings <parameter>_a</parameter> and <parameter>_b</parameter> are not equal, up to the length
+of the second string.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first string,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second string.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-NE-MEM:CAPS" role="macro">
+<title>TEST_NE_MEM()</title>
+<indexterm zone="TEST-NE-MEM:CAPS"><primary>TEST_NE_MEM</primary></indexterm>
+<programlisting>#define             TEST_NE_MEM(_a, _b, _l)</programlisting>
+<para>
+Check that the two <parameter>_l</parameter> byte long areas of memory at <parameter>_a</parameter> and <parameter>_b</parameter> are
+different.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second memory area,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_l</parameter>&#160;:</term>
+<listitem><simpara>length of <parameter>_a</parameter> and <parameter>_b</parameter>.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-LT:CAPS" role="macro">
+<title>TEST_LT()</title>
+<indexterm zone="TEST-LT:CAPS"><primary>TEST_LT</primary></indexterm>
+<programlisting>#define             TEST_LT(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is less than the numeric value <parameter>_b</parameter>,
+they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-LE:CAPS" role="macro">
+<title>TEST_LE()</title>
+<indexterm zone="TEST-LE:CAPS"><primary>TEST_LE</primary></indexterm>
+<programlisting>#define             TEST_LE(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is less than or equal to the numeric
+value <parameter>_b</parameter>, they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-GT:CAPS" role="macro">
+<title>TEST_GT()</title>
+<indexterm zone="TEST-GT:CAPS"><primary>TEST_GT</primary></indexterm>
+<programlisting>#define             TEST_GT(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is greater than the numeric value <parameter>_b</parameter>,
+they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="TEST-GE:CAPS" role="macro">
+<title>TEST_GE()</title>
+<indexterm zone="TEST-GE:CAPS"><primary>TEST_GE</primary></indexterm>
+<programlisting>#define             TEST_GE(_a, _b)</programlisting>
+<para>
+Check that the numeric value <parameter>_a</parameter> is greater than or equal to the numeric
+value <parameter>_b</parameter>, they are cast to ssize_t for display purposes.
+</para><variablelist role="params">
+<varlistentry><term><parameter>_a</parameter>&#160;:</term>
+<listitem><simpara>first integer,</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>_b</parameter>&#160;:</term>
+<listitem><simpara>second integer.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
 
 </refsect1>
 

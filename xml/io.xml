@@ -4,20 +4,20 @@
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
-<refentry id="nih-io">
+<refentry id="nih-IO">
 <refmeta>
-<refentrytitle role="top_of_page" id="nih-io.top_of_page">io</refentrytitle>
+<refentrytitle role="top_of_page" id="nih-IO.top_of_page">IO</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>
   NIH Library
 </refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>io</refname>
-<refpurpose></refpurpose>
+<refname>IO</refname>
+<refpurpose>Efficient and high-throughput IO</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv id="nih-io.synopsis" role="synopsis">
+<refsynopsisdiv id="nih-IO.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
 <synopsis>enum                <link linkend="NihIoType">NihIoType</link>;
@@ -104,11 +104,11 @@ extern NihList *    <link linkend="nih-io-watches">nih_io_watches</link>;
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1 id="nih-io.description" role="desc">
+<refsect1 id="nih-IO.description" role="desc">
 <title role="desc.title">Description</title>
 
 </refsect1>
-<refsect1 id="nih-io.details" role="details">
+<refsect1 id="nih-IO.details" role="details">
 <title role="details.title">Details</title>
 <refsect2 id="NihIoType" role="enum">
 <title>enum NihIoType</title>

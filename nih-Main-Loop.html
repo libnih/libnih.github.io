@@ -2,84 +2,84 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>main</title>
+<title>Main Loop</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
-<link rel="home" href="index.html" title="nih Reference Manual">
-<link rel="up" href="ch01.html" title="NIH Utility Library">
-<link rel="prev" href="nih-Macros.html" title="Macros">
-<link rel="next" href="nih-Option.html" title="Option">
+<link rel="home" href="index.html" title="NIH Utility Library Reference Manual">
+<link rel="up" href="ch02.html" title="Main Loop and Application Development Helpers">
+<link rel="prev" href="ch02.html" title="Main Loop and Application Development Helpers">
+<link rel="next" href="nih-Logging.html" title="Logging">
 <meta name="generator" content="GTK-Doc V1.19 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="nih-Macros.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch02.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">nih Reference Manual</th>
-<td><a accesskey="n" href="nih-Option.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<th width="100%" align="center">NIH Utility Library Reference Manual</th>
+<td><a accesskey="n" href="nih-Logging.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
-<a href="#nih-main.synopsis" class="shortcut">Top</a>
+<a href="#nih-Main-Loop.synopsis" class="shortcut">Top</a>
                    | 
-                  <a href="#nih-main.description" class="shortcut">Description</a>
+                  <a href="#nih-Main-Loop.description" class="shortcut">Description</a>
 </td></tr>
 </table>
 <div class="refentry">
-<a name="nih-main"></a><div class="titlepage"></div>
+<a name="nih-Main-Loop"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
-<h2><span class="refentrytitle"><a name="nih-main.top_of_page"></a>main</span></h2>
-<p>main</p>
+<h2><span class="refentrytitle"><a name="nih-Main-Loop.top_of_page"></a>Main Loop</span></h2>
+<p>Main Loop — Application main loop</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
 <div class="refsynopsisdiv">
-<a name="nih-main.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">typedef             <a class="link" href="nih-main.html#NihMainLoopFunc" title="NihMainLoopFunc">NihMainLoopFunc</a>;
-<span class="returnvalue">void</span>                (<a class="link" href="nih-main.html#NihMainLoopCb" title="NihMainLoopCb ()">*NihMainLoopCb</a>)                    (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-main.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="type">NihMainLoopFunc</span></a> *loop</code></em>);
-#define             <a class="link" href="nih-main.html#LOCALEDIR:CAPS" title="LOCALEDIR">LOCALEDIR</a>
-#define             <a class="link" href="nih-main.html#nih-main-init-gettext" title="nih_main_init_gettext">nih_main_init_gettext</a>
-#define             <a class="link" href="nih-main.html#PACKAGE-COPYRIGHT:CAPS" title="PACKAGE_COPYRIGHT">PACKAGE_COPYRIGHT</a>
-#define             <a class="link" href="nih-main.html#nih-main-init" title="nih_main_init()">nih_main_init</a>                       (argv0)
-extern const char * <a class="link" href="nih-main.html#program-name" title="program_name">program_name</a>;
-extern const char * <a class="link" href="nih-main.html#package-name" title="package_name">package_name</a>;
-extern const char * <a class="link" href="nih-main.html#package-version" title="package_version">package_version</a>;
-extern const char * <a class="link" href="nih-main.html#package-copyright" title="package_copyright">package_copyright</a>;
-extern const char * <a class="link" href="nih-main.html#package-bugreport" title="package_bugreport">package_bugreport</a>;
-extern const char * <a class="link" href="nih-main.html#package-string" title="package_string">package_string</a>;
-extern NihList *    <a class="link" href="nih-main.html#nih-main-loop-functions" title="nih_main_loop_functions">nih_main_loop_functions</a>;
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-init-full" title="nih_main_init_full ()">nih_main_init_full</a>                  (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>,
+<a name="nih-Main-Loop.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="nih-Main-Loop.html#NihMainLoopFunc" title="NihMainLoopFunc">NihMainLoopFunc</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="nih-Main-Loop.html#NihMainLoopCb" title="NihMainLoopCb ()">*NihMainLoopCb</a>)                    (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Main-Loop.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="type">NihMainLoopFunc</span></a> *loop</code></em>);
+#define             <a class="link" href="nih-Main-Loop.html#LOCALEDIR:CAPS" title="LOCALEDIR">LOCALEDIR</a>
+#define             <a class="link" href="nih-Main-Loop.html#nih-main-init-gettext" title="nih_main_init_gettext">nih_main_init_gettext</a>
+#define             <a class="link" href="nih-Main-Loop.html#PACKAGE-COPYRIGHT:CAPS" title="PACKAGE_COPYRIGHT">PACKAGE_COPYRIGHT</a>
+#define             <a class="link" href="nih-Main-Loop.html#nih-main-init" title="nih_main_init()">nih_main_init</a>                       (argv0)
+extern const char * <a class="link" href="nih-Main-Loop.html#program-name" title="program_name">program_name</a>;
+extern const char * <a class="link" href="nih-Main-Loop.html#package-name" title="package_name">package_name</a>;
+extern const char * <a class="link" href="nih-Main-Loop.html#package-version" title="package_version">package_version</a>;
+extern const char * <a class="link" href="nih-Main-Loop.html#package-copyright" title="package_copyright">package_copyright</a>;
+extern const char * <a class="link" href="nih-Main-Loop.html#package-bugreport" title="package_bugreport">package_bugreport</a>;
+extern const char * <a class="link" href="nih-Main-Loop.html#package-string" title="package_string">package_string</a>;
+extern NihList *    <a class="link" href="nih-Main-Loop.html#nih-main-loop-functions" title="nih_main_loop_functions">nih_main_loop_functions</a>;
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-init-full" title="nih_main_init_full ()">nih_main_init_full</a>                  (<em class="parameter"><code>const <span class="type">char</span> *argv0</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *package</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *version</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *bugreport</code></em>,
                                                          <em class="parameter"><code>const <span class="type">char</span> *copyright</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-suggest-help" title="nih_main_suggest_help ()">nih_main_suggest_help</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-version" title="nih_main_version ()">nih_main_version</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-main.html#nih-main-daemonise" title="nih_main_daemonise ()">nih_main_daemonise</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()">nih_main_set_pidfile</a>                (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
-const <span class="returnvalue">char</span> *        <a class="link" href="nih-main.html#nih-main-get-pidfile" title="nih_main_get_pidfile ()">nih_main_get_pidfile</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">pid_t</span>               <a class="link" href="nih-main.html#nih-main-read-pidfile" title="nih_main_read_pidfile ()">nih_main_read_pidfile</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-main.html#nih-main-write-pidfile" title="nih_main_write_pidfile ()">nih_main_write_pidfile</a>              (<em class="parameter"><code><span class="type">pid_t</span> pid</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-unlink-pidfile" title="nih_main_unlink_pidfile ()">nih_main_unlink_pidfile</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-loop-init" title="nih_main_loop_init ()">nih_main_loop_init</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-main.html#nih-main-loop" title="nih_main_loop ()">nih_main_loop</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-loop-interrupt" title="nih_main_loop_interrupt ()">nih_main_loop_interrupt</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-loop-exit" title="nih_main_loop_exit ()">nih_main_loop_exit</a>                  (<em class="parameter"><code><span class="type">int</span> status</code></em>);
-<a class="link" href="nih-main.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="returnvalue">NihMainLoopFunc</span></a> *   <a class="link" href="nih-main.html#nih-main-loop-add-func" title="nih_main_loop_add_func ()">nih_main_loop_add_func</a>              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-main.html#NihMainLoopCb" title="NihMainLoopCb ()"><span class="type">NihMainLoopCb</span></a> callback</code></em>,
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-suggest-help" title="nih_main_suggest_help ()">nih_main_suggest_help</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-version" title="nih_main_version ()">nih_main_version</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Main-Loop.html#nih-main-daemonise" title="nih_main_daemonise ()">nih_main_daemonise</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()">nih_main_set_pidfile</a>                (<em class="parameter"><code>const <span class="type">char</span> *filename</code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="nih-Main-Loop.html#nih-main-get-pidfile" title="nih_main_get_pidfile ()">nih_main_get_pidfile</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">pid_t</span>               <a class="link" href="nih-Main-Loop.html#nih-main-read-pidfile" title="nih_main_read_pidfile ()">nih_main_read_pidfile</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Main-Loop.html#nih-main-write-pidfile" title="nih_main_write_pidfile ()">nih_main_write_pidfile</a>              (<em class="parameter"><code><span class="type">pid_t</span> pid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-unlink-pidfile" title="nih_main_unlink_pidfile ()">nih_main_unlink_pidfile</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-loop-init" title="nih_main_loop_init ()">nih_main_loop_init</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Main-Loop.html#nih-main-loop" title="nih_main_loop ()">nih_main_loop</a>                       (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-loop-interrupt" title="nih_main_loop_interrupt ()">nih_main_loop_interrupt</a>             (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-loop-exit" title="nih_main_loop_exit ()">nih_main_loop_exit</a>                  (<em class="parameter"><code><span class="type">int</span> status</code></em>);
+<a class="link" href="nih-Main-Loop.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="returnvalue">NihMainLoopFunc</span></a> *   <a class="link" href="nih-Main-Loop.html#nih-main-loop-add-func" title="nih_main_loop_add_func ()">nih_main_loop_add_func</a>              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Main-Loop.html#NihMainLoopCb" title="NihMainLoopCb ()"><span class="type">NihMainLoopCb</span></a> callback</code></em>,
                                                          <em class="parameter"><code><span class="type">void</span> *data</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-main.html#nih-main-term-signal" title="nih_main_term_signal ()">nih_main_term_signal</a>                (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Main-Loop.html#nih-main-term-signal" title="nih_main_term_signal ()">nih_main_term_signal</a>                (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);
 </pre>
 </div>
 <div class="refsect1">
-<a name="nih-main.description"></a><h2>Description</h2>
+<a name="nih-Main-Loop.description"></a><h2>Description</h2>
 </div>
 <div class="refsect1">
-<a name="nih-main.details"></a><h2>Details</h2>
+<a name="nih-Main-Loop.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="NihMainLoopFunc"></a><h3>NihMainLoopFunc</h3>
 <pre class="programlisting">typedef struct nih_main_loop_func NihMainLoopFunc;
@@ -97,7 +97,7 @@ held in a list internally.
 <div class="refsect2">
 <a name="NihMainLoopCb"></a><h3>NihMainLoopCb ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                (*NihMainLoopCb)                    (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-main.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="type">NihMainLoopFunc</span></a> *loop</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="nih-Main-Loop.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="type">NihMainLoopFunc</span></a> *loop</code></em>);</pre>
 <p>
 Main loop callbacks are called each time through the main loop to
 perform any additional processing before the process is put back
@@ -151,7 +151,7 @@ be set by Autoconf/Automake.
 <p>
 Should be called at the beginning of <code class="function">main()</code> to initialise the various
 global variables exported from this module.  Expands both
-<a class="link" href="nih-main.html#nih-main-init-gettext" title="nih_main_init_gettext"><code class="function">nih_main_init_gettext()</code></a> and <a class="link" href="nih-main.html#nih-main-init-full" title="nih_main_init_full ()"><code class="function">nih_main_init_full()</code></a>
+<a class="link" href="nih-Main-Loop.html#nih-main-init-gettext" title="nih_main_init_gettext"><code class="function">nih_main_init_gettext()</code></a> and <a class="link" href="nih-Main-Loop.html#nih-main-init-full" title="nih_main_init_full ()"><code class="function">nih_main_init_full()</code></a>
 passing values set by Autoconf AC_INIT and AC_COPYRIGHT macros.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
@@ -224,7 +224,7 @@ autoconf PACKAGE_BUGREPORT macro.
 <p>
 The human string for the program, either "program (version)" or if the
 program and package names differ, "program (package version)".
-Generated by <a class="link" href="nih-main.html#nih-main-init-full" title="nih_main_init_full ()"><code class="function">nih_main_init_full()</code></a>.
+Generated by <a class="link" href="nih-Main-Loop.html#nih-main-init-full" title="nih_main_init_full ()"><code class="function">nih_main_init_full()</code></a>.
 </p>
 </div>
 <hr>
@@ -248,7 +248,7 @@ is an NihMainLoopFunc structure.
 <p>
 Should be called at the beginning of <code class="function">main()</code> to initialise the various
 global variables exported from this module.  For autoconf-using packages
-call the <a class="link" href="nih-main.html#nih-main-init" title="nih_main_init()"><code class="function">nih_main_init()</code></a> macro instead.
+call the <a class="link" href="nih-Main-Loop.html#nih-main-init" title="nih_main_init()"><code class="function">nih_main_init()</code></a> macro instead.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -345,7 +345,7 @@ default location under /var/run.  <em class="parameter"><code>filename</code></e
 <pre class="programlisting">const <span class="returnvalue">char</span> *        nih_main_get_pidfile                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Returns the location of the process's pid file, which may be overridden
-by <a class="link" href="nih-main.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()"><code class="function">nih_main_set_pidfile()</code></a>.  This is guaranteed to be an absolute path.
+by <a class="link" href="nih-Main-Loop.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()"><code class="function">nih_main_set_pidfile()</code></a>.  This is guaranteed to be an absolute path.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -364,7 +364,7 @@ by <a class="link" href="nih-main.html#nih-main-set-pidfile" title="nih_main_set
 <pre class="programlisting"><span class="returnvalue">pid_t</span>               nih_main_read_pidfile               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Reads the pid from the process'd pid file location, which can be set
-with <a class="link" href="nih-main.html#nih-main-get-pidfile" title="nih_main_get_pidfile ()"><code class="function">nih_main_get_pidfile()</code></a>.
+with <a class="link" href="nih-Main-Loop.html#nih-main-get-pidfile" title="nih_main_get_pidfile ()"><code class="function">nih_main_get_pidfile()</code></a>.
 </p>
 <div class="variablelist"><table border="0" class="variablelist">
 <colgroup>
@@ -383,7 +383,7 @@ with <a class="link" href="nih-main.html#nih-main-get-pidfile" title="nih_main_g
 <pre class="programlisting"><span class="returnvalue">int</span>                 nih_main_write_pidfile              (<em class="parameter"><code><span class="type">pid_t</span> pid</code></em>);</pre>
 <p>
 Writes the given <em class="parameter"><code>pid</code></em> to the process's pid file location, which can be
-set with <a class="link" href="nih-main.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()"><code class="function">nih_main_set_pidfile()</code></a>.
+set with <a class="link" href="nih-Main-Loop.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()"><code class="function">nih_main_set_pidfile()</code></a>.
 </p>
 <p>
 The write is performed in such a way that at the point the file exists,
@@ -412,7 +412,7 @@ the pid can be read from it.
 <pre class="programlisting"><span class="returnvalue">void</span>                nih_main_unlink_pidfile             (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Removes the process's pid file, which can be set with
-<a class="link" href="nih-main.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()"><code class="function">nih_main_set_pidfile()</code></a>.
+<a class="link" href="nih-Main-Loop.html#nih-main-set-pidfile" title="nih_main_set_pidfile ()"><code class="function">nih_main_set_pidfile()</code></a>.
 </p>
 <p>
 Errors are ignored, since there's not much you can do about it.
@@ -441,7 +441,7 @@ I/O events, signals, termination of child processes, timers, etc.
 </colgroup>
 <tbody><tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>value given to <a class="link" href="nih-main.html#nih-main-loop-exit" title="nih_main_loop_exit ()"><code class="function">nih_main_loop_exit()</code></a>.</td>
+<td>value given to <a class="link" href="nih-Main-Loop.html#nih-main-loop-exit" title="nih_main_loop_exit ()"><code class="function">nih_main_loop_exit()</code></a>.</td>
 </tr></tbody>
 </table></div>
 </div>
@@ -481,8 +481,8 @@ This may be safely called by functions called by the main loop.
 <hr>
 <div class="refsect2">
 <a name="nih-main-loop-add-func"></a><h3>nih_main_loop_add_func ()</h3>
-<pre class="programlisting"><a class="link" href="nih-main.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="returnvalue">NihMainLoopFunc</span></a> *   nih_main_loop_add_func              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-main.html#NihMainLoopCb" title="NihMainLoopCb ()"><span class="type">NihMainLoopCb</span></a> callback</code></em>,
+<pre class="programlisting"><a class="link" href="nih-Main-Loop.html#NihMainLoopFunc" title="NihMainLoopFunc"><span class="returnvalue">NihMainLoopFunc</span></a> *   nih_main_loop_add_func              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Main-Loop.html#NihMainLoopCb" title="NihMainLoopCb ()"><span class="type">NihMainLoopCb</span></a> callback</code></em>,
                                                          <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
 <p>
 Adds <em class="parameter"><code>callback</code></em> to the list of functions that should be called once
@@ -527,7 +527,7 @@ freed.
 <div class="refsect2">
 <a name="nih-main-term-signal"></a><h3>nih_main_term_signal ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                nih_main_term_signal                (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="nih-Signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);</pre>
 <p>
 Signal callback that instructs the main loop to exit with a normal
 exit status, usually registered for SIGTERM and SIGINT for non-daemons.

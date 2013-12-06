@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
-<book xmlns="http://www.devhelp.net/book" title="nih Reference Manual" link="index.html" author="" name="nih" version="2" language="c">
+<book xmlns="http://www.devhelp.net/book" title="NIH Utility Library Reference Manual" link="index.html" author="" name="nih" version="2" language="c">
   <chapters>
-    <sub name="NIH Utility Library" link="ch01.html">
+    <sub name="Memory Management and Basic Types" link="ch01.html">
       <sub name="Alloc" link="nih-Alloc.html"/>
-      <sub name="Child" link="nih-Child.html"/>
+      <sub name="String" link="nih-String.html"/>
+      <sub name="List" link="nih-List.html"/>
+      <sub name="Tree" link="nih-Tree.html"/>
+      <sub name="Hash" link="nih-Hash.html"/>
+      <sub name="Macros" link="nih-Macros.html"/>
+      <sub name="Test" link="nih-Test.html"/>
+    </sub>
+    <sub name="Main Loop and Application Development Helpers" link="ch02.html">
+      <sub name="Main Loop" link="nih-Main-Loop.html"/>
+      <sub name="Logging" link="nih-Logging.html"/>
+      <sub name="Option" link="nih-Option.html"/>
       <sub name="Command" link="nih-Command.html"/>
       <sub name="Config" link="nih-Config.html"/>
+    </sub>
+    <sub name="Operating System Facilities" link="ch03.html">
+      <sub name="File" link="nih-File.html"/>
+      <sub name="Watch" link="nih-Watch.html"/>
+      <sub name="Timer" link="nih-Timer.html"/>
+      <sub name="IO" link="nih-IO.html"/>
+      <sub name="Child" link="nih-Child.html"/>
+      <sub name="Signal" link="nih-Signal.html"/>
       <sub name="Error" link="nih-Error.html"/>
-      <sub name="Errors" link="nih-Errors.html"/>
-      <sub name="file" link="nih-file.html"/>
-      <sub name="Hash" link="nih-Hash.html"/>
-      <sub name="io" link="nih-io.html"/>
-      <sub name="List" link="nih-List.html"/>
-      <sub name="Logging" link="nih-Logging.html"/>
-      <sub name="Macros" link="nih-Macros.html"/>
-      <sub name="main" link="nih-main.html"/>
-      <sub name="Option" link="nih-Option.html"/>
-      <sub name="signal" link="nih-signal.html"/>
-      <sub name="String" link="nih-String.html"/>
-      <sub name="test" link="nih-test.html"/>
-      <sub name="test_alloc" link="nih-test-alloc.html"/>
-      <sub name="test_divert" link="nih-test-divert.html"/>
-      <sub name="test_files" link="nih-test-files.html"/>
-      <sub name="test_hash" link="nih-test-hash.html"/>
-      <sub name="test_list" link="nih-test-list.html"/>
-      <sub name="test_output" link="nih-test-output.html"/>
-      <sub name="test_process" link="nih-test-process.html"/>
-      <sub name="test_values" link="nih-test-values.html"/>
-      <sub name="timer" link="nih-timer.html"/>
-      <sub name="Tree" link="nih-Tree.html"/>
-      <sub name="watch" link="nih-watch.html"/>
     </sub>
     <sub name="API Index" link="api-index-full.html"/>
   </chapters>
@@ -48,225 +43,6 @@
     <keyword type="function" name="nih_unref ()" link="nih-Alloc.html#nih-unref"/>
     <keyword type="function" name="nih_alloc_parent ()" link="nih-Alloc.html#nih-alloc-parent"/>
     <keyword type="function" name="nih_alloc_size ()" link="nih-Alloc.html#nih-alloc-size"/>
-    <keyword type="enum" name="enum NihChildEvents" link="nih-Child.html#NihChildEvents"/>
-    <keyword type="function" name="NihChildHandler ()" link="nih-Child.html#NihChildHandler"/>
-    <keyword type="struct" name="NihChildWatch" link="nih-Child.html#NihChildWatch"/>
-    <keyword type="variable" name="nih_child_watches" link="nih-Child.html#nih-child-watches"/>
-    <keyword type="function" name="nih_child_init ()" link="nih-Child.html#nih-child-init"/>
-    <keyword type="function" name="nih_child_add_watch ()" link="nih-Child.html#nih-child-add-watch"/>
-    <keyword type="function" name="nih_child_poll ()" link="nih-Child.html#nih-child-poll"/>
-    <keyword type="typedef" name="NihCommand" link="nih-Command.html#NihCommand"/>
-    <keyword type="function" name="NihCommandAction ()" link="nih-Command.html#NihCommandAction"/>
-    <keyword type="struct" name="NihCommandGroup" link="nih-Command.html#NihCommandGroup"/>
-    <keyword type="macro" name="NIH_COMMAND_LAST" link="nih-Command.html#NIH-COMMAND-LAST:CAPS"/>
-    <keyword type="function" name="nih_command_parser ()" link="nih-Command.html#nih-command-parser"/>
-    <keyword type="function" name="nih_command_join ()" link="nih-Command.html#nih-command-join"/>
-    <keyword type="typedef" name="NihConfigStanza" link="nih-Config.html#NihConfigStanza"/>
-    <keyword type="function" name="NihConfigHandler ()" link="nih-Config.html#NihConfigHandler"/>
-    <keyword type="macro" name="NIH_CONFIG_LAST" link="nih-Config.html#NIH-CONFIG-LAST:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_WS" link="nih-Config.html#NIH-CONFIG-WS:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_CNL" link="nih-Config.html#NIH-CONFIG-CNL:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_CNLWS" link="nih-Config.html#NIH-CONFIG-CNLWS:CAPS"/>
-    <keyword type="function" name="nih_config_has_token ()" link="nih-Config.html#nih-config-has-token"/>
-    <keyword type="function" name="nih_config_token ()" link="nih-Config.html#nih-config-token"/>
-    <keyword type="function" name="nih_config_next_token ()" link="nih-Config.html#nih-config-next-token"/>
-    <keyword type="function" name="nih_config_next_arg ()" link="nih-Config.html#nih-config-next-arg"/>
-    <keyword type="function" name="nih_config_next_line ()" link="nih-Config.html#nih-config-next-line"/>
-    <keyword type="function" name="nih_config_skip_whitespace ()" link="nih-Config.html#nih-config-skip-whitespace"/>
-    <keyword type="function" name="nih_config_skip_comment ()" link="nih-Config.html#nih-config-skip-comment"/>
-    <keyword type="function" name="nih_config_parse_args ()" link="nih-Config.html#nih-config-parse-args"/>
-    <keyword type="function" name="nih_config_parse_command ()" link="nih-Config.html#nih-config-parse-command"/>
-    <keyword type="function" name="nih_config_parse_block ()" link="nih-Config.html#nih-config-parse-block"/>
-    <keyword type="function" name="nih_config_skip_block ()" link="nih-Config.html#nih-config-skip-block"/>
-    <keyword type="function" name="nih_config_parse_stanza ()" link="nih-Config.html#nih-config-parse-stanza"/>
-    <keyword type="function" name="nih_config_parse_file ()" link="nih-Config.html#nih-config-parse-file"/>
-    <keyword type="function" name="nih_config_parse ()" link="nih-Config.html#nih-config-parse"/>
-    <keyword type="struct" name="NihError" link="nih-Error.html#NihError"/>
-    <keyword type="macro" name="nih_error_raise()" link="nih-Error.html#nih-error-raise"/>
-    <keyword type="macro" name="nih_error_raise_printf()" link="nih-Error.html#nih-error-raise-printf"/>
-    <keyword type="macro" name="nih_error_raise_system" link="nih-Error.html#nih-error-raise-system"/>
-    <keyword type="macro" name="nih_error_raise_no_memory" link="nih-Error.html#nih-error-raise-no-memory"/>
-    <keyword type="macro" name="nih_error_raise_error()" link="nih-Error.html#nih-error-raise-error"/>
-    <keyword type="macro" name="nih_return_error()" link="nih-Error.html#nih-return-error"/>
-    <keyword type="macro" name="nih_return_system_error()" link="nih-Error.html#nih-return-system-error"/>
-    <keyword type="macro" name="nih_return_no_memory_error()" link="nih-Error.html#nih-return-no-memory-error"/>
-    <keyword type="macro" name="NIH_SHOULD()" link="nih-Error.html#NIH-SHOULD:CAPS"/>
-    <keyword type="function" name="nih_error_init ()" link="nih-Error.html#nih-error-init"/>
-    <keyword type="function" name="nih_error_get ()" link="nih-Error.html#nih-error-get"/>
-    <keyword type="function" name="nih_error_steal ()" link="nih-Error.html#nih-error-steal"/>
-    <keyword type="function" name="nih_error_push_context ()" link="nih-Error.html#nih-error-push-context"/>
-    <keyword type="function" name="nih_error_pop_context ()" link="nih-Error.html#nih-error-pop-context"/>
-    <keyword type="macro" name="NIH_CONFIG_EXPECTED_TOKEN_STR" link="nih-Errors.html#NIH-CONFIG-EXPECTED-TOKEN-STR:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_UNEXPECTED_TOKEN_STR" link="nih-Errors.html#NIH-CONFIG-UNEXPECTED-TOKEN-STR:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_TRAILING_SLASH_STR" link="nih-Errors.html#NIH-CONFIG-TRAILING-SLASH-STR:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_UNTERMINATED_QUOTE_STR" link="nih-Errors.html#NIH-CONFIG-UNTERMINATED-QUOTE-STR:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_UNTERMINATED_BLOCK_STR" link="nih-Errors.html#NIH-CONFIG-UNTERMINATED-BLOCK-STR:CAPS"/>
-    <keyword type="macro" name="NIH_CONFIG_UNKNOWN_STANZA_STR" link="nih-Errors.html#NIH-CONFIG-UNKNOWN-STANZA-STR:CAPS"/>
-    <keyword type="macro" name="NIH_DIR_LOOP_DETECTED_STR" link="nih-Errors.html#NIH-DIR-LOOP-DETECTED-STR:CAPS"/>
-    <keyword type="function" name="NihFileFilter ()" link="nih-file.html#NihFileFilter"/>
-    <keyword type="function" name="NihFileVisitor ()" link="nih-file.html#NihFileVisitor"/>
-    <keyword type="function" name="NihFileErrorHandler ()" link="nih-file.html#NihFileErrorHandler"/>
-    <keyword type="function" name="nih_file_read ()" link="nih-file.html#nih-file-read"/>
-    <keyword type="function" name="nih_file_map ()" link="nih-file.html#nih-file-map"/>
-    <keyword type="function" name="nih_file_unmap ()" link="nih-file.html#nih-file-unmap"/>
-    <keyword type="function" name="nih_file_is_hidden ()" link="nih-file.html#nih-file-is-hidden"/>
-    <keyword type="function" name="nih_file_is_backup ()" link="nih-file.html#nih-file-is-backup"/>
-    <keyword type="function" name="nih_file_is_swap ()" link="nih-file.html#nih-file-is-swap"/>
-    <keyword type="function" name="nih_file_is_rcs ()" link="nih-file.html#nih-file-is-rcs"/>
-    <keyword type="function" name="nih_file_is_packaging ()" link="nih-file.html#nih-file-is-packaging"/>
-    <keyword type="function" name="nih_file_ignore ()" link="nih-file.html#nih-file-ignore"/>
-    <keyword type="function" name="nih_dir_walk ()" link="nih-file.html#nih-dir-walk"/>
-    <keyword type="function" name="NihKeyFunction ()" link="nih-Hash.html#NihKeyFunction"/>
-    <keyword type="function" name="NihHashFunction ()" link="nih-Hash.html#NihHashFunction"/>
-    <keyword type="function" name="NihCmpFunction ()" link="nih-Hash.html#NihCmpFunction"/>
-    <keyword type="struct" name="NihHash" link="nih-Hash.html#NihHash"/>
-    <keyword type="macro" name="NIH_HASH_FOREACH()" link="nih-Hash.html#NIH-HASH-FOREACH:CAPS"/>
-    <keyword type="macro" name="NIH_HASH_FOREACH_SAFE()" link="nih-Hash.html#NIH-HASH-FOREACH-SAFE:CAPS"/>
-    <keyword type="macro" name="nih_hash_string_new()" link="nih-Hash.html#nih-hash-string-new"/>
-    <keyword type="function" name="nih_hash_new ()" link="nih-Hash.html#nih-hash-new"/>
-    <keyword type="function" name="nih_hash_add ()" link="nih-Hash.html#nih-hash-add"/>
-    <keyword type="function" name="nih_hash_add_unique ()" link="nih-Hash.html#nih-hash-add-unique"/>
-    <keyword type="function" name="nih_hash_replace ()" link="nih-Hash.html#nih-hash-replace"/>
-    <keyword type="function" name="nih_hash_search ()" link="nih-Hash.html#nih-hash-search"/>
-    <keyword type="function" name="nih_hash_lookup ()" link="nih-Hash.html#nih-hash-lookup"/>
-    <keyword type="function" name="nih_hash_string_key ()" link="nih-Hash.html#nih-hash-string-key"/>
-    <keyword type="function" name="nih_hash_string_hash ()" link="nih-Hash.html#nih-hash-string-hash"/>
-    <keyword type="function" name="nih_hash_string_cmp ()" link="nih-Hash.html#nih-hash-string-cmp"/>
-    <keyword type="enum" name="enum NihIoType" link="nih-io.html#NihIoType"/>
-    <keyword type="enum" name="enum NihIoEvents" link="nih-io.html#NihIoEvents"/>
-    <keyword type="typedef" name="NihIoWatch" link="nih-io.html#NihIoWatch"/>
-    <keyword type="typedef" name="NihIo" link="nih-io.html#NihIo"/>
-    <keyword type="function" name="NihIoWatcher ()" link="nih-io.html#NihIoWatcher"/>
-    <keyword type="function" name="NihIoReader ()" link="nih-io.html#NihIoReader"/>
-    <keyword type="function" name="NihIoCloseHandler ()" link="nih-io.html#NihIoCloseHandler"/>
-    <keyword type="function" name="NihIoErrorHandler ()" link="nih-io.html#NihIoErrorHandler"/>
-    <keyword type="struct" name="NihIoBuffer" link="nih-io.html#NihIoBuffer"/>
-    <keyword type="struct" name="NihIoMessage" link="nih-io.html#NihIoMessage"/>
-    <keyword type="variable" name="nih_io_watches" link="nih-io.html#nih-io-watches"/>
-    <keyword type="function" name="nih_io_init ()" link="nih-io.html#nih-io-init"/>
-    <keyword type="function" name="nih_io_add_watch ()" link="nih-io.html#nih-io-add-watch"/>
-    <keyword type="function" name="nih_io_select_fds ()" link="nih-io.html#nih-io-select-fds"/>
-    <keyword type="function" name="nih_io_handle_fds ()" link="nih-io.html#nih-io-handle-fds"/>
-    <keyword type="function" name="nih_io_buffer_new ()" link="nih-io.html#nih-io-buffer-new"/>
-    <keyword type="function" name="nih_io_buffer_resize ()" link="nih-io.html#nih-io-buffer-resize"/>
-    <keyword type="function" name="nih_io_buffer_pop ()" link="nih-io.html#nih-io-buffer-pop"/>
-    <keyword type="function" name="nih_io_buffer_shrink ()" link="nih-io.html#nih-io-buffer-shrink"/>
-    <keyword type="function" name="nih_io_buffer_push ()" link="nih-io.html#nih-io-buffer-push"/>
-    <keyword type="function" name="nih_io_message_new ()" link="nih-io.html#nih-io-message-new"/>
-    <keyword type="function" name="nih_io_message_add_control ()" link="nih-io.html#nih-io-message-add-control"/>
-    <keyword type="function" name="nih_io_message_recv ()" link="nih-io.html#nih-io-message-recv"/>
-    <keyword type="function" name="nih_io_message_send ()" link="nih-io.html#nih-io-message-send"/>
-    <keyword type="function" name="nih_io_reopen ()" link="nih-io.html#nih-io-reopen"/>
-    <keyword type="function" name="nih_io_shutdown ()" link="nih-io.html#nih-io-shutdown"/>
-    <keyword type="function" name="nih_io_destroy ()" link="nih-io.html#nih-io-destroy"/>
-    <keyword type="function" name="nih_io_read_message ()" link="nih-io.html#nih-io-read-message"/>
-    <keyword type="function" name="nih_io_send_message ()" link="nih-io.html#nih-io-send-message"/>
-    <keyword type="function" name="nih_io_read ()" link="nih-io.html#nih-io-read"/>
-    <keyword type="function" name="nih_io_write ()" link="nih-io.html#nih-io-write"/>
-    <keyword type="function" name="nih_io_get ()" link="nih-io.html#nih-io-get"/>
-    <keyword type="function" name="nih_io_printf ()" link="nih-io.html#nih-io-printf"/>
-    <keyword type="function" name="nih_io_set_nonblock ()" link="nih-io.html#nih-io-set-nonblock"/>
-    <keyword type="function" name="nih_io_set_cloexec ()" link="nih-io.html#nih-io-set-cloexec"/>
-    <keyword type="function" name="nih_io_get_family ()" link="nih-io.html#nih-io-get-family"/>
-    <keyword type="struct" name="NihList" link="nih-List.html#NihList"/>
-    <keyword type="struct" name="NihListEntry" link="nih-List.html#NihListEntry"/>
-    <keyword type="macro" name="NIH_LIST_EMPTY()" link="nih-List.html#NIH-LIST-EMPTY:CAPS"/>
-    <keyword type="macro" name="NIH_LIST_FOREACH()" link="nih-List.html#NIH-LIST-FOREACH:CAPS"/>
-    <keyword type="macro" name="NIH_LIST_FOREACH_SAFE()" link="nih-List.html#NIH-LIST-FOREACH-SAFE:CAPS"/>
-    <keyword type="macro" name="NIH_LIST_ITER()" link="nih-List.html#NIH-LIST-ITER:CAPS"/>
-    <keyword type="function" name="nih_list_init ()" link="nih-List.html#nih-list-init"/>
-    <keyword type="function" name="nih_list_new ()" link="nih-List.html#nih-list-new"/>
-    <keyword type="function" name="nih_list_entry_new ()" link="nih-List.html#nih-list-entry-new"/>
-    <keyword type="function" name="nih_list_add ()" link="nih-List.html#nih-list-add"/>
-    <keyword type="function" name="nih_list_add_after ()" link="nih-List.html#nih-list-add-after"/>
-    <keyword type="function" name="nih_list_remove ()" link="nih-List.html#nih-list-remove"/>
-    <keyword type="function" name="nih_list_destroy ()" link="nih-List.html#nih-list-destroy"/>
-    <keyword type="enum" name="enum NihLogLevel" link="nih-Logging.html#NihLogLevel"/>
-    <keyword type="function" name="NihLogger ()" link="nih-Logging.html#NihLogger"/>
-    <keyword type="macro" name="nih_debug()" link="nih-Logging.html#nih-debug"/>
-    <keyword type="macro" name="nih_info()" link="nih-Logging.html#nih-info"/>
-    <keyword type="macro" name="nih_message()" link="nih-Logging.html#nih-message"/>
-    <keyword type="macro" name="nih_warn()" link="nih-Logging.html#nih-warn"/>
-    <keyword type="macro" name="nih_error()" link="nih-Logging.html#nih-error"/>
-    <keyword type="macro" name="nih_fatal()" link="nih-Logging.html#nih-fatal"/>
-    <keyword type="macro" name="nih_assert()" link="nih-Logging.html#nih-assert"/>
-    <keyword type="macro" name="nih_assert_not_reached" link="nih-Logging.html#nih-assert-not-reached"/>
-    <keyword type="variable" name="nih_log_priority" link="nih-Logging.html#nih-log-priority"/>
-    <keyword type="function" name="nih_log_init ()" link="nih-Logging.html#nih-log-init"/>
-    <keyword type="function" name="nih_log_set_logger ()" link="nih-Logging.html#nih-log-set-logger"/>
-    <keyword type="function" name="nih_log_set_priority ()" link="nih-Logging.html#nih-log-set-priority"/>
-    <keyword type="function" name="nih_log_message ()" link="nih-Logging.html#nih-log-message"/>
-    <keyword type="function" name="nih_logger_printf ()" link="nih-Logging.html#nih-logger-printf"/>
-    <keyword type="function" name="nih_logger_syslog ()" link="nih-Logging.html#nih-logger-syslog"/>
-    <keyword type="macro" name="NIH_BEGIN_EXTERN" link="nih-Macros.html#NIH-BEGIN-EXTERN:CAPS"/>
-    <keyword type="macro" name="NIH_END_EXTERN" link="nih-Macros.html#NIH-END-EXTERN:CAPS"/>
-    <keyword type="macro" name="nih_min()" link="nih-Macros.html#nih-min"/>
-    <keyword type="macro" name="nih_max()" link="nih-Macros.html#nih-max"/>
-    <keyword type="macro" name="NIH_ALIGN_SIZE" link="nih-Macros.html#NIH-ALIGN-SIZE:CAPS"/>
-    <keyword type="macro" name="NIH_STRINGIFY()" link="nih-Macros.html#NIH-STRINGIFY:CAPS"/>
-    <keyword type="macro" name="NIH_LIKELY()" link="nih-Macros.html#NIH-LIKELY:CAPS"/>
-    <keyword type="macro" name="NIH_UNLIKELY()" link="nih-Macros.html#NIH-UNLIKELY:CAPS"/>
-    <keyword type="macro" name="NIH_MUST()" link="nih-Macros.html#NIH-MUST:CAPS"/>
-    <keyword type="macro" name="NIH_ZERO()" link="nih-Macros.html#NIH-ZERO:CAPS"/>
-    <keyword type="macro" name="_()" link="nih-Macros.html#gettext-macro"/>
-    <keyword type="macro" name="N_()" link="nih-Macros.html#N-:CAPS"/>
-    <keyword type="typedef" name="NihMainLoopFunc" link="nih-main.html#NihMainLoopFunc"/>
-    <keyword type="function" name="NihMainLoopCb ()" link="nih-main.html#NihMainLoopCb"/>
-    <keyword type="macro" name="LOCALEDIR" link="nih-main.html#LOCALEDIR:CAPS"/>
-    <keyword type="macro" name="nih_main_init_gettext" link="nih-main.html#nih-main-init-gettext"/>
-    <keyword type="macro" name="PACKAGE_COPYRIGHT" link="nih-main.html#PACKAGE-COPYRIGHT:CAPS"/>
-    <keyword type="macro" name="nih_main_init()" link="nih-main.html#nih-main-init"/>
-    <keyword type="variable" name="program_name" link="nih-main.html#program-name"/>
-    <keyword type="variable" name="package_name" link="nih-main.html#package-name"/>
-    <keyword type="variable" name="package_version" link="nih-main.html#package-version"/>
-    <keyword type="variable" name="package_copyright" link="nih-main.html#package-copyright"/>
-    <keyword type="variable" name="package_bugreport" link="nih-main.html#package-bugreport"/>
-    <keyword type="variable" name="package_string" link="nih-main.html#package-string"/>
-    <keyword type="variable" name="nih_main_loop_functions" link="nih-main.html#nih-main-loop-functions"/>
-    <keyword type="function" name="nih_main_init_full ()" link="nih-main.html#nih-main-init-full"/>
-    <keyword type="function" name="nih_main_suggest_help ()" link="nih-main.html#nih-main-suggest-help"/>
-    <keyword type="function" name="nih_main_version ()" link="nih-main.html#nih-main-version"/>
-    <keyword type="function" name="nih_main_daemonise ()" link="nih-main.html#nih-main-daemonise"/>
-    <keyword type="function" name="nih_main_set_pidfile ()" link="nih-main.html#nih-main-set-pidfile"/>
-    <keyword type="function" name="nih_main_get_pidfile ()" link="nih-main.html#nih-main-get-pidfile"/>
-    <keyword type="function" name="nih_main_read_pidfile ()" link="nih-main.html#nih-main-read-pidfile"/>
-    <keyword type="function" name="nih_main_write_pidfile ()" link="nih-main.html#nih-main-write-pidfile"/>
-    <keyword type="function" name="nih_main_unlink_pidfile ()" link="nih-main.html#nih-main-unlink-pidfile"/>
-    <keyword type="function" name="nih_main_loop_init ()" link="nih-main.html#nih-main-loop-init"/>
-    <keyword type="function" name="nih_main_loop ()" link="nih-main.html#nih-main-loop"/>
-    <keyword type="function" name="nih_main_loop_interrupt ()" link="nih-main.html#nih-main-loop-interrupt"/>
-    <keyword type="function" name="nih_main_loop_exit ()" link="nih-main.html#nih-main-loop-exit"/>
-    <keyword type="function" name="nih_main_loop_add_func ()" link="nih-main.html#nih-main-loop-add-func"/>
-    <keyword type="function" name="nih_main_term_signal ()" link="nih-main.html#nih-main-term-signal"/>
-    <keyword type="typedef" name="NihOption" link="nih-Option.html#NihOption"/>
-    <keyword type="function" name="NihOptionSetter ()" link="nih-Option.html#NihOptionSetter"/>
-    <keyword type="struct" name="NihOptionGroup" link="nih-Option.html#NihOptionGroup"/>
-    <keyword type="macro" name="NIH_OPTION_LAST" link="nih-Option.html#NIH-OPTION-LAST:CAPS"/>
-    <keyword type="function" name="nih_option_parser ()" link="nih-Option.html#nih-option-parser"/>
-    <keyword type="function" name="nih_option_join ()" link="nih-Option.html#nih-option-join"/>
-    <keyword type="function" name="nih_option_count ()" link="nih-Option.html#nih-option-count"/>
-    <keyword type="function" name="nih_option_int ()" link="nih-Option.html#nih-option-int"/>
-    <keyword type="function" name="nih_option_quiet ()" link="nih-Option.html#nih-option-quiet"/>
-    <keyword type="function" name="nih_option_verbose ()" link="nih-Option.html#nih-option-verbose"/>
-    <keyword type="function" name="nih_option_debug ()" link="nih-Option.html#nih-option-debug"/>
-    <keyword type="function" name="nih_option_set_usage ()" link="nih-Option.html#nih-option-set-usage"/>
-    <keyword type="function" name="nih_option_set_usage_stem ()" link="nih-Option.html#nih-option-set-usage-stem"/>
-    <keyword type="function" name="nih_option_set_synopsis ()" link="nih-Option.html#nih-option-set-synopsis"/>
-    <keyword type="function" name="nih_option_set_help ()" link="nih-Option.html#nih-option-set-help"/>
-    <keyword type="function" name="nih_option_set_footer ()" link="nih-Option.html#nih-option-set-footer"/>
-    <keyword type="typedef" name="NihSignal" link="nih-signal.html#NihSignal"/>
-    <keyword type="function" name="NihSignalHandler ()" link="nih-signal.html#NihSignalHandler"/>
-    <keyword type="variable" name="nih_signals" link="nih-signal.html#nih-signals"/>
-    <keyword type="function" name="nih_signal_init ()" link="nih-signal.html#nih-signal-init"/>
-    <keyword type="function" name="nih_signal_set_handler ()" link="nih-signal.html#nih-signal-set-handler"/>
-    <keyword type="function" name="nih_signal_set_default ()" link="nih-signal.html#nih-signal-set-default"/>
-    <keyword type="function" name="nih_signal_set_ignore ()" link="nih-signal.html#nih-signal-set-ignore"/>
-    <keyword type="function" name="nih_signal_reset ()" link="nih-signal.html#nih-signal-reset"/>
-    <keyword type="function" name="nih_signal_add_handler ()" link="nih-signal.html#nih-signal-add-handler"/>
-    <keyword type="function" name="nih_signal_handler ()" link="nih-signal.html#nih-signal-handler"/>
-    <keyword type="function" name="nih_signal_poll ()" link="nih-signal.html#nih-signal-poll"/>
-    <keyword type="function" name="nih_signal_to_name ()" link="nih-signal.html#nih-signal-to-name"/>
-    <keyword type="function" name="nih_signal_from_name ()" link="nih-signal.html#nih-signal-from-name"/>
     <keyword type="function" name="nih_sprintf ()" link="nih-String.html#nih-sprintf"/>
     <keyword type="function" name="nih_vsprintf ()" link="nih-String.html#nih-vsprintf"/>
     <keyword type="function" name="nih_strdup ()" link="nih-String.html#nih-strdup"/>
@@ -285,73 +61,19 @@
     <keyword type="function" name="nih_str_wrap ()" link="nih-String.html#nih-str-wrap"/>
     <keyword type="function" name="nih_str_screen_width ()" link="nih-String.html#nih-str-screen-width"/>
     <keyword type="function" name="nih_str_screen_wrap ()" link="nih-String.html#nih-str-screen-wrap"/>
-    <keyword type="macro" name="NIH_IN_TEST_H" link="nih-test.html#NIH-IN-TEST-H:CAPS"/>
-    <keyword type="macro" name="TEST_ALLOC_SIZE()" link="nih-test-alloc.html#TEST-ALLOC-SIZE:CAPS"/>
-    <keyword type="macro" name="TEST_ALLOC_PARENT()" link="nih-test-alloc.html#TEST-ALLOC-PARENT:CAPS"/>
-    <keyword type="macro" name="TEST_ALLOC_NOT_PARENT()" link="nih-test-alloc.html#TEST-ALLOC-NOT-PARENT:CAPS"/>
-    <keyword type="function" name="realloc ()" link="nih-test-alloc.html#realloc"/>
-    <keyword type="macro" name="TEST_ALLOC_FAIL" link="nih-test-alloc.html#TEST-ALLOC-FAIL:CAPS"/>
-    <keyword type="macro" name="TEST_ALLOC_SAFE" link="nih-test-alloc.html#TEST-ALLOC-SAFE:CAPS"/>
-    <keyword type="struct" name="struct test_free_tag" link="nih-test-alloc.html#test-free-tag"/>
-    <keyword type="macro" name="TEST_FREE_TAG()" link="nih-test-alloc.html#TEST-FREE-TAG:CAPS"/>
-    <keyword type="macro" name="TEST_FREE()" link="nih-test-alloc.html#TEST-FREE:CAPS"/>
-    <keyword type="macro" name="TEST_NOT_FREE()" link="nih-test-alloc.html#TEST-NOT-FREE:CAPS"/>
-    <keyword type="macro" name="TEST_DIVERT_STDOUT_FD()" link="nih-test-divert.html#TEST-DIVERT-STDOUT-FD:CAPS"/>
-    <keyword type="macro" name="TEST_DIVERT_STDOUT()" link="nih-test-divert.html#TEST-DIVERT-STDOUT:CAPS"/>
-    <keyword type="macro" name="TEST_DIVERT_STDERR_FD()" link="nih-test-divert.html#TEST-DIVERT-STDERR-FD:CAPS"/>
-    <keyword type="macro" name="TEST_DIVERT_STDERR()" link="nih-test-divert.html#TEST-DIVERT-STDERR:CAPS"/>
-    <keyword type="macro" name="TEST_FILENAME()" link="nih-test-files.html#TEST-FILENAME:CAPS"/>
-    <keyword type="macro" name="TEST_FILE_EQ()" link="nih-test-files.html#TEST-FILE-EQ:CAPS"/>
-    <keyword type="macro" name="TEST_FILE_MATCH()" link="nih-test-files.html#TEST-FILE-MATCH:CAPS"/>
-    <keyword type="macro" name="TEST_FILE_EQ_N()" link="nih-test-files.html#TEST-FILE-EQ-N:CAPS"/>
-    <keyword type="macro" name="TEST_FILE_NE()" link="nih-test-files.html#TEST-FILE-NE:CAPS"/>
-    <keyword type="macro" name="TEST_FILE_NE_N()" link="nih-test-files.html#TEST-FILE-NE-N:CAPS"/>
-    <keyword type="macro" name="TEST_FILE_END()" link="nih-test-files.html#TEST-FILE-END:CAPS"/>
-    <keyword type="macro" name="TEST_FILE_RESET()" link="nih-test-files.html#TEST-FILE-RESET:CAPS"/>
-    <keyword type="macro" name="TEST_EXPECTED_STR()" link="nih-test-files.html#TEST-EXPECTED-STR:CAPS"/>
-    <keyword type="macro" name="TEST_EXPECTED_FILE()" link="nih-test-files.html#TEST-EXPECTED-FILE:CAPS"/>
-    <keyword type="macro" name="TEST_HASH_EMPTY()" link="nih-test-hash.html#TEST-HASH-EMPTY:CAPS"/>
-    <keyword type="macro" name="TEST_HASH_NOT_EMPTY()" link="nih-test-hash.html#TEST-HASH-NOT-EMPTY:CAPS"/>
-    <keyword type="macro" name="TEST_LIST_EMPTY()" link="nih-test-list.html#TEST-LIST-EMPTY:CAPS"/>
-    <keyword type="macro" name="TEST_LIST_NOT_EMPTY()" link="nih-test-list.html#TEST-LIST-NOT-EMPTY:CAPS"/>
-    <keyword type="macro" name="TEST_GROUP()" link="nih-test-output.html#TEST-GROUP:CAPS"/>
-    <keyword type="macro" name="TEST_FUNCTION()" link="nih-test-output.html#TEST-FUNCTION:CAPS"/>
-    <keyword type="macro" name="TEST_FUNCTION_FEATURE()" link="nih-test-output.html#TEST-FUNCTION-FEATURE:CAPS"/>
-    <keyword type="macro" name="TEST_FEATURE()" link="nih-test-output.html#TEST-FEATURE:CAPS"/>
-    <keyword type="macro" name="TEST_FAILED()" link="nih-test-output.html#TEST-FAILED:CAPS"/>
-    <keyword type="macro" name="TEST_CHILD()" link="nih-test-process.html#TEST-CHILD:CAPS"/>
-    <keyword type="macro" name="TEST_CHILD_WAIT()" link="nih-test-process.html#TEST-CHILD-WAIT:CAPS"/>
-    <keyword type="macro" name="TEST_CHILD_RELEASE()" link="nih-test-process.html#TEST-CHILD-RELEASE:CAPS"/>
-    <keyword type="macro" name="assert0()" link="nih-test-values.html#assert0"/>
-    <keyword type="macro" name="TEST_TRUE()" link="nih-test-values.html#TEST-TRUE:CAPS"/>
-    <keyword type="macro" name="TEST_FALSE()" link="nih-test-values.html#TEST-FALSE:CAPS"/>
-    <keyword type="macro" name="TEST_EQ()" link="nih-test-values.html#TEST-EQ:CAPS"/>
-    <keyword type="macro" name="TEST_EQ_U()" link="nih-test-values.html#TEST-EQ-U:CAPS"/>
-    <keyword type="macro" name="TEST_EQ_P()" link="nih-test-values.html#TEST-EQ-P:CAPS"/>
-    <keyword type="macro" name="TEST_EQ_STR()" link="nih-test-values.html#TEST-EQ-STR:CAPS"/>
-    <keyword type="macro" name="TEST_EQ_STRN()" link="nih-test-values.html#TEST-EQ-STRN:CAPS"/>
-    <keyword type="macro" name="TEST_EQ_MEM()" link="nih-test-values.html#TEST-EQ-MEM:CAPS"/>
-    <keyword type="macro" name="TEST_NE()" link="nih-test-values.html#TEST-NE:CAPS"/>
-    <keyword type="macro" name="TEST_NE_U()" link="nih-test-values.html#TEST-NE-U:CAPS"/>
-    <keyword type="macro" name="TEST_NE_P()" link="nih-test-values.html#TEST-NE-P:CAPS"/>
-    <keyword type="macro" name="TEST_NE_STR()" link="nih-test-values.html#TEST-NE-STR:CAPS"/>
-    <keyword type="macro" name="TEST_NE_STRN()" link="nih-test-values.html#TEST-NE-STRN:CAPS"/>
-    <keyword type="macro" name="TEST_NE_MEM()" link="nih-test-values.html#TEST-NE-MEM:CAPS"/>
-    <keyword type="macro" name="TEST_LT()" link="nih-test-values.html#TEST-LT:CAPS"/>
-    <keyword type="macro" name="TEST_LE()" link="nih-test-values.html#TEST-LE:CAPS"/>
-    <keyword type="macro" name="TEST_GT()" link="nih-test-values.html#TEST-GT:CAPS"/>
-    <keyword type="macro" name="TEST_GE()" link="nih-test-values.html#TEST-GE:CAPS"/>
-    <keyword type="typedef" name="NihTimer" link="nih-timer.html#NihTimer"/>
-    <keyword type="function" name="NihTimerCb ()" link="nih-timer.html#NihTimerCb"/>
-    <keyword type="enum" name="enum NihTimerType" link="nih-timer.html#NihTimerType"/>
-    <keyword type="struct" name="NihTimerSchedule" link="nih-timer.html#NihTimerSchedule"/>
-    <keyword type="variable" name="nih_timers" link="nih-timer.html#nih-timers"/>
-    <keyword type="function" name="nih_timer_init ()" link="nih-timer.html#nih-timer-init"/>
-    <keyword type="function" name="nih_timer_add_timeout ()" link="nih-timer.html#nih-timer-add-timeout"/>
-    <keyword type="function" name="nih_timer_add_periodic ()" link="nih-timer.html#nih-timer-add-periodic"/>
-    <keyword type="function" name="nih_timer_add_scheduled ()" link="nih-timer.html#nih-timer-add-scheduled"/>
-    <keyword type="function" name="nih_timer_next_due ()" link="nih-timer.html#nih-timer-next-due"/>
-    <keyword type="function" name="nih_timer_poll ()" link="nih-timer.html#nih-timer-poll"/>
+    <keyword type="struct" name="NihList" link="nih-List.html#NihList"/>
+    <keyword type="struct" name="NihListEntry" link="nih-List.html#NihListEntry"/>
+    <keyword type="macro" name="NIH_LIST_EMPTY()" link="nih-List.html#NIH-LIST-EMPTY:CAPS"/>
+    <keyword type="macro" name="NIH_LIST_FOREACH()" link="nih-List.html#NIH-LIST-FOREACH:CAPS"/>
+    <keyword type="macro" name="NIH_LIST_FOREACH_SAFE()" link="nih-List.html#NIH-LIST-FOREACH-SAFE:CAPS"/>
+    <keyword type="macro" name="NIH_LIST_ITER()" link="nih-List.html#NIH-LIST-ITER:CAPS"/>
+    <keyword type="function" name="nih_list_init ()" link="nih-List.html#nih-list-init"/>
+    <keyword type="function" name="nih_list_new ()" link="nih-List.html#nih-list-new"/>
+    <keyword type="function" name="nih_list_entry_new ()" link="nih-List.html#nih-list-entry-new"/>
+    <keyword type="function" name="nih_list_add ()" link="nih-List.html#nih-list-add"/>
+    <keyword type="function" name="nih_list_add_after ()" link="nih-List.html#nih-list-add-after"/>
+    <keyword type="function" name="nih_list_remove ()" link="nih-List.html#nih-list-remove"/>
+    <keyword type="function" name="nih_list_destroy ()" link="nih-List.html#nih-list-destroy"/>
     <keyword type="enum" name="enum NihTreeWhere" link="nih-Tree.html#NihTreeWhere"/>
     <keyword type="struct" name="NihTree" link="nih-Tree.html#NihTree"/>
     <keyword type="struct" name="NihTreeEntry" link="nih-Tree.html#NihTreeEntry"/>
@@ -381,14 +103,305 @@
     <keyword type="function" name="nih_tree_prev_pre_full ()" link="nih-Tree.html#nih-tree-prev-pre-full"/>
     <keyword type="function" name="nih_tree_next_post_full ()" link="nih-Tree.html#nih-tree-next-post-full"/>
     <keyword type="function" name="nih_tree_prev_post_full ()" link="nih-Tree.html#nih-tree-prev-post-full"/>
-    <keyword type="typedef" name="NihWatch" link="nih-watch.html#NihWatch"/>
-    <keyword type="function" name="NihCreateHandler ()" link="nih-watch.html#NihCreateHandler"/>
-    <keyword type="function" name="NihModifyHandler ()" link="nih-watch.html#NihModifyHandler"/>
-    <keyword type="function" name="NihDeleteHandler ()" link="nih-watch.html#NihDeleteHandler"/>
-    <keyword type="struct" name="NihWatchHandle" link="nih-watch.html#NihWatchHandle"/>
-    <keyword type="function" name="nih_watch_new ()" link="nih-watch.html#nih-watch-new"/>
-    <keyword type="function" name="nih_watch_add ()" link="nih-watch.html#nih-watch-add"/>
-    <keyword type="function" name="nih_watch_destroy ()" link="nih-watch.html#nih-watch-destroy"/>
+    <keyword type="function" name="NihKeyFunction ()" link="nih-Hash.html#NihKeyFunction"/>
+    <keyword type="function" name="NihHashFunction ()" link="nih-Hash.html#NihHashFunction"/>
+    <keyword type="function" name="NihCmpFunction ()" link="nih-Hash.html#NihCmpFunction"/>
+    <keyword type="struct" name="NihHash" link="nih-Hash.html#NihHash"/>
+    <keyword type="macro" name="NIH_HASH_FOREACH()" link="nih-Hash.html#NIH-HASH-FOREACH:CAPS"/>
+    <keyword type="macro" name="NIH_HASH_FOREACH_SAFE()" link="nih-Hash.html#NIH-HASH-FOREACH-SAFE:CAPS"/>
+    <keyword type="macro" name="nih_hash_string_new()" link="nih-Hash.html#nih-hash-string-new"/>
+    <keyword type="function" name="nih_hash_new ()" link="nih-Hash.html#nih-hash-new"/>
+    <keyword type="function" name="nih_hash_add ()" link="nih-Hash.html#nih-hash-add"/>
+    <keyword type="function" name="nih_hash_add_unique ()" link="nih-Hash.html#nih-hash-add-unique"/>
+    <keyword type="function" name="nih_hash_replace ()" link="nih-Hash.html#nih-hash-replace"/>
+    <keyword type="function" name="nih_hash_search ()" link="nih-Hash.html#nih-hash-search"/>
+    <keyword type="function" name="nih_hash_lookup ()" link="nih-Hash.html#nih-hash-lookup"/>
+    <keyword type="function" name="nih_hash_string_key ()" link="nih-Hash.html#nih-hash-string-key"/>
+    <keyword type="function" name="nih_hash_string_hash ()" link="nih-Hash.html#nih-hash-string-hash"/>
+    <keyword type="function" name="nih_hash_string_cmp ()" link="nih-Hash.html#nih-hash-string-cmp"/>
+    <keyword type="macro" name="NIH_BEGIN_EXTERN" link="nih-Macros.html#NIH-BEGIN-EXTERN:CAPS"/>
+    <keyword type="macro" name="NIH_END_EXTERN" link="nih-Macros.html#NIH-END-EXTERN:CAPS"/>
+    <keyword type="macro" name="nih_min()" link="nih-Macros.html#nih-min"/>
+    <keyword type="macro" name="nih_max()" link="nih-Macros.html#nih-max"/>
+    <keyword type="macro" name="NIH_ALIGN_SIZE" link="nih-Macros.html#NIH-ALIGN-SIZE:CAPS"/>
+    <keyword type="macro" name="NIH_STRINGIFY()" link="nih-Macros.html#NIH-STRINGIFY:CAPS"/>
+    <keyword type="macro" name="NIH_LIKELY()" link="nih-Macros.html#NIH-LIKELY:CAPS"/>
+    <keyword type="macro" name="NIH_UNLIKELY()" link="nih-Macros.html#NIH-UNLIKELY:CAPS"/>
+    <keyword type="macro" name="NIH_MUST()" link="nih-Macros.html#NIH-MUST:CAPS"/>
+    <keyword type="macro" name="NIH_ZERO()" link="nih-Macros.html#NIH-ZERO:CAPS"/>
+    <keyword type="macro" name="_()" link="nih-Macros.html#gettext-macro"/>
+    <keyword type="macro" name="N_()" link="nih-Macros.html#N-:CAPS"/>
+    <keyword type="macro" name="NIH_IN_TEST_H" link="nih-Test.html#NIH-IN-TEST-H:CAPS"/>
+    <keyword type="macro" name="TEST_ALLOC_SIZE()" link="nih-Test.html#TEST-ALLOC-SIZE:CAPS"/>
+    <keyword type="macro" name="TEST_ALLOC_PARENT()" link="nih-Test.html#TEST-ALLOC-PARENT:CAPS"/>
+    <keyword type="macro" name="TEST_ALLOC_NOT_PARENT()" link="nih-Test.html#TEST-ALLOC-NOT-PARENT:CAPS"/>
+    <keyword type="function" name="realloc ()" link="nih-Test.html#realloc"/>
+    <keyword type="macro" name="TEST_ALLOC_FAIL" link="nih-Test.html#TEST-ALLOC-FAIL:CAPS"/>
+    <keyword type="macro" name="TEST_ALLOC_SAFE" link="nih-Test.html#TEST-ALLOC-SAFE:CAPS"/>
+    <keyword type="struct" name="struct test_free_tag" link="nih-Test.html#test-free-tag"/>
+    <keyword type="macro" name="TEST_FREE_TAG()" link="nih-Test.html#TEST-FREE-TAG:CAPS"/>
+    <keyword type="macro" name="TEST_FREE()" link="nih-Test.html#TEST-FREE:CAPS"/>
+    <keyword type="macro" name="TEST_NOT_FREE()" link="nih-Test.html#TEST-NOT-FREE:CAPS"/>
+    <keyword type="macro" name="TEST_DIVERT_STDOUT_FD()" link="nih-Test.html#TEST-DIVERT-STDOUT-FD:CAPS"/>
+    <keyword type="macro" name="TEST_DIVERT_STDOUT()" link="nih-Test.html#TEST-DIVERT-STDOUT:CAPS"/>
+    <keyword type="macro" name="TEST_DIVERT_STDERR_FD()" link="nih-Test.html#TEST-DIVERT-STDERR-FD:CAPS"/>
+    <keyword type="macro" name="TEST_DIVERT_STDERR()" link="nih-Test.html#TEST-DIVERT-STDERR:CAPS"/>
+    <keyword type="macro" name="TEST_FILENAME()" link="nih-Test.html#TEST-FILENAME:CAPS"/>
+    <keyword type="macro" name="TEST_FILE_EQ()" link="nih-Test.html#TEST-FILE-EQ:CAPS"/>
+    <keyword type="macro" name="TEST_FILE_MATCH()" link="nih-Test.html#TEST-FILE-MATCH:CAPS"/>
+    <keyword type="macro" name="TEST_FILE_EQ_N()" link="nih-Test.html#TEST-FILE-EQ-N:CAPS"/>
+    <keyword type="macro" name="TEST_FILE_NE()" link="nih-Test.html#TEST-FILE-NE:CAPS"/>
+    <keyword type="macro" name="TEST_FILE_NE_N()" link="nih-Test.html#TEST-FILE-NE-N:CAPS"/>
+    <keyword type="macro" name="TEST_FILE_END()" link="nih-Test.html#TEST-FILE-END:CAPS"/>
+    <keyword type="macro" name="TEST_FILE_RESET()" link="nih-Test.html#TEST-FILE-RESET:CAPS"/>
+    <keyword type="macro" name="TEST_EXPECTED_STR()" link="nih-Test.html#TEST-EXPECTED-STR:CAPS"/>
+    <keyword type="macro" name="TEST_EXPECTED_FILE()" link="nih-Test.html#TEST-EXPECTED-FILE:CAPS"/>
+    <keyword type="macro" name="TEST_HASH_EMPTY()" link="nih-Test.html#TEST-HASH-EMPTY:CAPS"/>
+    <keyword type="macro" name="TEST_HASH_NOT_EMPTY()" link="nih-Test.html#TEST-HASH-NOT-EMPTY:CAPS"/>
+    <keyword type="macro" name="TEST_LIST_EMPTY()" link="nih-Test.html#TEST-LIST-EMPTY:CAPS"/>
+    <keyword type="macro" name="TEST_LIST_NOT_EMPTY()" link="nih-Test.html#TEST-LIST-NOT-EMPTY:CAPS"/>
+    <keyword type="macro" name="TEST_GROUP()" link="nih-Test.html#TEST-GROUP:CAPS"/>
+    <keyword type="macro" name="TEST_FUNCTION()" link="nih-Test.html#TEST-FUNCTION:CAPS"/>
+    <keyword type="macro" name="TEST_FUNCTION_FEATURE()" link="nih-Test.html#TEST-FUNCTION-FEATURE:CAPS"/>
+    <keyword type="macro" name="TEST_FEATURE()" link="nih-Test.html#TEST-FEATURE:CAPS"/>
+    <keyword type="macro" name="TEST_FAILED()" link="nih-Test.html#TEST-FAILED:CAPS"/>
+    <keyword type="macro" name="TEST_CHILD()" link="nih-Test.html#TEST-CHILD:CAPS"/>
+    <keyword type="macro" name="TEST_CHILD_WAIT()" link="nih-Test.html#TEST-CHILD-WAIT:CAPS"/>
+    <keyword type="macro" name="TEST_CHILD_RELEASE()" link="nih-Test.html#TEST-CHILD-RELEASE:CAPS"/>
+    <keyword type="macro" name="assert0()" link="nih-Test.html#assert0"/>
+    <keyword type="macro" name="TEST_TRUE()" link="nih-Test.html#TEST-TRUE:CAPS"/>
+    <keyword type="macro" name="TEST_FALSE()" link="nih-Test.html#TEST-FALSE:CAPS"/>
+    <keyword type="macro" name="TEST_EQ()" link="nih-Test.html#TEST-EQ:CAPS"/>
+    <keyword type="macro" name="TEST_EQ_U()" link="nih-Test.html#TEST-EQ-U:CAPS"/>
+    <keyword type="macro" name="TEST_EQ_P()" link="nih-Test.html#TEST-EQ-P:CAPS"/>
+    <keyword type="macro" name="TEST_EQ_STR()" link="nih-Test.html#TEST-EQ-STR:CAPS"/>
+    <keyword type="macro" name="TEST_EQ_STRN()" link="nih-Test.html#TEST-EQ-STRN:CAPS"/>
+    <keyword type="macro" name="TEST_EQ_MEM()" link="nih-Test.html#TEST-EQ-MEM:CAPS"/>
+    <keyword type="macro" name="TEST_NE()" link="nih-Test.html#TEST-NE:CAPS"/>
+    <keyword type="macro" name="TEST_NE_U()" link="nih-Test.html#TEST-NE-U:CAPS"/>
+    <keyword type="macro" name="TEST_NE_P()" link="nih-Test.html#TEST-NE-P:CAPS"/>
+    <keyword type="macro" name="TEST_NE_STR()" link="nih-Test.html#TEST-NE-STR:CAPS"/>
+    <keyword type="macro" name="TEST_NE_STRN()" link="nih-Test.html#TEST-NE-STRN:CAPS"/>
+    <keyword type="macro" name="TEST_NE_MEM()" link="nih-Test.html#TEST-NE-MEM:CAPS"/>
+    <keyword type="macro" name="TEST_LT()" link="nih-Test.html#TEST-LT:CAPS"/>
+    <keyword type="macro" name="TEST_LE()" link="nih-Test.html#TEST-LE:CAPS"/>
+    <keyword type="macro" name="TEST_GT()" link="nih-Test.html#TEST-GT:CAPS"/>
+    <keyword type="macro" name="TEST_GE()" link="nih-Test.html#TEST-GE:CAPS"/>
+    <keyword type="typedef" name="NihMainLoopFunc" link="nih-Main-Loop.html#NihMainLoopFunc"/>
+    <keyword type="function" name="NihMainLoopCb ()" link="nih-Main-Loop.html#NihMainLoopCb"/>
+    <keyword type="macro" name="LOCALEDIR" link="nih-Main-Loop.html#LOCALEDIR:CAPS"/>
+    <keyword type="macro" name="nih_main_init_gettext" link="nih-Main-Loop.html#nih-main-init-gettext"/>
+    <keyword type="macro" name="PACKAGE_COPYRIGHT" link="nih-Main-Loop.html#PACKAGE-COPYRIGHT:CAPS"/>
+    <keyword type="macro" name="nih_main_init()" link="nih-Main-Loop.html#nih-main-init"/>
+    <keyword type="variable" name="program_name" link="nih-Main-Loop.html#program-name"/>
+    <keyword type="variable" name="package_name" link="nih-Main-Loop.html#package-name"/>
+    <keyword type="variable" name="package_version" link="nih-Main-Loop.html#package-version"/>
+    <keyword type="variable" name="package_copyright" link="nih-Main-Loop.html#package-copyright"/>
+    <keyword type="variable" name="package_bugreport" link="nih-Main-Loop.html#package-bugreport"/>
+    <keyword type="variable" name="package_string" link="nih-Main-Loop.html#package-string"/>
+    <keyword type="variable" name="nih_main_loop_functions" link="nih-Main-Loop.html#nih-main-loop-functions"/>
+    <keyword type="function" name="nih_main_init_full ()" link="nih-Main-Loop.html#nih-main-init-full"/>
+    <keyword type="function" name="nih_main_suggest_help ()" link="nih-Main-Loop.html#nih-main-suggest-help"/>
+    <keyword type="function" name="nih_main_version ()" link="nih-Main-Loop.html#nih-main-version"/>
+    <keyword type="function" name="nih_main_daemonise ()" link="nih-Main-Loop.html#nih-main-daemonise"/>
+    <keyword type="function" name="nih_main_set_pidfile ()" link="nih-Main-Loop.html#nih-main-set-pidfile"/>
+    <keyword type="function" name="nih_main_get_pidfile ()" link="nih-Main-Loop.html#nih-main-get-pidfile"/>
+    <keyword type="function" name="nih_main_read_pidfile ()" link="nih-Main-Loop.html#nih-main-read-pidfile"/>
+    <keyword type="function" name="nih_main_write_pidfile ()" link="nih-Main-Loop.html#nih-main-write-pidfile"/>
+    <keyword type="function" name="nih_main_unlink_pidfile ()" link="nih-Main-Loop.html#nih-main-unlink-pidfile"/>
+    <keyword type="function" name="nih_main_loop_init ()" link="nih-Main-Loop.html#nih-main-loop-init"/>
+    <keyword type="function" name="nih_main_loop ()" link="nih-Main-Loop.html#nih-main-loop"/>
+    <keyword type="function" name="nih_main_loop_interrupt ()" link="nih-Main-Loop.html#nih-main-loop-interrupt"/>
+    <keyword type="function" name="nih_main_loop_exit ()" link="nih-Main-Loop.html#nih-main-loop-exit"/>
+    <keyword type="function" name="nih_main_loop_add_func ()" link="nih-Main-Loop.html#nih-main-loop-add-func"/>
+    <keyword type="function" name="nih_main_term_signal ()" link="nih-Main-Loop.html#nih-main-term-signal"/>
+    <keyword type="enum" name="enum NihLogLevel" link="nih-Logging.html#NihLogLevel"/>
+    <keyword type="function" name="NihLogger ()" link="nih-Logging.html#NihLogger"/>
+    <keyword type="macro" name="nih_debug()" link="nih-Logging.html#nih-debug"/>
+    <keyword type="macro" name="nih_info()" link="nih-Logging.html#nih-info"/>
+    <keyword type="macro" name="nih_message()" link="nih-Logging.html#nih-message"/>
+    <keyword type="macro" name="nih_warn()" link="nih-Logging.html#nih-warn"/>
+    <keyword type="macro" name="nih_error()" link="nih-Logging.html#nih-error"/>
+    <keyword type="macro" name="nih_fatal()" link="nih-Logging.html#nih-fatal"/>
+    <keyword type="macro" name="nih_assert()" link="nih-Logging.html#nih-assert"/>
+    <keyword type="macro" name="nih_assert_not_reached" link="nih-Logging.html#nih-assert-not-reached"/>
+    <keyword type="variable" name="nih_log_priority" link="nih-Logging.html#nih-log-priority"/>
+    <keyword type="function" name="nih_log_init ()" link="nih-Logging.html#nih-log-init"/>
+    <keyword type="function" name="nih_log_set_logger ()" link="nih-Logging.html#nih-log-set-logger"/>
+    <keyword type="function" name="nih_log_set_priority ()" link="nih-Logging.html#nih-log-set-priority"/>
+    <keyword type="function" name="nih_log_message ()" link="nih-Logging.html#nih-log-message"/>
+    <keyword type="function" name="nih_logger_printf ()" link="nih-Logging.html#nih-logger-printf"/>
+    <keyword type="function" name="nih_logger_syslog ()" link="nih-Logging.html#nih-logger-syslog"/>
+    <keyword type="typedef" name="NihOption" link="nih-Option.html#NihOption"/>
+    <keyword type="function" name="NihOptionSetter ()" link="nih-Option.html#NihOptionSetter"/>
+    <keyword type="struct" name="NihOptionGroup" link="nih-Option.html#NihOptionGroup"/>
+    <keyword type="macro" name="NIH_OPTION_LAST" link="nih-Option.html#NIH-OPTION-LAST:CAPS"/>
+    <keyword type="function" name="nih_option_parser ()" link="nih-Option.html#nih-option-parser"/>
+    <keyword type="function" name="nih_option_join ()" link="nih-Option.html#nih-option-join"/>
+    <keyword type="function" name="nih_option_count ()" link="nih-Option.html#nih-option-count"/>
+    <keyword type="function" name="nih_option_int ()" link="nih-Option.html#nih-option-int"/>
+    <keyword type="function" name="nih_option_quiet ()" link="nih-Option.html#nih-option-quiet"/>
+    <keyword type="function" name="nih_option_verbose ()" link="nih-Option.html#nih-option-verbose"/>
+    <keyword type="function" name="nih_option_debug ()" link="nih-Option.html#nih-option-debug"/>
+    <keyword type="function" name="nih_option_set_usage ()" link="nih-Option.html#nih-option-set-usage"/>
+    <keyword type="function" name="nih_option_set_usage_stem ()" link="nih-Option.html#nih-option-set-usage-stem"/>
+    <keyword type="function" name="nih_option_set_synopsis ()" link="nih-Option.html#nih-option-set-synopsis"/>
+    <keyword type="function" name="nih_option_set_help ()" link="nih-Option.html#nih-option-set-help"/>
+    <keyword type="function" name="nih_option_set_footer ()" link="nih-Option.html#nih-option-set-footer"/>
+    <keyword type="typedef" name="NihCommand" link="nih-Command.html#NihCommand"/>
+    <keyword type="function" name="NihCommandAction ()" link="nih-Command.html#NihCommandAction"/>
+    <keyword type="struct" name="NihCommandGroup" link="nih-Command.html#NihCommandGroup"/>
+    <keyword type="macro" name="NIH_COMMAND_LAST" link="nih-Command.html#NIH-COMMAND-LAST:CAPS"/>
+    <keyword type="function" name="nih_command_parser ()" link="nih-Command.html#nih-command-parser"/>
+    <keyword type="function" name="nih_command_join ()" link="nih-Command.html#nih-command-join"/>
+    <keyword type="typedef" name="NihConfigStanza" link="nih-Config.html#NihConfigStanza"/>
+    <keyword type="function" name="NihConfigHandler ()" link="nih-Config.html#NihConfigHandler"/>
+    <keyword type="macro" name="NIH_CONFIG_LAST" link="nih-Config.html#NIH-CONFIG-LAST:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_WS" link="nih-Config.html#NIH-CONFIG-WS:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_CNL" link="nih-Config.html#NIH-CONFIG-CNL:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_CNLWS" link="nih-Config.html#NIH-CONFIG-CNLWS:CAPS"/>
+    <keyword type="function" name="nih_config_has_token ()" link="nih-Config.html#nih-config-has-token"/>
+    <keyword type="function" name="nih_config_token ()" link="nih-Config.html#nih-config-token"/>
+    <keyword type="function" name="nih_config_next_token ()" link="nih-Config.html#nih-config-next-token"/>
+    <keyword type="function" name="nih_config_next_arg ()" link="nih-Config.html#nih-config-next-arg"/>
+    <keyword type="function" name="nih_config_next_line ()" link="nih-Config.html#nih-config-next-line"/>
+    <keyword type="function" name="nih_config_skip_whitespace ()" link="nih-Config.html#nih-config-skip-whitespace"/>
+    <keyword type="function" name="nih_config_skip_comment ()" link="nih-Config.html#nih-config-skip-comment"/>
+    <keyword type="function" name="nih_config_parse_args ()" link="nih-Config.html#nih-config-parse-args"/>
+    <keyword type="function" name="nih_config_parse_command ()" link="nih-Config.html#nih-config-parse-command"/>
+    <keyword type="function" name="nih_config_parse_block ()" link="nih-Config.html#nih-config-parse-block"/>
+    <keyword type="function" name="nih_config_skip_block ()" link="nih-Config.html#nih-config-skip-block"/>
+    <keyword type="function" name="nih_config_parse_stanza ()" link="nih-Config.html#nih-config-parse-stanza"/>
+    <keyword type="function" name="nih_config_parse_file ()" link="nih-Config.html#nih-config-parse-file"/>
+    <keyword type="function" name="nih_config_parse ()" link="nih-Config.html#nih-config-parse"/>
+    <keyword type="function" name="NihFileFilter ()" link="nih-File.html#NihFileFilter"/>
+    <keyword type="function" name="NihFileVisitor ()" link="nih-File.html#NihFileVisitor"/>
+    <keyword type="function" name="NihFileErrorHandler ()" link="nih-File.html#NihFileErrorHandler"/>
+    <keyword type="function" name="nih_file_read ()" link="nih-File.html#nih-file-read"/>
+    <keyword type="function" name="nih_file_map ()" link="nih-File.html#nih-file-map"/>
+    <keyword type="function" name="nih_file_unmap ()" link="nih-File.html#nih-file-unmap"/>
+    <keyword type="function" name="nih_file_is_hidden ()" link="nih-File.html#nih-file-is-hidden"/>
+    <keyword type="function" name="nih_file_is_backup ()" link="nih-File.html#nih-file-is-backup"/>
+    <keyword type="function" name="nih_file_is_swap ()" link="nih-File.html#nih-file-is-swap"/>
+    <keyword type="function" name="nih_file_is_rcs ()" link="nih-File.html#nih-file-is-rcs"/>
+    <keyword type="function" name="nih_file_is_packaging ()" link="nih-File.html#nih-file-is-packaging"/>
+    <keyword type="function" name="nih_file_ignore ()" link="nih-File.html#nih-file-ignore"/>
+    <keyword type="function" name="nih_dir_walk ()" link="nih-File.html#nih-dir-walk"/>
+    <keyword type="typedef" name="NihWatch" link="nih-Watch.html#NihWatch"/>
+    <keyword type="function" name="NihCreateHandler ()" link="nih-Watch.html#NihCreateHandler"/>
+    <keyword type="function" name="NihModifyHandler ()" link="nih-Watch.html#NihModifyHandler"/>
+    <keyword type="function" name="NihDeleteHandler ()" link="nih-Watch.html#NihDeleteHandler"/>
+    <keyword type="struct" name="NihWatchHandle" link="nih-Watch.html#NihWatchHandle"/>
+    <keyword type="function" name="nih_watch_new ()" link="nih-Watch.html#nih-watch-new"/>
+    <keyword type="function" name="nih_watch_add ()" link="nih-Watch.html#nih-watch-add"/>
+    <keyword type="function" name="nih_watch_destroy ()" link="nih-Watch.html#nih-watch-destroy"/>
+    <keyword type="typedef" name="NihTimer" link="nih-Timer.html#NihTimer"/>
+    <keyword type="function" name="NihTimerCb ()" link="nih-Timer.html#NihTimerCb"/>
+    <keyword type="enum" name="enum NihTimerType" link="nih-Timer.html#NihTimerType"/>
+    <keyword type="struct" name="NihTimerSchedule" link="nih-Timer.html#NihTimerSchedule"/>
+    <keyword type="variable" name="nih_timers" link="nih-Timer.html#nih-timers"/>
+    <keyword type="function" name="nih_timer_init ()" link="nih-Timer.html#nih-timer-init"/>
+    <keyword type="function" name="nih_timer_add_timeout ()" link="nih-Timer.html#nih-timer-add-timeout"/>
+    <keyword type="function" name="nih_timer_add_periodic ()" link="nih-Timer.html#nih-timer-add-periodic"/>
+    <keyword type="function" name="nih_timer_add_scheduled ()" link="nih-Timer.html#nih-timer-add-scheduled"/>
+    <keyword type="function" name="nih_timer_next_due ()" link="nih-Timer.html#nih-timer-next-due"/>
+    <keyword type="function" name="nih_timer_poll ()" link="nih-Timer.html#nih-timer-poll"/>
+    <keyword type="enum" name="enum NihIoType" link="nih-IO.html#NihIoType"/>
+    <keyword type="enum" name="enum NihIoEvents" link="nih-IO.html#NihIoEvents"/>
+    <keyword type="typedef" name="NihIoWatch" link="nih-IO.html#NihIoWatch"/>
+    <keyword type="typedef" name="NihIo" link="nih-IO.html#NihIo"/>
+    <keyword type="function" name="NihIoWatcher ()" link="nih-IO.html#NihIoWatcher"/>
+    <keyword type="function" name="NihIoReader ()" link="nih-IO.html#NihIoReader"/>
+    <keyword type="function" name="NihIoCloseHandler ()" link="nih-IO.html#NihIoCloseHandler"/>
+    <keyword type="function" name="NihIoErrorHandler ()" link="nih-IO.html#NihIoErrorHandler"/>
+    <keyword type="struct" name="NihIoBuffer" link="nih-IO.html#NihIoBuffer"/>
+    <keyword type="struct" name="NihIoMessage" link="nih-IO.html#NihIoMessage"/>
+    <keyword type="variable" name="nih_io_watches" link="nih-IO.html#nih-io-watches"/>
+    <keyword type="function" name="nih_io_init ()" link="nih-IO.html#nih-io-init"/>
+    <keyword type="function" name="nih_io_add_watch ()" link="nih-IO.html#nih-io-add-watch"/>
+    <keyword type="function" name="nih_io_select_fds ()" link="nih-IO.html#nih-io-select-fds"/>
+    <keyword type="function" name="nih_io_handle_fds ()" link="nih-IO.html#nih-io-handle-fds"/>
+    <keyword type="function" name="nih_io_buffer_new ()" link="nih-IO.html#nih-io-buffer-new"/>
+    <keyword type="function" name="nih_io_buffer_resize ()" link="nih-IO.html#nih-io-buffer-resize"/>
+    <keyword type="function" name="nih_io_buffer_pop ()" link="nih-IO.html#nih-io-buffer-pop"/>
+    <keyword type="function" name="nih_io_buffer_shrink ()" link="nih-IO.html#nih-io-buffer-shrink"/>
+    <keyword type="function" name="nih_io_buffer_push ()" link="nih-IO.html#nih-io-buffer-push"/>
+    <keyword type="function" name="nih_io_message_new ()" link="nih-IO.html#nih-io-message-new"/>
+    <keyword type="function" name="nih_io_message_add_control ()" link="nih-IO.html#nih-io-message-add-control"/>
+    <keyword type="function" name="nih_io_message_recv ()" link="nih-IO.html#nih-io-message-recv"/>
+    <keyword type="function" name="nih_io_message_send ()" link="nih-IO.html#nih-io-message-send"/>
+    <keyword type="function" name="nih_io_reopen ()" link="nih-IO.html#nih-io-reopen"/>
+    <keyword type="function" name="nih_io_shutdown ()" link="nih-IO.html#nih-io-shutdown"/>
+    <keyword type="function" name="nih_io_destroy ()" link="nih-IO.html#nih-io-destroy"/>
+    <keyword type="function" name="nih_io_read_message ()" link="nih-IO.html#nih-io-read-message"/>
+    <keyword type="function" name="nih_io_send_message ()" link="nih-IO.html#nih-io-send-message"/>
+    <keyword type="function" name="nih_io_read ()" link="nih-IO.html#nih-io-read"/>
+    <keyword type="function" name="nih_io_write ()" link="nih-IO.html#nih-io-write"/>
+    <keyword type="function" name="nih_io_get ()" link="nih-IO.html#nih-io-get"/>
+    <keyword type="function" name="nih_io_printf ()" link="nih-IO.html#nih-io-printf"/>
+    <keyword type="function" name="nih_io_set_nonblock ()" link="nih-IO.html#nih-io-set-nonblock"/>
+    <keyword type="function" name="nih_io_set_cloexec ()" link="nih-IO.html#nih-io-set-cloexec"/>
+    <keyword type="function" name="nih_io_get_family ()" link="nih-IO.html#nih-io-get-family"/>
+    <keyword type="enum" name="enum NihChildEvents" link="nih-Child.html#NihChildEvents"/>
+    <keyword type="function" name="NihChildHandler ()" link="nih-Child.html#NihChildHandler"/>
+    <keyword type="struct" name="NihChildWatch" link="nih-Child.html#NihChildWatch"/>
+    <keyword type="variable" name="nih_child_watches" link="nih-Child.html#nih-child-watches"/>
+    <keyword type="function" name="nih_child_init ()" link="nih-Child.html#nih-child-init"/>
+    <keyword type="function" name="nih_child_add_watch ()" link="nih-Child.html#nih-child-add-watch"/>
+    <keyword type="function" name="nih_child_poll ()" link="nih-Child.html#nih-child-poll"/>
+    <keyword type="typedef" name="NihSignal" link="nih-Signal.html#NihSignal"/>
+    <keyword type="function" name="NihSignalHandler ()" link="nih-Signal.html#NihSignalHandler"/>
+    <keyword type="variable" name="nih_signals" link="nih-Signal.html#nih-signals"/>
+    <keyword type="function" name="nih_signal_init ()" link="nih-Signal.html#nih-signal-init"/>
+    <keyword type="function" name="nih_signal_set_handler ()" link="nih-Signal.html#nih-signal-set-handler"/>
+    <keyword type="function" name="nih_signal_set_default ()" link="nih-Signal.html#nih-signal-set-default"/>
+    <keyword type="function" name="nih_signal_set_ignore ()" link="nih-Signal.html#nih-signal-set-ignore"/>
+    <keyword type="function" name="nih_signal_reset ()" link="nih-Signal.html#nih-signal-reset"/>
+    <keyword type="function" name="nih_signal_add_handler ()" link="nih-Signal.html#nih-signal-add-handler"/>
+    <keyword type="function" name="nih_signal_handler ()" link="nih-Signal.html#nih-signal-handler"/>
+    <keyword type="function" name="nih_signal_poll ()" link="nih-Signal.html#nih-signal-poll"/>
+    <keyword type="function" name="nih_signal_to_name ()" link="nih-Signal.html#nih-signal-to-name"/>
+    <keyword type="function" name="nih_signal_from_name ()" link="nih-Signal.html#nih-signal-from-name"/>
+    <keyword type="struct" name="NihError" link="nih-Error.html#NihError"/>
+    <keyword type="macro" name="nih_error_raise()" link="nih-Error.html#nih-error-raise"/>
+    <keyword type="macro" name="nih_error_raise_printf()" link="nih-Error.html#nih-error-raise-printf"/>
+    <keyword type="macro" name="nih_error_raise_system" link="nih-Error.html#nih-error-raise-system"/>
+    <keyword type="macro" name="nih_error_raise_no_memory" link="nih-Error.html#nih-error-raise-no-memory"/>
+    <keyword type="macro" name="nih_error_raise_error()" link="nih-Error.html#nih-error-raise-error"/>
+    <keyword type="macro" name="nih_return_error()" link="nih-Error.html#nih-return-error"/>
+    <keyword type="macro" name="nih_return_system_error()" link="nih-Error.html#nih-return-system-error"/>
+    <keyword type="macro" name="nih_return_no_memory_error()" link="nih-Error.html#nih-return-no-memory-error"/>
+    <keyword type="macro" name="NIH_SHOULD()" link="nih-Error.html#NIH-SHOULD:CAPS"/>
+    <keyword type="function" name="nih_error_init ()" link="nih-Error.html#nih-error-init"/>
+    <keyword type="function" name="nih_error_get ()" link="nih-Error.html#nih-error-get"/>
+    <keyword type="function" name="nih_error_steal ()" link="nih-Error.html#nih-error-steal"/>
+    <keyword type="function" name="nih_error_push_context ()" link="nih-Error.html#nih-error-push-context"/>
+    <keyword type="function" name="nih_error_pop_context ()" link="nih-Error.html#nih-error-pop-context"/>
+    <keyword type="macro" name="NIH_CONFIG_EXPECTED_TOKEN_STR" link="nih-Error.html#NIH-CONFIG-EXPECTED-TOKEN-STR:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_UNEXPECTED_TOKEN_STR" link="nih-Error.html#NIH-CONFIG-UNEXPECTED-TOKEN-STR:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_TRAILING_SLASH_STR" link="nih-Error.html#NIH-CONFIG-TRAILING-SLASH-STR:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_UNTERMINATED_QUOTE_STR" link="nih-Error.html#NIH-CONFIG-UNTERMINATED-QUOTE-STR:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_UNTERMINATED_BLOCK_STR" link="nih-Error.html#NIH-CONFIG-UNTERMINATED-BLOCK-STR:CAPS"/>
+    <keyword type="macro" name="NIH_CONFIG_UNKNOWN_STANZA_STR" link="nih-Error.html#NIH-CONFIG-UNKNOWN-STANZA-STR:CAPS"/>
+    <keyword type="macro" name="NIH_DIR_LOOP_DETECTED_STR" link="nih-Error.html#NIH-DIR-LOOP-DETECTED-STR:CAPS"/>
+    <keyword type="constant" name="NIH_TREE_LEFT" link="nih-Tree.html#NIH-TREE-LEFT:CAPS"/>
+    <keyword type="constant" name="NIH_TREE_RIGHT" link="nih-Tree.html#NIH-TREE-RIGHT:CAPS"/>
+    <keyword type="constant" name="NIH_LOG_UNKNOWN" link="nih-Logging.html#NIH-LOG-UNKNOWN:CAPS"/>
+    <keyword type="constant" name="NIH_LOG_DEBUG" link="nih-Logging.html#NIH-LOG-DEBUG:CAPS"/>
+    <keyword type="constant" name="NIH_LOG_INFO" link="nih-Logging.html#NIH-LOG-INFO:CAPS"/>
+    <keyword type="constant" name="NIH_LOG_MESSAGE" link="nih-Logging.html#NIH-LOG-MESSAGE:CAPS"/>
+    <keyword type="constant" name="NIH_LOG_WARN" link="nih-Logging.html#NIH-LOG-WARN:CAPS"/>
+    <keyword type="constant" name="NIH_LOG_ERROR" link="nih-Logging.html#NIH-LOG-ERROR:CAPS"/>
+    <keyword type="constant" name="NIH_LOG_FATAL" link="nih-Logging.html#NIH-LOG-FATAL:CAPS"/>
+    <keyword type="constant" name="NIH_TIMER_TIMEOUT" link="nih-Timer.html#NIH-TIMER-TIMEOUT:CAPS"/>
+    <keyword type="constant" name="NIH_TIMER_PERIODIC" link="nih-Timer.html#NIH-TIMER-PERIODIC:CAPS"/>
+    <keyword type="constant" name="NIH_TIMER_SCHEDULED" link="nih-Timer.html#NIH-TIMER-SCHEDULED:CAPS"/>
+    <keyword type="constant" name="NIH_IO_STREAM" link="nih-IO.html#NIH-IO-STREAM:CAPS"/>
+    <keyword type="constant" name="NIH_IO_MESSAGE" link="nih-IO.html#NIH-IO-MESSAGE:CAPS"/>
+    <keyword type="constant" name="NIH_IO_NONE" link="nih-IO.html#NIH-IO-NONE:CAPS"/>
+    <keyword type="constant" name="NIH_IO_READ" link="nih-IO.html#NIH-IO-READ:CAPS"/>
+    <keyword type="constant" name="NIH_IO_WRITE" link="nih-IO.html#NIH-IO-WRITE:CAPS"/>
+    <keyword type="constant" name="NIH_IO_EXCEPT" link="nih-IO.html#NIH-IO-EXCEPT:CAPS"/>
     <keyword type="constant" name="NIH_CHILD_NONE" link="nih-Child.html#NIH-CHILD-NONE:CAPS"/>
     <keyword type="constant" name="NIH_CHILD_EXITED" link="nih-Child.html#NIH-CHILD-EXITED:CAPS"/>
     <keyword type="constant" name="NIH_CHILD_KILLED" link="nih-Child.html#NIH-CHILD-KILLED:CAPS"/>
@@ -398,23 +411,5 @@
     <keyword type="constant" name="NIH_CHILD_TRAPPED" link="nih-Child.html#NIH-CHILD-TRAPPED:CAPS"/>
     <keyword type="constant" name="NIH_CHILD_PTRACE" link="nih-Child.html#NIH-CHILD-PTRACE:CAPS"/>
     <keyword type="constant" name="NIH_CHILD_ALL" link="nih-Child.html#NIH-CHILD-ALL:CAPS"/>
-    <keyword type="constant" name="NIH_IO_STREAM" link="nih-io.html#NIH-IO-STREAM:CAPS"/>
-    <keyword type="constant" name="NIH_IO_MESSAGE" link="nih-io.html#NIH-IO-MESSAGE:CAPS"/>
-    <keyword type="constant" name="NIH_IO_NONE" link="nih-io.html#NIH-IO-NONE:CAPS"/>
-    <keyword type="constant" name="NIH_IO_READ" link="nih-io.html#NIH-IO-READ:CAPS"/>
-    <keyword type="constant" name="NIH_IO_WRITE" link="nih-io.html#NIH-IO-WRITE:CAPS"/>
-    <keyword type="constant" name="NIH_IO_EXCEPT" link="nih-io.html#NIH-IO-EXCEPT:CAPS"/>
-    <keyword type="constant" name="NIH_LOG_UNKNOWN" link="nih-Logging.html#NIH-LOG-UNKNOWN:CAPS"/>
-    <keyword type="constant" name="NIH_LOG_DEBUG" link="nih-Logging.html#NIH-LOG-DEBUG:CAPS"/>
-    <keyword type="constant" name="NIH_LOG_INFO" link="nih-Logging.html#NIH-LOG-INFO:CAPS"/>
-    <keyword type="constant" name="NIH_LOG_MESSAGE" link="nih-Logging.html#NIH-LOG-MESSAGE:CAPS"/>
-    <keyword type="constant" name="NIH_LOG_WARN" link="nih-Logging.html#NIH-LOG-WARN:CAPS"/>
-    <keyword type="constant" name="NIH_LOG_ERROR" link="nih-Logging.html#NIH-LOG-ERROR:CAPS"/>
-    <keyword type="constant" name="NIH_LOG_FATAL" link="nih-Logging.html#NIH-LOG-FATAL:CAPS"/>
-    <keyword type="constant" name="NIH_TIMER_TIMEOUT" link="nih-timer.html#NIH-TIMER-TIMEOUT:CAPS"/>
-    <keyword type="constant" name="NIH_TIMER_PERIODIC" link="nih-timer.html#NIH-TIMER-PERIODIC:CAPS"/>
-    <keyword type="constant" name="NIH_TIMER_SCHEDULED" link="nih-timer.html#NIH-TIMER-SCHEDULED:CAPS"/>
-    <keyword type="constant" name="NIH_TREE_LEFT" link="nih-Tree.html#NIH-TREE-LEFT:CAPS"/>
-    <keyword type="constant" name="NIH_TREE_RIGHT" link="nih-Tree.html#NIH-TREE-RIGHT:CAPS"/>
   </functions>
 </book>

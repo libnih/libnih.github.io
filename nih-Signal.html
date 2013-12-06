@@ -2,66 +2,66 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>signal</title>
+<title>Signal</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
-<link rel="home" href="index.html" title="nih Reference Manual">
-<link rel="up" href="ch01.html" title="NIH Utility Library">
-<link rel="prev" href="nih-Option.html" title="Option">
-<link rel="next" href="nih-String.html" title="String">
+<link rel="home" href="index.html" title="NIH Utility Library Reference Manual">
+<link rel="up" href="ch03.html" title="Operating System Facilities">
+<link rel="prev" href="nih-Child.html" title="Child">
+<link rel="next" href="nih-Error.html" title="Error">
 <meta name="generator" content="GTK-Doc V1.19 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="nih-Option.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="nih-Child.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">nih Reference Manual</th>
-<td><a accesskey="n" href="nih-String.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<th width="100%" align="center">NIH Utility Library Reference Manual</th>
+<td><a accesskey="n" href="nih-Error.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
-<a href="#nih-signal.synopsis" class="shortcut">Top</a>
+<a href="#nih-Signal.synopsis" class="shortcut">Top</a>
                    | 
-                  <a href="#nih-signal.description" class="shortcut">Description</a>
+                  <a href="#nih-Signal.description" class="shortcut">Description</a>
 </td></tr>
 </table>
 <div class="refentry">
-<a name="nih-signal"></a><div class="titlepage"></div>
+<a name="nih-Signal"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
-<h2><span class="refentrytitle"><a name="nih-signal.top_of_page"></a>signal</span></h2>
-<p>signal</p>
+<h2><span class="refentrytitle"><a name="nih-Signal.top_of_page"></a>Signal</span></h2>
+<p>Signal — Signal Handlers</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
 <div class="refsynopsisdiv">
-<a name="nih-signal.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">typedef             <a class="link" href="nih-signal.html#NihSignal" title="NihSignal">NihSignal</a>;
-<span class="returnvalue">void</span>                (<a class="link" href="nih-signal.html#NihSignalHandler" title="NihSignalHandler ()">*NihSignalHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);
-extern NihList *    <a class="link" href="nih-signal.html#nih-signals" title="nih_signals">nih_signals</a>;
-<span class="returnvalue">void</span>                <a class="link" href="nih-signal.html#nih-signal-init" title="nih_signal_init ()">nih_signal_init</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-signal.html#nih-signal-set-handler" title="nih_signal_set_handler ()">nih_signal_set_handler</a>              (<em class="parameter"><code><span class="type">int</span> signum</code></em>,
+<a name="nih-Signal.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">typedef             <a class="link" href="nih-Signal.html#NihSignal" title="NihSignal">NihSignal</a>;
+<span class="returnvalue">void</span>                (<a class="link" href="nih-Signal.html#NihSignalHandler" title="NihSignalHandler ()">*NihSignalHandler</a>)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);
+extern NihList *    <a class="link" href="nih-Signal.html#nih-signals" title="nih_signals">nih_signals</a>;
+<span class="returnvalue">void</span>                <a class="link" href="nih-Signal.html#nih-signal-init" title="nih_signal_init ()">nih_signal_init</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Signal.html#nih-signal-set-handler" title="nih_signal_set_handler ()">nih_signal_set_handler</a>              (<em class="parameter"><code><span class="type">int</span> signum</code></em>,
                                                          <em class="parameter"><code><span class="type">void</span> (*handler) (int)</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-signal.html#nih-signal-set-default" title="nih_signal_set_default ()">nih_signal_set_default</a>              (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-signal.html#nih-signal-set-ignore" title="nih_signal_set_ignore ()">nih_signal_set_ignore</a>               (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-signal.html#nih-signal-reset" title="nih_signal_reset ()">nih_signal_reset</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a class="link" href="nih-signal.html#NihSignal" title="NihSignal"><span class="returnvalue">NihSignal</span></a> *         <a class="link" href="nih-signal.html#nih-signal-add-handler" title="nih_signal_add_handler ()">nih_signal_add_handler</a>              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Signal.html#nih-signal-set-default" title="nih_signal_set_default ()">nih_signal_set_default</a>              (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Signal.html#nih-signal-set-ignore" title="nih_signal_set_ignore ()">nih_signal_set_ignore</a>               (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Signal.html#nih-signal-reset" title="nih_signal_reset ()">nih_signal_reset</a>                    (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a class="link" href="nih-Signal.html#NihSignal" title="NihSignal"><span class="returnvalue">NihSignal</span></a> *         <a class="link" href="nih-Signal.html#nih-signal-add-handler" title="nih_signal_add_handler ()">nih_signal_add_handler</a>              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> signum</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-signal.html#NihSignalHandler" title="NihSignalHandler ()"><span class="type">NihSignalHandler</span></a> handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Signal.html#NihSignalHandler" title="NihSignalHandler ()"><span class="type">NihSignalHandler</span></a> handler</code></em>,
                                                          <em class="parameter"><code><span class="type">void</span> *data</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-signal.html#nih-signal-handler" title="nih_signal_handler ()">nih_signal_handler</a>                  (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="nih-signal.html#nih-signal-poll" title="nih_signal_poll ()">nih_signal_poll</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
-const <span class="returnvalue">char</span> *        <a class="link" href="nih-signal.html#nih-signal-to-name" title="nih_signal_to_name ()">nih_signal_to_name</a>                  (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
-<span class="returnvalue">int</span>                 <a class="link" href="nih-signal.html#nih-signal-from-name" title="nih_signal_from_name ()">nih_signal_from_name</a>                (<em class="parameter"><code>const <span class="type">char</span> *signame</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Signal.html#nih-signal-handler" title="nih_signal_handler ()">nih_signal_handler</a>                  (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="nih-Signal.html#nih-signal-poll" title="nih_signal_poll ()">nih_signal_poll</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <span class="returnvalue">char</span> *        <a class="link" href="nih-Signal.html#nih-signal-to-name" title="nih_signal_to_name ()">nih_signal_to_name</a>                  (<em class="parameter"><code><span class="type">int</span> signum</code></em>);
+<span class="returnvalue">int</span>                 <a class="link" href="nih-Signal.html#nih-signal-from-name" title="nih_signal_from_name ()">nih_signal_from_name</a>                (<em class="parameter"><code>const <span class="type">char</span> *signame</code></em>);
 </pre>
 </div>
 <div class="refsect1">
-<a name="nih-signal.description"></a><h2>Description</h2>
+<a name="nih-Signal.description"></a><h2>Description</h2>
 </div>
 <div class="refsect1">
-<a name="nih-signal.details"></a><h2>Details</h2>
+<a name="nih-Signal.details"></a><h2>Details</h2>
 <div class="refsect2">
 <a name="NihSignal"></a><h3>NihSignal</h3>
 <pre class="programlisting">typedef struct nih_signal NihSignal;
@@ -81,7 +81,7 @@ held in a list internally.
 <div class="refsect2">
 <a name="NihSignalHandler"></a><h3>NihSignalHandler ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                (*NihSignalHandler)                 (<em class="parameter"><code><span class="type">void</span> *data</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="nih-Signal.html#NihSignal" title="NihSignal"><span class="type">NihSignal</span></a> *signal</code></em>);</pre>
 <p>
 A signal handler is called whenever the signal has been raised, it
 is passed the NihSignal structure rather than the actual signal so that
@@ -213,14 +213,14 @@ Resets all signals to their default handling.
 <hr>
 <div class="refsect2">
 <a name="nih-signal-add-handler"></a><h3>nih_signal_add_handler ()</h3>
-<pre class="programlisting"><a class="link" href="nih-signal.html#NihSignal" title="NihSignal"><span class="returnvalue">NihSignal</span></a> *         nih_signal_add_handler              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
+<pre class="programlisting"><a class="link" href="nih-Signal.html#NihSignal" title="NihSignal"><span class="returnvalue">NihSignal</span></a> *         nih_signal_add_handler              (<em class="parameter"><code>const <span class="type">void</span> *parent</code></em>,
                                                          <em class="parameter"><code><span class="type">int</span> signum</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="nih-signal.html#NihSignalHandler" title="NihSignalHandler ()"><span class="type">NihSignalHandler</span></a> handler</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="nih-Signal.html#NihSignalHandler" title="NihSignalHandler ()"><span class="type">NihSignalHandler</span></a> handler</code></em>,
                                                          <em class="parameter"><code><span class="type">void</span> *data</code></em>);</pre>
 <p>
 Adds <em class="parameter"><code>handler</code></em> to the list of functions that should be called by
-<a class="link" href="nih-signal.html#nih-signal-poll" title="nih_signal_poll ()"><code class="function">nih_signal_poll()</code></a> if the <em class="parameter"><code>signum</code></em> signal was raised.  The signal must first
-have been set to <a class="link" href="nih-signal.html#nih-signal-handler" title="nih_signal_handler ()"><code class="function">nih_signal_handler()</code></a> using <a class="link" href="nih-signal.html#nih-signal-set-handler" title="nih_signal_set_handler ()"><code class="function">nih_signal_set_handler()</code></a>,
+<a class="link" href="nih-Signal.html#nih-signal-poll" title="nih_signal_poll ()"><code class="function">nih_signal_poll()</code></a> if the <em class="parameter"><code>signum</code></em> signal was raised.  The signal must first
+have been set to <a class="link" href="nih-Signal.html#nih-signal-handler" title="nih_signal_handler ()"><code class="function">nih_signal_handler()</code></a> using <a class="link" href="nih-Signal.html#nih-signal-set-handler" title="nih_signal_set_handler ()"><code class="function">nih_signal_set_handler()</code></a>,
 </p>
 <p>
 The callback structure is allocated using <a class="link" href="nih-Alloc.html#nih-alloc" title="nih_alloc ()"><code class="function">nih_alloc()</code></a> and stored in a
@@ -270,7 +270,7 @@ freed.
 <pre class="programlisting"><span class="returnvalue">void</span>                nih_signal_handler                  (<em class="parameter"><code><span class="type">int</span> signum</code></em>);</pre>
 <p>
 This signal handler should be used for any signals that you wish to use
-<a class="link" href="nih-signal.html#nih-signal-add-handler" title="nih_signal_add_handler ()"><code class="function">nih_signal_add_handler()</code></a> and <a class="link" href="nih-signal.html#nih-signal-poll" title="nih_signal_poll ()"><code class="function">nih_signal_poll()</code></a> for.  It simply sets a
+<a class="link" href="nih-Signal.html#nih-signal-add-handler" title="nih_signal_add_handler ()"><code class="function">nih_signal_add_handler()</code></a> and <a class="link" href="nih-Signal.html#nih-signal-poll" title="nih_signal_poll ()"><code class="function">nih_signal_poll()</code></a> for.  It simply sets a
 volatile sig_atomic_t variable so that the signal can be detected in
 the main loop.
 </p>
@@ -291,7 +291,7 @@ the main loop.
 <pre class="programlisting"><span class="returnvalue">void</span>                nih_signal_poll                     (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 Iterate the list of registered signal handlers and call the function
-if that signal has been raised since the last time <a class="link" href="nih-signal.html#nih-signal-poll" title="nih_signal_poll ()"><code class="function">nih_signal_poll()</code></a> was
+if that signal has been raised since the last time <a class="link" href="nih-Signal.html#nih-signal-poll" title="nih_signal_poll ()"><code class="function">nih_signal_poll()</code></a> was
 called.
 </p>
 <p>

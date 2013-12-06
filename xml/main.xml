@@ -4,20 +4,20 @@
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
-<refentry id="nih-main">
+<refentry id="nih-Main-Loop">
 <refmeta>
-<refentrytitle role="top_of_page" id="nih-main.top_of_page">main</refentrytitle>
+<refentrytitle role="top_of_page" id="nih-Main-Loop.top_of_page">Main Loop</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>
   NIH Library
 </refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>main</refname>
-<refpurpose></refpurpose>
+<refname>Main Loop</refname>
+<refpurpose>Application main loop</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv id="nih-main.synopsis" role="synopsis">
+<refsynopsisdiv id="nih-Main-Loop.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
 <synopsis>typedef             <link linkend="NihMainLoopFunc">NihMainLoopFunc</link>;
@@ -59,11 +59,11 @@ const <link linkend="char"><returnvalue>char</returnvalue></link> *        <link
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1 id="nih-main.description" role="desc">
+<refsect1 id="nih-Main-Loop.description" role="desc">
 <title role="desc.title">Description</title>
 
 </refsect1>
-<refsect1 id="nih-main.details" role="details">
+<refsect1 id="nih-Main-Loop.details" role="details">
 <title role="details.title">Details</title>
 <refsect2 id="NihMainLoopFunc" role="typedef">
 <title>NihMainLoopFunc</title>

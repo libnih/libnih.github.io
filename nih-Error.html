@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Error</title>
 <meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
-<link rel="home" href="index.html" title="nih Reference Manual">
-<link rel="up" href="ch01.html" title="NIH Utility Library">
-<link rel="prev" href="nih-Config.html" title="Config">
-<link rel="next" href="nih-Errors.html" title="Errors">
+<link rel="home" href="index.html" title="NIH Utility Library Reference Manual">
+<link rel="up" href="ch03.html" title="Operating System Facilities">
+<link rel="prev" href="nih-Signal.html" title="Signal">
+<link rel="next" href="api-index-full.html" title="API Index">
 <meta name="generator" content="GTK-Doc V1.19 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="nih-Config.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
-<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="nih-Signal.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
-<th width="100%" align="center">nih Reference Manual</th>
-<td><a accesskey="n" href="nih-Errors.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<th width="100%" align="center">NIH Utility Library Reference Manual</th>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#nih-Error.synopsis" class="shortcut">Top</a>
@@ -57,6 +57,13 @@
 <a class="link" href="nih-Error.html#NihError" title="NihError"><span class="returnvalue">NihError</span></a> *          <a class="link" href="nih-Error.html#nih-error-steal" title="nih_error_steal ()">nih_error_steal</a>                     (<em class="parameter"><code><span class="type">void</span></code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="nih-Error.html#nih-error-push-context" title="nih_error_push_context ()">nih_error_push_context</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="nih-Error.html#nih-error-pop-context" title="nih_error_pop_context ()">nih_error_pop_context</a>               (<em class="parameter"><code><span class="type">void</span></code></em>);
+#define             <a class="link" href="nih-Error.html#NIH-CONFIG-EXPECTED-TOKEN-STR:CAPS" title="NIH_CONFIG_EXPECTED_TOKEN_STR">NIH_CONFIG_EXPECTED_TOKEN_STR</a>
+#define             <a class="link" href="nih-Error.html#NIH-CONFIG-UNEXPECTED-TOKEN-STR:CAPS" title="NIH_CONFIG_UNEXPECTED_TOKEN_STR">NIH_CONFIG_UNEXPECTED_TOKEN_STR</a>
+#define             <a class="link" href="nih-Error.html#NIH-CONFIG-TRAILING-SLASH-STR:CAPS" title="NIH_CONFIG_TRAILING_SLASH_STR">NIH_CONFIG_TRAILING_SLASH_STR</a>
+#define             <a class="link" href="nih-Error.html#NIH-CONFIG-UNTERMINATED-QUOTE-STR:CAPS" title="NIH_CONFIG_UNTERMINATED_QUOTE_STR">NIH_CONFIG_UNTERMINATED_QUOTE_STR</a>
+#define             <a class="link" href="nih-Error.html#NIH-CONFIG-UNTERMINATED-BLOCK-STR:CAPS" title="NIH_CONFIG_UNTERMINATED_BLOCK_STR">NIH_CONFIG_UNTERMINATED_BLOCK_STR</a>
+#define             <a class="link" href="nih-Error.html#NIH-CONFIG-UNKNOWN-STANZA-STR:CAPS" title="NIH_CONFIG_UNKNOWN_STANZA_STR">NIH_CONFIG_UNKNOWN_STANZA_STR</a>
+#define             <a class="link" href="nih-Error.html#NIH-DIR-LOOP-DETECTED-STR:CAPS" title="NIH_DIR_LOOP_DETECTED_STR">NIH_DIR_LOOP_DETECTED_STR</a>
 </pre>
 </div>
 <div class="refsect1">
@@ -472,6 +479,48 @@ Ends the last context created with <a class="link" href="nih-Error.html#nih-erro
 care should be taken so that these are always properly nested (through
 the correct use of scope, for example) and contexts are not left unpopped.
 </p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-CONFIG-EXPECTED-TOKEN-STR:CAPS"></a><h3>NIH_CONFIG_EXPECTED_TOKEN_STR</h3>
+<pre class="programlisting">#define NIH_CONFIG_EXPECTED_TOKEN_STR      N_("Expected token")
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-CONFIG-UNEXPECTED-TOKEN-STR:CAPS"></a><h3>NIH_CONFIG_UNEXPECTED_TOKEN_STR</h3>
+<pre class="programlisting">#define NIH_CONFIG_UNEXPECTED_TOKEN_STR    N_("Unexpected token")
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-CONFIG-TRAILING-SLASH-STR:CAPS"></a><h3>NIH_CONFIG_TRAILING_SLASH_STR</h3>
+<pre class="programlisting">#define NIH_CONFIG_TRAILING_SLASH_STR      N_("Trailing slash in file")
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-CONFIG-UNTERMINATED-QUOTE-STR:CAPS"></a><h3>NIH_CONFIG_UNTERMINATED_QUOTE_STR</h3>
+<pre class="programlisting">#define NIH_CONFIG_UNTERMINATED_QUOTE_STR  N_("Unterminated quoted string")
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-CONFIG-UNTERMINATED-BLOCK-STR:CAPS"></a><h3>NIH_CONFIG_UNTERMINATED_BLOCK_STR</h3>
+<pre class="programlisting">#define NIH_CONFIG_UNTERMINATED_BLOCK_STR  N_("Unterminated block")
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-CONFIG-UNKNOWN-STANZA-STR:CAPS"></a><h3>NIH_CONFIG_UNKNOWN_STANZA_STR</h3>
+<pre class="programlisting">#define NIH_CONFIG_UNKNOWN_STANZA_STR      N_("Unknown stanza")
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="NIH-DIR-LOOP-DETECTED-STR:CAPS"></a><h3>NIH_DIR_LOOP_DETECTED_STR</h3>
+<pre class="programlisting">#define NIH_DIR_LOOP_DETECTED_STR          N_("Directory loop detected")
+</pre>
 </div>
 </div>
 </div>

@@ -4,20 +4,20 @@
 [
   <!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
 ]>
-<refentry id="nih-timer">
+<refentry id="nih-Timer">
 <refmeta>
-<refentrytitle role="top_of_page" id="nih-timer.top_of_page">timer</refentrytitle>
+<refentrytitle role="top_of_page" id="nih-Timer.top_of_page">Timer</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>
   NIH Library
 </refmiscinfo>
 </refmeta>
 <refnamediv>
-<refname>timer</refname>
-<refpurpose></refpurpose>
+<refname>Timer</refname>
+<refpurpose>Delayed execution</refpurpose>
 </refnamediv>
 
-<refsynopsisdiv id="nih-timer.synopsis" role="synopsis">
+<refsynopsisdiv id="nih-Timer.synopsis" role="synopsis">
 <title role="synopsis.title">Synopsis</title>
 
 <synopsis>typedef             <link linkend="NihTimer">NihTimer</link>;
@@ -44,11 +44,11 @@ extern NihList *    <link linkend="nih-timers">nih_timers</link>;
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1 id="nih-timer.description" role="desc">
+<refsect1 id="nih-Timer.description" role="desc">
 <title role="desc.title">Description</title>
 
 </refsect1>
-<refsect1 id="nih-timer.details" role="details">
+<refsect1 id="nih-Timer.details" role="details">
 <title role="details.title">Details</title>
 <refsect2 id="NihTimer" role="typedef">
 <title>NihTimer</title>
